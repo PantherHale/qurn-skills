@@ -4,16 +4,20 @@ Six specialist advisers for AI coding agents: **web designer, test board, archit
 Each one is built from cited research, not vibes, and is meant to be pointed at from any project:
 "consult the security specialist before you ship".
 
-**Status:** research in progress. Not published yet.
+**Status:** six skills built from the research, tested in PManager. Not published yet. See [INSTALL.md](INSTALL.md).
 
 ## Layout
 
 - `research/` -- cited study notes per specialist: the sources actually read, what to take from each, what to refuse.
 - `skills/<name>/SKILL.md` -- the specialist as an open Agent Skills file (YAML front matter + instructions),
   with longer material under `skills/<name>/references/`. Read natively by Claude Code, Codex, Gemini CLI and Antigravity.
-- `AGENTS.md` -- the same specialists flattened into one file, for agents and local models with no skill support
-  (Ollama, DeepSeek, Hermes): paste it as a system prompt or keep it in the project root.
-- `adapters/` -- install notes per agent.
+- `flatten/<name>.prompt.md` -- each skill with all its references in one file: paste it as the system prompt for
+  models with no skill loader (Ollama, DeepSeek, Hermes).
+- `AGENTS.md` -- which specialist fits which task, for agents that read `AGENTS.md`.
+- `install.sh`, `install.ps1`, `INSTALL.md` -- where each agent looks for skills, and a copy script.
+
+`skills/`, `flatten/` and `AGENTS.md` are generated from PManager (`npm run skills:export`), the app the specialists
+run in, so the published skills and the app never drift. Edit them there, not here.
 
 ## Origin
 
