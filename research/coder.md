@@ -193,6 +193,8 @@ infer intent:
 - Detailed/occasional workflow instructions (migration runbooks, deploy steps, one-off procedures) written directly into CLAUDE.md/AGENTS.md instead of a skill — every such paragraph is a recurring per-turn cost that a skill would make free until actually needed.
 - A skill whose body reads as a narrated explanation ("first we do X because Y, then...") rather than terse standing instructions — once invoked it's a recurring cost for the rest of the session, so verbosity there compounds the same way CLAUDE.md bloat does.
 - A side-effecting skill (deploy/commit/notify) without `disable-model-invocation: true`, i.e. it can be auto-triggered by the model rather than only by explicit human invocation.
+- A visible prompt-cache hit ratio (where the transcript/tooling exposes `cache_read_input_tokens` vs `cache_creation_input_tokens`, or `/usage`'s "Prompt cache (main)" line) that stays low turn after turn — the likely-cause hint the tooling itself reports (e.g. "tool definitions changed") points straight at which rule above was violated.
+- A prompt that reads like the "inefficient" column of the worked-examples table above (vague verb + no file/symptom/location named) immediately preceding a burst of many file reads — the causal pattern, not just a correlation, worth calling out directly when reviewing a transcript.
 
 **Product performance (extends the existing checklist):**
 - Any `JSON.parse`/`JSON.stringify` call site handling a payload whose size isn't bounded (user upload, unpaginated DB result) inside a request handler.
