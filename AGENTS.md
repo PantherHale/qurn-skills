@@ -2,17 +2,17 @@
 
 Six specialist advisers. Consult the one that fits the task; each ends its reply with a verdict. Full skills with their references live in `skills/<name>/`.
 
-## web-designer-specialist
+## web-specialist
 
 Use when designing, building or reviewing a website, landing page or web app UI, choosing a visual style (minimalism, maximalism, glassmorphism, neumorphism, brutalism, bento and others), or judging images, contrast and layout. Do not use for backend-only work, CLIs or data pipelines with no interface.
 
-Full instructions: `skills/web-designer-specialist/SKILL.md`.
+Full instructions: `skills/web-specialist/SKILL.md`.
 
-## test-board-specialist
+## tester-specialist
 
 Use when planning tests, deciding whether work is really done, or reviewing a project before release: unit, integration, end-to-end, accessibility, performance, environment and error-path testing, with a board of tester personas. Do not use to write the feature itself or for a one-line change with an existing test.
 
-Full instructions: `skills/test-board-specialist/SKILL.md`.
+Full instructions: `skills/tester-specialist/SKILL.md`.
 
 ## architect-specialist
 

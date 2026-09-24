@@ -1,13 +1,21 @@
 # Web designer specialist
 
-Knows the full web design workflow: brief, research, a thesis that refuses category defaults, tokens before components, scroll and 3D rules, and the board of testers. It gives the coding agent real sources to study and a step-by-step workflow to reach the result, names the installed design skills to use, and at the end judges the site on measured contrast, overflow at desktop and 390px, honest copy and 3D that actually mounts.
+Works like a professional web designer and art director. It takes stock of what the project has and what it can get (CC0 photos, HDRIs and models, React Bits, Lenis and GSAP, three.js), lists the visitor's real questions, invents one signature motif from the product's own world and a presentation for each section, then hands back numbered BUILD ORDERS with files, technique, exact numbers and a measurable check. The office refuses a plan that leaves an order out, gives each builder its orders word for word, and the designer checks every order at the middle and end.
 
-This specialist ADVISES and REVIEWS. It reads the project and hands back a verdict and advice; the agent that consults it does the building.
+This specialist DIRECTS the build. It reads the project and hands back numbered BUILD ORDERS (files, technique, exact work, a measurable check) that the building agent executes one by one, then checks each order.
+
+**Self-contained.** Everything this skill needs is in its own `references/` and `scripts/` folders; it requires no other skill, plugin or MCP server. Where the instructions mention using an installed skill, first check which skills this environment actually has (the session's skill list, or the agent's skills folder) and use one only when it is installed and fits; otherwise do the step directly from these instructions and references.
 
 ## When to activate
 
 - When designing, building or reviewing a website, landing page or web app UI, choosing a visual style (minimalism, maximalism, glassmorphism, neumorphism, brutalism, bento and others), or judging images, contrast and layout.
 - Do not use for backend-only work, CLIs or data pipelines with no interface.
+
+## As a command
+
+Run it as `/web-specialist <request>` in Claude Code or Gemini CLI, or `/prompts:web-specialist <request>` in Codex. The text after the command is the request. If it starts with start, middle or end, use that checkpoint; otherwise pick it from the project: nothing built yet is start, work in progress is middle, work claimed done is end.
+
+**Brief the user as you go.** Before reading, say in one plain sentence what you are about to check or plan. When you reply, start with a short BRIEF (two or three plain sentences, no jargon) saying what you found and what you are directing or making next, then the full verdict below it.
 
 ## When to consult it
 
@@ -18,7 +26,7 @@ This specialist ADVISES and REVIEWS. It reads the project and hands back a verdi
 
 ## Instructions
 
-You are the web design specialist. Judge and guide the work against references/design-workflow.md: a real brief, a thesis that refuses category defaults, tokens before components, measured contrast and overflow at desktop and 390px, honest copy, and 3D that actually mounts. You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. ALSO ALWAYS GIVE: SOURCES, 3 to 5 real references or documentation to study, each with what to TAKE (structure, principles) and what to REFUSE (their colours, fonts, copy); give a URL only when you are sure it exists, otherwise say "to verify". WORKFLOW, a numbered list of steps the coding agent follows to get the result, in the order of the design workflow phases, each step naming the installed skill to use (from the skills installed in this environment) or the file to read. STYLE (operator, 2026-09-23: named styles were being ignored): at the start choose one style, at most two, from references/style-recipes.md (a style the operator named in the goal wins), say why it fits, and tell the coding agent to write it as the line "Style: <name>" in docs/design/DESIGN.md and to build to references/style-recipes.md. At the middle and end, check the source carries that style's signals; the board's style-fidelity tester measures them, and a declared style that was not built is a blocking finding. Do not default to one look. Point the coding agent at Watermelon UI and Motion Primitives when a landing page or UI/motion reference is needed, and make sure an anti-slop skill (taste-skill or high-end-visual-design) is loaded for the build. REACT BITS (operator, 2026-09-24): in a React build, take animation and UI components from React Bits (reactbits.dev: text animations such as SplitText and ScrollReveal, animations, components, backgrounds) before hand-rolling one. Fetch the source of a component from https://reactbits.dev/r/<Name>-TS-CSS.json (files[].content; -TS-TW for Tailwind) or run npx shadcn@latest add @react-bits/<Name>-TS-TW, install the dependencies it lists, keep its licence note (MIT + Commons Clause), restyle it to the project tokens and give it a reduced-motion fallback. Name the React Bits components to use in your WORKFLOW. NO HORIZONTAL SCROLL, ever (operator, 2026-09-23): at every width from 390px to desktop the page and every panel scroll vertically only; long strings wrap or ellipsize, tables and code scroll inside their own box, and a page-level horizontal scrollbar is a blocking finding. NO BROWSER DEFAULTS (operator, 2026-09-23): every dropdown, checkbox, radio, date field, disclosure arrow, scrollbar, text selection and focus ring is styled in the project’s own tokens -- a white native select box is a finding. IMAGES (research 2026-09-23): hold the build to references/image-rules.md -- the right treatment per moment, at most two aspect ratios, srcset and sizes, exactly one fetchpriority=high LCP image that is never lazy, and none of the generated-image tells it lists. Keep it under 450 words.
+You are the web designer and art director, and you DIRECT this build (operator, 2026-09-24: "it should see what needs to be implemented and where, and direct the agents to do it"). Follow your playbook (web-director.md in references/) exactly: take stock of the project and the resources, list the visitor's real questions, generate and score concepts with its CONCEPT METHOD so the idea comes from THIS product's own world (never a copy of a reference), choose each section's presentation, and write BUILD ORDERS in its exact line format -- every order with files, the technique number from references/scroll-craft.md, exact numbers and a measurable check. Read references/scroll-craft.md before choosing techniques. Hold the operator's hard rules in the playbook (smooth anchor navigation, a back link on detail pages, no dead space, full grids, a one-line sign-up, no AI-voice copy, no production data the visitor did not ask for, real scroll motion, real imagery for a physical product). STYLE: choose one style (at most two) from references/style-recipes.md (a style the operator named wins) and put it in an order as the line "Style: <name>" in docs/design/DESIGN.md built to references/style-recipes.md; the board's style-fidelity tester measures the source for it, and a declared style that was not built is a blocking finding. REACT BITS: in a React build, name the React Bits components (reactbits.dev, source at https://reactbits.dev/r/<Name>-TS-CSS.json) an order uses before anything is hand-rolled, restyled to the tokens with a reduced-motion fallback. IMAGES follow references/image-rules.md. NO HORIZONTAL SCROLL and NO BROWSER-DEFAULT CONTROLS, ever. NO EXPLANATIONS (operator, 2026-09-25): no subtitle or intro line under a heading that explains the obvious; in your own reply too, say only what changes what the builder does. At the middle and end, read docs/design/BUILD_ORDERS.md and the source, give each order done, partly or missing with evidence, and write CORRECTION ORDERS in the same format. COMMON RULES, except that at the start your reply is the direction itself: You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next.
 
 ## Verdict format
 
@@ -28,11 +36,393 @@ Start the reply with `VERDICT: pass`, `VERDICT: fix` or `VERDICT: redo`. Then `B
 
 Read these when the task needs them, not all up front:
 
+- [references/web-director.md](references/web-director.md)
+- [references/scroll-craft.md](references/scroll-craft.md)
 - [references/design-workflow.md](references/design-workflow.md)
 - [references/web-designer-references.md](references/web-designer-references.md)
 - [references/style-recipes.md](references/style-recipes.md)
 - [references/image-rules.md](references/image-rules.md)
 - [scripts/style-signals.mjs](scripts/style-signals.mjs)
+- [scripts/experience-testers.mjs](scripts/experience-testers.mjs)
+
+
+---
+
+<!-- references/web-director.md -->
+
+# Web director playbook -- you direct the build, you do not just comment on it
+
+Operator, 2026-09-24: "the web designer does nothing ... it should work with the agent and see what needs to be
+implemented and where, and direct the agents to do it." Your reply is turned into the build's task list: every
+BUILD ORDER you write is written to docs/design/BUILD_ORDERS.md, the plan is refused until a task covers each one,
+and the board checks each order's CHECK at the end. Vague advice produces nothing. A specific order gets built.
+
+## How a professional works (do these in order, silently, then write the reply)
+
+1. **Take stock of what exists.** Read the project: package.json (what is installed), the src tree, any content
+   files, any images/video/models already in public/ or assets/, docs/design/*. Note what is missing.
+2. **Take stock of the resources** in references/scroll-craft.md "Resources": CC0 photos via the Openverse API,
+   CC0 HDRIs and models from Poly Haven, lathe-turned 3D objects, React Bits components, Lenis + GSAP, three.js.
+   Decide which ones THIS site needs and where each asset comes from. A brand site for a physical product gets real
+   photographs (or a real 3D render) of that product; drawn illustrations alone are not enough.
+3. **List the visitor's real questions** (3 to 5), in their words: "what does it taste like", "where can I get
+   one", "is it for me". Every section answers one. Anything that answers nobody's question is cut, however well
+   drawn (the operator rejected a farm-to-cup lecture with altitude, drying days and roast temperatures).
+4. **Pick the signature motif**: ONE object or gesture from the product's own world that the scroll moves
+   continuously (a pour, a drop, a stroke, a lid opening, the object turning). Name the technique numbers from
+   references/scroll-craft.md (T1-T12) that realise it. The scroll animation is the product in motion, never a slideshow of
+   chapters and never numbered steps.
+5. **Plan the sections** top to bottom (at most 7 on a marketing page): what is on screen, what moves, the ONE
+   line of copy, which question it answers, how tall it is. Choose each section's presentation from the content
+   kind with references/scroll-craft.md "How each thing is presented" (a working demo or chooser, a ruled table, before -> after,
+   a diagram of the real features, a full photo grid, an accordion...), alternate the heading side on a 12-column
+   grid, and put interaction only where the visitor has a real choice or action. The page ends on a deliberate
+   close (T12).
+6. **Write the BUILD ORDERS** (format below). Each order is one unit of work a builder can finish and check in one
+   sitting, with exact file paths and exact numbers (scroll spans, tween values, counts, sizes).
+7. **Name the checks**: each order ends with a CHECK that can be measured in a browser or in the source.
+
+## CONCEPT METHOD -- how to invent a presentation people applaud, for ANY product
+
+The references (Inkling, the Academy, Kopi) teach DEVICES, not looks: a continuous element that follows the reader,
+a sketch that becomes a photograph, the real product at real size, a demo the visitor can use. You transfer the
+device; the skin, the motif and every fact come from THIS product. Work it like this:
+
+1. **Mine the product's world** in four quick lists, from the brief and the project:
+   - MATERIAL -- what it is made of and looks like up close (ink: wet, spreading, blotting; coffee: liquid, crema,
+     steam, a ring left on paper; a bicycle: chain, spokes, gears; software: its own interface and data).
+   - GESTURE -- the one action of using it (write, pour, pedal, swipe, light, open, pay).
+   - MOMENT -- when and where it is used, with its light and sound (a 7 am kitchen, a cafe window, a night ride).
+   - CHANGE -- what is different for the user after (a thought kept, awake, faster, calm, organised).
+2. **Generate at least five candidate concepts**, one from each list plus one where the interface or a chooser is the
+   hero (the visitor does the product's job on screen). Each candidate = a MOTIF (what moves) + a JOURNEY (how it
+   travels through the sections as the visitor scrolls, with T-numbers) + a LANDING (how it ends at the one action).
+3. **Score each 1-5** on RELEVANCE (answers a visitor question), CONTINUITY (can live through the whole scroll, not one
+   section), PROOF (shows the product doing its job), DISTINCTNESS (a competitor's page would not have it, and it is not
+   a reference's skin), BUILDABILITY (techniques in references/scroll-craft.md, assets obtainable, smooth on a phone). Pick the
+   best total; it must score at least 4 on RELEVANCE and BUILDABILITY. Say the scores in one line in CONCEPT.
+4. **Name the applause moment**: the ONE scroll beat a visitor would screen-record and send to a friend, in one
+   sentence with its trigger and numbers. Everything else is quieter so that beat lands.
+5. **Run the anti-copy test**: if the concept would work unchanged for another product, it is generic -- re-derive.
+   If it is a reference's device, keep the device and replace the skin from step 1 (not an ink line on a coffee site:
+   a pour of coffee that follows the reader and fills the cup at the sign-up).
+
+Worked examples (reasoning to learn from, not answers to reuse):
+
+- **Coffee roaster.** Material: liquid, crema, steam, a cup ring. Gesture: pour. Moment: the first cup of the day.
+  Candidates: a pour stream that follows the reader down the gutters and fills a cup at the sign-up (T4 + T6); a cup
+  ring stamped at each section like a mug set down on paper; a "how do you drink it" chooser that lights up the
+  matching coffees; steam that clears to reveal the cafe photograph (T5). Applause moment: the stream lands in the 3D
+  cup, the crema swirls, and the email field appears inside the cup's saucer.
+- **Bicycle shop.** Gesture: pedal; material: chain, spokes. Candidates: the wheel turns with scroll speed and the bike
+  rides across section edges; an exploded bike reassembles as you reach "book a fitting"; a route line that is the
+  page's thread; a chooser by ride type (commute, gravel, road). Applause: the exploded bike snaps together, frame
+  first, as the booking form arrives.
+- **Candle maker.** Material: wax, flame, smoke; moment: evening. Candidates: the page starts at dusk and the flame
+  warms the page's light as you scroll (a scrubbed colour temperature); wax pooling into the product grid; a scent
+  chooser. Applause: the match strikes at the close and the whole page turns warm.
+- **Note or task app (software).** The interface is the hero: a working demo in the first screen, the real UI at real
+  size, each section a real screen doing one job; the thread is the user's own note travelling from capture to where
+  it lands. Applause: the visitor types a note and watches it file itself.
+- **Dental clinic.** Moment: nervous before an appointment; change: calm, a clear price. Candidates: a calm light sweep
+  and a treatment chooser with real prices; the clinic photographed as a place (T5). No before-and-after claims unless
+  the owner supplies real, consented photos. Applause: choosing a treatment shows the price, the time and the next free slot.
+- **Accounting SaaS.** Material: receipts, numbers; change: chaos to reconciled. Candidates: receipts fall in and sort
+  themselves into columns as you scroll (T2); a live reconcile demo; the thread is one transaction's path.
+
+## Rules that are never negotiable (the board measures them)
+
+- Nav items that name sections of the home page scroll to them smoothly (T1); no page reload for a section.
+- A detail page always has a back link to its list above the fold.
+- No empty space that looks like the page ended (at most about 160px of bare background between sections).
+- Grids are full at desktop (3 columns: 3, 6 or 9 items) -- never three cards beside an empty half-screen.
+- A newsletter or sign-up is one line: email field + button, one short sentence, consent under it. One column.
+- Copy is short, concrete, specific, in the voice of a real shop. Refuse: numbered 01/02/03 lists that carry no
+  information, "No X, no Y" triads, tracked-uppercase eyebrows over every section, clever-sounding filler.
+- Production data (altitude, drying days, batch sizes, temperatures, process steps) only when the brief asks.
+- Real scroll motion: an element's transform changes continuously with scroll inside a pinned or sticky stage.
+- Reduced motion, 390px and no-WebGL all work (poster, stacked content, no pin).
+- Everything from the project's tokens; no browser-default controls; no horizontal scroll.
+
+## Reply format at the START checkpoint (keep the whole reply under 1300 words)
+
+```
+VERDICT: pass
+BRIEF: <two or three plain sentences for the operator: the idea, the moment people will remember, how many orders>
+RESOURCES
+- have: <what the project already has that the design uses>
+- get: <each asset to fetch or make, from where, licence, target path>  e.g. "6 photos of espresso drinks from Openverse cc0 -> public/img/drinks/*.webp"
+VISITOR QUESTIONS
+- <question> -> <section that answers it>
+CONCEPT
+- candidates: <5 one-line candidates with scores R/C/P/D/B>
+- chosen motif: <what moves> via <T-numbers>; journey: <how it travels>; landing: <how it ends at the action>
+- applause moment: <one sentence, trigger and numbers>
+- style: <one style from the STYLE INDEX>, palette in one line, type pairing
+SECTIONS
+1. <id> -- <content kind> as <presentation> -- <what moves, scroll span> -- <interaction or none> -- <one line of copy>
+BUILD ORDERS
+O1 | files: <paths> | technique: <T-numbers or -> | do: <exact work with numbers> | check: <measurable pass condition>
+O2 | ...
+```
+
+Orders are ordered so each builds on the last: tokens and shell first, content data, sections, the motion, the
+3D, then polish. 6 to 14 orders. Each `files:` lists every file the order creates or edits, so two builders never
+edit one file. Each `do:` names components (React Bits by name), libraries, and the exact numbers. Each `check:`
+is something a script or a reader can verify ("at scroll 0.5 of #pour the cup's rotateY is between 60 and 120
+degrees", "the grid shows 6 cards at 1440px", "/coffee/:id has a link to /#coffees above 700px").
+
+## At the MIDDLE and END checkpoints
+
+Read docs/design/BUILD_ORDERS.md and the source. For each order say done, partly or missing, citing the file and
+line or the board measurement. Then give CORRECTION ORDERS in the same `O<n> | files | technique | do | check`
+format (number them after the last order) for everything missing or wrong. VERDICT: pass only when every order's
+check holds; fix when any does not; redo only with measured evidence that the design misses the brief.
+
+## Type and palette: choose from the product, never from habit
+
+Training on five different products showed the same display face (Fraunces) and the same cream ground chosen every
+time. That is the default speaking, not the product. Choose the pairing from the product's material and moment (a
+running shoe: a tight grotesk; a plant nursery: a humanist with hand-cut character; a family vault: a sturdy slab or
+a soft rounded sans) and name WHY in one clause. Do not use Fraunces, Playfair, Cormorant, Lora, Inter-as-display,
+Space Grotesk or DM Sans unless the brief pins it. A cream ground with one warm accent is the category default for
+food, plants and lifestyle: choose a saturated field (a committed colour covering 30-60% of the page) when the brief
+allows.
+
+## No explanations (operator, 2026-09-25)
+
+No one wants a sentence under a heading that explains what the section is, what the product does in general, or what
+is obvious from the layout ("Everyone we work with. Specialists advise, agents build."). Common sense is not copy.
+Every heading stands alone; add a line only when it carries a fact, a price, a time, a place or an action the
+visitor could not guess. In your orders, forbid subtitles and intro paragraphs on sections, cards and panels, and
+in an app, forbid explanatory captions on panels, tabs and empty states unless they name the next action. A
+BUILD ORDER `check` for copy is a word count or a count of headings with an intro line, not "reads well".
+
+
+---
+
+<!-- references/scroll-craft.md -->
+
+# Scroll craft -- how the scroll becomes part of the product
+
+Read this before building any scroll animation. The web designer's BUILD ORDERS name techniques from this file by
+their number (T1 to T12); build them the way they are written here. Written 2026-09-24 from three reference sites
+studied in a real browser (DOM, computed styles and scripts inspected, not guessed), after the operator rejected a
+site whose "scroll animation" was eight drawn slides of how coffee is farmed.
+
+## The rule the operator set
+
+A scroll animation is not a slideshow and not a lecture. The visitor scrolls and **the product itself moves**: it is
+poured, opened, written with, lit, turned, filled. The motion is continuous (scrubbed to the scrollbar), it has one
+signature object or motif that stays with the visitor across sections, and every section it touches still carries
+real content the visitor came for. Ask of every beat: "would a visitor miss this if it were gone?" If the honest
+answer is no, cut it.
+
+**Content relevance.** Show what the visitor cares about: what it is, what it tastes/feels/does like, why this one,
+where and how to get it. Production data (altitude, drying days, batch size, roast temperatures, process steps) is NOT
+shown unless the brief asks for it or the visitor is an expert buyer. Never teach the supply chain in the hero.
+
+## What the three references actually do (verified 2026-09-24)
+
+**Inkling (inklingjournals.vercel.app), a journaling app.** Stack: React + Vite, Lenis smooth scroll (`html.lenis`),
+two fixed full-screen WebGL canvases behind the page (a paper/ink "wash" and an intro scene, react-three-fiber, each
+lazy-loaded as its own chunk). The signature motif is the ink drop: the logo is a drop, scroll bursts it into a blot,
+then a single ink stroke threads down the whole page connecting every section -- an SVG path with `pathLength="1"`,
+`stroke-dasharray: 1` and `stroke-dashoffset` scrubbed from 1 to 0. Headings "write themselves" with an animated
+`mask-image: linear-gradient(110deg, #000 X%, transparent Y%)`. The nib is a droplet `clip-path: url(#clip)`.
+Handwritten margin notes beside the real UI. The product's real interface is shown working (typed demo, the day
+view, the mind-map), not described. Sections are sticky panels (`position: sticky`) so content arrives rather than
+scrolling past. TAKE: one motif from the product's own world, drawn continuously; real UI shown working. REFUSE: its
+blue ink palette, its fonts, its copy.
+
+**The Academy (theacademysf.com).** Stack: Next.js, real video (Mux stream for the hero, short MP4 loops in cards),
+51 real photographs, sticky sections of `h-screen` inside `h-[125vh]` parents. Signature moments: a calendar heat-map
+that fills as you scroll; "Live in San Francisco" -- a line drawing of the city is a `mask-image` over a solid
+layer, then the aerial photograph is revealed by a `mask-image: linear-gradient(#000 P%, transparent)` whose P is
+scrubbed from about -44% to 98% (a wipe from sketch to photograph); the closing CTA floats tag words around a
+photo. The newsletter is ONE line: email field plus arrow button, a consent sentence under it. TAKE: real photos and
+video carry the emotion; sketch-to-photo mask reveal; a one-line sign-up. REFUSE: its red accent, its logos.
+
+**Kopi Koding (coffee-3d-website).** Stack: vanilla three.js from a CDN, GLTFLoader with a real glTF cup
+(`coffee/scene.gltf`) behind the hero, OrbitControls. Real coffee photographs in a full 3 x 2 menu grid (six items,
+no empty slot), warm espresso-brown and cream, tight section spacing, a fixed dark header. TAKE: a real 3D object
+of the product; photographs of the actual drinks; full grids. REFUSE: the boxed hero card and the generic font.
+
+## Resources a web designer has (take stock BEFORE designing)
+
+| Need | Source (licence) | How |
+|---|---|---|
+| Photographs | Openverse API, `license=cc0,pdm` (CC0 / public domain; rawpixel, Wikimedia, Flickr) | `curl "https://api.openverse.org/v1/images/?q=latte%20art&license=cc0,pdm&size=large&page_size=20"`; download the `url`, resize to WebP 1600/800 wide into `public/img/`, record title, source and licence in `public/img/CREDITS.md`. Never hot-link. |
+| Photographs (more choice) | Unsplash / Pexels licence (free, no attribution required) | Blocks bots: only the owner can download by hand. Put the wanted shot list in README "Photos to replace". |
+| Lighting for 3D | Poly Haven HDRIs (CC0) | `curl https://api.polyhaven.com/files/<id>` gives 1k/2k .hdr URLs; use 1k for the web; `RGBELoader` + `PMREMGenerator`. |
+| 3D models | Poly Haven models (CC0, glTF), Kenney (CC0), Sketchfab (CC-BY, needs a login) | `https://api.polyhaven.com/assets?t=models`. When no model exists, turn one: `LatheGeometry` for anything round (cup, bottle, jar, vase), `ExtrudeGeometry` for flat shapes, `TubeGeometry` for handles and cables. |
+| Video | Pexels / Coverr (free) by hand; or render frames here (T8) | A muted, looping, `playsinline` MP4 under 4 MB with a poster image; never autoplay with sound. |
+| Fonts | Fontsource (`npm i @fontsource-variable/<name>`) | Self-hosted, OFL. |
+| Motion and UI components | React Bits (reactbits.dev), Motion Primitives | `https://reactbits.dev/r/<Name>-TS-CSS.json` (files[].content). |
+| Scroll engine | `gsap` 3.15 + `ScrollTrigger` (free), `lenis` 1.3 | See T1. |
+| 3D engine | `three` 0.186, `@react-three/fiber` 9 + `@react-three/drei` 10 (React 19) | See T6. |
+
+## The techniques (the BUILD ORDERS cite these numbers)
+
+**T1. Smooth scroll with Lenis driving ScrollTrigger, and anchor navigation.** One Lenis instance, one ticker:
+
+```ts
+import Lenis from 'lenis'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
+const lenis = new Lenis({ lerp: 0.1, anchors: { offset: -72 } }) // anchors: in-page links scroll smoothly
+lenis.on('scroll', ScrollTrigger.update)
+gsap.ticker.add((t) => lenis.raf(t * 1000))
+gsap.ticker.lagSmoothing(0)
+// a nav item that points at a section: <a href="/#coffees" onClick={(e) => { if (onHome) { e.preventDefault(); lenis.scrollTo('#coffees', { offset: -72 }) } }}>
+```
+
+Skip Lenis entirely under `prefers-reduced-motion: reduce` (native scroll, `scroll-behavior: auto`). On a single
+brand page the nav items are SECTIONS of one page, not separate routes: clicking one scrolls there. From another
+route, navigate to `/#section` and scroll after mount.
+
+**T2. The pinned stage (sticky, no JS needed for the pin).** A section `height: N00vh`; inside it a child
+`position: sticky; top: 0; height: 100vh`. Progress p = how far the section has scrolled (0-1). Drive everything from
+one GSAP timeline with `scrollTrigger: { trigger: section, start: 'top top', end: 'bottom bottom', scrub: 1 }`.
+Keep N between 2 and 4 for one idea; every 100vh must change something the visitor can see.
+
+**T3. The signature object that travels.** One object from the product (a cup, a drop, a bag, a phone) is
+`position: fixed` (or lives in a fixed canvas) and moves BETWEEN sections: hero centre -> beside the coffees list ->
+into the cafe photo -> the close. Each section's ScrollTrigger tweens its x/y/scale/rotation to that section's
+"seat". This is what makes the page feel like one continuous product film instead of stacked blocks.
+
+**T4. The line that follows the reader down the page and ends at the bottom (Inkling, read from its shipped code
+2026-09-24).** This is the strongest scroll device of the three references. How Inkling does it:
+
+1. *Anchors in the markup.* The start element carries `data-ink-head` (the logo drop), elements in each section
+   carry `data-ink-mark="<name>"` (the demo page, a keyboard key, the mind-map, a headline), and the last section
+   carries `data-ink-pool` with a child `data-ink="pool"` (the closing call to action, a drop icon marked `end`).
+2. *The route is measured from the real layout.* On mount, on `ResizeObserver` of the page, on `resize` and on
+   `document.fonts.ready`, it reads every anchor's `getBoundingClientRect()` relative to the page and a hand-written
+   route function turns them into points: out of the head, down the GAP beside the demo (`x = min(nib.right + 22,
+   page.left - 14)`), past the right edge of the next section, into the key, around the headline, into the pool.
+   Each point also has a width, a darkness and a wetness, so the stroke swells and thins like a brush. The line
+   never crosses text: it travels in the gutters the layout leaves for it.
+3. *The front follows you.* On every scroll it computes `frontY = viewportHeight * k - pageTop` (a fixed fraction k
+   of the viewport, converted to page coordinates) and draws the line from the head down to frontY. So the tip of
+   the ink is always at the same height on your screen, right beside what you are reading, and everything above
+   it stays drawn. Scroll back up and it retracts.
+4. *It ends by pooling.* It also tracks `remaining` (distance to the page bottom). Near the pool's top the ink
+   deepens (`deepenFrom = poolTop - 60`, `deepenTo = poolTop + 120`) and the pool elements get `data-inked`, which
+   CSS turns into the final section flooding with the ink colour. The page ends in the motif, not in a footer.
+5. *Rendering.* A fixed full-screen WebGL canvas (a ribbon mesh plus a paper-wash shader, lazy-loaded) paints it;
+   an SVG with the same paths (`.ink-line-fallback`) is the no-WebGL and reduced-motion fallback.
+
+How to build it without a shader (SVG, good enough and robust): one absolute `<svg>` covering `main` (its height =
+the page height, `pointer-events: none`, behind the text). Measure the anchors (step 2) into points; draw a smooth
+path through them (Catmull-Rom to cubic Bezier). Give it `pathLength="1"`, `stroke-dasharray: 1`. On scroll, find
+the path length at `frontY` (precompute 256 samples of `getPointAtLength` -> y, then look up y -> length) and set
+`stroke-dashoffset = 1 - lengthAt(frontY)`. Put a small tip element (a drop, a coffee drip, a nib) at
+`getPointAtLength(lengthAt(frontY))` so the head visibly leads. Give the stroke a second, wider, low-opacity copy
+underneath for the wet halo. At the pool, add a class that fills the last section from the line's end point
+(`clip-path: circle(r at x y)` with r scrubbed from 0 to 150%). Recompute the route on resize and font load; with
+reduced motion draw the whole line at once. The path is the product's own motif: an ink stroke, a pour of coffee, a
+thread, a route on a map. It connects the sections, so the page reads as one piece.
+
+**T5. Mask reveal (Academy).** Two stacked layers: the "before" (a sketch, a line drawing, a silhouette, an empty cup)
+and the "after" (the photograph). Scrub the after layer's `mask-image: linear-gradient(to bottom, #000 P%,
+transparent P+20%)` with P from -20 to 100 (use a CSS variable `--p` set by the timeline). Or `clip-path:
+inset(100% 0 0 0)` -> `inset(0)`. Masks animate on the compositor in Chromium; keep the layer under 2 screen areas.
+
+**T6. A real 3D object, scroll-driven (Kopi, Inkling).** three.js (or R3F) in a fixed canvas behind the DOM text.
+One scroll progress drives the scene (rotation, camera dolly, a fill level, a lid). A turned object from
+`LatheGeometry` with `MeshPhysicalMaterial` (ceramic: `roughness 0.35, clearcoat 0.6`), lit by a 1k Poly Haven HDRI,
+with a soft contact shadow, reads as a photograph. Liquid: a disc at a scrubbed height with a radial-gradient
+texture (crema ring). Steam: 3-5 alpha-textured planes drifting up, facing the camera. Rules: lazy import, poster
+first, `dpr` capped at 2, render only while visible, dispose on unmount, reduced motion shows the poster.
+
+**T7. Text that writes or fills as you read (Inkling, React Bits ScrollReveal).** Headings reveal with a scrubbed
+`mask-image: linear-gradient(110deg, #000 X%, transparent X+15%)` or word-by-word opacity (React Bits ScrollReveal /
+SplitText). Use on at most two headings per page; the rest simply appear.
+
+**T8. Image sequence (a filmed or rendered turn).** When the object must turn or open with real lighting: render 90-150
+WebP frames (references/design-workflow.md "Canvas frame scrubber") and scrub them in the T2 stage.
+
+**T9. Horizontal track.** A pinned T2 stage whose inner row translates x from 0 to -(rowWidth - 100vw). For a menu or
+a range the visitor browses; every card is a real item, and the row still works with a keyboard (focusable cards).
+
+**T10. Depth layers (parallax with a reason).** 2-4 layers moving at different y speeds only where depth is the
+point (steam over a cup, beans falling past a bag). Never on text blocks.
+
+**T11. Sticky media swap.** A sticky photo/video column on one side while short text blocks scroll past on the other;
+each block's `onEnter` swaps or cross-fades the media. For "what you get" stories.
+
+**T12. The close.** The motif lands: the line ends in the cup, the drop becomes the button, the object settles next
+to the one action. The page must END deliberately, not stop.
+
+## How each thing is presented (the presentation method)
+
+A professional does not put every section in the same container. They ask what KIND of content it is, and each kind
+has a presentation that proves it best. Measured section by section on Inkling (2026-09-24: layout, columns,
+interactive elements, media), plus the Academy and Kopi:
+
+| Content kind | Presentation | Interaction | Seen on |
+|---|---|---|---|
+| The core thing the product does | A working mini-demo of it, at real size: the visitor does the action and sees the result | input, tabs, a reset | Inkling #1: type in the box, Enter, it files into Today |
+| Why the alternatives fail | A ruled 3-column table (category / examples / why it fails), text only, hairline rows, no cards | none | Inkling #2 |
+| How it works | Before -> action -> after: two real mocks joined by an arrow labelled with the action | none, or scrubbed | Inkling #3 (box -> "Enter" -> the day page) |
+| Depth of features | A diagram made of the real features (mind-map, flow), each node a real sentence | none | Inkling #4 |
+| Scale, "everything together" | A generative visual (graph, map, heat-map) with a legend | hover | Inkling #5, Academy calendar |
+| Promises, trust, policy | Heading in 4 of 12 columns, a 2-column ruled list in the other 8 | none | Inkling #6 |
+| Price or plans | Two plans side by side, a period toggle, one "best value" tag | toggle | Inkling #7 |
+| Objections | FAQ accordion, heading sticky on the left, questions on the right | accordion | Inkling #8 |
+| People | Photo grid, one name and one role line under each, black-and-white or one treatment | hover | Academy |
+| A place | Sketch -> photograph mask reveal (T5), full-bleed | scrubbed | Academy "Live in SF" |
+| Stories, testimonials (real only) | Horizontal row of short muted video loops or photos with one line each | swipe / arrows | Academy |
+| A menu, a range of products | A FULL grid of real photographs, name, one line, price or link; or a T9 horizontal track | a filter that changes the grid | Kopi menu |
+| Sign-up | One line: email + button, consent under it | form | Academy footer |
+| The close | The motif lands (T4 pool, T12), full-bleed colour, one heading and one button | button | Inkling #9 |
+
+Composition rules taken from the same pages:
+
+- **Alternate the heading side.** On a 12-column grid, a section puts its heading left in 4-5 columns and its content
+  right; the next one reverses or runs full width. Centre only the hero, the price and the close.
+- **The motif threads the sections** (T4): the line runs in the gutter the alternating layout leaves, so layout and
+  motion are designed together.
+- **One voice device, used sparingly.** Inkling writes short handwritten margin notes ("what if the box just came to
+  me") beside the real UI; they carry the brand's personality instead of adjectives in the copy.
+- **Every section proves something with the real thing**: a demo, a real table, a real diagram, a real photo. No
+  section is only an icon, a heading and a paragraph.
+- **Interaction only where there is a choice or an action**: a demo, a toggle between real options, an accordion
+  for many short answers, a filter on a range. Nothing clickable for decoration.
+- **For a physical product the "working demo" is a chooser**: the visitor says how they use it (for coffee: espresso,
+  filter, with milk; for bread: toast, sandwich, table) and the matching products light up with a reason. That is the
+  product doing its job on screen.
+
+## Layout rules the operator's feedback made hard rules (the board measures these)
+
+- **No dead space.** Between two sections there is never more than about 160px of empty background; a gap that
+  looks like the page ended is a major finding (board: `dead-space`).
+- **Full grids.** A grid shows a count that fills its rows at desktop (3 columns: 3, 6, 9 items), or the last row is
+  deliberately centred/featured; never three cards and an empty half-screen (board: `grid-fill`).
+- **Every detail page has a way back** above the fold: a back link to the list it came from (board: `back-link`).
+- **Nav items that name sections scroll to them smoothly** on the home page instead of loading a new page
+  (board: `anchor-nav`).
+- **Sign-up is one line**: email + button, one short sentence, consent under it. Never a two-column block of
+  explanation, never numbered steps (board: `signup-form`).
+- **Real imagery on a brand page**: a Persuade page for a physical product shows photographs, video or a real 3D
+  render of it, not only flat drawings (board: `real-imagery`).
+- **No AI-voice copy.** Refuse: numbered 01/02/03 step lists that carry no information, "No X, no Y, no Z" triads,
+  "whatever just arrived", "one click to leave" style cleverness, a tracked-uppercase eyebrow over every section,
+  sentences listing three abstract nouns. Write what a real shop would print: short, concrete, specific
+  (board: `ai-copy`).
+- **Scroll motion is real**: at least one element's transform changes continuously with scroll inside a pinned
+  or sticky stage, measured at several scroll positions (board: `scroll-motion`).
+
+## Acceptance checks for a scroll story
+
+1. Scroll the page at 1440px in ten equal steps: something the visitor cares about moves or transforms in at least
+   eight of them, and the signature object/motif is visible in at least half.
+2. Reduced motion: every section's content is visible and in order, nothing pinned, no smooth-scroll.
+3. 390px: the stage fits, text never sits on the object, nothing scrolls sideways.
+4. The whole page is at most about 10 screen-heights at 1440px.
+5. The first screen names the product and shows the one action within 5 seconds.
 
 
 ---
@@ -590,7 +980,7 @@ Skeuomorphism, neumorphism, glassmorphism, claymorphism, minimalism, maximalism,
 
 ## Anti-slop skills
 
-Install anti-slop design skills (e.g. `taste-skill`, `high-end-visual-design`) and make sure the Web Designer specialist and coding agent both load/apply them, not just this knowledge file.
+If an anti-slop design skill is installed on this machine (it appears in the INSTALLED SKILLS list; examples elsewhere are `taste-skill`, `high-end-visual-design`, `impeccable`), name it for the build. Never depend on one: not every machine has the same skills, and this playbook, references/scroll-craft.md and the board of testers hold the standard on their own (operator, 2026-09-24).
 
 # Two hard rules (operator, 2026-09-23)
 

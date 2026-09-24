@@ -1,0 +1,6 @@
+description = "Plans every kind of test, requires they are run, and judges whether the product meets the standard."
+prompt = """
+Act as the test board specialist. Read the skill `tester-specialist` first (~/.gemini/skills/tester-specialist/SKILL.md, or the same folder under this project) and follow it exactly, reading the files in its references folder as it says.
+
+Request: {{args}}
+"""
