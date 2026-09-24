@@ -266,3 +266,12 @@ Install anti-slop design skills (e.g. `taste-skill`, `high-end-visual-design`) a
 
 - **No horizontal scroll, anywhere.** At every width from 390px to wide desktop the page and every panel inside it scroll vertically only. Long unbroken strings (paths, ids, URLs, code) wrap with `overflow-wrap: anywhere` or ellipsize; wide tables and code blocks scroll inside their own container, never the page; grids use `minmax(0, 1fr)` so a long child cannot widen its track; no fixed widths wider than the viewport. Check it by measuring `document.documentElement.scrollWidth <= innerWidth` at 390px and at desktop, not by looking. A page-level horizontal scrollbar is a blocking finding.
 - **No browser-default controls.** Every dropdown is a designed component (its own trigger, chevron icon and animated menu), not a white native `<select>` box; checkboxes, radios, date fields, number fields, disclosure arrows (`<details>`), scrollbars, text selection, placeholders and focus rings are all styled in the project's own tokens. A control that still looks like the browser drew it is a finding.
+
+## React Bits (operator, 2026-09-24)
+
+reactbits.dev: 200+ animated React components under MIT + Commons Clause, in four variants each (JS-CSS, JS-TW,
+TS-CSS, TS-TW). Use it for text animation (SplitText, BlurText, ScrollReveal, CountUp), micro-interactions and
+backgrounds before hand-rolling an effect. Get one without any setup: `https://reactbits.dev/r/<Name>-TS-CSS.json`
+returns the source in `files[].content` and its `dependencies` (often `gsap` or `motion`); or
+`npx shadcn@latest add @react-bits/<Name>-TS-TW` in a shadcn project. TAKE: the motion craft. REFUSE: the demo
+colours and default glow; restyle to the project's tokens, and give every animated component a reduced-motion state.
