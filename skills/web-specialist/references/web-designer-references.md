@@ -260,7 +260,7 @@ Skeuomorphism, neumorphism, glassmorphism, claymorphism, minimalism, maximalism,
 
 ## Anti-slop skills
 
-Install anti-slop design skills (e.g. `taste-skill`, `high-end-visual-design`) and make sure the Web Designer specialist and coding agent both load/apply them, not just this knowledge file.
+If an anti-slop design skill is installed on this machine (it appears in the INSTALLED SKILLS list; examples elsewhere are `taste-skill`, `high-end-visual-design`, `impeccable`), name it for the build. Never depend on one: not every machine has the same skills, and this playbook, references/scroll-craft.md and the board of testers hold the standard on their own (operator, 2026-09-24).
 
 # Two hard rules (operator, 2026-09-23)
 

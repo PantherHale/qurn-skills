@@ -503,6 +503,13 @@ await tester('style-fidelity', 'Art director holding the build to its declared s
   }
 })
 
+// 17-24. HOW IT FEELS TO USE: scroll motion, dead space, grid fill, back links, anchor navigation, the sign-up, real
+// imagery and AI-voice copy (operator, 2026-09-24). They live in scripts/experience-testers.mjs, next to this file.
+{
+  const { experienceTesters } = await import(new URL('./experience-testers.mjs', import.meta.url).href)
+  await experienceTesters({ browser, open, tester, opt })
+}
+
 await browser.close()
 
 // Reports -------------------------------------------------------------------

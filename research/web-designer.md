@@ -500,3 +500,31 @@ corroborated across many independent sources):
   against real built output — recommend a follow-up pass that runs `scanSignals()` against the actual CSS of the
   thirteen sites re-studied here (where legally fetchable/scrapeable) to confirm each predicted false positive/
   negative actually reproduces, rather than resting on regex inspection alone.
+
+## 2026-09-24/25: scroll craft, presentation and the director role
+
+Studied in a real browser (DOM, computed styles, shipped JS), not from screenshots.
+
+- **Inkling** (React, Vite, Lenis, two fixed WebGL canvases). The ink line: anchors in the markup
+  (`data-ink-head`, `data-ink-mark`, `data-ink-pool`); the route is computed from their `getBoundingClientRect()` on
+  mount, resize, ResizeObserver and `document.fonts.ready`; a fixed fraction of the viewport height sets the front, so
+  the tip stays beside what you read; the ink deepens near the pool and the last section floods; SVG fallback.
+  Take: one motif from the product's world that follows the reader and ends the page. Refuse: its blue ink skin.
+- **The Academy** (Next.js, Mux video, 51 photos). Sticky `h-screen` in `h-[125vh]`; a line drawing revealed into an
+  aerial photograph by a scrubbed `mask-image` (about -44% to 98%); one-line email sign-up. Take: real photos and
+  video, mask reveal, one-line sign-up.
+- **Kopi Koding** (vanilla three.js + glTF cup, real drink photos, full 3 x 2 menu). Take: a real 3D object of the
+  product, photographs, full grids.
+- **Presentation by content kind** (measured on Inkling, section by section): working demo, ruled table, before ->
+  action -> after, feature diagram, generative visual, 4/8 column heading-and-list, plan toggle, sticky-heading FAQ,
+  full-bleed close.
+- **Director role.** The designer stops advising and directs: numbered build orders (files, technique, exact work,
+  measurable check) that the office enforces. Concept method: mine material, gesture, moment and change; five scored
+  candidates; an applause moment; an anti-copy test.
+- **Training.** Five different products, graded on 19 checks (own harness). After fixing the grader's own bugs, all
+  five passed; one weakness found and fixed in the playbook: the same display face and cream ground were chosen for
+  unrelated products.
+- **Operator rules that became board testers:** scroll motion, dead space, grid fill, back link, anchor navigation,
+  one-line sign-up, real imagery, AI-voice copy. No explanatory subtitles (2026-09-25).
+- **Asset sources:** Openverse API (`license=cc0,pdm`) for photos, Poly Haven (CC0) for models and HDRIs, Lenis 1.3
+  (`anchors` confirmed in its types), GSAP 3.15, three 0.186, React Bits. Unsplash blocks automated browsers.
