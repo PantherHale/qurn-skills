@@ -275,3 +275,39 @@ backgrounds before hand-rolling an effect. Get one without any setup: `https://r
 returns the source in `files[].content` and its `dependencies` (often `gsap` or `motion`); or
 `npx shadcn@latest add @react-bits/<Name>-TS-TW` in a shadcn project. TAKE: the motion craft. REFUSE: the demo
 colours and default glow; restyle to the project's tokens, and give every animated component a reduced-motion state.
+
+# Reference 10-11: Manus and Linear (verified 2026-09-28, real DOM and screenshots)
+
+## Manus (manus.im) -- the product IS the homepage
+
+Manus is an AI agent; its own homepage has no hero image, no marketing paragraph, no scroll at all above the
+fold and barely any below it. The entire first (and almost only) viewport is: a serif headline ("What can I do
+for you?"), directly under it the REAL prompt box the product runs on (a plain white card, a placeholder
+"Assign", a `+` attach button, a round send button), and under that a row of pill chips naming what it can do
+("Create slides", "Build website", "Design", "Create games", "More"). White background, black text, one
+system/SF-Pro-style sans stack, a black pill "Sign in" button. No stat tiles, no testimonials, no feature grid
+before this. TAKE: when the product's whole value is one interaction, put that real, working control as the
+entire first viewport with nothing else competing for attention -- this is the extreme end of "the interface is
+the hero" (references/scroll-craft.md's presentation table), not a header with a screenshot beside it. REFUSE: this only
+works when the product truly is a single input; a multi-feature product that copies this looks empty, not
+confident.
+
+## Linear (linear.app) -- the OS-window demo card
+
+Linear's whole marketing page is one content kind repeated: `getComputedStyle(document.body).backgroundColor`
+is `rgb(8, 9, 10)` (near-black), Inter Variable throughout, no GSAP/Lenis/three globals (no heavy scroll
+library at all -- the craft is in layout, type and restraint, not motion). Every feature section wraps its demo
+in a card styled like a desktop app window: rounded corners, a thin border, a soft shadow, and in some cards a
+literal macOS-style traffic-light row (three small dots) with the tool's own name and icon as a title bar
+("Cursor", "Linear · Opus 5", "ChatPRD"). Inside, the content is never a generic mockup: real-looking ticket IDs
+(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to Claude Opus
+5"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
+sections sits a plain logo wall (OpenAI, Vercel, Salesforce, Figma, Cursor, Coinbase, Ramp) in flat white
+wordmarks with one caption line ("Powering the companies building the future") -- no cards, no borders, just
+logos and space. Each section gets a full screen-height of dark negative space around its one demo; nothing is
+crowded. TAKE: for a software product, the "working demo" row of the presentation table is best built as an
+OS-window card (title bar, real fictional data with plausible IDs/names/timestamps, never lorem) -- it reads as
+a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack (as
+Linear does for its agent-chat section) to show several tools at once without a grid. REFUSE: Linear's exact
+near-black palette and Inter -- the device (the windowed demo card, real fictional data, generous dark-field
+negative space) is what transfers, not its colours or font.

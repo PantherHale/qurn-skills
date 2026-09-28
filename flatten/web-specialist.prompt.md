@@ -65,6 +65,11 @@ and the board checks each order's CHECK at the end. Vague advice produces nothin
    CC0 HDRIs and models from Poly Haven, lathe-turned 3D objects, React Bits components, Lenis + GSAP, three.js.
    Decide which ones THIS site needs and where each asset comes from. A brand site for a physical product gets real
    photographs (or a real 3D render) of that product; drawn illustrations alone are not enough.
+2b. **For a software product**, check whether the whole product is one interaction (a single tool, a chat, a
+   prompt box): if so, consider Manus's pattern (web-designer-references.md, "Manus: the product IS the
+   homepage") -- the real control as the entire first viewport, nothing else competing with it. Otherwise, build
+   the "core thing the product does" row as an OS-window demo card (Linear's pattern in the same file): a
+   title-barred card with real-looking fictional data, never lorem.
 3. **List the visitor's real questions** (3 to 5), in their words: "what does it taste like", "where can I get
    one", "is it for me". Every section answers one. Anything that answers nobody's question is cut, however well
    drawn (the operator rejected a farm-to-cup lecture with altitude, drying days and roast temperatures).
@@ -364,7 +369,8 @@ interactive elements, media), plus the Academy and Kopi:
 
 | Content kind | Presentation | Interaction | Seen on |
 |---|---|---|---|
-| The core thing the product does | A working mini-demo of it, at real size: the visitor does the action and sees the result | input, tabs, a reset | Inkling #1: type in the box, Enter, it files into Today |
+| The whole product is one interaction | Put that real control as the entire first viewport -- headline, the control, nothing else (no hero image, no feature grid above it) | the control itself | Manus (manus.im): "What can I do for you?" and the real prompt box are the whole homepage |
+| The core thing the product does (software) | An OS-window demo card: rounded corners, a thin border, a soft shadow, a title bar (name + icon, optionally traffic-light dots); real-looking fictional data inside (plausible IDs, names, timestamps), never lorem or generic labels; one demo per screen of dark negative space, several can overlap to show tools working together | input, tabs, a reset | Inkling #1 (type in the box, Enter, it files into Today); Linear (a ticket board, an agent chat mid-"Thinking...", stacked tool windows) |
 | Why the alternatives fail | A ruled 3-column table (category / examples / why it fails), text only, hairline rows, no cards | none | Inkling #2 |
 | How it works | Before -> action -> after: two real mocks joined by an arrow labelled with the action | none, or scrubbed | Inkling #3 (box -> "Enter" -> the day page) |
 | Depth of features | A diagram made of the real features (mind-map, flow), each node a real sentence | none | Inkling #4 |
@@ -995,6 +1001,42 @@ backgrounds before hand-rolling an effect. Get one without any setup: `https://r
 returns the source in `files[].content` and its `dependencies` (often `gsap` or `motion`); or
 `npx shadcn@latest add @react-bits/<Name>-TS-TW` in a shadcn project. TAKE: the motion craft. REFUSE: the demo
 colours and default glow; restyle to the project's tokens, and give every animated component a reduced-motion state.
+
+# Reference 10-11: Manus and Linear (verified 2026-09-28, real DOM and screenshots)
+
+## Manus (manus.im) -- the product IS the homepage
+
+Manus is an AI agent; its own homepage has no hero image, no marketing paragraph, no scroll at all above the
+fold and barely any below it. The entire first (and almost only) viewport is: a serif headline ("What can I do
+for you?"), directly under it the REAL prompt box the product runs on (a plain white card, a placeholder
+"Assign", a `+` attach button, a round send button), and under that a row of pill chips naming what it can do
+("Create slides", "Build website", "Design", "Create games", "More"). White background, black text, one
+system/SF-Pro-style sans stack, a black pill "Sign in" button. No stat tiles, no testimonials, no feature grid
+before this. TAKE: when the product's whole value is one interaction, put that real, working control as the
+entire first viewport with nothing else competing for attention -- this is the extreme end of "the interface is
+the hero" (references/scroll-craft.md's presentation table), not a header with a screenshot beside it. REFUSE: this only
+works when the product truly is a single input; a multi-feature product that copies this looks empty, not
+confident.
+
+## Linear (linear.app) -- the OS-window demo card
+
+Linear's whole marketing page is one content kind repeated: `getComputedStyle(document.body).backgroundColor`
+is `rgb(8, 9, 10)` (near-black), Inter Variable throughout, no GSAP/Lenis/three globals (no heavy scroll
+library at all -- the craft is in layout, type and restraint, not motion). Every feature section wraps its demo
+in a card styled like a desktop app window: rounded corners, a thin border, a soft shadow, and in some cards a
+literal macOS-style traffic-light row (three small dots) with the tool's own name and icon as a title bar
+("Cursor", "Linear · Opus 5", "ChatPRD"). Inside, the content is never a generic mockup: real-looking ticket IDs
+(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to Claude Opus
+5"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
+sections sits a plain logo wall (OpenAI, Vercel, Salesforce, Figma, Cursor, Coinbase, Ramp) in flat white
+wordmarks with one caption line ("Powering the companies building the future") -- no cards, no borders, just
+logos and space. Each section gets a full screen-height of dark negative space around its one demo; nothing is
+crowded. TAKE: for a software product, the "working demo" row of the presentation table is best built as an
+OS-window card (title bar, real fictional data with plausible IDs/names/timestamps, never lorem) -- it reads as
+a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack (as
+Linear does for its agent-chat section) to show several tools at once without a grid. REFUSE: Linear's exact
+near-black palette and Inter -- the device (the windowed demo card, real fictional data, generous dark-field
+negative space) is what transfers, not its colours or font.
 
 
 ---
