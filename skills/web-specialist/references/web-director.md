@@ -13,6 +13,11 @@ and the board checks each order's CHECK at the end. Vague advice produces nothin
    CC0 HDRIs and models from Poly Haven, lathe-turned 3D objects, React Bits components, Lenis + GSAP, three.js.
    Decide which ones THIS site needs and where each asset comes from. A brand site for a physical product gets real
    photographs (or a real 3D render) of that product; drawn illustrations alone are not enough.
+2b. **For a software product**, check whether the whole product is one interaction (a single tool, a chat, a
+   prompt box): if so, consider Manus's pattern (web-designer-references.md, "Manus: the product IS the
+   homepage") -- the real control as the entire first viewport, nothing else competing with it. Otherwise, build
+   the "core thing the product does" row as an OS-window demo card (Linear's pattern in the same file): a
+   title-barred card with real-looking fictional data, never lorem.
 3. **List the visitor's real questions** (3 to 5), in their words: "what does it taste like", "where can I get
    one", "is it for me". Every section answers one. Anything that answers nobody's question is cut, however well
    drawn (the operator rejected a farm-to-cup lecture with altitude, drying days and roast temperatures).

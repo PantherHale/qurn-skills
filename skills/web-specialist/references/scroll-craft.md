@@ -159,7 +159,8 @@ interactive elements, media), plus the Academy and Kopi:
 
 | Content kind | Presentation | Interaction | Seen on |
 |---|---|---|---|
-| The core thing the product does | A working mini-demo of it, at real size: the visitor does the action and sees the result | input, tabs, a reset | Inkling #1: type in the box, Enter, it files into Today |
+| The whole product is one interaction | Put that real control as the entire first viewport -- headline, the control, nothing else (no hero image, no feature grid above it) | the control itself | Manus (manus.im): "What can I do for you?" and the real prompt box are the whole homepage |
+| The core thing the product does (software) | An OS-window demo card: rounded corners, a thin border, a soft shadow, a title bar (name + icon, optionally traffic-light dots); real-looking fictional data inside (plausible IDs, names, timestamps), never lorem or generic labels; one demo per screen of dark negative space, several can overlap to show tools working together | input, tabs, a reset | Inkling #1 (type in the box, Enter, it files into Today); Linear (a ticket board, an agent chat mid-"Thinking...", stacked tool windows) |
 | Why the alternatives fail | A ruled 3-column table (category / examples / why it fails), text only, hairline rows, no cards | none | Inkling #2 |
 | How it works | Before -> action -> after: two real mocks joined by an arrow labelled with the action | none, or scrubbed | Inkling #3 (box -> "Enter" -> the day page) |
 | Depth of features | A diagram made of the real features (mind-map, flow), each node a real sentence | none | Inkling #4 |
