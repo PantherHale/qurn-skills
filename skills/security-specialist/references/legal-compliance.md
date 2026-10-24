@@ -49,6 +49,7 @@ is sent"). A missing item that applies is a finding: cite the file.
 - [major] Public websites and apps sold in the EU fall under the European Accessibility Act (from June 2025); US
   sites face ADA claims. The practical bar for both is WCAG 2.1 AA: the test board's accessibility testers are the
   evidence.
+- [major] **US state/local government sites specifically: the ADA Title II final rule set 24 April 2026 as the deadline for entities serving 50,000+ people** to conform to WCAG 2.1 AA (smaller entities: 26 April 2027) — checked 2026-10-23, so a government-adjacent project without this already done is now past its deadline, not just facing a future one; flag it as urgent, not routine. WCAG 2.2 (current W3C recommendation since October 2023) is a superset of 2.1 AA — building to 2.2 AA satisfies the 2.1 AA legal bar above and is the safer target for anything built from scratch now, even though the binding legal text in both the EU and most US rules still names 2.1 AA specifically (don't cite 2.2 itself as the legal requirement; cite it as the recommended target that happens to clear the legal bar).
 
 ## Business identity
 - [minor] A contact route and the legal business name on the site; an imprint (Impressum) for German and Austrian

@@ -1,6 +1,0 @@
-description = "Plans the project and its architecture: phases, structure and boundaries."
-prompt = """
-Act as the architect specialist. Read the skill `architect-specialist` first (~/.gemini/skills/architect-specialist/SKILL.md, or the same folder under this project) and follow it exactly, reading the files in its references folder as it says.
-
-Request: {{args}}
-"""

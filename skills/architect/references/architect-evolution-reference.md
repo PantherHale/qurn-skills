@@ -1,0 +1,46 @@
+# Architect: changing and running a system safely
+
+Checked 2026-10-08 against pages read that day: Fowler's bliki (Parallel Change), Stripe's API versioning post and idempotency docs, microservices.io (Transactional Outbox, Saga), the Azure Architecture Center (multitenant approaches), the Google SRE Workbook (Canarying Releases), the AWS Disaster Recovery whitepaper, and the "Latency Numbers" table (a 2012 snapshot). Use with `architect-reference.md` and `planner-playbook.md`: these are the pieces a plan needs under "phased tasks", "risks" and "release plan". Provider-specific services are left out on purpose; the principles are what transfer.
+
+## 1. Parallel change: never change a shared thing in one step
+Any change to something other code depends on (a database column, an API field, a function signature, an event schema) is three steps (Fowler): **expand** (support the old and the new side by side), **migrate** (move every consumer; the longest phase when consumers are external), **contract** (delete the old one). It decouples building the change from rolling it out, and it means code can be released in any of the three phases, which is what makes it work with continuous delivery.
+- Plan it as THREE tasks, each with its own done-when. A "contract" task is a real task: Fowler's warning is that skipping it leaves a worse codebase than before, with two versions forever.
+- Cost: during migrate the supplier supports two versions and clients can confuse old with new. Name the end date.
+- Plan check: a task that renames, removes or retypes a shared thing in one step is a finding.
+
+## 2. API versioning (Stripe's model)
+- Compatible: adding endpoints or fields. Incompatible: removing or altering a field. Stripe's own example: code testing `bank_account[:verified]` breaks when that field is replaced by `status`. (Inference: an additive field is only safe when clients ignore fields they do not know; say so in the contract.)
+- Stripe versions by date (for example `2017-05-24`), pins an account to the latest version at its first request, and lets a request override it with the `Stripe-Version` header. Each version holds a small set of changes so upgrades stay incremental.
+- Each incompatible change lives in a self-contained "version change module" that declares what it changes and transforms the data; modules apply in reverse chronological order to build a response for an older version. Old versions then cost a fixed amount to keep.
+- Their principles: keep upgrades lightweight, make versioning first-class in docs and tooling, keep old versions cheap through tight encapsulation. Their honest trade-off: "versioning is always a compromise between improving developer experience and the additional burden of maintaining old versions."
+- Plan rule: decide the versioning scheme and the deprecation window before the first external consumer exists, not after.
+
+## 3. Idempotency keys
+Anything a client may retry that moves money, sends a message or creates a record needs one. Stripe's exact behaviour: the client sends an `Idempotency-Key` header (a V4 UUID or another high-entropy string, up to 255 characters, never personal data); the server saves the status code and body of the FIRST request for that key, success or failure, and returns the same result to later requests, including a `500`. Keys may be pruned after at least 24 hours. Reusing a key with different parameters is an error. Results are saved only once execution has begun, so a request that fails validation, or conflicts with one still running, is not saved and can be retried. POST accepts keys; GET and DELETE are idempotent by definition and take none.
+
+## 4. Reliable messaging and distributed transactions
+- **Dual write problem:** updating a database and publishing a message cannot both be atomic without two-phase commit, so "sending a message in the middle of a transaction is not reliable." **Transactional outbox:** write the message to an outbox table in the same local transaction, and let a separate relay publish it, so it goes out if and only if the transaction commits. The relay can publish duplicates if it crashes, so consumers must be idempotent. Two relays: a polling publisher, or tailing the transaction log.
+- **Saga:** a sequence of local transactions where each step triggers the next, and a failure runs compensating transactions to undo earlier steps. Two coordination styles: **choreography** (services react to each other's events, decentralised) and **orchestration** (a central orchestrator tells each service what to run, more explicit). Costs: compensations are written by hand, and a saga has no ACID isolation, so concurrent sagas can produce anomalies that need deliberate countermeasures.
+- (Inference, label it in the plan.) These patterns exist because data is already split across services. A system on one database does not need either; the plan should say why the split exists before reaching for them.
+
+## 5. Multi-tenancy is a spectrum, decided early
+Azure's framing: at one end every resource is shared by all tenants, at the other each tenant gets isolated resources; one dedicated set per tenant "typically lacks cost efficiency and makes resource management difficult" beyond a few tenants. Every point in between trades scale, isolation, cost efficiency, performance, implementation complexity and manageability. **Deployment Stamps** give a tenant, or a group of tenants, dedicated infrastructure: single-tenant stamps need no multitenancy logic in the application, give the highest isolation and avoid the noisy-neighbour problem, but cost more and become hard to manage as tenants multiply; multitenant stamps share cost but need extra patterns and can still have noisy neighbours.
+- Plan rule: choose the tenancy model at the data-model step, since it changes every table and every authorisation check. Hand the isolation checks to the security specialist.
+
+## 6. Rollouts: canary, with a control and a stop rule
+Google SRE defines canarying as "a partial and time-limited deployment of a change in a service and its evaluation," the rest of the fleet being the control. A good canary is large and long enough to be representative, has enough traffic for a real sample, and covers a busy period because performance defects "typically manifest only under heavy load". Metrics must indicate problems (start from the SLIs), be attributable to the change and not to outside factors, and must NOT be a before-and-after comparison, because time is one of the biggest sources of change in any metric. The economics: 5% of traffic with a 20% failure rate is a 1% overall error rate instead of 20%. Caveat: poor isolation lets a bad canary hurt the control.
+- A release plan names the canary population, the metrics, the abort threshold and the rollback step. "Deploy and watch" is not a release plan.
+
+## 7. Disaster recovery: start from RPO and RTO
+Recovery point objective (how much data you can lose) and recovery time objective (how long you can be down) choose the strategy. In rising cost and complexity and falling recovery time (AWS): **backup and restore**, **pilot light** (data replicated, core infrastructure present but switched off), **warm standby** (a scaled-down, fully working copy that can take traffic at reduced capacity at once), **multi-site active/active**. Pilot light needs extra action before it can serve; warm standby only needs to scale up.
+- Backups only count if a restore has been tested; schedule a restore job. Continuous replication does not protect against corruption or malicious deletion; add versioning or point-in-time recovery.
+- Define infrastructure as code, or redeployment will blow the RTO.
+- Automatic failover should be used "with caution": a false alarm costs availability and data. Many teams automate every step but keep the trigger manual, so it is a push of a button.
+- Active/active needs a write strategy: **write global** (one region takes writes, another is promoted on failure), **write local** (nearest region, with conflict resolution; DynamoDB global tables use last writer wins) or **write partitioned** (a key such as user id fixes the region, avoiding conflicts).
+- A small project may need only backup and restore. Say which strategy and why in the plan.
+
+## 8. Back-of-envelope numbers (a 2012 snapshot: use the ratios, not the absolutes)
+L1 cache 0.5 ns; main memory 100 ns; read 4K randomly from SSD 150 µs; read 1 MB sequentially from memory 250 µs; round trip inside one datacenter 500 µs; read 1 MB from SSD 1 ms; disk seek 10 ms; read 1 MB from disk 20 ms; packet California to Netherlands and back 150 ms. Before choosing a design, write one estimate: requests per second, payload size, storage growth per year. The inputs come from the brief or are marked as assumptions; an invented traffic figure presented as fact is a finding.
+
+## Where to read more (name, do not paste)
+martinfowler.com/bliki/ParallelChange.html; stripe.com/blog/api-versioning and docs.stripe.com/api/idempotent_requests; microservices.io/patterns/data/transactional-outbox.html and /saga.html; the Azure Architecture Center "Architectural approaches for a multitenant solution"; sre.google/workbook/canarying-releases; the AWS whitepaper "Disaster Recovery of Workloads on AWS: Recovery in the Cloud".

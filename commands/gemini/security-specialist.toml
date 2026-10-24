@@ -1,6 +1,0 @@
-description = "Reviews account, subscription, privacy and auth security alongside the coder."
-prompt = """
-Act as the security specialist. Read the skill `security-specialist` first (~/.gemini/skills/security-specialist/SKILL.md, or the same folder under this project) and follow it exactly, reading the files in its references folder as it says.
-
-Request: {{args}}
-"""

@@ -1,7 +1,7 @@
 # Scroll craft -- how the scroll becomes part of the product
 
 Read this before building any scroll animation. The web designer's BUILD ORDERS name techniques from this file by
-their number (T1 to T12); build them the way they are written here. Written 2026-09-24 from three reference sites
+their number (T1 to T22); build them the way they are written here. Written 2026-09-24 from four reference sites (a fourth, Driftwood by Manus, added 2026-09-28)
 studied in a real browser (DOM, computed styles and scripts inspected, not guessed), after the operator rejected a
 site whose "scroll animation" was eight drawn slides of how coffee is farmed.
 
@@ -42,6 +42,42 @@ video carry the emotion; sketch-to-photo mask reveal; a one-line sign-up. REFUSE
 (`coffee/scene.gltf`) behind the hero, OrbitControls. Real coffee photographs in a full 3 x 2 menu grid (six items,
 no empty slot), warm espresso-brown and cream, tight section spacing, a fixed dark header. TAKE: a real 3D object
 of the product; photographs of the actual drinks; full grids. REFUSE: the boxed hero card and the generic font.
+
+**Driftwood candles (built by Manus 1.6 Lite, one hour, 2026-09-28; source and handoff guide read in full, the
+build watched frame by frame).** Stack: Vite + React + TypeScript + Tailwind; one hand-written stylesheet does the
+work, no animation library at all. The opening is the scroll story: `.hero` is 205 viewport-heights tall (230 on
+phones), one `position: sticky; height: 100svh` stage inside it. At scroll 0 the first screen is WORDLESS: no header,
+no title, no button, no scroll hint; only a full-bleed photograph of a lit candle standing in a meadow, with four
+transparent flower cut-outs planted along the bottom edge. As the visitor scrolls, one rAF-throttled passive listener
+turns scroll into a single number `progress` (0-1) and writes it, and a handful of derived values, into CSS custom
+properties on the hero; the stylesheet does everything else. The four stems slide outward (52px) and fall (68px) at
+their own depths, the backdrop drifts 12px, and copy arrives in STAGES: title, line and link fade in at 0.18, the
+wordmark and nav at 0.48, a hairline progress bar appears after 0.02. Hidden stages are `aria-hidden` and `inert`
+until shown. The candle never moves on its own; it stays part of the photograph. Below: three cards revealed once
+each by IntersectionObserver with a 70ms stagger and a 3-degree rotateX settle, a sage band, a dark sign-up band with
+one pill-shaped email field. TAKE: the wordless photographic opening, layered cut-outs, staged reveals, the single
+progress variable, one primary action, and above all the PROCESS (see "How Manus made it" below). REFUSE: what the
+operator found lacking in its result: the candle is a still photograph (no flame, no glow, no smoke), and after the
+hero there are almost no scroll effects (cards fade up once, nothing else). Fixing both is T15 and T16.
+
+**How Manus made it (read from the screen recording; this is the working method to copy).**
+1. It states a plan of three named steps with a counter ("Create original candle photography 1/3", "Build the
+   responsive one-page site 2/3", "Check desktop and mobile rendering 3/3") and works them in that order.
+2. It makes the pictures FIRST. Original images, generated with an image model, in one consistent warm editorial
+   light: three product shots, then, when asked for depth, a full garden scene photograph plus four SEPARATE
+   transparent cut-outs (daisy, cosmos, aster, buttercups), each trimmed of empty alpha padding for accurate scaling.
+   It asked for "matching, photographic alpha layers" and then a "more faithful transparent" second pass.
+3. It writes the page from a design decision stated in one sentence ("editorial, coastal apothecary: warm cream,
+   ink green, a rust accent, real candle still-life rather than generic stock imagery").
+4. It verifies in a real browser before it hands over: desktop and 375px phone, and reads
+   `document.documentElement.scrollWidth <= clientWidth`; the first check caught a real bug (asset paths not
+   resolving) and it fixed that before continuing. It scrubs the hero at about 50% and 90% of its travel.
+5. It takes feedback as small numbered changes and keeps ONE spectacle: when it added a second pinned scene, it later
+   removed it so the page had one main scroll moment, not two competing ones.
+6. It ends with a written handoff guide (`DRIFTWOOD_AGENT_GUIDE.md`) that another agent can extend without breaking
+   the design: product brief, file table, design decisions with the numbers, the scroll parameters, accessibility
+   and responsive rules, validation commands, and the list of things that are still sample content (T18).
+7. It answers "how much time more" honestly with a range and what it is doing now, and finishes with "Next steps".
 
 ## Resources a web designer has (take stock BEFORE designing)
 
@@ -151,6 +187,212 @@ each block's `onEnter` swaps or cross-fades the media. For "what you get" storie
 **T12. The close.** The motif lands: the line ends in the cup, the drop becomes the button, the object settles next
 to the one action. The page must END deliberately, not stop.
 
+**T13. The wordless opening (image first, copy in stages).** For a product that is photographed (a candle, a shoe,
+a plant, a room) the first screen is the photograph and nothing else. Build: `.hero { height: 205svh }` (230svh under
+700px), child `.hero-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden }`. One function reads
+`progress = clamp(-hero.getBoundingClientRect().top / (hero.offsetHeight - stage.offsetHeight), 0, 1)` inside a
+single `requestAnimationFrame` scheduled from a `passive` scroll listener (skip if a frame is already pending) and sets
+`--progress` plus derived CSS variables on the hero. Copy appears in stages by threshold, not all at once:
+`>= 0.18` title, one line and the one action; `>= 0.48` wordmark and navigation; `> 0.02` a 2px progress hairline.
+Each hidden stage has `visibility: hidden; opacity: 0; pointer-events: none; transition: ... visibility 0s linear
+<duration>` and gets `aria-hidden` and `inert` until visible, so an invisible link is never a keyboard stop. The
+title lives on a dark glass panel at bottom left (`backdrop-filter: blur(11px)`) so it reads over any photograph.
+Use it only when the photograph carries the product; for software use the product-is-the-homepage pattern instead.
+
+**T14. Layered cut-outs (real depth from photographs).** One full-bleed scene photograph plus 3 to 5 SEPARATE
+transparent PNG/WebP cut-outs of things that stand in front of it (stems, leaves, grass, steam, ribbon, fruit).
+Generate the scene and every cut-out in the same light and colour (one prompt prefix reused), then trim empty alpha
+padding so `width`/`height` are true. Stack with `z-index` by depth; give each layer its own travel: side layers
+slide 52px outward (22px on phones), all fall 68px (40px on phones), the backdrop drifts only 12px (5px on phones)
+and scales 1.08 so its edges never show, deeper layers get a larger `translateZ` and a softer drop shadow
+(`drop-shadow(0 12px 16px rgba(14,25,17,.27))`). The hero object itself belongs to the scene photograph: it must
+NEVER tilt or move by itself, or it looks pasted on. Clip the stage (`overflow: hidden`) so nothing scrolls sideways,
+and re-crop with `object-position` at 375px so the object stays centred. Give every layer `alt=""` and
+`aria-hidden`, and one `role="img"` label on the group.
+
+**T15. The living object (ambient motion that never stops, and reacts to scroll).** A photograph of a lit, running or
+steaming product must not be static. Add a small overlay on the exact spot (positioned in percent of the scene
+box so it survives any crop) whose life is CSS keyframes, and let the scroll change its intensity:
+- Flame: an SVG teardrop with a radial gradient (core `#fff6d8`, mid `#ffb347`, edge transparent), `transform-origin:
+  50% 100%`, animated by `flicker` keyframes at 2.4-3.6s, `ease-in-out`, infinite, with an irregular sequence of
+  `scale(1, .92-1.08)`, `skewX(-2deg..2deg)`, `translateX(-.5px..1px)` and opacity .88-1; a second copy at 60% size
+  offset by a negative `animation-delay` so the flame never looks like one looping clip. A `radial-gradient` halo with
+  `mix-blend-mode: screen` behind it "breathes" (`scale .96-1.06`, opacity .55-.8, 5s). Two to four small ember or
+  smoke wisps rise (`translateY(0 -> -90px)`, `opacity .5 -> 0`, `blur 0 -> 6px`, 6-9s, staggered delays).
+- Scroll link: `--progress` raises the halo (`opacity: calc(.55 + var(--progress) * .35)`) and warms the page light, so
+  scrolling literally turns the lights up; at the close the halo is at its strongest beside the sign-up.
+- Other products: steam over a cup, a slow lens flare across glass, dust in a beam, a kettle's shimmer, a screen's
+  cursor blink. One living detail, never a particle storm.
+- Every ambient loop stops under `prefers-reduced-motion` (leave the first frame) and pauses when off screen
+  (`IntersectionObserver` toggles `animation-play-state`). Animate only `transform` and `opacity`.
+
+**T16. Scroll beats after the hero (the page keeps moving, once each, in order).** A page with one opening effect and
+then static blocks feels unfinished. After the hero add four to six small beats, each tied to a real section and
+each measured, none of them a second pinned scene:
+- Card reveal: `IntersectionObserver` (`threshold: .14`, `rootMargin: 0 0 -6% 0`), `translate3d(0, 23px, 0)
+  rotateX(3deg)` to none over 650ms `cubic-bezier(.23, 1, .32, 1)`, stagger 70ms, once only.
+- Photo settle: the image inside a card scales `1.12 -> 1` while its frame is revealed (a mask/clip-path
+  `inset(8% 8% 8% 8%) -> inset(0)`), and on hover `scale(1.035)` over 500ms.
+- Heading write-on: split a heading into words, each word rises `0.6em -> 0` and fades in with a 45ms stagger when the
+  heading enters (T7 scrubs it; use this once-only version for short headings).
+- Scrubbed parallax on ONE image per section (10-14% travel) and a horizontal drift on a section's oversized ghost
+  word or ornament (about 8% of width across the section), never on body text.
+- Count-up for a real number (hours of light, hours burned, litres) from 0 over 1.2s when it enters, with tabular
+  figures so the layout does not jitter.
+- Light shift: the page background between sections eases between two tokens (`--paper` to `--evening`) as the story
+  moves toward the close, `background-color` on the section, not a fixed overlay.
+- Magnetic pill button: the primary action follows the pointer within 8px, scales `.97` on press, its arrow moves
+  `2px, -2px` on hover. Pointer devices only.
+- Close: the halo of T15 peaks, the form field lifts 6px into focus and the button pulses once when the section is 60%
+  visible. The page ENDS (T12).
+Rule: one main spectacle (the T13 opening) plus quiet beats. If two scenes compete, delete the weaker.
+
+**T17. Small interface details that make it feel built (the "little components").** Where a control, list or panel
+exists, give it these, they are what separates a template from a product:
+- Icon buttons 32-36px with a `title`/tooltip, `:active` scale `.97`, visible focus ring, and the same hit area on touch.
+- Status pills with a dot (a live dot pulses 1.6s; done is still), counters that animate when they change.
+- A live timer on any running task ("Working for 3m 18s") and a completed summary line ("Ran 102 commands, edited 8
+  files") that replaces it.
+- Stat tiles in a 2x2 grid (label, big number, a quiet pictogram behind) for usage or results.
+- Collapsible step rows: "Read 4 files · Ran 1 command · Edited 2 files ›", opening to the detail.
+- A file card (icon, name, type and size, open/download) for anything the work produced; a "next steps" list of two
+  or three concrete follow-ups as buttons; keyboard-shortcut chips (`kbd`) where a shortcut exists.
+- Empty, loading and error states each with the one next action, never a blank panel.
+
+**T18. The handoff guide (`docs/design/AGENT_GUIDE.md`, written last, updated with every change).** Manus wrote a
+guide so a later agent could extend the page without breaking it; every web build now ends with one. Sections, in
+this order: (1) product brief: what it is, who, the ONE primary action, what is deliberately absent; (2) file table:
+file and its single responsibility; (3) design decisions: palette, type pairing, style, and WHY in a clause each;
+(4) the opening and every scroll beat with their numbers (heights, thresholds, pixel travel, durations, easings);
+(5) motion, accessibility and responsive rules (breakpoints, reduced-motion behaviour, what is inert and when);
+(6) validation: the exact build/check commands and the manual checks (375px, 50% and 90% of the hero, reduced
+motion, `scrollWidth <= clientWidth`); (7) sample content still to replace before launch, named one by one. The guide
+states what is a decision and what is a placeholder; it never claims a feature that does not exist (Manus's guide is
+explicit that the sign-up form stores nothing).
+
+**T19. Ink-grade micro-choreography (Inkling's own numbers, read from its shipped CSS and script, 2026-09-28).**
+Inkling's polish is not one big effect; it is a small vocabulary applied everywhere, all on ONE easing. Copy the
+vocabulary and the numbers, with your own product's motif:
+- **One house easing** (`--ease-ink`, about `cubic-bezier(.22, .61, .36, 1)`) on every reveal, so the page feels
+  like one hand. A springier `cubic-bezier(.34, 1.56, .64, 1)` only for things that land (a drop, a button).
+- **`.arrive`**: `opacity 0 -> 1` and `translate: 0 .5rem -> 0` over `.76s`, `animation-fill-mode: forwards`,
+  staggered by a per-element `--d` (0.28s steps for a group such as a fan of cards). It plays when the element gets
+  `data-inview` from an `IntersectionObserver` (`threshold: .12`, once). The `.arrive` start state is the only thing
+  hidden before it plays, and a whole intro can sit at `animation-play-state: paused` until it finishes.
+- **Write-on text**: a heading is drawn by animating `mask-position` of a hard-edged gradient
+  (`mask-image: linear-gradient(110deg, #000 0 42%, #0000 58% 100%)`, `mask-size: 250% 100%`, from `100% 0` to
+  `0 0`, keyframes `write-on`, 1.5s for a short line). Handwriting lines use `clip-path: inset(0 100% -.3em 0)`
+  opening to `inset(0 -2% -.3em 0)` with a small blurred pen dot running the same length on `linear` timing.
+- **The landing drop** (`ink-land`): `0%` `translateY(-1.6em) scale(.82, 1.22)` and `opacity 0`; `55%`
+  `translateY(0) scale(1.08, .94)`; `100%` no transform. Squash and stretch make a dropped thing feel heavy. It
+  sends a ripple (`scale .2 -> 2.6`, `opacity .6 -> 0`) from the point of impact.
+- **Living idle**: the pen nib "breathes" (`scale 1 -> 1.045` at the 50% keyframe) and its halo pulses (`opacity
+  .72 -> 1`, `scale .96 -> 1.07`); use the same 2-3s ease-in-out loop for any object's idle life (T15 is the flame).
+- **Fragments arrive out of focus**: `opacity 0`, `blur(4px)`, `translate: 0 14px` to sharp and settled, staggered;
+  the same trick makes scattered notes, cards or specs assemble as they enter.
+- **The scrubbed line** (T4): `stroke-dasharray: 1; stroke-dashoffset: 1 -> 0` on a path with `pathLength="1"`,
+  measured from real anchors (`data-ink-head`, `data-ink-mark`, `data-ink-pool`), rebuilt on resize and fonts ready.
+- **Smooth scroll** with Lenis at its default `lerp: 0.1`; a full-viewport fixed background (`position: fixed;
+  inset: 0`, a WebGL wash with an SVG fallback) sits behind everything; `prefers-reduced-motion` and
+  `prefers-reduced-transparency` each have a plain fallback.
+Use this vocabulary on every section of any page that has a motif: the page then has a texture of tiny, consistent
+arrivals under the one big scroll device.
+
+**T20. The exploded product (electronics and anything assembled from parts).** The visitor scrolls and the device
+comes apart into its real layers, every part labelled with one true fact, then goes back together at the buy button.
+It is the product doing its job on screen, so for a phone, earbuds, laptop, keyboard, watch, router, camera or
+headphones it is the DEFAULT scroll story unless the brief says otherwise. Pick the tier by what you can obtain:
+1. **Layered plates (no model needed, works everywhere, cheapest).** 5 to 8 stacked inline SVG or PNG plates in real
+   order and real proportions (phone: glass, display, frame, battery, main board, camera module, back panel; earbud:
+   grille, driver, battery, board, shell). Stage: `perspective: 1600px`; the stack `transform-style: preserve-3d;
+   transform: rotateX(58deg) rotateZ(-36deg)`. Each plate `transform: translateZ(calc(var(--i) * var(--gap)))`, and
+   the scroll sets `--gap` from `0px` to `70px` (56px under 700px wide). Each plate casts a soft shadow onto the one
+   below whose blur and offset grow with the gap; rim-light the edges with a 1px lighter border.
+2. **Image sequence (best looks, Apple's method).** Render 120 to 150 frames from a real model in Blender (Cycles,
+   1600x900, WebP 60-90 KB each, plus a half-size set for phones). One `<canvas>` inside a sticky stage (`section {
+   height: 400vh }`, stage `position: sticky; top: 0; height: 100svh`). `frame = Math.min(n - 1, Math.floor(progress *
+   n))`; preload every frame into `Image` objects (the first 20 first, the rest in idle time), never set `img.src`
+   inside the scroll handler, and redraw only when the frame index changes.
+3. **Real 3D (react-three-fiber, when a glTF exists or the device is simple enough to build).** Load a glTF with
+   each part a separate mesh whose origin is its own centre of mass (fix this in Blender before export, or the offsets
+   are wrong). Explosion: `dir = part.position.clone().sub(centre).normalize()`, then `target = position + dir *
+   distance(part, centre) * factor`, `factor` about 0.8; bias the direction 70% along the device's depth axis and 30%
+   radial so it reads as layers, not shrapnel. Drive it from scroll progress (`scrub: 1.5` in GSAP, or `lerp =
+   min(dt * 6, 1)` per frame), stagger each part by layer order (0.06 of the timeline apart), a 35 degree perspective
+   camera at `[0, 0, 3.2]`, an HDRI plus low ambient light (0.4), and orbit the camera 20-25 degrees across the
+   explosion. Budget: Draco-compressed glTF under 2.5 MB, compressed textures, one canvas.
+The choreography, whichever tier (progress p of a 400vh sticky stage):
+- `0 - 0.12` the closed product at rest, alive (T15); the headline names it.
+- `0.12 - 0.55` the parts peel apart in assembly order, outer layer first, each starting 0.06 after the last; the
+  camera drifts and slowly turns; the shadows deepen.
+- `0.55 - 0.85` hold. One part at a time is called out: it stays bright, the others dim to `opacity .35`; an SVG
+  leader line draws to it (T4 dashoffset) and a label gives the part's real name and one true fact ("4,800 mAh
+  cell", "8-core chip", "hot-swappable switch"). Text on one side, sticky product on the other (T11).
+- `0.85 - 1` the parts snap back together in reverse order, the product closes, and the price and the one action
+  arrive beside it (T12).
+Rules: the facts come from the brief or the maker's spec sheet, never invented; part names are real; under 700px the
+labels move under the stage and there are at most 6 parts; under `prefers-reduced-motion` show ONE static exploded
+figure with all labels; keyboard users can step through parts with a "Next part" button (`aria-live` announces it).
+Refuse: a generic gradient blob standing in for a chip; parts flying in random directions; labels with no fact; an
+explosion that never closes again. Sources studied 2026-09-28: the CSS-Tricks Apple canvas sequence, Adam Naili's
+R3F exploded view, Luchocrat's explode-scroll demo (300vh sticky, glb with 7 CAD parts), the Codrops explosion.
+
+**T21. Decide the scroll story yourself (the visitor never has to ask).** Do not wait for a brief to say "add scroll
+animation". Every marketing or product page gets, by default: an opening device, one signature motif, quiet beats
+(T16 and the T19 vocabulary), and a deliberate close (T12). Choose the opening device from the product with this
+router; say the choice and the reason in one line in CONCEPT, and skip it only when the brief forbids motion:
+
+| The product is | Default device |
+|---|---|
+| electronics, hardware, anything with parts | T20 exploded product |
+| a photographed object (candle, shoe, plant, food, room) | T13 + T14 + T15 |
+| something poured, brewed, written, drawn | T4 line or T6 real 3D pour/turn |
+| software, an app, a tool | the real interface as the hero + T4 thread + T11 sticky screens |
+| a service, a place, a clinic, a studio | T5 mask reveal (sketch to photograph) + T11 |
+| apparel, bags, things worn | T8 turnaround image sequence |
+| a range of items | T9 horizontal track, or T16 card beats |
+| a story, an idea, a report | T7 write-on text + T4 line |
+
+A page with none of these moving is unfinished, not minimal. The exception is a page the operator wants still (a
+legal page, a form, a dense docs page): it gets only the T19 arrivals.
+
+**T22. The smoothness budget (every effect above must fit inside it; a laggy page has failed, however pretty).**
+Target: 60 fps on a mid-range laptop and a mid-range phone, which means under 16 ms per frame. The board scrolls the
+whole page at a 4x CPU slowdown and counts slow frames, and it measures the items below. Build to these rules from the
+first line, not as a fix at the end:
+1. **Animate only `transform` and `opacity`.** Never animate `width`, `height`, `top`, `left`, `margin`, `padding`,
+   `font-size`, `box-shadow`, `filter` or `backdrop-filter` (each forces layout or a repaint every frame). Fake a
+   growing shadow with an extra element whose `opacity` changes; fake a size change with `scale`. `clip-path` and
+   `mask-position` are acceptable on one or two elements at a time (T19 write-on), never on a grid.
+2. **One scroll listener, passive, one rAF.** `addEventListener('scroll', fn, { passive: true })`; `fn` only records
+   `scrollY` and schedules one `requestAnimationFrame`; all reads (`getBoundingClientRect`, `offsetHeight`) happen
+   first in that frame and all writes after, never interleaved (no layout thrash). Cache measurements and refresh them
+   on `ResizeObserver`, not on every scroll. Write progress into CSS variables and let CSS do the rest (T13).
+   Never call `setState` per scroll or animation frame.
+3. **Use `IntersectionObserver` for reveals** (once, then `unobserve`), never a scroll handler measuring every card.
+4. **Pause what is off screen.** Ambient loops (T15), video, canvases and WebGL loops stop when their box leaves the
+   viewport (`IntersectionObserver` toggles `animation-play-state`, `video.pause()`, or stops the render loop).
+   Render WebGL on demand when nothing moves (`frameloop="demand"` in react-three-fiber).
+5. **Budget the expensive things, and count them.** At most 2 elements with `backdrop-filter` in view at once (one
+   glass panel, not a wall of them; use a plain translucent fill elsewhere); at most 12 elements with `will-change`,
+   added just before an animation and removed after (never on everything); at most 1 canvas; at most 5 layers of
+   stacked full-screen images; blurred shadows only on the few hero layers; a page under about 1500 DOM nodes.
+6. **Images and frames are the biggest cost.** WebP/AVIF, sized for the display (never a 4000px image in a 400px box),
+   `width`/`height` set, `loading="lazy"` below the fold, `fetchpriority="high"` on exactly one hero image, `decoding=
+   "async"`. Hero scene at most 1920 wide and 250 KB; cut-outs at most 900 wide and 120 KB; the whole first screen
+   under 1.2 MB. Image sequences (T8, T20): 60-90 KB frames, a half-size set for phones, first 20 frames first, the rest
+   in `requestIdleCallback`, never more than 150 frames, and draw only when the frame index changes.
+7. **3D on a budget.** Draco-compressed glTF under 2.5 MB, textures under 2048px, `dpr` capped at `[1, 1.5]`, no
+   real-time shadows on phones, antialias off on phones, a static poster while the model loads, and no WebGL at all
+   under `prefers-reduced-motion` or `saveData` (show the poster).
+8. **Fonts and scripts stay small.** At most 2 font families, `font-display: swap`, subset; no scroll library the page
+   does not use; `gsap` and `three` loaded only on the pages that need them (dynamic `import()`), never on every route.
+9. **Smooth-scroll libraries are optional cost.** Lenis is off under reduced motion and on touch devices (`syncTouch:
+   false`, the default), and it shares GSAP's ticker so there is one animation loop, not two.
+10. **Measure, then cut.** After each scroll effect, run the board (`scroll-smoothness`, `perf-budget`) or a Chrome
+    Performance trace at 4x CPU; if more than 8% of frames pass 50 ms, remove the most expensive effect first (blurs,
+    then shadows, then extra layers), never the content. Keep the effect and drop its cost when you can.
+
 ## How each thing is presented (the presentation method)
 
 A professional does not put every section in the same container. They ask what KIND of content it is, and each kind
@@ -218,4 +460,18 @@ Composition rules taken from the same pages:
 2. Reduced motion: every section's content is visible and in order, nothing pinned, no smooth-scroll.
 3. 390px: the stage fits, text never sits on the object, nothing scrolls sideways.
 4. The whole page is at most about 10 screen-heights at 1440px.
-5. The first screen names the product and shows the one action within 5 seconds.
+5. The first screen names the product and shows the one action within 5 seconds. (Exception: a T13 wordless opening,
+   whose copy and action must be present and reachable by scroll progress 0.18 and by keyboard once shown.)
+6. T13/T14 heroes: at progress 0 the viewport has no text; at 0.5 and 0.9 the layers have moved by different amounts;
+   the hero object has not moved relative to its scene; all hero images return 200; at 320, 375 and 768px
+   `document.documentElement.scrollWidth <= clientWidth`.
+7. T15: an element with a CSS animation is running on the object (computed `animation-name` not `none`), and its halo
+   opacity differs between scroll 0 and scroll 1; under reduced motion no animation runs.
+8. T16: after the hero, at least four separate beats fire (measure by scrolling in ten steps and counting elements
+   whose transform, opacity or clip changed); no second pinned scene exists.
+9. T18: `docs/design/AGENT_GUIDE.md` exists with all seven sections and lists the sample content by name.
+10. T20: at progress 0 the parts overlap (bounding boxes within about 2%); at 0.6 at least five separate parts sit at
+    least 40px apart and each has a label with a real fact; at 1 they close again; under reduced motion one static
+    exploded figure carries every label.
+11. T21: CONCEPT names the opening device from the router and why; a page with no scroll motion at all is a finding.
+12. T22: the board's `scroll-smoothness` (under 8% of frames over 50 ms at 4x CPU) and `perf-budget` (only transform and opacity animate, at most 3 backdrop-filter elements, images under 2 MB before the first beat and 3.5 MB after a full scroll, one canvas) both pass.

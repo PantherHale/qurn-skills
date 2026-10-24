@@ -23,6 +23,25 @@ Paths were checked against each agent's documentation on 2026-09-23; check yours
 ./install.ps1 -Agent codex -Project
 ```
 
+## Tools that use rule files, subagents or MCP instead of skills
+
+Checked against each tool's own documentation on 2026-10-08. Every rule file is a short pointer, because the tools
+cap or advise on size (Windsurf 12,000 characters per rule file, Cursor under 500 lines, Copilot under two pages). The
+long knowledge stays in `./.agents/skills/<name>/`, which the pointer tells the agent to read, so these installs put
+the skills there too.
+
+| Tool | Install | What it adds |
+|---|---|---|
+| Claude Code subagents | `./install.sh claude-agents` | `.claude/agents/<name>.md`: a read-only subagent (`tools: Read, Grep, Glob`) per specialist that preloads its skill. Claude delegates by description, or you write `@agent-web-specialist`. |
+| Cursor | `./install.sh cursor --project` | `.cursor/rules/<name>.mdc`, "Apply Intelligently": Cursor reads the description and pulls the rule in when it fits. |
+| Windsurf | `./install.sh windsurf --project` | `.windsurf/rules/<name>.md` with `trigger: model_decision`. |
+| GitHub Copilot | `./install.sh copilot --project` | `.github/instructions/web-specialist.instructions.md`, applied to web files by `applyTo`. The other five are reached through `AGENTS.md`, which Copilot reads. |
+| Cline | `./install.sh cline --project` | `.clinerules/web-specialist.md`, applied to web files by `paths`. Cline also reads `AGENTS.md`. |
+| Aider | see `adapters/aider/aider.conf.yml.example` | `read: AGENTS.md` in `.aider.conf.yml`: Aider loads it read-only, and cached when prompt caching is on. |
+| **Any MCP client** | `./install.sh mcp` prints the commands | One server (`mcp/server.mjs`, no dependencies) with the six specialists as prompts, resources and tools. See `mcp/README.md`. |
+
+Windows: use `./install.ps1 -Agent <name> [-Project]`; the names are the same.
+
 ## Agents and models with no skill support
 
 - **Ollama, DeepSeek, Hermes or any chat model:** paste `flatten/<name>.prompt.md` as the system prompt. Each file is
@@ -34,4 +53,5 @@ Paths were checked against each agent's documentation on 2026-09-23; check yours
 
 Ask for it by name: "consult the security-specialist before we launch", "have the test-board-specialist decide if
 this is done". Each one reads the project and answers with `VERDICT: pass`, `fix` or `redo`, then its blockers and
-advice. They advise; your agent does the work.
+advice. They advise; your agent does the work. The web specialist is the one that directs: its reply is numbered
+build orders for your agent to carry out.

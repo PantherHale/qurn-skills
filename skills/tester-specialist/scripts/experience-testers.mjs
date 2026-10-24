@@ -244,4 +244,86 @@ export async function experienceTesters({ browser, open, tester, opt }) {
     if (phrases.length) add('minor', 'generated-sounding phrases: ' + phrases.slice(0, 4).join(', '), 'rewrite in the plain words a real shop would print')
     await s.context.close()
   })
+
+  // 25. LIVING OBJECT (T15): a photographed product that is lit or steaming must not be a dead picture.
+  await tester('living-object', 'Visitor who expects the candle to be lit', '1440x900, first screen, running CSS animations and their reaction to scroll', async (add) => {
+    const s = await open(browser, { viewport: { width: 1440, height: 900 } })
+    await s.page.waitForTimeout(600)
+    const at0 = await s.page.evaluate(`(() => {
+      const found = []
+      for (const el of document.querySelectorAll('body *')) {
+        const cs = getComputedStyle(el); const r = el.getBoundingClientRect()
+        if (cs.animationName !== 'none' && cs.animationIterationCount === 'infinite' && r.bottom > 0 && r.top < innerHeight && r.width > 6 && r.height > 6) found.push(el)
+      }
+      return { running: found.length, halo: found.some((e) => /screen|plus-lighter|overlay/.test(getComputedStyle(e).mixBlendMode)) }
+    })()`)
+    const big = await s.page.evaluate(`[...document.images].some((i) => { const r = i.getBoundingClientRect(); return r.width > innerWidth * 0.6 && r.height > innerHeight * 0.6 })`)
+    if (big && at0.running === 0) add('major', 'a full-screen photograph fills the first screen and nothing on it is alive (no running CSS animation: flame, steam, glow, shimmer)', 'add the living detail from docs/design/SCROLL_CRAFT.md T15: an SVG or CSS overlay positioned in percent over the lit or steaming spot, infinite keyframes on transform and opacity only, and a halo that brightens with scroll')
+    else if (big && !at0.halo) add('minor', 'the first-screen animation has no glow/halo layer that can react to scroll', 'add a screen-blended halo whose opacity is tied to the scroll progress variable (T15)')
+    await s.context.close()
+  })
+
+  // 26. SCROLL BEATS (T16): the page keeps moving after the opening, in several separate places.
+  await tester('scroll-beats', 'Visitor who scrolls past the opening', '1440x900, ten positions, how many separate elements change after the first screen', async (add) => {
+    const s = await open(browser, { viewport: { width: 1440, height: 900 } })
+    const height = await s.page.evaluate('document.documentElement.scrollHeight')
+    if (height < 1800) { await s.context.close(); return }
+    const changed = new Set()
+    let prev = null
+    for (let i = 0; i <= 10; i++) {
+      await scrollTo(s.page, Math.round((height - 900) * i / 10))
+      const probe = await s.page.evaluate(MOTION_PROBE)
+      if (prev) for (const [k, v] of Object.entries(probe)) if (prev[k] !== undefined && prev[k] !== v) changed.add(k)
+      prev = probe
+    }
+    const pinned = await s.page.evaluate(`[...document.querySelectorAll('body *')].filter((e) => getComputedStyle(e).position === 'sticky' && e.getBoundingClientRect().height > innerHeight * 0.8).length`)
+    if (changed.size < 4) add('minor', `only ${changed.size} element(s) change across the scroll after the first screen; the page goes still once the opening ends`, 'add the quiet beats from docs/design/SCROLL_CRAFT.md T16 (card reveal, photo settle, heading write-on, one parallax image, count-up, light shift) to at least four sections')
+    if (pinned > 2) add('minor', `${pinned} full-screen pinned stages: two big scenes compete`, 'keep one main spectacle and turn the others into quiet beats (T16)')
+    await s.context.close()
+  })
+
+  // 27. HERO LAYERS AND OVERFLOW (T13/T14): layered art must not push the page sideways at phone widths.
+  await tester('hero-layers', 'Visitor on a phone and a small laptop', '320, 375 and 768px: sideways overflow and hero image loading', async (add) => {
+    for (const width of [320, 375, 768]) {
+      const s = await open(browser, { viewport: { width, height: 740 } })
+      await s.page.waitForTimeout(500)
+      const m = await s.page.evaluate(`({ over: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        broken: [...document.images].filter((i) => i.getBoundingClientRect().top < innerHeight && i.complete && i.naturalWidth === 0).length })`)
+      if (m.over > 1) add('major', `the page scrolls sideways at ${width}px (${m.over}px too wide)`, 'clip the pinned stage with overflow: hidden and reduce the cut-out travel on phones (T14: 22px sideways, 40px down)')
+      if (m.broken > 0) add('major', `${m.broken} first-screen image(s) failed to load at ${width}px`, 'fix the asset paths; the opening is the picture')
+      await s.context.close()
+    }
+  })
+
+  // 28. PERFORMANCE BUDGET (T22): the costs that make a scroll story lag, counted in a real browser.
+  await tester('perf-budget', 'Visitor on a mid-range laptop or phone', '1440x900, page load then a full scroll: animated properties, glass layers, images, canvases, DOM size', async (add) => {
+    const s = await open(browser, { viewport: { width: 1440, height: 900 } })
+    const height = await s.page.evaluate('document.documentElement.scrollHeight')
+    for (let y = 0; y < height; y += 700) await scrollTo(s.page, y)
+    await scrollTo(s.page, 0)
+    const m = await s.page.evaluate(`(() => {
+      const cheap = new Set(['transform', 'opacity', 'offset', 'easing', 'composite', 'computedOffset', 'translate', 'scale', 'rotate', 'clipPath', 'maskPosition', 'webkitMaskPosition', 'strokeDashoffset', 'visibility'])
+      const costly = new Set()
+      for (const a of document.getAnimations()) {
+        let frames = []
+        try { frames = a.effect && a.effect.getKeyframes ? a.effect.getKeyframes() : [] } catch (e) { frames = [] }
+        for (const f of frames) for (const k of Object.keys(f)) if (!cheap.has(k)) costly.add(k)
+      }
+      const all = [...document.querySelectorAll('body *')]
+      const glass = all.filter((e) => { const cs = getComputedStyle(e); const b = cs.backdropFilter || cs.webkitBackdropFilter; return b && b !== 'none' }).length
+      const willChange = all.filter((e) => { const w = getComputedStyle(e).willChange; return w && w !== 'auto' }).length
+      const oversize = [...document.images].filter((i) => { const r = i.getBoundingClientRect(); return i.naturalWidth > 1 && r.width > 0 && i.naturalWidth > Math.max(2000, r.width * 3) }).length
+      const bytes = performance.getEntriesByType('resource').filter((r) => r.initiatorType === 'img' || /\\.(png|jpe?g|webp|avif|gif)(\\?|$)/i.test(r.name)).reduce((n, r) => n + (r.transferSize || r.encodedBodySize || 0), 0)
+      return { costly: [...costly].slice(0, 6), glass, willChange, oversize, bytes, canvases: document.querySelectorAll('canvas').length, nodes: all.length }
+    })()`)
+    if (m.costly.length) add('major', `animations run on properties that repaint or re-layout every frame: ${m.costly.join(', ')}`, 'animate only transform and opacity (T22 rule 1); fake shadows, sizes and blurs with extra layers, scale and opacity')
+    if (m.glass > 3) add('minor', `${m.glass} elements use backdrop-filter (each blurs everything behind it every frame)`, 'keep one or two glass panels; use a translucent fill elsewhere (T22 rule 5)')
+    if (m.willChange > 12) add('minor', `${m.willChange} elements carry will-change (memory and compositing cost)`, 'set will-change just before an animation and remove it after; keep it under about 12')
+    if (m.oversize > 0) add('minor', `${m.oversize} image(s) are far larger than their box`, 'export at the display size (hero 1920 wide, cut-outs 900 wide) as WebP (T22 rule 6)')
+    if (m.bytes > 3_500_000) add('major', `${(m.bytes / 1e6).toFixed(1)} MB of images loaded by a full scroll`, 'compress to WebP/AVIF, lazy-load below the fold, and cut image sequences to 60-90 KB frames (T22 rule 6)')
+    else if (m.bytes > 2_000_000) add('minor', `${(m.bytes / 1e6).toFixed(1)} MB of images loaded`, 'aim for under 2 MB before the first scroll beat')
+    if (m.canvases > 1) add('minor', `${m.canvases} canvases render at once`, 'use one canvas and pause it off screen (T22 rules 4 and 5)')
+    if (m.nodes > 2500) add('minor', `${m.nodes} DOM elements`, 'virtualise long lists and drop wrapper elements; aim under about 1500')
+    await s.context.close()
+  })
 }
