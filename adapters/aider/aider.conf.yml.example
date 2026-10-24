@@ -1,0 +1,3 @@
+# Copy these lines into .aider.conf.yml. Aider loads the file read-only, and cached when prompt caching is on.
+read:
+  - AGENTS.md

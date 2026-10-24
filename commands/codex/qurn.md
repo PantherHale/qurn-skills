@@ -1,0 +1,8 @@
+---
+description: "The team lead: picks which specialist adviser(s) a request needs, consults each in turn, does the building or fixing their advice or build orders call for, and reports one rolled-up verdict. Use for a request that spans more than one specialist's field, or when unsure which single specialist fits. Do not use when the request is clearly one specialist's job alone."
+argument-hint: "[start|middle|end] <request>"
+---
+
+Read the skill `qurn` first (~/.agents/skills/qurn/SKILL.md, or the same folder under this project) and follow it exactly, consulting each specialist skill it points you to in turn.
+
+Request: $ARGUMENTS

@@ -23,7 +23,7 @@ and the board checks each order's CHECK at the end. Vague advice produces nothin
    drawn (the operator rejected a farm-to-cup lecture with altitude, drying days and roast temperatures).
 4. **Pick the signature motif**: ONE object or gesture from the product's own world that the scroll moves
    continuously (a pour, a drop, a stroke, a lid opening, the object turning). Name the technique numbers from
-   references/scroll-craft.md (T1-T12) that realise it. The scroll animation is the product in motion, never a slideshow of
+   references/scroll-craft.md (T1-T22) that realise it. The scroll animation is the product in motion, never a slideshow of
    chapters and never numbered steps.
 5. **Plan the sections** top to bottom (at most 7 on a marketing page): what is on screen, what moves, the ONE
    line of copy, which question it answers, how tall it is. Choose each section's presentation from the content
@@ -71,17 +71,63 @@ Worked examples (reasoning to learn from, not answers to reuse):
   rides across section edges; an exploded bike reassembles as you reach "book a fitting"; a route line that is the
   page's thread; a chooser by ride type (commute, gravel, road). Applause: the exploded bike snaps together, frame
   first, as the booking form arrives.
-- **Candle maker.** Material: wax, flame, smoke; moment: evening. Candidates: the page starts at dusk and the flame
-  warms the page's light as you scroll (a scrubbed colour temperature); wax pooling into the product grid; a scent
-  chooser. Applause: the match strikes at the close and the whole page turns warm.
+- **Candle maker.** Material: wax, flame, smoke; moment: evening. Candidates: dusk that warms as you scroll; wax
+  pooling into the grid; a scent chooser. Applause: the match strikes at the close and the page turns warm.
 - **Note or task app (software).** The interface is the hero: a working demo in the first screen, the real UI at real
   size, each section a real screen doing one job; the thread is the user's own note travelling from capture to where
   it lands. Applause: the visitor types a note and watches it file itself.
-- **Dental clinic.** Moment: nervous before an appointment; change: calm, a clear price. Candidates: a calm light sweep
-  and a treatment chooser with real prices; the clinic photographed as a place (T5). No before-and-after claims unless
-  the owner supplies real, consented photos. Applause: choosing a treatment shows the price, the time and the next free slot.
-- **Accounting SaaS.** Material: receipts, numbers; change: chaos to reconciled. Candidates: receipts fall in and sort
-  themselves into columns as you scroll (T2); a live reconcile demo; the thread is one transaction's path.
+
+## Decide the scroll story yourself (T21)
+
+Never wait to be told "add scroll animation". Every marketing or product page gets an opening device, one motif, quiet
+beats and a close. Route by product (SCROLL_CRAFT T21): electronics or anything with parts -> T20 exploded view;
+photographed objects -> T13-T15; software -> the real interface plus T4; a written or drawn thing -> T4/T7. Put the
+Inkling vocabulary of small arrivals (T19) under everything. Name the choice and why in CONCEPT. A page with nothing
+moving is unfinished.
+
+## Photographed products: the wordless opening (Driftwood study, 2026-09-28)
+
+For a physical product that photographs well, open with the picture, no headline: T13 (pinned, wordless first screen,
+copy at progress 0.18, nav at 0.48) over T14 (scene photo plus 3-5 transparent cut-outs at different depths), T15 (a
+living detail: flame, steam, shimmer; the halo brightens with scroll), then T16 (four to six quiet beats after the
+hero). One main spectacle. Build order: pictures first, then the page, then a measured check at desktop and 375px,
+then `docs/design/AGENT_GUIDE.md` (T18), always your last order; a guide that claims a feature the code lacks is MAJOR.
+
+## The product is the content, not a chart or a lecture (operator, 2026-10-06)
+
+A build that gave a coffee brand a graph, a simple fade-in and no picture of the coffee failed the operator's
+actual ask, even though it followed every citation in this file. Read `commercial-product-presentation-reference.md`
+before CONCEPT: it is measured, today, from bk.com, the Whopper TV ad, and the live Coca-Cola/Jupiter scroll
+concepts, and it names the exact mechanism those builds use (product pinned at hero scale, one property driven
+continuously by scroll fraction, headline type at the SAME depth as the product -- genuinely behind it or masked
+by it, never boxed above or beside it) plus the real word-count ceilings (135 words for a whole homepage, one
+sentence per section, 1-4 word headings). A bar chart, line graph, statistic grid, or multi-paragraph process
+explanation on a consumer product's hero or first scroll act is the specific failure mode -- it has no match in
+any real or strong concept example in that file. If the brief truly needs production data or a journey, it goes
+on its own page, never in the opening act.
+
+## No real photography available: build the centerpiece live, never fall back to flat cards
+
+ORDER OF PREFERENCE (2026-10-08, web-craft-doctrine-reference.md section 7): (1) a generated image or video when a tool exists, (2) a verified real photograph (Openverse CC0; the 2026-10-08 coffee demo got a real latte photo this way and it beat every vector version), (3) the live render below, (4) a labelled placeholder. A flat vector drawing standing in for the product is never acceptable. This section applies only when steps 1 and 2 truly fail.
+
+Operator, 2026-10-06: a build that could not fetch real photos (no internet in the build environment, Openverse/Poly
+Haven unreachable, licence unclear) defaulted to a text-and-card grid with no living element, and it read as
+templated and lifeless even though every copy rule and law-of-UX citation was followed. Citing the right research is
+not the same as having a signature visual. When no real photograph or video can be sourced, the motif is still
+mandatory -- it is simply rendered instead of photographed:
+
+- Build the product (or its gesture) as a live scene in three.js or a 2D canvas: real geometry (a lathe profile for a
+  vessel, primitives for a tool), real materials (roughness/metalness, not a flat fill), at least two lights, and the
+  one gesture from the CONCEPT METHOD acted out by the scene itself (coffee rising and crema forming as the visitor
+  scrolls, not a static render).
+- Drive it from scroll like T13-T15: pin the canvas, tie rotation/fill/camera to the scroll fraction of its own
+  wrapper (one passive scroll listener or one rAF loop, paused via IntersectionObserver when the canvas is off
+  screen), and respect `prefers-reduced-motion` with a static final pose instead of removing the scene.
+- This live render is a first-class substitute for T14's photograph, not a downgrade from it -- use it with the same
+  confidence, and still write its T15 living detail (steam, shimmer, a liquid surface) and T16 quiet beats.
+- A build that has no real photo AND no live rendered scene -- cards, text and icons only -- fails the signature-motif
+  requirement outright. The test-board's style-fidelity check treats a page with zero living or moving centerpiece as
+  a blocking finding requiring redo, same as a missing BUILD ORDER.
 
 ## Rules that are never negotiable (the board measures them)
 
@@ -95,6 +141,8 @@ Worked examples (reasoning to learn from, not answers to reuse):
 - Production data (altitude, drying days, batch sizes, temperatures, process steps) only when the brief asks.
 - Real scroll motion: an element's transform changes continuously with scroll inside a pinned or sticky stage.
 - Reduced motion, 390px and no-WebGL all work (poster, stacked content, no pin).
+- Four or more scroll beats after the hero (T16); a lit or steaming object is alive (T15).
+- No lag (T22): only transform and opacity animate, one passive scroll listener, images sized and compressed, off-screen loops paused; the board measures it.
 - Everything from the project's tokens; no browser-default controls; no horizontal scroll.
 
 ## Reply format at the START checkpoint (keep the whole reply under 1300 words)
@@ -108,6 +156,7 @@ RESOURCES
 VISITOR QUESTIONS
 - <question> -> <section that answers it>
 CONCEPT
+- mode: <Persuade|Operate|Read|Experience>; colour strategy: <Restrained|Committed|Full palette|Drenched> and why; the rut (what this category always ships) and that you left it
 - candidates: <5 one-line candidates with scores R/C/P/D/B>
 - chosen motif: <what moves> via <T-numbers>; journey: <how it travels>; landing: <how it ends at the action>
 - applause moment: <one sentence, trigger and numbers>
@@ -141,6 +190,26 @@ a soft rounded sans) and name WHY in one clause. Do not use Fraunces, Playfair, 
 Space Grotesk or DM Sans unless the brief pins it. A cream ground with one warm accent is the category default for
 food, plants and lifestyle: choose a saturated field (a committed colour covering 30-60% of the page) when the brief
 allows.
+
+## Verify visually before claiming a CSS fix worked (operator, 2026-10-18)
+
+A fix described from reading the CSS alone ("this is proven elsewhere in the file, so it's low-risk") was not good
+enough for the operator — they explicitly pushed back and asked for a real screenshot. Rules:
+- Any visual bug report ("this looks cutout", "this looks AI slop") gets a live screenshot taken BEFORE describing
+  the fix and AFTER applying it, not a confidence claim based on re-reading the stylesheet.
+- If the devtools browser tool reports "already running for `<profile>`", that is almost always THIS SAME TOOL's own
+  orphaned instance from earlier in the session (automation flags in the command line, e.g.
+  `--enable-automation --remote-debugging-pipe`, confirm with `Get-CimInstance Win32_Process` filtered on the
+  profile path) — not another project's process. Kill that PID, delete the profile's `lockfile`/`SingletonLock`,
+  and retry; do not give up on screenshots and fall back to describing code.
+- A full-page screenshot can show false "blank gaps" where a scroll-pinned/ScrollTrigger section hasn't fired yet —
+  always re-check a reported blank section by scrolling the live viewport to that scroll position before treating it
+  as a bug.
+- When the operator says "the problem is not X, it's Y," drop the X theory immediately and re-screenshot the actual
+  element Y names — don't keep defending the original diagnosis.
+- After any filter/overlay tuning pass, screenshot BOTH the extreme you were fixing and the opposite extreme in the
+  same set (darkest and brightest image, tightest and loosest layout) — a fix tuned on one case silently broke the
+  other case twice in this session before that habit was added.
 
 ## No explanations (operator, 2026-09-25)
 

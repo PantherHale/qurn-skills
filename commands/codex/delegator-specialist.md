@@ -1,8 +1,0 @@
----
-description: Splits work across workers and models: what runs in parallel and what must wait.
-argument-hint: "[start|middle|end] <request>"
----
-
-Act as the delegator specialist. Read the skill `delegator-specialist` first (~/.agents/skills/delegator-specialist/SKILL.md, or the same folder under this project) and follow it exactly, reading the files in its references folder as it says.
-
-Request: $ARGUMENTS

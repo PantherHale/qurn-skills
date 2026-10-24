@@ -228,7 +228,7 @@ Every one of these is transform-only (`scaleX`/`scaleY`/`translateY`/`rotate`) o
 
 # Standing checklist: performance, security, compliance, style vocabulary (operator, 2026-09-22)
 
-Apply to EVERY project/app, not just web-designer builds. coding agent and every specialist must carry this list; add missing items to the plan before a goal is marked done.
+Apply to EVERY project/app, not just web-designer builds. Qurn and every specialist must carry this list; add missing items to the plan before a goal is marked done.
 
 ## Performance (every app)
 
@@ -311,3 +311,9 @@ a screenshot of the real product, not an illustration of one; multiple demo wind
 Linear does for its agent-chat section) to show several tools at once without a grid. REFUSE: Linear's exact
 near-black palette and Inter -- the device (the windowed demo card, real fictional data, generous dark-field
 negative space) is what transfers, not its colours or font.
+
+# Operator note: equal, fast transition timing (2026-10-08)
+
+Operator, on Kothi Mela (Dubai real-estate inventory app): "make the transition between the transitions a little faster and equal at all times." Audited that project's two stylesheets and found 10+ distinct duration values in use for conceptually equivalent motion (70/80/120/160/200/240/320/360/480/700ms) with web and desktop app not matching each other. The operator's complaint was not about any one animation being wrong, it was that the RHYTHM felt inconsistent -- the eye notices when sibling interactions (hover vs. press vs. panel-open vs. dialog-open) don't share a cadence, even if no single one looks slow in isolation.
+
+**Take:** collapse the duration scale to 2-3 tokens maximum (e.g. an instant ~100-120ms for hover/press/focus feedback, a base ~150-180ms for enters/opens/dialogs), and apply the SAME token to every instance of that category everywhere in the product, including across a web and a desktop-app surface of the same product -- never let one surface's "panel slide" be 160ms while another surface's "dialog open" is 480ms for no reason. When auditing motion on any project, grep for every ms value used in transition/animation declarations first and flag the count of distinct values as a finding on its own, before judging any individual animation.
