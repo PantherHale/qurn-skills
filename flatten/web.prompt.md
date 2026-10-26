@@ -87,9 +87,10 @@ and the board checks each order's CHECK at the end. Vague advice produces nothin
    Decide which ones THIS site needs and where each asset comes from. A brand site for a physical product gets real
    photographs (or a real 3D render) of that product; drawn illustrations alone are not enough.
 2b. **For a software product**, check whether the whole product is one interaction (a single tool, a chat, a
-   prompt box): if so, consider Manus's pattern (web-designer-references.md, "Manus: the product IS the
-   homepage") -- the real control as the entire first viewport, nothing else competing with it. Otherwise, build
-   the "core thing the product does" row as an OS-window demo card (Linear's pattern in the same file): a
+   prompt box): if so, consider the single-input-homepage pattern (web-designer-references.md, "The single-input
+   homepage -- the product IS the homepage") -- the real control as the entire first viewport, nothing else
+   competing with it. Otherwise, build the "core thing the product does" row as an OS-window demo card (the
+   dev-tool marketing-page pattern in the same file): a
    title-barred card with real-looking fictional data, never lorem.
 3. **List the visitor's real questions** (3 to 5), in their words: "what does it taste like", "where can I get
    one", "is it for me". Every section answers one. Anything that answers nobody's question is cut, however well
@@ -301,7 +302,7 @@ BUILD ORDER `check` for copy is a word count or a count of headings with an intr
 # Scroll craft -- how the scroll becomes part of the product
 
 Read this before building any scroll animation. The web designer's BUILD ORDERS name techniques from this file by
-their number (T1 to T22); build them the way they are written here. Written 2026-09-24 from four reference sites (a fourth, Driftwood by Manus, added 2026-09-28)
+their number (T1 to T22); build them the way they are written here. Written 2026-09-24 from four reference sites (a fourth, Driftwood, built by an AI website builder, added 2026-09-28)
 studied in a real browser (DOM, computed styles and scripts inspected, not guessed), after the operator rejected a
 site whose "scroll animation" was eight drawn slides of how coffee is farmed.
 
@@ -343,7 +344,7 @@ video carry the emotion; sketch-to-photo mask reveal; a one-line sign-up. REFUSE
 no empty slot), warm espresso-brown and cream, tight section spacing, a fixed dark header. TAKE: a real 3D object
 of the product; photographs of the actual drinks; full grids. REFUSE: the boxed hero card and the generic font.
 
-**Driftwood candles (built by Manus 1.6 Lite, one hour, 2026-09-28; source and handoff guide read in full, the
+**Driftwood candles (built by an AI website builder in one hour, 2026-09-28; source and handoff guide read in full, the
 build watched frame by frame).** Stack: Vite + React + TypeScript + Tailwind; one hand-written stylesheet does the
 work, no animation library at all. The opening is the scroll story: `.hero` is 205 viewport-heights tall (230 on
 phones), one `position: sticky; height: 100svh` stage inside it. At scroll 0 the first screen is WORDLESS: no header,
@@ -356,11 +357,11 @@ wordmark and nav at 0.48, a hairline progress bar appears after 0.02. Hidden sta
 until shown. The candle never moves on its own; it stays part of the photograph. Below: three cards revealed once
 each by IntersectionObserver with a 70ms stagger and a 3-degree rotateX settle, a sage band, a dark sign-up band with
 one pill-shaped email field. TAKE: the wordless photographic opening, layered cut-outs, staged reveals, the single
-progress variable, one primary action, and above all the PROCESS (see "How Manus made it" below). REFUSE: what the
+progress variable, one primary action, and above all the PROCESS (see "How the agent built it" below). REFUSE: what the
 operator found lacking in its result: the candle is a still photograph (no flame, no glow, no smoke), and after the
 hero there are almost no scroll effects (cards fade up once, nothing else). Fixing both is T15 and T16.
 
-**How Manus made it (read from the screen recording; this is the working method to copy).**
+**How the agent built it (read from the screen recording; this is the working method to copy).**
 1. It states a plan of three named steps with a counter ("Create original candle photography 1/3", "Build the
    responsive one-page site 2/3", "Check desktop and mobile rendering 3/3") and works them in that order.
 2. It makes the pictures FIRST. Original images, generated with an image model, in one consistent warm editorial
@@ -559,7 +560,7 @@ exists, give it these, they are what separates a template from a product:
   or three concrete follow-ups as buttons; keyboard-shortcut chips (`kbd`) where a shortcut exists.
 - Empty, loading and error states each with the one next action, never a blank panel.
 
-**T18. The handoff guide (`docs/design/AGENT_GUIDE.md`, written last, updated with every change).** Manus wrote a
+**T18. The handoff guide (`docs/design/AGENT_GUIDE.md`, written last, updated with every change).** The AI agent that built the Driftwood reference wrote a
 guide so a later agent could extend the page without breaking it; every web build now ends with one. Sections, in
 this order: (1) product brief: what it is, who, the ONE primary action, what is deliberately absent; (2) file table:
 file and its single responsibility; (3) design decisions: palette, type pairing, style, and WHY in a clause each;
@@ -567,7 +568,7 @@ file and its single responsibility; (3) design decisions: palette, type pairing,
 (5) motion, accessibility and responsive rules (breakpoints, reduced-motion behaviour, what is inert and when);
 (6) validation: the exact build/check commands and the manual checks (375px, 50% and 90% of the hero, reduced
 motion, `scrollWidth <= clientWidth`); (7) sample content still to replace before launch, named one by one. The guide
-states what is a decision and what is a placeholder; it never claims a feature that does not exist (Manus's guide is
+states what is a decision and what is a placeholder; it never claims a feature that does not exist (its guide is
 explicit that the sign-up form stores nothing).
 
 **T19. Ink-grade micro-choreography (Inkling's own numbers, read from its shipped CSS and script, 2026-09-28).**
@@ -701,7 +702,7 @@ interactive elements, media), plus the Academy and Kopi:
 
 | Content kind | Presentation | Interaction | Seen on |
 |---|---|---|---|
-| The whole product is one interaction | Put that real control as the entire first viewport -- headline, the control, nothing else (no hero image, no feature grid above it) | the control itself | Manus (manus.im): "What can I do for you?" and the real prompt box are the whole homepage |
+| The whole product is one interaction | Put that real control as the entire first viewport -- headline, the control, nothing else (no hero image, no feature grid above it) | the control itself | one well-known AI agent's homepage: "What can I do for you?" and the real prompt box are the whole homepage |
 | The core thing the product does (software) | An OS-window demo card: rounded corners, a thin border, a soft shadow, a title bar (name + icon, optionally traffic-light dots); real-looking fictional data inside (plausible IDs, names, timestamps), never lorem or generic labels; one demo per screen of dark negative space, several can overlap to show tools working together | input, tabs, a reset | Inkling #1 (type in the box, Enter, it files into Today); Linear (a ticket board, an agent chat mid-"Thinking...", stacked tool windows) |
 | Why the alternatives fail | A ruled 3-column table (category / examples / why it fails), text only, hairline rows, no cards | none | Inkling #2 |
 | How it works | Before -> action -> after: two real mocks joined by an arrow labelled with the action | none, or scrubbed | Inkling #3 (box -> "Enter" -> the day page) |
@@ -921,7 +922,7 @@ Like a plan mode: write the plan first so nothing is improvised. For a scroll fi
 
 ## Step 3 -- Design system before components
 
-(This is the discipline behind Lovable's generated apps -- checked against its docs and a community copy of its agent prompt. It builds the design system FIRST, keeps ALL styling in it, and its known weakness is sameness when nobody constrains it: hence the direction, tokens and signature element below.)
+(This is the discipline behind a well-known AI app builder's generated apps -- checked against its docs and a community copy of its agent prompt. It builds the design system FIRST, keeps ALL styling in it, and its known weakness is sameness when nobody constrains it: hence the direction, tokens and signature element below.)
 
 One tokens file (CSS variables or Tailwind `@theme`) in three tiers: primitives (the raw palette and scales), semantic tokens (`--color-text-primary`, `--color-surface`, `--color-accent`, `--space-section`), and component tokens (`--button-primary-bg`). Also tokens for gradients, shadows, radii, motion durations and easings. Rules that make it hold:
 
@@ -929,7 +930,7 @@ One tokens file (CSS variables or Tailwind `@theme`) in three tiers: primitives 
 - Extend components with variants built on tokens (a `hero` button, a `quiet` card), never by overriding classes at the call site. Avoid transparent-outline variants with white text: they vanish on light surfaces. Check both light and dark themes if the site has both.
 - Build a component-kit page FIRST (`/kit` or `docs/kit.html`): nav, buttons in every state, form fields, cards, badges, table, empty state, modal, at the real tokens. Only then build the real pages from those components.
 - **Thread the ONE brand hue through every state (verified against LIVE Legion, livelegion.info, in the web designer's reference notes):** take the accent hue from the project's own brand or logo (never purple/pink, see the banned defaults), then derive from it, as named tokens, not bare hex repeated in components: a light TINT (same hue, very high lightness) for subtle card/badge backgrounds; a dark SHADE (same hue, low lightness) for text sitting on that tint; a shadow tinted with the brand hue at low opacity instead of plain black; and, only if a gradient is used at all, a two-stop gradient built from the SAME hue at two nearby angles, never two unrelated hues. This is what makes a whole dashboard or app read as branded rather than generic.
-- Prompt-level direction, like Lovable's own guide: set the visual language with two or three concrete keywords (for example "quiet, premium, slow" or "raw, editorial, oversized"), a named font pairing that is NOT the default Inter or system stack, a hex palette, an imagery style and an icon style; use real copy from the brief, never lorem ipsum, because real copy shows the true spacing. Save these as the top of `docs/design/DESIGN.md`.
+- Prompt-level direction, like that same builder's own guide: set the visual language with two or three concrete keywords (for example "quiet, premium, slow" or "raw, editorial, oversized"), a named font pairing that is NOT the default Inter or system stack, a hex palette, an imagery style and an icon style; use real copy from the brief, never lorem ipsum, because real copy shows the true spacing. Save these as the top of `docs/design/DESIGN.md`.
 - Sameness guard: add ONE signature element per page (a drawn rule, a real 3D object, an unusual grid, a distinctive interaction); vary section layouts (do not stack the same card grid); reject your own first draft if it looks like a template, and redo it.
 - Make small, verifiable changes: one component or one section at a time, build after each, commit at each working state, keep files small.
 
@@ -1178,9 +1179,9 @@ Claude Code habitually opens every page with a huge heading, often with a small 
 
 Operator, 2026-09-22: study these for "product and animation focused" sites that stay simple but leave an impression, one real scroll-animation site, and one dashboard/UI reference for how a brand's colour threads through an app. Verified from each site's shipped CSS/JS, not a summary.
 
-## Asymm (asym2.lovable.app) -- restraint as the whole design
+## Asymm -- restraint as the whole design
 
-A Lovable-built site, and worth naming BECAUSE it is Lovable-built: it proves the platform's default output can look considered when the builder restrains it, which is exactly what this project's own scan and playbook are for.
+A site built on an AI website builder, and worth naming BECAUSE of that: it proves a generic AI-generated base can look considered when the builder restrains it, which is exactly what this project's own scan and playbook are for.
 
 - Pure black and white: `--background: 0 0% 0%`, `--foreground: 0 0% 100%`, one grey step for cards (4%), muted text at 55% grey. No accent colour at all -- the only colour in the system is the destructive red, used nowhere in the design itself.
 - `--radius: 0px`. Every corner is square.
@@ -1189,7 +1190,7 @@ A Lovable-built site, and worth naming BECAUSE it is Lovable-built: it proves th
 - Headline: "Illuminate the unseen." One line, no subtitle stacked under it, direct into the job listings.
 - **Take:** monochrome plus texture can carry a whole brand when the type and grid are disciplined. Zero accent colour is itself a valid palette choice for a technical/defense-style brand.
 
-## TouristyAF (touristyaf.lovable.app) -- personality through two type roles and one accent
+## TouristyAF -- personality through two type roles and one accent
 
 - Palette: white ground, near-black ink, one deep green primary (`hsl(160 80% 19%)`) and one gold/mustard secondary (`hsl(47 100% 60%)`) used as the accent -- warm, not the default blue-on-dark every generated site reaches for.
 - Type: "Arimo" (sans) for headlines via `--font-headline`, "Anonymous Pro" (monospace) for body via `--font-body` -- a monospace body is the unusual, personality-carrying choice here, the opposite of the expected serif-headline/sans-body pairing.
@@ -1348,11 +1349,11 @@ returns the source in `files[].content` and its `dependencies` (often `gsap` or 
 `npx shadcn@latest add @react-bits/<Name>-TS-TW` in a shadcn project. TAKE: the motion craft. REFUSE: the demo
 colours and default glow; restyle to the project's tokens, and give every animated component a reduced-motion state.
 
-# Reference 10-11: Manus and Linear (verified 2026-09-28, real DOM and screenshots)
+# Reference 10-11: an AI-agent homepage and a dev-tool marketing page (verified 2026-09-28, real DOM and screenshots)
 
-## Manus (manus.im) -- the product IS the homepage
+## The single-input homepage -- the product IS the homepage
 
-Manus is an AI agent; its own homepage has no hero image, no marketing paragraph, no scroll at all above the
+One well-known AI agent product's homepage has no hero image, no marketing paragraph, no scroll at all above the
 fold and barely any below it. The entire first (and almost only) viewport is: a serif headline ("What can I do
 for you?"), directly under it the REAL prompt box the product runs on (a plain white card, a placeholder
 "Assign", a `+` attach button, a round send button), and under that a row of pill chips naming what it can do
@@ -1364,25 +1365,25 @@ the hero" (references/scroll-craft.md's presentation table), not a header with a
 works when the product truly is a single input; a multi-feature product that copies this looks empty, not
 confident.
 
-## Linear (linear.app) -- the OS-window demo card
+## The OS-window demo card -- a dev-tool marketing page
 
-Linear's whole marketing page is one content kind repeated: `getComputedStyle(document.body).backgroundColor`
-is `rgb(8, 9, 10)` (near-black), Inter Variable throughout, no GSAP/Lenis/three globals (no heavy scroll
+One well-known dev-tool's marketing page is built from one content kind repeated: `getComputedStyle(document.body).backgroundColor`
+is `rgb(8, 9, 10)` (near-black), a variable grotesque sans throughout, no GSAP/Lenis/three globals (no heavy scroll
 library at all -- the craft is in layout, type and restraint, not motion). Every feature section wraps its demo
 in a card styled like a desktop app window: rounded corners, a thin border, a soft shadow, and in some cards a
-literal macOS-style traffic-light row (three small dots) with the tool's own name and icon as a title bar
-("Cursor", "Linear · Opus 5", "ChatPRD"). Inside, the content is never a generic mockup: real-looking ticket IDs
-(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to Claude Opus
-5"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
-sections sits a plain logo wall (OpenAI, Vercel, Salesforce, Figma, Cursor, Coinbase, Ramp) in flat white
+literal macOS-style traffic-light row (three small dots) with the pane's own name and icon as a title bar.
+Inside, the content is never a generic mockup: real-looking ticket IDs
+(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to the latest
+model"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
+sections sits a plain logo wall of well-known companies in flat white
 wordmarks with one caption line ("Powering the companies building the future") -- no cards, no borders, just
 logos and space. Each section gets a full screen-height of dark negative space around its one demo; nothing is
 crowded. TAKE: for a software product, the "working demo" row of the presentation table is best built as an
 OS-window card (title bar, real fictional data with plausible IDs/names/timestamps, never lorem) -- it reads as
-a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack (as
-Linear does for its agent-chat section) to show several tools at once without a grid. REFUSE: Linear's exact
-near-black palette and Inter -- the device (the windowed demo card, real fictional data, generous dark-field
-negative space) is what transfers, not its colours or font.
+a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack to show
+several tools at once without a grid. REFUSE: copying this page's exact
+near-black palette and typeface wholesale -- the device (the windowed demo card, real fictional data, generous dark-field
+negative space) is what transfers, not its specific colours or font.
 
 # Operator note: equal, fast transition timing (2026-10-08)
 
@@ -2139,7 +2140,7 @@ Inkling is a praised desktop app simulating real ink and fountain-pen physics. M
 - **Rendering: React + react-three-fiber (WebGL/Three.js), not a 2D canvas trick.** The ink and paper simulation is a real 3D scene, not a flat sprite animation — confirmed by the bundled `react-three-fiber.esm` chunk and dedicated scene files. **Confirmed feature-area chunk names** (code-split per Vite route/feature): `IntroScene` (a 3D onboarding scene, not a static welcome screen), `BloomView` (an ink-bloom effect — ink spreading into paper fiber, a real physical behavior most apps skip), `WashScene` (an ink-wash effect), `NibWidget` (the pen-nib control, isolated as its own interactive component), `WellView` (the ink-well UI). **Inference:** naming the physical metaphor's actual parts (nib, well, bloom, wash) as separate first-class scenes/components — rather than one monolithic "canvas" component — is itself a design decision worth copying: each physical behavior gets its own isolated, testable, independently-loadable piece.
 - **Motion library: `motion` (the current name for Framer Motion).** Consistent with this project's own default house choice (see `anti-slop-checklist-reference.md`) — confirms Motion remains the practical default for React UI/state-change animation in a shipped, praised product, not just this project's own preference.
 - **Typography: DM Sans** (both latin and latin-extended font subsets bundled) — a clean, slightly rounded geometric sans. For a tactile/physical-metaphor app, a geometric sans rather than a "creative/handwritten" display font keeps the UI chrome quiet so the actual ink simulation carries the personality — the UI gets out of the way of the thing it's showcasing. This is a concrete, shipped counter-example to always reaching for a display serif on a craft-feeling product.
-- **Custom window chrome:** `decorations` disabled, `transparent` enabled, a custom `titleBarStyle`, and a custom shadow — the app draws its own window frame instead of the OS default title bar, a common premium-app signal (also seen in Arc, Linear, Notion's desktop builds) that's worth naming as a specific, achievable technique (Tauri and Electron both expose this via config, not custom native code).
+- **Custom window chrome:** `decorations` disabled, `transparent` enabled, a custom `titleBarStyle`, and a custom shadow — the app draws its own window frame instead of the OS default title bar, a common premium-app signal (seen in several well-known browser and productivity desktop apps) that's worth naming as a specific, achievable technique (Tauri and Electron both expose this via config, not custom native code).
 - **Backend: Supabase for auth (`supabase.co/auth/v1/authorize` is called directly), Stripe for payments, plus a `Checkout` chunk and a `LegalPage`/`Privacy`/`Terms` chunk split out separately.** Confirms the zero-backend-maintenance stack (Supabase + Stripe) scales fine even for a premium, physics-simulation-heavy desktop product — the heavy lifting is all client-side WebGL, the backend only needs to handle identity and billing.
 - **Observed directly in the running app (screenshots and a screen recording), not just the binary:**
   - **A live, 1:1-synced position preview for a real floating desktop widget.** Inkling has a persistent, draggable, always-on-top capture widget ("the Nib"). Its settings page shows a miniature desktop surface ("Where it sits") where dragging the widget's icon to a corner visibly moves the *real* floating widget on the actual desktop, in real time, in sync. This is the direct-manipulation principle from `fluid-interaction-reference.md` taken further than a typical settings screen: the preview isn't a static diagram of what will happen, it's a live, correctly-scaled mirror of the real element, so there's zero gap between "configuring the setting" and "seeing the actual result." Apply this whenever a setting controls something that exists elsewhere on screen (or on the desktop) — show the real thing moving, not an abstract representation of it.
