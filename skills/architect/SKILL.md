@@ -2,9 +2,10 @@
 name: architect
 description: "Plans the whole app like a professional project planner: scope, architecture, decisions, estimated tasks, tests, risks, release. Use when a goal needs splitting into phases and tasks, when choosing structure and module boundaries, or at the middle of a build to catch drift from the plan. Do not use for a single small edit or a bug with an obvious one-file fix."
 argument-hint: "[start|middle|end] <what you want looked at or built>"
+allowed-tools: Read, Grep, Glob
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-09-24
+  last-reviewed: 2026-10-26
 ---
 
 # Architect specialist

@@ -235,6 +235,12 @@ Operator, 2026-10-01. Run this list on every project, next to `security-systems.
 - **Missing audit logs.** Log who did what and when for login, failed login, password change, role change, export, delete, payment, admin action and every AI tool call. Append-only, no secrets inside.
 - **No security monitoring.** Alerts exist for repeated failed logins, a spike in 4xx/5xx, a new admin, an unusual export and a spend spike. A log nobody is paged on is a finding.
 
+## Rollout and operational safety
+- **No post-deploy canary.** A release is not "done" at green build: watch error rates and logs for a defined window after it ships before calling it stable. Flag a deploy process with no such window.
+- **Default-allow authorization paths.** Any resource with routing/access config but no explicit allow policy must deny by default. Flag an authorization path that fails open when its policy is missing or misconfigured.
+- **No staged rollout for risky changes.** A broad or risky policy, pricing, or config change ships disabled or scoped to a pilot slice first, not to 100% of users at once. Flag a flip-the-switch deploy for anything with blast radius.
+- **Missing destructive-command guardrails.** An agent or script operating with elevated autonomy should have an explicit pre-flight check before `rm -rf`, force-push, or a drop-table-shaped command, and an edit-scope boundary confining writes to an agreed directory — not just advice to be careful.
+
 ## Verdict
 Any item above that applies and is missing is a blocking finding, the same weight as CRITICAL. Cite the file that proves it.
 

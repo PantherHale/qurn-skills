@@ -2,9 +2,10 @@
 name: coder
 description: "Advises on language, database and structure for the project, and reviews the implementation. Use when choosing a stack, reviewing an implementation for performance and structure, or advising a coding agent session how to work efficiently and spend fewer tokens. Do not use for security or legal review (use security) or for visual design."
 argument-hint: "[start|middle|end] <what you want looked at or built>"
+allowed-tools: Read, Grep, Glob
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-09-24
+  last-reviewed: 2026-10-26
 ---
 
 # Coder specialist
