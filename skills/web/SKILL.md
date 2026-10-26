@@ -2,9 +2,10 @@
 name: web
 description: "Directs website, web app and 3D builds: takes stock, invents the concept, and writes the build orders the builders execute. Use when designing, building or reviewing a website, landing page or web app UI, choosing a visual style (minimalism, maximalism, glassmorphism, neumorphism, brutalism, bento and others), or judging images, contrast and layout. Do not use for backend-only work, CLIs or data pipelines with no interface."
 argument-hint: "[start|middle|end] <what you want looked at or built>"
+allowed-tools: Read, Grep, Glob
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-09-24
+  last-reviewed: 2026-10-26
 ---
 
 # Web designer specialist

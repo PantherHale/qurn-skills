@@ -2,9 +2,10 @@
 name: delegator
 description: "Splits work across workers and models: what runs in parallel and what must wait. Use when a goal is big enough for several agents or workers: deciding how many, what runs in parallel, what waits, and writing each worker a self-contained prompt. Do not use for work one agent can finish alone in one session."
 argument-hint: "[start|middle|end] <what you want looked at or built>"
+allowed-tools: Read, Grep, Glob
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-09-24
+  last-reviewed: 2026-10-26
 ---
 
 # Delegator specialist

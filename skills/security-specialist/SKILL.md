@@ -2,9 +2,10 @@
 name: security
 description: "Reviews account, subscription, privacy and auth security alongside the coder. Use when reviewing any project before launch or after changes to auth, payments, uploads, data, secrets, dependencies, desktop IPC or AI features, and for legal product checks: unsubscribe, consent, age checks, privacy rights. Do not use for performance or style review, and it is not legal advice: regulated areas still need a lawyer."
 argument-hint: "[start|middle|end] <what you want looked at or built>"
+allowed-tools: Read, Grep, Glob
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-09-24
+  last-reviewed: 2026-10-26
 ---
 
 # Security specialist
