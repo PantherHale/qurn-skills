@@ -2,7 +2,7 @@
 
 2026-09-23
 
-Scope note: this document is written for the SECURITY specialist of an AI coding agent that *reviews* projects (it never builds). It must be able to look at an arbitrary codebase, recognize which systems are present, and apply an enforceable, checkable standard to each one. It extends, and does not repeat, `C:\Users\gaura\Documents\PManagerProject\src\specialists\knowledge\security-checklist.md` (account/subscription handling, secrets/client boundary, sessions/auth errors, uploads, login/signup flooding, forgot-password limits — all read as prior context, not restated here except where a new source adds a sharper version of the same control).
+Scope note: this document is written for the SECURITY specialist of an AI coding agent that *reviews* projects (it never builds). It must be able to look at an arbitrary codebase, recognize which systems are present, and apply an enforceable, checkable standard to each one. It extends, and does not repeat, `src/specialists/knowledge/security-checklist.md` (account/subscription handling, secrets/client boundary, sessions/auth errors, uploads, login/signup flooding, forgot-password limits — all read as prior context, not restated here except where a new source adds a sharper version of the same control).
 
 ---
 
