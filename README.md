@@ -39,8 +39,8 @@ Clone the repo, then run the installer for your agent. It copies the `skills/` (
 that agent looks for skills — project-local or system-wide, your choice.
 
 ```sh
-git clone https://github.com/PantherHale/qurn.git
-cd qurn
+git clone https://github.com/PantherHale/qurn-skills.git
+cd qurn-skills
 
 # user-wide install (available in every project)
 ./install.sh claude            # Claude Code
@@ -54,8 +54,8 @@ cd qurn
 On Windows:
 
 ```powershell
-git clone https://github.com/PantherHale/qurn.git
-cd qurn
+git clone https://github.com/PantherHale/qurn-skills.git
+cd qurn-skills
 ./install.ps1 -Agent claude
 ```
 
