@@ -89,8 +89,8 @@ and the board checks each order's CHECK at the end. Vague advice produces nothin
 2b. **For a software product**, check whether the whole product is one interaction (a single tool, a chat, a
    prompt box): if so, consider the single-input-homepage pattern (web-designer-references.md, "The single-input
    homepage -- the product IS the homepage") -- the real control as the entire first viewport, nothing else
-   competing with it. Otherwise, build the "core thing the product does" row as an OS-window demo card (the
-   dev-tool marketing-page pattern in the same file): a
+   competing with it. Otherwise, build the "core thing the product does" row as an OS-window demo card (Linear's
+   pattern in the same file): a
    title-barred card with real-looking fictional data, never lorem.
 3. **List the visitor's real questions** (3 to 5), in their words: "what does it taste like", "where can I get
    one", "is it for me". Every section answers one. Anything that answers nobody's question is cut, however well
@@ -1349,11 +1349,11 @@ returns the source in `files[].content` and its `dependencies` (often `gsap` or 
 `npx shadcn@latest add @react-bits/<Name>-TS-TW` in a shadcn project. TAKE: the motion craft. REFUSE: the demo
 colours and default glow; restyle to the project's tokens, and give every animated component a reduced-motion state.
 
-# Reference 10-11: an AI-agent homepage and a dev-tool marketing page (verified 2026-09-28, real DOM and screenshots)
+# Reference 10-11: an AI-agent homepage and Linear (verified 2026-09-28, real DOM and screenshots)
 
 ## The single-input homepage -- the product IS the homepage
 
-One well-known AI agent product's homepage has no hero image, no marketing paragraph, no scroll at all above the
+One well-known AI agent's homepage has no hero image, no marketing paragraph, no scroll at all above the
 fold and barely any below it. The entire first (and almost only) viewport is: a serif headline ("What can I do
 for you?"), directly under it the REAL prompt box the product runs on (a plain white card, a placeholder
 "Assign", a `+` attach button, a round send button), and under that a row of pill chips naming what it can do
@@ -1365,25 +1365,25 @@ the hero" (references/scroll-craft.md's presentation table), not a header with a
 works when the product truly is a single input; a multi-feature product that copies this looks empty, not
 confident.
 
-## The OS-window demo card -- a dev-tool marketing page
+## Linear (linear.app) -- the OS-window demo card
 
-One well-known dev-tool's marketing page is built from one content kind repeated: `getComputedStyle(document.body).backgroundColor`
-is `rgb(8, 9, 10)` (near-black), a variable grotesque sans throughout, no GSAP/Lenis/three globals (no heavy scroll
+Linear's whole marketing page is one content kind repeated: `getComputedStyle(document.body).backgroundColor`
+is `rgb(8, 9, 10)` (near-black), Inter Variable throughout, no GSAP/Lenis/three globals (no heavy scroll
 library at all -- the craft is in layout, type and restraint, not motion). Every feature section wraps its demo
 in a card styled like a desktop app window: rounded corners, a thin border, a soft shadow, and in some cards a
-literal macOS-style traffic-light row (three small dots) with the pane's own name and icon as a title bar.
-Inside, the content is never a generic mockup: real-looking ticket IDs
-(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to the latest
-model"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
-sections sits a plain logo wall of well-known companies in flat white
+literal macOS-style traffic-light row (three small dots) with the tool's own name and icon as a title bar
+("Cursor", "Linear · Opus 5", "ChatPRD"). Inside, the content is never a generic mockup: real-looking ticket IDs
+(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to Claude Opus
+5"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
+sections sits a plain logo wall (OpenAI, Vercel, Salesforce, Figma, Cursor, Coinbase, Ramp) in flat white
 wordmarks with one caption line ("Powering the companies building the future") -- no cards, no borders, just
 logos and space. Each section gets a full screen-height of dark negative space around its one demo; nothing is
 crowded. TAKE: for a software product, the "working demo" row of the presentation table is best built as an
 OS-window card (title bar, real fictional data with plausible IDs/names/timestamps, never lorem) -- it reads as
-a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack to show
-several tools at once without a grid. REFUSE: copying this page's exact
-near-black palette and typeface wholesale -- the device (the windowed demo card, real fictional data, generous dark-field
-negative space) is what transfers, not its specific colours or font.
+a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack (as
+Linear does for its agent-chat section) to show several tools at once without a grid. REFUSE: Linear's exact
+near-black palette and Inter -- the device (the windowed demo card, real fictional data, generous dark-field
+negative space) is what transfers, not its colours or font.
 
 # Operator note: equal, fast transition timing (2026-10-08)
 
@@ -2140,7 +2140,7 @@ Inkling is a praised desktop app simulating real ink and fountain-pen physics. M
 - **Rendering: React + react-three-fiber (WebGL/Three.js), not a 2D canvas trick.** The ink and paper simulation is a real 3D scene, not a flat sprite animation — confirmed by the bundled `react-three-fiber.esm` chunk and dedicated scene files. **Confirmed feature-area chunk names** (code-split per Vite route/feature): `IntroScene` (a 3D onboarding scene, not a static welcome screen), `BloomView` (an ink-bloom effect — ink spreading into paper fiber, a real physical behavior most apps skip), `WashScene` (an ink-wash effect), `NibWidget` (the pen-nib control, isolated as its own interactive component), `WellView` (the ink-well UI). **Inference:** naming the physical metaphor's actual parts (nib, well, bloom, wash) as separate first-class scenes/components — rather than one monolithic "canvas" component — is itself a design decision worth copying: each physical behavior gets its own isolated, testable, independently-loadable piece.
 - **Motion library: `motion` (the current name for Framer Motion).** Consistent with this project's own default house choice (see `anti-slop-checklist-reference.md`) — confirms Motion remains the practical default for React UI/state-change animation in a shipped, praised product, not just this project's own preference.
 - **Typography: DM Sans** (both latin and latin-extended font subsets bundled) — a clean, slightly rounded geometric sans. For a tactile/physical-metaphor app, a geometric sans rather than a "creative/handwritten" display font keeps the UI chrome quiet so the actual ink simulation carries the personality — the UI gets out of the way of the thing it's showcasing. This is a concrete, shipped counter-example to always reaching for a display serif on a craft-feeling product.
-- **Custom window chrome:** `decorations` disabled, `transparent` enabled, a custom `titleBarStyle`, and a custom shadow — the app draws its own window frame instead of the OS default title bar, a common premium-app signal (seen in several well-known browser and productivity desktop apps) that's worth naming as a specific, achievable technique (Tauri and Electron both expose this via config, not custom native code).
+- **Custom window chrome:** `decorations` disabled, `transparent` enabled, a custom `titleBarStyle`, and a custom shadow — the app draws its own window frame instead of the OS default title bar, a common premium-app signal (also seen in Arc, Linear, Notion's desktop builds) that's worth naming as a specific, achievable technique (Tauri and Electron both expose this via config, not custom native code).
 - **Backend: Supabase for auth (`supabase.co/auth/v1/authorize` is called directly), Stripe for payments, plus a `Checkout` chunk and a `LegalPage`/`Privacy`/`Terms` chunk split out separately.** Confirms the zero-backend-maintenance stack (Supabase + Stripe) scales fine even for a premium, physics-simulation-heavy desktop product — the heavy lifting is all client-side WebGL, the backend only needs to handle identity and billing.
 - **Observed directly in the running app (screenshots and a screen recording), not just the binary:**
   - **A live, 1:1-synced position preview for a real floating desktop widget.** Inkling has a persistent, draggable, always-on-top capture widget ("the Nib"). Its settings page shows a miniature desktop surface ("Where it sits") where dragging the widget's icon to a corner visibly moves the *real* floating widget on the actual desktop, in real time, in sync. This is the direct-manipulation principle from `fluid-interaction-reference.md` taken further than a typical settings screen: the preview isn't a static diagram of what will happen, it's a live, correctly-scaled mirror of the real element, so there's zero gap between "configuring the setting" and "seeing the actual result." Apply this whenever a setting controls something that exists elsewhere on screen (or on the desktop) — show the real thing moving, not an abstract representation of it.
@@ -3314,82 +3314,80 @@ Distilled from motionsites.ai's public prompt-library mirror (real, shipped AI-b
 # What products with millions of users actually do -- reverse-engineered, dated 2026-10-18
 
 Operator: "reverse engineer many things and websites that attract millions of people and see how they do it."
-Researched against real, named-in-the-source-material products across language learning, short-form video,
-peer-to-peer marketplaces, payments, and B2B SaaS, rather than generic trend pieces -- the company names
-themselves are left out here since the lesson is the mechanism, not the brand.
+Researched against named products (Duolingo, Linear, Stripe, TikTok, Airbnb) rather than generic trend pieces.
 Source quality is mixed by design of the research itself -- most of what's public on these products is blog/agency
 commentary, not controlled studies, so every claim below says how solid it is. Use the solid mechanisms as real
 technique; use the anecdotal ones as plausible direction to verify, not as fact to cite to the operator as settled.
 
 ## The one finding that overrides all the others
-A major language-learning app's own retention lead, in a published interview, said it directly: **if people
+Duolingo's own retention lead (Jackson Shuttleworth, interviewed on Lenny's Newsletter) said it directly: **if people
 don't already find inherent value in the product, a streak or any other engagement mechanic will not create that
 value -- it only amplifies value that's already there.** Every mechanic below is an amplifier, not a substitute for
-the product actually doing its job. A build that copies a short-form video feed's variable-reward design or a
-streak UI onto a product nobody independently wants yet is cargo-culting the amplifier without the thing it amplifies.
+the product actually doing its job. A build that copies TikTok's variable-reward feed or Duolingo's streak UI onto a
+product nobody independently wants yet is cargo-culting the amplifier without the thing it amplifies.
 
 ## Mechanism 1: habit loops reward ONE simple action, not a point system (solid -- named source)
-That language-learning app initially tied streaks to an XP threshold and it confused users; simplifying to "complete
-one lesson today" made the mechanic work. **Rule for a build:** if you add a daily/return mechanic, gate it on the
-single action that IS the product's core value (one lesson, one check-in, one send), never a composite score the
-user has to calculate in their head to know if they're "on track."
+Duolingo initially tied streaks to an XP threshold and it confused users; simplifying to "complete one lesson today"
+made the mechanic work. **Rule for a build:** if you add a daily/return mechanic, gate it on the single action that
+IS the product's core value (one lesson, one check-in, one send), never a composite score the user has to calculate
+in their head to know if they're "on track."
 
-## Mechanism 2: loss aversion beats gain framing (solid, well-established psychology; a named copy test)
-That same app found that changing a button's label from "Continue" to "Commit to my goal" measurably increased
-retention -- framing the action as a commitment the user would LOSE by skipping, not a neutral "next step." Streak
-Freezes (preserving a streak through one missed day) work the same way: forgiveness mechanics make the loss-aversion
-hook sustainable instead of punishing, which keeps people from abandoning the whole habit the first time they slip.
+## Mechanism 2: loss aversion beats gain framing (solid, well-established psychology; Duolingo's own copy test is named)
+Duolingo found that changing a button's label from "Continue" to "Commit to my goal" measurably increased retention
+-- framing the action as a commitment the user would LOSE by skipping, not a neutral "next step." Streak Freezes
+(preserving a streak through one missed day) work the same way: forgiveness mechanics make the loss-aversion hook
+sustainable instead of punishing, which keeps people from abandoning the whole habit the first time they slip.
 **Rule for a build:** where a return mechanic exists, phrase the CTA as protecting/continuing something the user
 already has, not just "do the next thing" -- and pair any streak/count mechanic with an explicit forgiveness path.
 
 ## Mechanism 3: a visible identity marker turns a private habit into a status signal (plausible, named example)
-That app gives a distinct app icon at a 30-day streak -- the mechanic becomes something OTHERS can see (on a home
+Duolingo gives a distinct app icon at a 30-day streak -- the mechanic becomes something OTHERS can see (on a home
 screen), not just an internal counter. This is the same principle as a public leaderboard, a visible badge, or a
 shareable streak graphic: a habit mechanic compounds faster once it has a visible, external form.
 
 ## Mechanism 4: variable reward + no stopping cue (solid psychology, contested specific-platform causation)
-Short-form video feeds (and infinite-scroll feeds generally) run on variable-ratio reinforcement -- the same
-schedule B.F. Skinner found most persistent: the user can't predict which scroll will be the good one, so the
-behavior (scrolling) keeps getting reinforced intermittently rather than every time. Removing an explicit "end of
-list" or "load more" click removes the natural decision point where a user would otherwise ask "should I stop?"
-**Caution, not just a technique to copy:** EU regulatory preliminary findings (ongoing investigation, not final)
-describe this combination as designed to fuel "compulsive behaviour and reduce users' self-control" -- this is the
-single mechanism in this file with the most direct ethical weight. Use variable-reward content ordering (mixing
-predictable and surprising results in a feed) for genuine engagement; do NOT remove natural stopping cues
-(session-end screens, "you're caught up" markers) on a product where unbounded engagement isn't actually good for
-the user -- that crosses from persuasive design into a dark pattern, which the anti-slop and marketing-psychology
-knowledge in this project already treats as a hard block.
+TikTok's feed (and infinite-scroll feeds generally) run on variable-ratio reinforcement -- the same schedule B.F.
+Skinner found most persistent: the user can't predict which scroll will be the good one, so the behavior (scrolling)
+keeps getting reinforced intermittently rather than every time. Removing an explicit "end of list" or "load more"
+click removes the natural decision point where a user would otherwise ask "should I stop?" **Caution, not just a
+technique to copy:** the EU's preliminary findings (ongoing investigation, not final) describe this combination as
+designed to fuel "compulsive behaviour and reduce users' self-control" -- this is the single mechanism in this file
+with the most direct ethical weight. Use variable-reward content ordering (mixing predictable and surprising results
+in a feed) for genuine engagement; do NOT remove natural stopping cues (session-end screens, "you're caught up"
+markers) on a product where unbounded engagement isn't actually good for the user -- that crosses from persuasive
+design into a dark pattern, which the anti-slop and marketing-psychology knowledge in this project already treats
+as a hard block.
 
 ## Mechanism 5: trust is carried by ONE photo more than by review volume (solid -- peer-reviewed, counter-intuitive)
-A peer-reviewed study on a major peer-to-peer marketplace found a host's PHOTO shaped guests' sense of
-trustworthiness and booking/price far more than review scores did -- the result found review scores had no
-measurable effect on price or booking likelihood, which cuts against the common "show lots of reviews" advice
-repeated in marketing blogs. That same marketplace's own early growth move was replacing bad listing photos with
-professional photography, reportedly doubling bookings in some markets within weeks (anecdotal, not peer-reviewed,
-but directionally consistent with the photo-trust finding). **Rule for a build:** when a product's trust problem is
-"will a stranger believe this is real/safe," invest in ONE excellent, real, human-containing photo before investing
-in a review carousel -- this directly reinforces image-rules.md's existing ban on stock photography standing in for
-the real thing: a real face/place photographed well is doing measurable trust work that a review-count badge is not.
+Ert, Fleischer & Magen's published study on Airbnb found a host's PHOTO shaped guests' sense of trustworthiness and
+booking/price far more than review scores did -- the peer-reviewed result found review scores had no measurable
+effect on price or booking likelihood, which cuts against the common "show lots of reviews" advice repeated in
+marketing blogs. Airbnb's own early growth move was replacing bad listing photos with professional photography,
+reportedly doubling bookings in some markets within weeks (anecdotal, not peer-reviewed, but directionally
+consistent with the photo-trust finding). **Rule for a build:** when a product's trust problem is "will a stranger
+believe this is real/safe," invest in ONE excellent, real, human-containing photo before investing in a review
+carousel -- this directly reinforces image-rules.md's existing ban on stock photography standing in for the real
+thing: a real face/place photographed well is doing measurable trust work that a review-count badge is not.
 
 ## Mechanism 6: checkout/payment trust is visual simplicity + reassurance cues, not persuasion copy (vendor-sourced, directionally consistent with established checkout research elsewhere in this knowledge base)
-A major payment processor's own published guidance (vendor content, so read as informed opinion, not independent
-study) names exactly two levers at the payment step: visual simplicity and trust cues (SSL/TLS badges, card-network
-logos, short reassurance copy, a visible "secure checkout" signal), explicitly because by the time someone reaches
-payment, the job is removing final doubt, not persuading further. This matches (does not contradict) the
-checkout-abandonment research already in web-designer-behavior.md: extra costs and security concerns are top
-abandonment reasons, so the fix at this specific step is REMOVING friction and doubt, not adding a sales pitch.
+Stripe's own guidance (vendor content, so read as informed opinion, not independent study) names exactly two levers
+at the payment step: visual simplicity and trust cues (SSL/TLS badges, card-network logos, short reassurance copy,
+a visible "secure checkout" signal), explicitly because by the time someone reaches payment, the job is removing
+final doubt, not persuading further. This matches (does not contradict) the Baymard checkout-abandonment data
+already in web-designer-behavior.md: extra costs and security concerns are top abandonment reasons, so the fix at
+this specific step is REMOVING friction and doubt, not adding a sales pitch.
 
 ## Mechanism 7: category-defining aesthetic + organic network spread, not ad spend (mostly anecdotal/commentary -- treat as direction, not fact)
-One well-known B2B SaaS tool is repeatedly cited (design blogs, a public case study claiming a very low lifetime
-marketing spend -- unverified by this research, treat skeptically) as growing through people adopting it
-individually, then inviting their whole team -- the same network-effect spread seen in other tools where the
-product's VALUE is multiplayer, so one happy user structurally creates the next ten. Its onboarding is described
-as deliberately calm (no celebratory flourishes, no confetti) -- confidence signaled through restraint, consistent
-with this project's own anti-slop stance against generic celebratory/gamified UI. **Caution:** several sources
-argue that tool's specific dark+purple, keyboard-first aesthetic is now OVERSATURATED as every B2B tool copies it --
-this is an argument for NOT defaulting to it (ties directly to web-director.md's "Training on five different
-products showed the same... chosen every time" warning). The transferable lesson is the MECHANISM (invite-driven
-spread from genuine multiplayer value, restrained onboarding copy), not that specific look itself.
+Linear is repeatedly cited (design blogs, a public case study claiming ~$35k lifetime marketing spend -- unverified
+by this research, treat skeptically) as growing through people adopting it individually, then inviting their whole
+team -- the same network-effect spread as Figma or Loom, where the product's VALUE is multiplayer, so one happy user
+structurally creates the next ten. Its onboarding is described as deliberately calm (no celebratory flourishes, no
+confetti) -- confidence signaled through restraint, consistent with this project's own anti-slop stance against
+generic celebratory/gamified UI. **Caution:** several sources argue Linear's specific dark+purple, keyboard-first
+aesthetic is now OVERSATURATED as every B2B tool copies it -- this is a argument for NOT defaulting to it (ties
+directly to web-director.md's "Training on five different products showed the same... chosen every time" warning).
+The transferable lesson is the MECHANISM (invite-driven spread from genuine multiplayer value, restrained onboarding
+copy), not the Linear look itself.
 
 ## What this changes about how a build gets planned
 Before CONCEPT in web-director.md, when the brief is for a product meant to retain or spread (not a one-time
@@ -3402,11 +3400,10 @@ reward, no stopping cues) unless the brief is actually building a retained-use p
 ethical caution applies.
 
 ## Sourcing note
-Habit-loop and loss-aversion mechanisms: a published interview with a language-learning app's own group product lead
-(named, most authoritative source found, kept out of this file by name). Marketplace trust study: a peer-reviewed
-paper on trust and reputation in peer-to-peer marketplaces; photo-doubling-bookings claims are anecdotal secondary
-sources. Payment trust: a major payment processor's own published checkout-design guidance (vendor content).
-Short-form video / infinite scroll: established behavioral-psychology literature on variable-ratio reinforcement,
-applied by secondary UX commentary to specific platforms (platform-specific causation is asserted, not independently
-proven); regulatory preliminary findings are explicitly preliminary. B2B SaaS aesthetic spread: design-blog case
-studies and commentary, no primary financial or growth data independently confirmed.
+Duolingo: Lenny's Newsletter interview with Group PM Jackson Shuttleworth (named, most authoritative source found).
+Airbnb: Ert, Fleischer & Magen, "Trust and reputation in the sharing economy" (peer-reviewed); photo-doubling-bookings
+claims are anecdotal secondary sources. Stripe: Stripe's own published checkout-design guidance (vendor content).
+TikTok/infinite scroll: established behavioral-psychology literature on variable-ratio reinforcement, applied by
+secondary UX commentary to TikTok specifically (platform-specific causation is asserted, not independently proven);
+EU Commission preliminary findings are explicitly preliminary. Linear: design-blog case studies and commentary, no
+primary financial or growth data independently confirmed.
