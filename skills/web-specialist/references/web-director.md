@@ -16,8 +16,8 @@ and the board checks each order's CHECK at the end. Vague advice produces nothin
 2b. **For a software product**, check whether the whole product is one interaction (a single tool, a chat, a
    prompt box): if so, consider the single-input-homepage pattern (web-designer-references.md, "The single-input
    homepage -- the product IS the homepage") -- the real control as the entire first viewport, nothing else
-   competing with it. Otherwise, build the "core thing the product does" row as an OS-window demo card (the
-   dev-tool marketing-page pattern in the same file): a
+   competing with it. Otherwise, build the "core thing the product does" row as an OS-window demo card (Linear's
+   pattern in the same file): a
    title-barred card with real-looking fictional data, never lorem.
 3. **List the visitor's real questions** (3 to 5), in their words: "what does it taste like", "where can I get
    one", "is it for me". Every section answers one. Anything that answers nobody's question is cut, however well
