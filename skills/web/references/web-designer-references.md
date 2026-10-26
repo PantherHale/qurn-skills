@@ -106,9 +106,9 @@ Claude Code habitually opens every page with a huge heading, often with a small 
 
 Operator, 2026-09-22: study these for "product and animation focused" sites that stay simple but leave an impression, one real scroll-animation site, and one dashboard/UI reference for how a brand's colour threads through an app. Verified from each site's shipped CSS/JS, not a summary.
 
-## Asymm (asym2.lovable.app) -- restraint as the whole design
+## Asymm -- restraint as the whole design
 
-A Lovable-built site, and worth naming BECAUSE it is Lovable-built: it proves the platform's default output can look considered when the builder restrains it, which is exactly what this project's own scan and playbook are for.
+A site built on an AI website builder, and worth naming BECAUSE of that: it proves a generic AI-generated base can look considered when the builder restrains it, which is exactly what this project's own scan and playbook are for.
 
 - Pure black and white: `--background: 0 0% 0%`, `--foreground: 0 0% 100%`, one grey step for cards (4%), muted text at 55% grey. No accent colour at all -- the only colour in the system is the destructive red, used nowhere in the design itself.
 - `--radius: 0px`. Every corner is square.
@@ -117,7 +117,7 @@ A Lovable-built site, and worth naming BECAUSE it is Lovable-built: it proves th
 - Headline: "Illuminate the unseen." One line, no subtitle stacked under it, direct into the job listings.
 - **Take:** monochrome plus texture can carry a whole brand when the type and grid are disciplined. Zero accent colour is itself a valid palette choice for a technical/defense-style brand.
 
-## TouristyAF (touristyaf.lovable.app) -- personality through two type roles and one accent
+## TouristyAF -- personality through two type roles and one accent
 
 - Palette: white ground, near-black ink, one deep green primary (`hsl(160 80% 19%)`) and one gold/mustard secondary (`hsl(47 100% 60%)`) used as the accent -- warm, not the default blue-on-dark every generated site reaches for.
 - Type: "Arimo" (sans) for headlines via `--font-headline`, "Anonymous Pro" (monospace) for body via `--font-body` -- a monospace body is the unusual, personality-carrying choice here, the opposite of the expected serif-headline/sans-body pairing.
@@ -276,11 +276,11 @@ returns the source in `files[].content` and its `dependencies` (often `gsap` or 
 `npx shadcn@latest add @react-bits/<Name>-TS-TW` in a shadcn project. TAKE: the motion craft. REFUSE: the demo
 colours and default glow; restyle to the project's tokens, and give every animated component a reduced-motion state.
 
-# Reference 10-11: Manus and Linear (verified 2026-09-28, real DOM and screenshots)
+# Reference 10-11: an AI-agent homepage and a dev-tool marketing page (verified 2026-09-28, real DOM and screenshots)
 
-## Manus (manus.im) -- the product IS the homepage
+## The single-input homepage -- the product IS the homepage
 
-Manus is an AI agent; its own homepage has no hero image, no marketing paragraph, no scroll at all above the
+One well-known AI agent product's homepage has no hero image, no marketing paragraph, no scroll at all above the
 fold and barely any below it. The entire first (and almost only) viewport is: a serif headline ("What can I do
 for you?"), directly under it the REAL prompt box the product runs on (a plain white card, a placeholder
 "Assign", a `+` attach button, a round send button), and under that a row of pill chips naming what it can do
@@ -292,25 +292,25 @@ the hero" (references/scroll-craft.md's presentation table), not a header with a
 works when the product truly is a single input; a multi-feature product that copies this looks empty, not
 confident.
 
-## Linear (linear.app) -- the OS-window demo card
+## The OS-window demo card -- a dev-tool marketing page
 
-Linear's whole marketing page is one content kind repeated: `getComputedStyle(document.body).backgroundColor`
-is `rgb(8, 9, 10)` (near-black), Inter Variable throughout, no GSAP/Lenis/three globals (no heavy scroll
+One well-known dev-tool's marketing page is built from one content kind repeated: `getComputedStyle(document.body).backgroundColor`
+is `rgb(8, 9, 10)` (near-black), a variable grotesque sans throughout, no GSAP/Lenis/three globals (no heavy scroll
 library at all -- the craft is in layout, type and restraint, not motion). Every feature section wraps its demo
 in a card styled like a desktop app window: rounded corners, a thin border, a soft shadow, and in some cards a
-literal macOS-style traffic-light row (three small dots) with the tool's own name and icon as a title bar
-("Cursor", "Linear · Opus 5", "ChatPRD"). Inside, the content is never a generic mockup: real-looking ticket IDs
-(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to Claude Opus
-5"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
-sections sits a plain logo wall (OpenAI, Vercel, Salesforce, Figma, Cursor, Coinbase, Ramp) in flat white
+literal macOS-style traffic-light row (three small dots) with the pane's own name and icon as a title bar.
+Inside, the content is never a generic mockup: real-looking ticket IDs
+(`ENG-2088`, `MKT-1029`), real bug/feature titles ("TypeError: Cannot read properties", "Upgrade to the latest
+model"), real names and timestamps in a chat thread, an agent's "Thinking..." state mid-response. Between feature
+sections sits a plain logo wall of well-known companies in flat white
 wordmarks with one caption line ("Powering the companies building the future") -- no cards, no borders, just
 logos and space. Each section gets a full screen-height of dark negative space around its one demo; nothing is
 crowded. TAKE: for a software product, the "working demo" row of the presentation table is best built as an
 OS-window card (title bar, real fictional data with plausible IDs/names/timestamps, never lorem) -- it reads as
-a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack (as
-Linear does for its agent-chat section) to show several tools at once without a grid. REFUSE: Linear's exact
-near-black palette and Inter -- the device (the windowed demo card, real fictional data, generous dark-field
-negative space) is what transfers, not its colours or font.
+a screenshot of the real product, not an illustration of one; multiple demo windows can overlap/stack to show
+several tools at once without a grid. REFUSE: copying this page's exact
+near-black palette and typeface wholesale -- the device (the windowed demo card, real fictional data, generous dark-field
+negative space) is what transfers, not its specific colours or font.
 
 # Operator note: equal, fast transition timing (2026-10-08)
 
