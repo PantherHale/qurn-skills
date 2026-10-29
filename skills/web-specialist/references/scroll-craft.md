@@ -1,7 +1,7 @@
 # Scroll craft -- how the scroll becomes part of the product
 
 Read this before building any scroll animation. The web designer's BUILD ORDERS name techniques from this file by
-their number (T1 to T22); build them the way they are written here. Written 2026-09-24 from four reference sites (a fourth, Driftwood, built by an AI website builder, added 2026-09-28)
+their number (T1 to T22); build them the way they are written here. Written 2026-09-24 from four reference sites (a fourth, Driftwood by Manus, added 2026-09-28)
 studied in a real browser (DOM, computed styles and scripts inspected, not guessed), after the operator rejected a
 site whose "scroll animation" was eight drawn slides of how coffee is farmed.
 
@@ -43,7 +43,7 @@ video carry the emotion; sketch-to-photo mask reveal; a one-line sign-up. REFUSE
 no empty slot), warm espresso-brown and cream, tight section spacing, a fixed dark header. TAKE: a real 3D object
 of the product; photographs of the actual drinks; full grids. REFUSE: the boxed hero card and the generic font.
 
-**Driftwood candles (built by an AI website builder in one hour, 2026-09-28; source and handoff guide read in full, the
+**Driftwood candles (built by Manus 1.6 Lite, one hour, 2026-09-28; source and handoff guide read in full, the
 build watched frame by frame).** Stack: Vite + React + TypeScript + Tailwind; one hand-written stylesheet does the
 work, no animation library at all. The opening is the scroll story: `.hero` is 205 viewport-heights tall (230 on
 phones), one `position: sticky; height: 100svh` stage inside it. At scroll 0 the first screen is WORDLESS: no header,
@@ -56,11 +56,11 @@ wordmark and nav at 0.48, a hairline progress bar appears after 0.02. Hidden sta
 until shown. The candle never moves on its own; it stays part of the photograph. Below: three cards revealed once
 each by IntersectionObserver with a 70ms stagger and a 3-degree rotateX settle, a sage band, a dark sign-up band with
 one pill-shaped email field. TAKE: the wordless photographic opening, layered cut-outs, staged reveals, the single
-progress variable, one primary action, and above all the PROCESS (see "How the agent built it" below). REFUSE: what the
+progress variable, one primary action, and above all the PROCESS (see "How Manus made it" below). REFUSE: what the
 operator found lacking in its result: the candle is a still photograph (no flame, no glow, no smoke), and after the
 hero there are almost no scroll effects (cards fade up once, nothing else). Fixing both is T15 and T16.
 
-**How the agent built it (read from the screen recording; this is the working method to copy).**
+**How Manus made it (read from the screen recording; this is the working method to copy).**
 1. It states a plan of three named steps with a counter ("Create original candle photography 1/3", "Build the
    responsive one-page site 2/3", "Check desktop and mobile rendering 3/3") and works them in that order.
 2. It makes the pictures FIRST. Original images, generated with an image model, in one consistent warm editorial
@@ -259,7 +259,7 @@ exists, give it these, they are what separates a template from a product:
   or three concrete follow-ups as buttons; keyboard-shortcut chips (`kbd`) where a shortcut exists.
 - Empty, loading and error states each with the one next action, never a blank panel.
 
-**T18. The handoff guide (`docs/design/AGENT_GUIDE.md`, written last, updated with every change).** The AI agent that built the Driftwood reference wrote a
+**T18. The handoff guide (`docs/design/AGENT_GUIDE.md`, written last, updated with every change).** Manus wrote a
 guide so a later agent could extend the page without breaking it; every web build now ends with one. Sections, in
 this order: (1) product brief: what it is, who, the ONE primary action, what is deliberately absent; (2) file table:
 file and its single responsibility; (3) design decisions: palette, type pairing, style, and WHY in a clause each;
@@ -267,7 +267,7 @@ file and its single responsibility; (3) design decisions: palette, type pairing,
 (5) motion, accessibility and responsive rules (breakpoints, reduced-motion behaviour, what is inert and when);
 (6) validation: the exact build/check commands and the manual checks (375px, 50% and 90% of the hero, reduced
 motion, `scrollWidth <= clientWidth`); (7) sample content still to replace before launch, named one by one. The guide
-states what is a decision and what is a placeholder; it never claims a feature that does not exist (its guide is
+states what is a decision and what is a placeholder; it never claims a feature that does not exist (Manus's guide is
 explicit that the sign-up form stores nothing).
 
 **T19. Ink-grade micro-choreography (Inkling's own numbers, read from its shipped CSS and script, 2026-09-28).**
@@ -401,7 +401,7 @@ interactive elements, media), plus the Academy and Kopi:
 
 | Content kind | Presentation | Interaction | Seen on |
 |---|---|---|---|
-| The whole product is one interaction | Put that real control as the entire first viewport -- headline, the control, nothing else (no hero image, no feature grid above it) | the control itself | one well-known AI agent's homepage: "What can I do for you?" and the real prompt box are the whole homepage |
+| The whole product is one interaction | Put that real control as the entire first viewport -- headline, the control, nothing else (no hero image, no feature grid above it) | the control itself | Manus (manus.im): "What can I do for you?" and the real prompt box are the whole homepage |
 | The core thing the product does (software) | An OS-window demo card: rounded corners, a thin border, a soft shadow, a title bar (name + icon, optionally traffic-light dots); real-looking fictional data inside (plausible IDs, names, timestamps), never lorem or generic labels; one demo per screen of dark negative space, several can overlap to show tools working together | input, tabs, a reset | Inkling #1 (type in the box, Enter, it files into Today); Linear (a ticket board, an agent chat mid-"Thinking...", stacked tool windows) |
 | Why the alternatives fail | A ruled 3-column table (category / examples / why it fails), text only, hairline rows, no cards | none | Inkling #2 |
 | How it works | Before -> action -> after: two real mocks joined by an arrow labelled with the action | none, or scrubbed | Inkling #3 (box -> "Enter" -> the day page) |

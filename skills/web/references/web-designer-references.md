@@ -106,9 +106,9 @@ Claude Code habitually opens every page with a huge heading, often with a small 
 
 Operator, 2026-09-22: study these for "product and animation focused" sites that stay simple but leave an impression, one real scroll-animation site, and one dashboard/UI reference for how a brand's colour threads through an app. Verified from each site's shipped CSS/JS, not a summary.
 
-## Asymm -- restraint as the whole design
+## Asymm (asym2.lovable.app) -- restraint as the whole design
 
-A site built on an AI website builder, and worth naming BECAUSE of that: it proves a generic AI-generated base can look considered when the builder restrains it, which is exactly what this project's own scan and playbook are for.
+A Lovable-built site, and worth naming BECAUSE it is Lovable-built: it proves the platform's default output can look considered when the builder restrains it, which is exactly what this project's own scan and playbook are for.
 
 - Pure black and white: `--background: 0 0% 0%`, `--foreground: 0 0% 100%`, one grey step for cards (4%), muted text at 55% grey. No accent colour at all -- the only colour in the system is the destructive red, used nowhere in the design itself.
 - `--radius: 0px`. Every corner is square.
@@ -117,7 +117,7 @@ A site built on an AI website builder, and worth naming BECAUSE of that: it prov
 - Headline: "Illuminate the unseen." One line, no subtitle stacked under it, direct into the job listings.
 - **Take:** monochrome plus texture can carry a whole brand when the type and grid are disciplined. Zero accent colour is itself a valid palette choice for a technical/defense-style brand.
 
-## TouristyAF -- personality through two type roles and one accent
+## TouristyAF (touristyaf.lovable.app) -- personality through two type roles and one accent
 
 - Palette: white ground, near-black ink, one deep green primary (`hsl(160 80% 19%)`) and one gold/mustard secondary (`hsl(47 100% 60%)`) used as the accent -- warm, not the default blue-on-dark every generated site reaches for.
 - Type: "Arimo" (sans) for headlines via `--font-headline`, "Anonymous Pro" (monospace) for body via `--font-body` -- a monospace body is the unusual, personality-carrying choice here, the opposite of the expected serif-headline/sans-body pairing.
@@ -276,11 +276,11 @@ returns the source in `files[].content` and its `dependencies` (often `gsap` or 
 `npx shadcn@latest add @react-bits/<Name>-TS-TW` in a shadcn project. TAKE: the motion craft. REFUSE: the demo
 colours and default glow; restyle to the project's tokens, and give every animated component a reduced-motion state.
 
-# Reference 10-11: an AI-agent homepage and Linear (verified 2026-09-28, real DOM and screenshots)
+# Reference 10-11: Manus and Linear (verified 2026-09-28, real DOM and screenshots)
 
-## The single-input homepage -- the product IS the homepage
+## Manus (manus.im) -- the product IS the homepage
 
-One well-known AI agent's homepage has no hero image, no marketing paragraph, no scroll at all above the
+Manus is an AI agent; its own homepage has no hero image, no marketing paragraph, no scroll at all above the
 fold and barely any below it. The entire first (and almost only) viewport is: a serif headline ("What can I do
 for you?"), directly under it the REAL prompt box the product runs on (a plain white card, a placeholder
 "Assign", a `+` attach button, a round send button), and under that a row of pill chips naming what it can do
