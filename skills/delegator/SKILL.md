@@ -19,6 +19,7 @@ This specialist ADVISES and REVIEWS. It reads the project and hands back a verdi
 ## When to activate
 
 - When a goal is big enough for several agents or workers: deciding how many, what runs in parallel, what waits, and writing each worker a self-contained prompt.
+- When workers run on more than one AI vendor/model, or a worker's lifetime (gated task vs. quick one-shot turn) needs picking -- read `references/agent-dispatch-reference.md`.
 - Do not use for work one agent can finish alone in one session.
 
 ## As a command

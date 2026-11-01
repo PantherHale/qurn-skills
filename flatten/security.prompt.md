@@ -275,14 +275,25 @@ is sent"). A missing item that applies is a finding: cite the file.
 - [major] Users can export their data, correct it and delete their account; deletion removes the login and stored
   files (see the security checklist).
 - [major] Cookie banner before any non-essential cookie or tracker loads, with Reject as easy as Accept (ePrivacy,
-  GDPR). Analytics that set cookies wait for consent.
+  GDPR). Analytics that set cookies wait for consent. **CCPA rules effective 2026-01-01 make two specific patterns
+  explicit violations, not just bad practice:** merely closing/dismissing the banner is NOT consent (only an
+  affirmative accept-type action counts), and an accept button visually more prominent than the reject button is
+  itself a flaggable dark pattern — the two controls must be symmetrical, and opting out must take no more steps
+  than opting in.
 - [minor] US: a "Do Not Sell or Share My Personal Information" link where CCPA/CPRA applies (selling or sharing data
-  for ads); honour Global Privacy Control signals.
+  for ads); honour Global Privacy Control signals, with a confirmation shown that the opt-out was processed.
 - [minor] A written breach plan: GDPR expects notification to the regulator within 72 hours.
 
 ## Subscriptions, payments and consumer law
 - [major] The price, billing period and auto-renewal are shown before the charge; cancelling online is as easy as
-  signing up (California's auto-renewal law and similar state laws); a renewal reminder for yearly plans.
+  signing up — cite **state auto-renewal law (e.g. California's ARL) and FTC Section 5 unfair/deceptive-practices
+  authority, never a federal "click-to-cancel" rule**: the FTC's federal Negative Option click-to-cancel rule was
+  vacated by the Eighth Circuit on 2025-07-08 (procedural grounds) and is not currently in force. The narrower prior
+  federal rule (pre-notification plans only) remains; state auto-renewal laws are unaffected and still require easy
+  cancellation in most of the same states. **Confirmed directly against ftc.gov 2026-10-30, no appeal/reinstatement
+  found — but the FTC itself opened an Advance Notice of Proposed Rulemaking in March 2026 (docket FTC-2026-0265) to
+  try to bring similar disclosure/consent/easy-cancellation provisions back via a properly-noticed rule**, so treat
+  the current absence as temporary, not permanent, when advising a client. A renewal reminder for yearly plans.
 - [major] Card data never touches the app's servers: hosted checkout or hosted fields (PCI DSS scope).
 - [minor] Terms of service and a refund policy are linked at checkout. EU buyers of digital content have a 14-day
   withdrawal right unless they expressly waive it at purchase.
@@ -293,8 +304,15 @@ is sent"). A missing item that applies is a finding: cite the file.
 - [major] Fonts, images, icons and audio have a licence that covers this use; no scraped or stock assets without one.
 - [minor] User-generated content: a way to report content and a copyright takedown contact (DMCA; the EU Digital
   Services Act for platforms).
-- [minor] AI features: tell users when they are talking to an AI or seeing AI-generated media (EU AI Act transparency
-  duties apply from August 2026); do not send personal data to a model provider the privacy policy does not name.
+- [major] AI features: tell users when they are talking to an AI or seeing AI-generated media, by default and no
+  later than first interaction. **EU AI Act Art. 50 is confirmed enforceable since 2026-08-02 — already past due for
+  EU users, not a future deadline (checked 2026-10-30).** A growing patchwork of US state laws adds disclosure duties,
+  mostly for companion/AI-chat features: California SB 243 (effective 2026-01-01) and SB 1119/Adam's Law (minors,
+  effective 2027-01-01), Washington HB 2225 (effective 2027-01-01), Oregon SB 1546 (effective 2027-01-01); Utah and
+  Maine reportedly reach disclosure more broadly. No comprehensive federal AI-disclosure statute exists, but
+  presenting a bot as human can itself be an FTC Section 5 deceptive practice regardless of a specific AI statute.
+  Disclosing up front by default satisfies all of the above at once — the safe global default. Do not send personal
+  data to a model provider the privacy policy does not name.
 
 ## Accessibility law
 - [major] Public websites and apps sold in the EU fall under the European Accessibility Act (from June 2025); US
@@ -319,9 +337,12 @@ Use this to name the exact standard, number and fix. Checked against primary sou
 - **OWASP Top 10 2025:** A01 Broken Access Control (now includes SSRF, CWE-918), A02 Security Misconfiguration, A03 Software Supply Chain Failures (new), A04 Cryptographic Failures, A05 Injection, A06 Insecure Design, A07 Authentication Failures, A08 Software or Data Integrity Failures, A09 Logging and Alerting Failures, A10 Mishandling of Exceptional Conditions (new). Access control first: spend most review time there. (top10.owasp.org/2025 redirected from owasp.org/Top10)
 - **OWASP ASVS 5.0** (17 chapters, current list): V1 Encoding and Sanitization, V2 Validation and Business Logic, V3 Web Frontend Security, V4 API and Web Service, V5 File Handling, V6 Authentication, V7 Session Management, V8 Authorization, V9 Self-contained Tokens, V10 OAuth and OIDC, V11 Cryptography, V12 Secure Communication, V13 Configuration, V14 Data Protection, V15 Secure Coding and Architecture, V16 Security Logging and Error Handling, V17 WebRTC. Levels are cumulative (L1 basic, L2 standard, L3 advanced); exact requirement counts and the 20/50/30 split are UNVERIFIED against primary, say "roughly" if quoted. Default target: L1 for a prototype, L2 for anything with accounts or payments.
 - **OWASP API Security Top 10 2023:** BOLA, Broken Authentication, BOPLA, Unrestricted Resource Consumption, Broken Function Level Authorization, Unrestricted Access to Sensitive Business Flows, SSRF, Misconfiguration, Improper Inventory Management, Unsafe Consumption of APIs.
-- **OWASP Top 10 for LLM Applications 2025:** Prompt Injection, Sensitive Information Disclosure, Supply Chain, Data and Model Poisoning, Improper Output Handling, Excessive Agency, System Prompt Leakage, Vector and Embedding Weaknesses, Misinformation, Unbounded Consumption. A separate **OWASP Top 10 for Agentic Applications 2026** exists (published Dec 2025, as a PDF); item names such as ASI01 Agent Goal Hijack are UNVERIFIED here (secondary source only) — confirm against the PDF before citing one by number.
+- **OWASP Top 10 for LLM Applications 2025:** Prompt Injection, Sensitive Information Disclosure, Supply Chain, Data and Model Poisoning, Improper Output Handling, Excessive Agency, System Prompt Leakage, Vector and Embedding Weaknesses, Misinformation, Unbounded Consumption. **This is a different list from the OWASP Top 10 for Agentic Applications 2026** (published 2025-12-09) — use the LLM list for single-call/RAG features, the agentic list below for any multi-step tool-calling loop.
+- **OWASP Top 10 for Agentic Applications 2026 (confirmed 2026-10-29; re-attempted direct fetch 2026-10-30 — still only reachable as a landing page or 404, category names now corroborated across many more independent secondary sources but exact OWASP prose remains unconfirmed):** ASI01 Agent Goal Hijack, ASI02 Tool Misuse, ASI03 Identity & Privilege Abuse, ASI04 Agentic Supply Chain Vulnerabilities, ASI05 Unexpected Code Execution, ASI06 Memory & Context Poisoning, ASI07 Insecure Inter-Agent Communication, ASI08 Cascading Failures, ASI09 Human-Agent Trust Exploitation, ASI10 Rogue Agents. Detect: `langgraph`/`crewai`/custom tool-calling loops, MCP client/server code, any feature where the model's own output triggers the next action with no human check. ASI01/02/03 are the three most commonly missed on review: untrusted content read mid-task (a fetched page, an email, a tool result) must never be treated as a new instruction (ASI01); every tool is scoped to the minimum action, with a human-confirmation step for anything irreversible — send email, delete data, spend money, change permissions (ASI02); agent credentials are scoped per-task, never one long-lived admin token reused across every tool call (ASI03).
+- **OWASP MCP Top 10 (2025, Beta — confirmed directly 2026-10-30 via owasp.org/www-project-mcp-top-10/):** MCP01 Token Mismanagement & Secret Exposure, MCP02 Privilege Escalation via Scope Creep, MCP03 Tool Poisoning, MCP04 Software Supply Chain Attacks & Dependency Tampering, MCP05 Command Injection & Execution, MCP06 Prompt Injection via Contextual Payloads, MCP07 Insufficient Authentication & Authorization, MCP08 Lack of Audit and Telemetry, MCP09 Shadow MCP Servers, MCP10 Context Injection & Over-Sharing. Still Beta (Phase 3 of 4) — cite as current-beta, not final.
 - **NIST SP 800-63B Rev 4 (Aug 2025):** password-only login needs at least 15 characters (8 as one MFA factor), accept at least 64, no forced composition rules, no scheduled rotation unless compromise is evidenced, compare the whole password against breach/dictionary/service-specific blocklists, allow paste and password managers, no password hints or security questions. Session limits: AAL2 24h overall / 1h inactivity, AAL3 12h / 15min. Offer a phishing-resistant authenticator (WebAuthn/passkey) at AAL2, require it at AAL3; OTP/out-of-band codes are never phishing-resistant. Syncable passkeys allowed except at AAL3.
-- **Also useful:** CWE Top 25, OWASP Mobile Top 10/MASVS, CIS Benchmarks, SLSA v1.1/1.2 (L1 provenance exists, L2 hosted platform signs it, L3 isolated hardened builds), OpenSSF Scorecard (18 checks: Pinned-Dependencies, Token-Permissions, Dangerous-Workflow, Branch-Protection, Signed-Releases, Vulnerabilities...), PCI DSS 4.0, SOC 2, ISO 27001.
+- **CWE Top 25 2025 edition (supersedes the 2024 list):** CWE-79 XSS still #1; CWE-89 SQLi up to #2; CWE-352 CSRF up to #3; CWE-862 Missing Authorization jumped to #4 (+5 ranks); CWE-476 NULL Pointer Dereference jumped to #13 (+8); new entries with no prior rank: CWE-284 Improper Access Control and buffer overflow split out into CWE-120/121/122. Cite the 2025 edition, not 2024.
+- **Also useful:** OWASP Mobile Top 10/MASVS, CIS Benchmarks, SLSA v1.1/1.2 (L1 provenance exists, L2 hosted platform signs it, L3 isolated hardened builds), OpenSSF Scorecard (18 checks: Pinned-Dependencies, Token-Permissions, Dangerous-Workflow, Branch-Protection, Signed-Releases, Vulnerabilities...), PCI DSS 4.0, SOC 2, ISO 27001.
 
 ## Threat modelling (do it at the start, in ten minutes)
 Draw the data flow and trust boundaries; at each one ask STRIDE (Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege); rank by attacker gain vs cost; fix cheap high-gain first; write down what you accept. Four questions (Shostack): what are we building, what can go wrong, what will we do, did we do a good enough job.
@@ -353,6 +374,7 @@ Draw the data flow and trust boundaries; at each one ask STRIDE (Spoofing, Tampe
 Platform crypto only (TLS 1.2+/1.3, AES-256-GCM or ChaCha20-Poly1305, Ed25519/P-256, libsodium), OS CSPRNG for random bytes. Secrets: env or secret manager, never in repo/bundle/logs; centralise, automate rotation, prefer dynamic short-lived secrets, least privilege per key, pre-commit scanning (gitleaks/trufflehog), a rehearsed revoke-and-rotate drill. Avoid high-privilege secrets in CI.
 
 ## Supply chain (A03) and CI
+- **A previously-clean, long-trusted dependency is not automatically lower-risk than a new one.** The dominant 2025–2026 attack pattern (the Shai-Hulud npm worm and its later waves, including a 2026-04 wave against SAP's CAPM toolchain) is a compromised maintainer account or stolen publish token pushing a malicious update to an already-trusted package — not only typosquatting a new name. Treat a routine-looking version bump on a high-privilege dependency the same as a new, unvetted one: review the diff, not just the version number. CI/publish credentials (npm tokens, GitHub Actions secrets with write access) are themselves a high-value target distinct from application secrets.
 - Keep an SBOM (direct and transitive), remove unused deps, watch CVE/NVD/OSV, stage rollouts, harden repos/workstations/CI with MFA, signed builds, separation of duties.
 - Pin GitHub Actions to a full commit SHA; `GITHUB_TOKEN` read-only by default per job; pass untrusted event fields (PR title etc.) via env vars, never inline `${{ }}` in a script; avoid self-hosted runners on public repos.
 - Publish to npm with trusted publishing (OIDC, no long-lived token) — provenance attestations auto-generate from GitHub Actions/GitLab CI (needs npm CLI 11.5.1+, Node 22.14+).
@@ -491,6 +513,12 @@ An audit of the security files found no mention of path traversal, XXE, subresou
 - **Authorisation URLs from a server are untrusted input.** Allow only `http` and `https` (plain `http` only for loopback in development), reject `javascript:`, `data:`, `file:` and `vbscript:`, prefer an allowlist, and never open a URL through a shell (`cmd.exe`, `sh`, PowerShell).
 - **Scope minimisation.** Start with low-risk read scopes and raise them by challenge when a privileged operation is first attempted; never publish `*`, `all` or `full-access` scopes; log elevations.
 - **Tool descriptions and results from third-party servers are untrusted text that reaches the model.** The tools specification says clients MUST treat tool annotations as untrusted unless the server is trusted, and servers MUST validate every tool input, rate-limit calls and sanitise outputs. Keep a human able to refuse tool calls. (The prompt-injection section of `security-threats.md` applies in full.)
+- **Tool poisoning (confirmed 2026-10-29, statistic corrected 2026-10-30):** malicious instructions hidden inside a tool's own metadata/description — invisible to a human skimming the tool list, but read and obeyed by the calling model. Named across multiple sources as the most prevalent client-side MCP vulnerability; this is OWASP MCP Top 10's MCP03:2025. **Do not cite a "100% attack success rate against Claude Sonnet 4 / Gemini 2.5 Pro" — traced 2026-10-30 to the DSN-2026 paper (arXiv:2510.16558), which does not contain that figure or mention either model; it is a registry-scan study (67,057 servers, 833 vulnerable), not a model-attack benchmark.** Cite instead the MCPTox benchmark (AAAI 2026): across 20 agents on 45 live MCP servers / 353 tools, average attack success rate 36.5%, up to 72.8% (GPT-o1-mini); even the most resistant model tested (Claude-3.7-Sonnet) refused under 3% of poisoned-tool attempts. Review rule: read every connected MCP tool's full description text as if it were untrusted input, not just its name.
+- **Tool-name collisions and shadowing:** when multiple MCP servers are connected, the client/agent must disambiguate which server's tool actually executes on a name match rather than silently picking one — a documented exploitable confusion in at least one mainstream IDE agent. One server's tool definition silently overriding another's (shadowing) is the same root cause.
+- **Rug pulls:** a server changes its tool's description or behaviour *after* a human already approved using it once. Pin MCP servers/tools to a known-good version or hash rather than trusting a one-time approval to hold forever.
+- **Real documented incident — the Postmark MCP backdoor (disclosed September 2025):** a popular MCP server package was found silently BCC'ing every processed email to an attacker-controlled address. This is the concrete case for why an MCP server is a new backend trust boundary, not a convenience layer exempt from review — treat it with the same scrutiny as any other third-party dependency with access to sensitive data.
+- **OWASP MCP Top 10 (2025, Beta — confirmed 2026-10-30 via owasp.org/www-project-mcp-top-10/):** MCP01 Token Mismanagement & Secret Exposure; MCP02 Privilege Escalation via Scope Creep; MCP03 Tool Poisoning; MCP04 Software Supply Chain Attacks & Dependency Tampering; MCP05 Command Injection & Execution; MCP06 Prompt Injection via Contextual Payloads; MCP07 Insufficient Authentication & Authorization; MCP08 Lack of Audit and Telemetry; MCP09 Shadow MCP Servers; MCP10 Context Injection & Over-Sharing. Cite findings by ID; the project is still Beta (Phase 3 of 4), not a final release.
+- **MCP servers now have a real CVE history (confirmed 2026-10-30), not just named attack patterns** — treat patching them like any other dependency with a public CVE, on the normal review cadence, not as a novel/exotic risk forever: e.g. CVE-2026-25536 (MCP TypeScript SDK session-isolation leak between clients, patched in SDK 1.26.0), CVE-2026-26118 (Microsoft MCP Server, reported CVSS 8.8), CVE-2026-20205 (Splunk MCP Server), CVE-2026-44427 (MCP Registry open redirect), CVE-2026-73498 (`mcp-atlassian` path traversal), CVE-2026-115845 (AWS MCP Server, incomplete Python-sandbox input validation).
 
 ## 2. Package hallucination and look-alike names
 The paper "We Have a Package for You!" tested 16 code-generating models on 576,000 samples in two languages: commercial models recommended non-existent packages in at least 5.2% of cases and open-source models in 21.7%, with about 205,474 distinct invented names; the authors call it persistent and systemic. An attacker can publish a package under an invented name that models keep suggesting. Rule: never install a package an agent suggested before checking that it exists, who publishes it, when it appeared and its history; keep a lockfile and review additions to it.
@@ -513,6 +541,13 @@ Disable DTDs wherever possible and reject DOCTYPE declarations. If DTDs are requ
 
 ## 8. Server-side template injection (PortSwigger)
 It occurs when user input is concatenated into a template instead of passed to it as data, and at worst gives remote code execution on the server; it is more dangerous than XSS because it runs on the backend. Prevent it by never letting users submit or edit templates, using a logic-less engine (Mustache is the example given), and sandboxing or containerising anything that must run untrusted templates.
+
+## 9. OWASP Agentic Applications Top 10 (ASI01-ASI10) and adversarial test tooling (research pass 3, 2026-10-31)
+- **OWASP Top 10 for Agentic Applications 2026 (ASI01-ASI10) is still not primary-source-fetched, after a third, broader attempt.** Tried: (1) direct fetch of `genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/` — resolves but is a landing page with a PDF download link only, no category text; (2) `github.com/OWASP/www-project-top-10-for-agentic-ai-applications` — 404, not the right repo path; (3) targeted search on the individual category names (`"ASI01" "Agent Goal Hijack" site:genai.owasp.org OR site:owasp.org`) — zero hits on an OWASP-owned domain, only third parties reproducing the list secondhand. **Treat the category names (ASI01 Agent Goal Hijack, ASI02 Tool Misuse, ASI03 Identity & Privilege Abuse, ASI04 Agentic Supply Chain Vulnerabilities, ASI05 Unexpected Code Execution, ASI06 Memory & Context Poisoning, ASI07 Insecure Inter-Agent Communication, ASI08 Cascading Failures, ASI09 Human-Agent Trust Exploitation, ASI10 Rogue Agents) as solid — broadly corroborated, including a cited 2025-12-09 publication date and "100+ researcher" peer review — but do not quote per-category OWASP prose as verbatim without opening the actual PDF.**
+- **Concrete test methodology for "does this agent resist prompt injection / respect its tool scope" — not just the risk name:**
+  - **garak** (NVIDIA, open source, `github.com/NVIDIA/garak`, stable v0.17.0 / 2026-09-09) — model-level adversarial probe scanner (50+ probes: prompt injection, jailbreak, data leakage, hallucination, toxicity). Tests the underlying LLM API directly, not the agent's tool-calling wiring; `pip install garak`, `garak --list_probes`. Use as a baseline before testing the agent built on top of the model.
+  - **Promptfoo red-team mode** (`promptfoo.dev/docs/red-team`, MIT core) — application/agent-level, with exact plugin IDs confirmed from its own docs: `rbac`, `bola`, `bfla`, `excessive-agency`, `tool-discovery`, `mcp`, `hijacking`, `agentic:memory-poisoning`, plus a custom `policy` plugin. Attack-generation strategies: `jailbreak`, `jailbreak:tree`, `crescendo`, `mischievous-user`. The mechanically verifiable part: trace-based assertions `trajectory:tool-used`, `trajectory:tool-args-match`, `trajectory:tool-sequence`, `trajectory:step-count`, `trajectory:goal-success` check the actual tool-call trace, not the model's narrated/claimed behavior — this is how to tell "the agent said it wouldn't call that tool" from "the agent actually called it." A confirmed finding becomes a CI regression via `not-trajectory:tool-args-match`.
+  - **Methodology (vendor/practitioner consensus, not a single authoritative standard):** enumerate every tool/permission/external system the agent can reach before testing; test each tool individually for unauthorized invocation via prompt manipulation and parameter injection; map the tool graph and test chained calls for privilege escalation (Tool A's output feeding Tool B's input beyond either tool's individual privilege); treat indirect injection (hidden instructions inside a fetched page, document, or another tool's return value) as the primary real-world delivery route; enforce scope in the orchestration/runtime layer, never inside the model under test, and red-team the confirmation gate itself rather than assuming it holds.
 
 
 ---
@@ -575,6 +610,49 @@ specifically hunting what the checklist above would miss.
   the same button clicked twice within 100ms.
 - Cross-category gaps: an issue that is both a performance problem and a security hole, or one
   that only shows up at an integration boundary or a specific deployment configuration.
+
+## Agentic AI: prompt-injection and tool-misuse verification (added 2026-10-31, research/security.md pass 3)
+For any agent/tool-calling feature (ASI01 Agent Goal Hijack, ASI02 Tool Misuse, LLM01/LLM06),
+"we reviewed the system prompt" is not a test. Verify mechanically, with trace evidence, not by
+reading the model's own narration of what it did:
+
+**Tools (real, current, open source -- do not re-verify these, they're confirmed):**
+- **garak** (NVIDIA, `github.com/NVIDIA/garak`, stable v0.17.0 as of 2026-09-09) -- model-level
+  scanner. Sends adversarial probes directly at the LLM API and grades responses; 50+ probe
+  modules (prompt injection, jailbreak, data leakage, hallucination, toxicity). `pip install`,
+  then `garak --list_probes`. Tests the underlying **model**, not the agent's tool-calling
+  wiring -- run this first as a baseline, before testing the agent built on top.
+- **Promptfoo red-team mode** (`promptfoo.dev/docs/red-team`, MIT core) -- application/agent-level.
+  Exact plugin IDs to run against a live agent: `rbac` (role-based access enforcement), `bola`
+  (steered onto another user's objects/data), `bfla` (steered into calling a function outside
+  intended scope), `excessive-agency` (acts beyond stated capabilities), `tool-discovery`
+  (reveals its tool list to an unauthorized caller), `mcp` (MCP-implementation weaknesses),
+  `hijacking` (redirected away from its original objective -- the practical ASI01 test),
+  `agentic:memory-poisoning` (corrupted memory/context changes later behavior), and a custom
+  `policy` plugin for a project-specific rule ("never call delete-user without confirmation").
+  Attack-traffic strategies layered on top: `jailbreak`, `jailbreak:tree`, `crescendo`
+  (multi-turn escalation), `mischievous-user` (adversarial multi-turn, pairs with
+  memory-poisoning). **Mechanical tool-scope check:** assert on the actual tool-call trace, not
+  the chat transcript, via `trajectory:tool-used`, `trajectory:tool-args-match`,
+  `trajectory:tool-sequence`, `trajectory:step-count`, `trajectory:goal-success`. A confirmed
+  violation becomes a permanent CI regression check via `not-trajectory:tool-args-match`.
+
+**Methodology (practitioner-consensus across vendor sources -- no single authoritative standard,
+cite as consensus not verified fact):**
+1. Enumerate every tool, permission scope, and external system the agent can reach before
+   testing anything -- the attack surface is the permission set, not the vocabulary.
+2. Test each tool individually for unauthorized invocation via prompt manipulation and
+   parameter injection.
+3. Map the tool graph and test **chained** calls for privilege escalation -- Tool A's output
+   fed as Tool B's input can exceed either tool's individual privilege (e.g. a read-file
+   result landing in a send-email recipient field).
+4. Indirect injection -- a hidden instruction inside content the agent reads mid-task (a
+   fetched page, a document to summarize, another tool's return value) -- is the primary
+   real-world delivery route; this is the buildable version of "the hidden-instruction test
+   case" already required elsewhere in this checklist.
+5. Enforce scope **outside** the model, in the orchestration/runtime layer -- the model can be
+   talked into expanding its own scope, so a control living inside the model under test is not
+   a control. Red-team the confirmation gate itself (don't just build it, try to talk it around).
 
 ## Reporting
 Rate likelihood and impact (High/Med/Low) per finding; a finding with no concrete exploit path

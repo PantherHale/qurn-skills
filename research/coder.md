@@ -1,5 +1,5 @@
 # Coder: research notes
-2026-09-23
+2026-09-23, updated 2026-10-29
 
 Scope: research for the CODER specialist of an advisory-only AI coding agent. The Coder
 chooses/confirms language, framework and database, reviews for small diffs and tests-first, and checks a five-item
@@ -236,10 +236,217 @@ For quick use against a transcript, diff, or project at the Coder's start/middle
 - [ ] Long lists virtualized; large SSR payloads paginated/streamed
 - [ ] Core Web Vitals plausibly unaffected or improved for UI-facing changes (LCP ≤2.5s, INP ≤200ms, CLS ≤0.1 as the target frame, not a rule to cite verbatim in every review)
 
-## Open questions
+## 2026-10-29 update: what changed in the last 6-12 months
+
+The operator flagged the research as "lacking, way behind." This pass re-fetched Anthropic's own current docs (not the
+cached version behind the September pass) plus searched broadly for stack-tradeoff and agentic-practice shifts as of
+October 2026. The costs/mcp/sub-agents/code-intelligence pages have materially changed since September — several
+features below did not exist, or weren't documented, when the file above was written.
+
+### New sources (this pass)
+
+| URL | Take |
+|---|---|
+| https://code.claude.com/docs/en/costs (re-fetched 2026-10-29; page has grown substantially since the September pass) | New `/usage` Session block reports a live, per-session `Prompt cache (main)` line: request count, % of input tokens from cache, cache misses with a named likely cause (e.g. "tool definitions changed"), and warm/cold state with TTL — this is the first time the cache-hit ratio is a first-class, checkable number rather than something inferred. `/insights` analyzes up to 200 recent local sessions and writes an HTML report on friction points (misunderstood requests, buggy code) and suggests concrete fixes — a session-health signal that didn't exist before. On paid-plan accounts, `/usage` now surfaces ranked **recommendations**, each tagged with the % of recent usage it applies to (e.g. "25% Trim ~/code/api/CLAUDE.md · 49k tokens per request"), and a `f to fix` shortcut applies the fixable ones automatically (effort-level changes run immediately; "run /compact"-style rows still need a manual run; CLAUDE.md-trim-style rows get a guided Claude edit). New "Code intelligence plugins" lever: installing a language-server plugin for a typed language lets Claude get type errors automatically after edits and navigate by symbol via an `LSP` tool instead of grep+read — the doc's own framing: "a single 'go to definition' call replaces what might otherwise be a grep followed by reading multiple candidate files." New **agent teams** feature (see below) has its own token-cost section: ~7x more tokens than a standard session when teammates plan, because each teammate is a fully separate Claude instance with its own context window — this is a materially different cost profile than a subagent, and the existing file's "subagent" rule (6) doesn't cover it. |
+| https://code.claude.com/docs/en/agent-teams (new page since September; feature is `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`-gated, disabled by default as of 2026-10-29) | Agent teams are a distinct mechanism from subagents: multiple independent Claude Code instances (a lead + teammates) that share a task list and message each other directly, versus a subagent that only returns a summary to its caller. Explicit guidance: "Before you set up a team, check whether a lighter option does the job" — subagents for single-session parallel work, cross-session messaging for separate sessions you run yourself. The doc's own decision table: subagents are lower token cost ("results summarized back to main context") and best for "focused tasks where only the result matters"; agent teams are higher cost and best for "complex work requiring discussion and collaboration" (parallel code review with a security/performance/test-coverage split, or multiple teammates independently investigating competing bug hypotheses and trying to disprove each other, explicitly framed as a defense against anchoring-on-the-first-plausible-theory). Sizing guidance given directly: start with 3-5 teammates, 5-6 tasks per teammate; coordination overhead and diminishing returns both increase with team size; avoid two teammates editing the same file (causes overwrites — assign by file ownership). This is a concrete, checkable "did this project over-provision parallelism for a task a single session or a subagent would have done more cheaply" signal for a coder review. |
+| https://code.claude.com/docs/en/mcp (current; partial fetch, first 100K chars) | MCP tool search is on by default (as of the versions current in Oct 2026) and changes failure/connection behavior, not just context cost: with tool search on, a server still connecting in the background is waited on inside the `ToolSearch` call itself, and a server that fails to connect gets its error surfaced to Claude in `ToolSearch` results; without tool search (`ENABLE_TOOL_SEARCH=false`, or an older model on some cloud platforms), Claude gets no failure visibility and uses a separate `WaitForMcpServers` tool instead. A server that finishes connecting mid-turn becomes usable without waiting for the user's next message. This refines rule 8/15 in the existing file: "disable unused MCP servers" is still correct, but the deferred-tool-search mechanism itself is now the default, not an opt-in, so the marginal cost of a connected-but-unused server is lower than the September note implied — the stronger remaining reason to disable one is connection-failure noise and permission surface, not raw context cost. *(third-party sources, not independently verified against the full page: tool search engages "automatically" once tool descriptions would consume roughly 10% of context, with reported real-world drops like ~77K→~8.7K tokens for 50+-tool setups — cited by multiple independent blogs but not confirmed against Anthropic's own primary text in this pass; treat the specific percentage and token numbers as (to verify).)* |
+| https://code.claude.com/docs/en/plugins/code-intelligence (new since September) | A code intelligence plugin wires a real language server (pyright, gopls, rust-analyzer, typescript-language-server, clangd, jdtls, etc. — Anthropic maintains most of the official list) into Claude Code over LSP. Two concrete effects: (1) after every edit to a file that language's server handles, Claude automatically receives compiler-grade diagnostics (type errors, missing imports, syntax errors) without running a build — shown in the transcript as "Found N new diagnostic issues in M files"; (2) Claude gets a read-only `LSP` tool for go-to-definition/references by symbol instead of grep+read. Claude Code also proactively offers to install a matching plugin (the "LSP plugin recommendation" dialog) when it notices the binary is already on PATH but the plugin isn't installed — capped at 5 ignored prompts before it stops asking. This is a new, concrete rule 1a-adjacent signal for a Coder review: for a statically-typed project with no LSP plugin installed, the session is paying grep+read costs (and missing agent-caught type errors) that a one-time plugin install would remove going forward. |
+| (search, multiple independent blogs, consistent on direction but not on exact numbers — flag as (to verify)) "Claude Code tool search" | Independent write-ups (dev.to, besthub.dev, others) consistently describe MCP tool search as deferring full tool schemas until a tool is actually invoked, with only tool names + server instructions loaded up front; cited savings range from ~85% to ~95% context reduction for setups with 50+ MCP tools, and one report ties automatic activation to tool descriptions crossing ~10% of context. No two sources agree on the exact percentage or the version number that shipped it (v2.1.7 vs v2.1.69 both cited) — the direction (defer, don't eagerly load, prefer CLI tools where one exists) matches what Anthropic's own costs/mcp pages state, but the specific numbers in this paragraph are third-party and unverified. **RESOLVED 2026-10-30 — the "~10% activation" claim was mixing up two different things.** Confirmed directly against the full `code.claude.com/docs/en/mcp` page ("Scale with MCP tool search" / "Configure tool search" sections): by *default* (`ENABLE_TOOL_SEARCH` unset), ALL MCP tools are deferred unconditionally — there is no percentage threshold, deferral is simply always-on for models that support it (Opus 4+/Sonnet 4+/Haiku 4.5+ families). The 10% figure is real but belongs to a different, opt-in mode: `ENABLE_TOOL_SEARCH=auto` is "threshold mode" — tools that would otherwise be deferred instead load upfront while their definitions total under 10% of the context window, and only turn on deferral once that total reaches 10% (a custom percentage is settable with `auto:N`, e.g. `auto:5`). So the third-party blogs' "activates around 10% of context" was directionally right but attached to the wrong mode — it describes `auto`, not the shipped default. No official percentage is given for context-reduction savings (the 85%-95% figures remain third-party/unconfirmed). See full detail in the 2026-10-30 section below. |
+| (search, multiple independent blogs; not a primary/vendor-neutral source) "agentic engineering," Karpathy's framing via Versent/dev.to summaries of a cited "Anthropic 2026 Agentic Coding Trends Report" | Repeatedly cited shift in terminology/practice over the last 6-12 months: "vibe coding" (accept whatever the model outputs) giving way to "agentic engineering" (the developer owns architecture, tests, and review; the agent is treated as a fast but unreliable collaborator, not an oracle) and "context engineering" specifically (deciding what the agent sees, when, and in what form, rather than writing better prompts in isolation). One recurring claim — that the primary unit of engineering effort shifts from the individual agent call to the *coordination layer* across agents/subagents/teams — lines up directly with Anthropic's own shipped agent-teams feature above, but the report itself wasn't independently located/fetched in this pass; treat the report's existence and exact claims as (to verify), while the terminology shift itself is corroborated across many independent 2026 sources. **PARTIALLY RESOLVED 2026-10-30 — the report is real (`resources.anthropic.com/2026-agentic-coding-trends-report`, published 2026-01-21), but its own page does not state the "agentic engineering replaces vibe coding" framing or the "coordination layer is the primary unit of effort" claim.** The primary page names 8 trends organized around "shifting engineering roles," "multi-agent coordination," "human-AI collaboration patterns," and "scaling agentic coding beyond engineering teams," plus the line "software development is shifting from writing code to orchestrating agents that write code" — real and citable, but narrower than what secondhand blog summaries (dev.to, Versent, etc.) attributed to it. Treat the terminology-shift claim as secondhand embellishment on top of a real report, not something the report itself says; see the 2026-10-30 section for the exact confirmed wording. |
+| (search, multiple independent blogs, inconsistent specifics) stack-tradeoff searches for Postgres/SQLite/Turso and Bun/Node in 2026 | No primary vendor documentation was fetched for these (search results were dominated by SEO/comparison-blog content, not official docs) — findings below are directional consensus across many independent sources, not confirmed primary claims, and should be verified against official docs (bun.sh, nodejs.org, turso.tech, postgresql.org) before being treated as settled: **databases** — SQLite (or a hosted SQLite-compatible layer) remains the repeatedly-recommended default for a small/single-writer app, with Postgres recommended once the app needs heavy concurrent writes, extensions (pgvector etc.), or a deep managed-ecosystem; Turso specifically keeps SQLite's single-writer model while adding hosting/edge replication, and lacks the Postgres extension ecosystem (no pgvector). One fact that *was* corroborated by many independent, consistent news sources (Pulse2, SiliconANGLE, VKTR, Verdict, others) even though no single primary announcement was fetched: **Supabase announced acquiring Turso on 2026-10-02** alongside a $150M raise, explicitly framed around giving AI agents their own lightweight per-agent SQLite databases alongside Supabase's existing Postgres platform — Turso co-founder Glauber Costa becomes Supabase's Head of Agentic Services; deal terms undisclosed; Turso continues operating standalone with deeper integration planned. **CONFIRMED 2026-10-30 against Supabase's own blog**, `supabase.com/blog/supabase-is-acquiring-turso` (dated 2 October 2026, by Paul Copplestone) — the post itself doesn't state the $150M figure or deal terms (those stay press-reported, not primary-confirmed), but it does confirm the framing directly: Supabase launches "over one million databases per week," expects agent-driven demand to keep outpacing capacity, and wants databases "cheap to create, available on demand" — SQLite (Turso) for small/on-demand workloads, Postgres (Supabase) for workloads that scale. Turso "keeps operating" with "a clear path into the broader Supabase ecosystem as workloads grow"; Glauber Costa leads the new agentic-infrastructure effort, joined by co-founder Pekka Enberg. Turso's architecture (one server managing millions of databases by loading/suspending them on demand) is the stated mechanism for a per-agent database. This upgrades the item from "widely reported, no primary doc" to primary-source-confirmed for the product framing; the deal's financial terms remain secondhand. This is a concrete, dateable shift the September file's database guidance didn't have: a project advised toward "Postgres vs. SQLite-family" now has a plausible third option (a Supabase-hosted, agent-oriented SQLite layer) that didn't exist as a single-vendor combined offering before October 2026. — **runtimes**: Bun is now broadly described as production-viable for new/greenfield services and for dev/build tooling, but the repeated, consistent caution is to keep already-critical high-traffic Node.js services on Node until a given team has its own production validation on Bun; Next.js specifically is called out as still building/deploying through Node.js even when Bun is used for install/dev. Treat specific reported throughput numbers (tens of thousands of req/s either way) as unverified marketing/benchmark-blog figures. |
+
+### New or revised efficiency rules
+
+21. **Check the session's own cache-hit ratio and `/insights`/`/usage` recommendations before guessing at inefficiency.** `/usage`'s `Prompt cache (main)` line reports request count, % of input tokens served from cache, and a named likely cause for the last cache miss (e.g. "tool definitions changed") — this turns "is this session wasting tokens" from an inference into a number the Coder can cite directly. On paid plans, `/usage` also ranks concrete recommendations by the % of recent usage each affects (e.g. "Trim CLAUDE.md · 49k tokens per request"), which is a more authoritative source for "what's actually costing this session" than reading the transcript by eye. *(code.claude.com/docs/en/costs)*
+
+22. **Install a code-intelligence (LSP) plugin for typed/compiled languages instead of relying on grep+read+manual-build-check.** A matching language server (pyright, gopls, rust-analyzer, typescript-language-server, clangd, jdtls, csharp-ls, ruby-lsp, etc.) gives Claude automatic post-edit diagnostics (type errors, missing imports) without running a build, and a read-only `LSP` go-to-definition/references tool that replaces a grep-then-read-candidates cycle with one lookup. For a statically-typed project with no plugin installed, this is a concrete, checkable gap in the project's own tooling, not just session behavior. *(code.claude.com/docs/en/plugins/code-intelligence)*
+
+23. **Reach for a subagent before an agent team; reach for an agent team only when the task genuinely needs multiple independent perspectives in dialogue.** Agent teams (multiple full, independently-billed Claude Code instances sharing a task list and messaging each other) cost roughly 7x a standard session when teammates plan, because each teammate carries its own full context window — this is a materially higher cost tier than a subagent, which only returns a summarized result. The documented decision test: use a subagent when "only the result matters"; use a team only when the task needs teammates to "share findings, challenge each other, and coordinate on their own" (parallel code review split by concern, or competing-hypothesis debugging where sequential investigation would anchor on the first plausible theory). Starting team size: 3-5 teammates, 5-6 tasks each — more teammates increase coordination overhead and hit diminishing returns quickly. A Coder review should flag a team spun up for a task one subagent or a single session could have done. *(code.claude.com/docs/en/agent-teams; code.claude.com/docs/en/costs — "Agent team token costs")*
+
+24. **MCP tool search is on by default now — the remaining reason to disable an unused server is failure-noise and permission surface, not raw context cost.** With tool search enabled (the current default), a connecting server is waited on inside the tool-search call itself and a failed connection's error is surfaced to Claude in `ToolSearch` results; this is lower eager-context-cost than the September file assumed, because deferral is now the default path rather than something the coder had to separately verify was configured. The "prefer a CLI tool (`gh`, `aws`, `gcloud`) over an MCP server for the same job" guidance still holds — a CLI tool costs zero listing overhead where even a deferred MCP tool costs a name-level listing — but "an MCP server is connected" is no longer, by itself, strong evidence of a context problem the way it was treated in rule 8. *(code.claude.com/docs/en/mcp; code.claude.com/docs/en/costs — "Reduce MCP server overhead")*
+
+### Database-choice addition (RESOLVED 2026-10-30 — now confirmed against Supabase's own blog post)
+
+Add to the stack-selection playbook: for a greenfield small app needing zero-setup storage (the Coder's own existing default: "preferring zero-setup storage, never requiring Docker or a database server"), the 2026 landscape now includes Supabase's October 2026 acquisition of Turso as a notable, primary-confirmed option — a SQLite-compatible, per-agent/edge-friendly storage layer under the same vendor as a full Postgres platform, which may reduce the traditional "SQLite now, migrate to Postgres later" friction if a project outgrows single-writer SQLite. Confirmed directly: `supabase.com/blog/supabase-is-acquiring-turso` (2026-10-02) states Turso "keeps operating" with "a clear path into the broader Supabase ecosystem as workloads grow," and frames the split explicitly as SQLite (Turso) for small/on-demand workloads vs. Postgres (Supabase) for workloads that scale — i.e., the two products stay separate today, with the acquisition framed as an on-ramp between them rather than a merged product yet. Still worth a fresh check before advising a specific project, since "a clear path" and "deeper integration planned" are forward-looking, not a shipped unified product as of this pass.
+
+### Distilled checklist additions
+
+**Session efficiency (add to existing list)**
+- [ ] `/usage`'s cache-hit line and any ranked recommendations checked/cited, not just eyeballing the transcript
+- [ ] A team (multiple independent Claude Code instances) wasn't spun up for a task a single subagent or session would have done at a fraction of the token cost
+- [ ] A statically-typed project has (or is missing) a matching code-intelligence/LSP plugin installed
+
+## Open questions (updated 2026-10-29; resolutions logged 2026-10-30 — see new section below)
+
+- ~~The 2026-10-29 pass's stack-tradeoff findings (Postgres/SQLite/Turso, Bun/Node) rest on search-result consensus across many independent blogs, not a fetched primary vendor doc — the Supabase/Turso acquisition date and framing specifically should be confirmed against Supabase's own announcement before being cited as fact rather than "widely reported."~~ **RESOLVED 2026-10-30**: confirmed against `supabase.com/blog/supabase-is-acquiring-turso`, see inline correction above. Bun/Node tradeoffs remain unconfirmed against a primary doc (not revisited this pass).
+- ~~MCP tool search's exact activation threshold (reported as ~10% of context by one third-party source) and the specific token-savings percentages (85%-95% across different blogs) were not confirmed against Anthropic's own primary text in this pass (the fetched `mcp.md` page was truncated before reaching that section) — worth a follow-up fetch of the remainder of code.claude.com/docs/en/mcp (offset 100000+) specifically for the "Scale with MCP tool search" section.~~ **RESOLVED 2026-10-30**: fetched the remainder of the page; the 10% figure is real but belongs to the opt-in `auto`/`auto:N` threshold mode, not the shipped default (which defers unconditionally). The 85%-95% savings figures remain unconfirmed against primary text — not stated anywhere in the fetched page.
+- ~~The cited "Anthropic 2026 Agentic Coding Trends Report" (referenced secondhand via a dev.to summary) was not located/fetched directly — the terminology shift it's credited with ("agentic engineering" over "vibe coding," coordination-layer-as-primary-object) is corroborated by many independent sources but the report itself is unverified.~~ **PARTIALLY RESOLVED 2026-10-30**: the report exists and was located (`resources.anthropic.com/2026-agentic-coding-trends-report`, published 2026-01-21); its own page names 8 trends but does not state the "agentic engineering over vibe coding" or "coordination layer as primary unit" framing attributed to it by secondhand summaries — treat those two specific claims as blog embellishment on a real report, not confirmed.
+
+### New from the 2026-10-30 pass
+- GPT-5.x/Gemini 3.x pricing was pulled from each vendor's own current pricing page (`developers.openai.com/api/docs/pricing`, `ai.google.dev/gemini-api/docs/pricing`) via one fetch each — these pages move fast (both show mid-generation model families already superseding the versions named in the 10-29 pass), so re-verify before citing specific numbers more than a few weeks old.
+- Claude's own pricing page now lists model names (Fable, Mythos) not covered anywhere in the file's prior passes — these appear to be newer tiers above Opus; no description of their capability class was in scope for this pass, only their price point.
+
+
 
 - No primary-source confirmation was found in this pass for "batch independent tool calls into one turn" (rule 13) as an explicitly documented Claude Code behavior/recommendation — it's standard practice across agentic tool-use generally but wasn't pinned to a fetched Anthropic doc; worth a follow-up fetch of the Claude API tool-use docs specifically for parallel tool-call guidance.
 - Gemini CLI's `GEMINI.md` hierarchy concatenates global/project/component files with no path-scoped, on-demand loading equivalent to Claude Code's `.claude/rules/*.md` (`paths:` frontmatter) — meaning a Gemini CLI project has less native ability to keep detail out of every turn's context; unclear whether a workaround (splitting into much smaller `GEMINI.md` files per directory and relying on Gemini CLI only loading what's below cwd) closes that gap in practice or whether it still concatenates ancestor files regardless of relevance. Worth verifying directly against a live Gemini CLI session if the Coder specialist ever needs to advise on a Gemini-driven project specifically.
 - OpenAI Codex's per-session cost/context-window telemetry (equivalent to Claude Code's `/usage`, cache-hit-ratio reporting) wasn't located in this pass — unclear whether Codex exposes an equivalent measurable signal a transcript reviewer could check, or whether "efficient Codex session" can only be judged indirectly (file-read count, diff size vs. edit size).
 - The "tests as spec" code-structure claim is treated here as a general TDD/verification-loop principle reinforced by Claude Code's own verification-check guidance, not as a claim backed by a fetched Aider or OpenAI primary source specifically about tests-as-specification; flagged `(to verify)` in that section.
 - This file only covers what the Coder specialist's *knowledge* should contain. Wiring these efficiency rules into the actual specialist prompt and checklist is a separate, later edit -- out of scope for this research pass, which was read-only.
+
+## 2026-10-30 update: verifying the 10-29 flags, plus pricing and a /usage worked example
+
+This pass had two jobs: (1) run down every item the 10-29 pass marked `(to verify)` or secondhand against a primary
+source, and (2) do one new pass of research the file didn't have yet. Resolutions are inlined above at each flagged
+item; this section holds the detail behind those resolutions plus the new material.
+
+### Verification detail
+
+**1. Supabase/Turso — CONFIRMED, with the financial terms staying secondhand.** Fetched `supabase.com/blog/supabase-is-acquiring-turso` directly (dated 2 October 2026, byline Paul Copplestone). The post does not state the $150M raise or any deal price — those remain press-reported only (Pulse2, SiliconANGLE, Verdict, etc.), not Supabase's own words. What the post *does* confirm directly: Supabase launches "over one million databases per week" today; it expects AI-agent-driven demand for small, disposable databases to keep outpacing capacity; the explicit split is SQLite (Turso) for workloads that are small/on-demand/cheap-to-spin-up, Postgres (Supabase) for workloads that need to scale; Turso "keeps operating" with "a clear path into the broader Supabase ecosystem as workloads grow" (i.e., not yet merged into one product); Glauber Costa leads the new agentic-infrastructure effort, joined by co-founder Pekka Enberg; the stated enabling mechanism is Turso's architecture letting one server manage millions of databases by loading/suspending them on demand, which is what makes a true "one SQLite database per agent" model cheap. *(supabase.com/blog/supabase-is-acquiring-turso)*
+
+**2. MCP tool search thresholds — CONFIRMED, and the 10-29 framing was conflating two modes.** Fetched the full `code.claude.com/docs/en/mcp` page past the truncation point (the "Scale with MCP tool search" and "Configure tool search" sections). The actual mechanics:
+- **Default behavior (`ENABLE_TOOL_SEARCH` unset):** all MCP tools are deferred and loaded on demand, unconditionally — "Claude Code doesn't impose a fixed per-server tool cap; the practical limit is your context window budget." There is no percentage threshold in the default path at all.
+- **`ENABLE_TOOL_SEARCH=auto` ("threshold mode"):** this is where a percentage applies, and it's the inverse of what several third-party blogs implied — tools that would otherwise be deferred *load upfront instead* while their total definitions stay under 10% of the context window; only once the total reaches 10% does tool search turn on for them (and tools already deferred can stay deferred even if the total later drops back under 10%). `auto:N` sets a custom percentage, e.g. `auto:5` for 5%.
+- **`ENABLE_TOOL_SEARCH=false`:** all tools load upfront, no deferral, ever.
+- Tool search requires Claude Opus 4/Sonnet 4/Haiku 4.5 or later (or the equivalent generations on Google Cloud's Agent Platform); earlier models always load tools upfront regardless of the env var.
+- Separately (not a 10-29 flag, but relevant precision): server instructions and an upfront-loaded tool's description are capped at 4,096 characters; a tool description loaded *through* tool search is capped at 16,384 characters — Claude only sees text before the cut.
+- The 85%-95% context-reduction figures cited by third-party blogs are **not stated anywhere in Anthropic's own page** — they remain unconfirmed. *(code.claude.com/docs/en/mcp — "Scale with MCP tool search," "Configure tool search")*
+
+**3. "Anthropic 2026 Agentic Coding Trends Report" — the report is real; two specific secondhand claims about it are not supported by its own page.** Located and fetched `resources.anthropic.com/2026-agentic-coding-trends-report` directly. Confirmed: the report exists, was published 2026-01-21, and "identifies eight trends changing how software gets built," organized around themes including "shifting engineering roles," "multi-agent coordination," "human-AI collaboration patterns," and "scaling agentic coding beyond engineering teams" — plus the directly quotable line "software development is shifting from writing code to orchestrating agents that write code." **Not found on the page**: the specific terminology "agentic engineering" replacing "vibe coding" (neither phrase appears), and no statement that coordination is "the primary unit of engineering effort." Both were secondhand framings laid on top of a real report by blog summarizers (dev.to, Versent-style write-ups) — the report's actual content is narrower and doesn't use that language. Treat the trend themes above as the citable content; drop the "agentic engineering vs. vibe coding" framing unless a specific page section states it (this pass's fetch only returned the landing-page summary, not the full PDF — a deeper read of the report body itself is still open).
+
+### New research: cross-provider pricing for agentic coding (fresh pass)
+
+Fetched each vendor's own current pricing page directly — useful as a concrete cost-awareness input to the Coder's
+existing model-tier guidance (rule 6), not as a permanent number (all three pages move fast; Claude's own page
+already lists a newer "Fable"/"Mythos" tier above Opus that wasn't in scope to characterize this pass, only to price).
+
+| Provider | Model (current/flagship tier at fetch time) | Input $/MTok | Output $/MTok | Notes |
+|---|---|---|---|---|
+| Anthropic | Claude Sonnet 5 | $2 | $10 | *(platform.claude.com/docs/en/about-claude/pricing — this file's own standard tier)* |
+| Anthropic | Claude Opus 5.5 | $4 | $20 | cache hits priced at 0.05x base input on this tier |
+| Anthropic | Claude Haiku 5.5 (≤100k-token prompts) | $0.10 | $0.50 | jumps to $0.50/$2.50 for prompts over 100k tokens |
+| OpenAI | gpt-5.1 | $1.25 | $10.00 | cached input $0.125/MTok |
+| OpenAI | gpt-5.3-codex | $1.75 | $14.00 | the one model on the page actually branded for agentic coding; Fast tier is $3.50/$28.00 |
+| OpenAI | gpt-5-mini / gpt-5-nano | $0.25 / $0.05 | $2.00 / $0.40 | cheap tiers for high-volume/subagent-style work |
+| Google | Gemini 3.1 Pro Preview | $2.00 (≤200k prompt) | $12.00 (≤200k prompt) | doubles to $4.00/$18.00 for prompts over 200k tokens; context caching $0.20 + $4.50/MTok/hr storage |
+| Google | Gemini 3.8 Flash / 3.6 Flash | $0.75 | $3.75 | described on the page as "built for long-horizon software engineering" / "general agentic tasks"; prices listed through 2026-12-31, roughly doubling 2027-01-01 |
+| Google | Gemini 3.1 Flash-Lite | $0.25 | $1.50 | high-volume/simple-task tier |
+
+Takeaways worth wiring into the Coder's own stack/model advice: (1) all three vendors now ship an explicit cheap "agentic/high-volume" tier an order of magnitude below their flagship (Haiku 5.5, gpt-5-nano, Gemini 3.1 Flash-Lite) — the existing rule 6 ("route disposable/high-volume subagent work to a cheap tier") has a concrete, checkable price gap behind it on every provider, not just Anthropic's; (2) long-context pricing is not uniform — Gemini's Pro tier doubles past 200k input tokens, OpenAI's page lists separate long-context rates past 272k, while Claude's 4.6+ models bill the full 1M-token window at the same flat rate — a project doing consistently large-context agentic work has a real, provider-specific cost cliff to check, not just a token-count estimate; (3) Google's page states a scheduled 2027-01-01 price increase on its Flash tiers in writing — the only one of the three vendors with a dated future increase published on the pricing page itself, worth flagging if a project is budgeting Gemini Flash past year-end. *(platform.claude.com/docs/en/about-claude/pricing; developers.openai.com/api/docs/pricing; ai.google.dev/gemini-api/docs/pricing)*
+
+### New research: a worked `/usage` + `/insights` diagnosis (fresh pass)
+
+Fetched `code.claude.com/docs/en/costs` in full for the exact mechanics (the 10-29 pass only summarized this page;
+this pass pins the literal fields). A concrete worked example of diagnosing a real inefficiency with the actual
+tooling, usable as a template for a Coder review:
+
+**Scenario.** A session has been open for hours, feels slow, and the user suspects it's burning tokens for no reason.
+
+1. **Run `/usage`.** The Session block prints:
+   ```
+   Total cost:            $0.55
+   Total duration (API):  6m 20s
+   Total duration (wall): 6h 33m 10s
+   Usage by model:
+      claude-sonnet-4-6:  1.2k input, 5.3k output, 940.0k cache read, 50.0k cache write ($0.55)
+   ```
+   Wall time (6h 33m) vastly exceeds API time (6m 20s) — the session itself wasn't running continuously, it was left
+   open. That alone isn't damning (idle sessions don't burn tokens by default), but it's the first thing to check
+   against the `Prompt cache (main)` line next.
+
+2. **Read the `Prompt cache (main)` line**, e.g.:
+   ```
+   Prompt cache (main):  14 requests · 91% of input tokens from cache · 2 misses (last 6m 10s ago,
+   310.2k tokens re-cached) · 1 expected rebuild (compaction or tool-result clearing) · warm (1h TTL, last activity 40s ago)
+   ```
+   91% cache-hit is actually healthy — the diagnosis here is *not* "the cache is cold," it's the opposite: caching is
+   working, so the $0.55 total isn't a caching problem. The "2 misses" with a named likely cause (e.g. `likely cause:
+   tool definitions changed`, when Claude Code can identify one) is where a real culprit would show up — if the
+   session had actually been toggling models or MCP servers mid-task, this line would say so directly instead of
+   making the reviewer guess.
+
+3. **Check the paid-plan recommendations row**, shown with a percentage of recent usage each applies to, e.g.
+   `25%  Trim ~/code/api/CLAUDE.md · 49k tokens per request`. The percentage is "how much of recent usage this row
+   applies to," not "how much switching would save" — read it as a share, not a saved-cost estimate. If the
+   recommendation is a `/compact`-shaped row (`30%  Compact before you step away · run /compact`), pressing `f` does
+   nothing for that row; the reviewer or user has to run it manually. If it's an `/effort`-shaped row with no `run`
+   prefix (`40%  Switch from max to high effort · /effort high`), `f` applies it immediately.
+
+4. **If the actual complaint is "this session feels unproductive" rather than "this session is expensive,"** that's
+   `/insights`, not `/usage` — a separate command that analyzes up to 200 recent local sessions and writes an HTML
+   report (`~/.claude/usage-data/report.html`) on friction points: misunderstood requests, buggy generated code, and
+   (when auto mode is available but wasn't used) an estimate of how many permission prompts auto mode could have
+   skipped. `/usage` answers "where did the tokens go this session"; `/insights` answers "what keeps going wrong
+   across many sessions" — a Coder review citing one when the complaint fits the other is reaching for the wrong
+   tool, not just an inefficiency finding.
+
+5. **A genuinely diagnostic pattern worth naming explicitly**: `/usage`'s own stated trigger for a recommendation row
+   is "behaviors behind 10% or more of your recent usage" — so a recommendation appearing at all is itself evidence
+   the behavior is non-trivial, not a nitpick. Conversely, *no* recommendation row and a high cache-hit percentage
+   together mean the session's structure is not the problem — the cost is just the task's real size, and the Coder's
+   next move should be checking model tier and task scope (rule 6, rule 19), not session hygiene. *(code.claude.com/docs/en/costs — "Using the `/usage` command," "Prompt cache statistics," "Plan usage breakdown," "Apply recommendations with the fix shortcut," "Analyze your usage patterns")*
+
+### New or revised efficiency rule
+
+25. **When diagnosing a specific session, read `/usage`'s wall-time-vs-API-time gap, cache-hit line, and recommendation rows as a sequence, not independently** — a long wall time with a healthy cache-hit percentage means the session merely sat open (not a finding by itself); a named cache-miss cause points directly at which other rule (6, 10, or a mid-task model/effort switch) was violated; a recommendation row appearing at all is evidence the behavior already crossed `/usage`'s own 10%-of-recent-usage bar, so it outranks a guess from eyeballing the transcript. *(code.claude.com/docs/en/costs)*
+
+### Distilled checklist addition
+
+**Session efficiency**
+- [ ] A `/usage` review reads wall-time-vs-API-time, the cache-hit line's named miss cause (if any), and recommendation rows together, not the transcript alone
+- [ ] Model-tier choice (rule 6/19) is checked against the project's actual provider pricing tiers, not assumed — all three major providers (Anthropic, OpenAI, Google) now ship an explicit cheap tier roughly 10-20x below their flagship specifically for high-volume/agentic work
+
+## Open questions (added 2026-10-30)
+
+- The Anthropic 2026 Agentic Coding Trends Report's full body (beyond the landing-page summary fetched this pass) hasn't been read — the "agentic engineering" and "coordination layer" framings might still appear somewhere inside the full PDF even though the summary page doesn't carry them; worth a follow-up fetch of the actual report document, not just its marketing landing page, before fully closing this question.
+- The 85%-95% MCP tool-search context-savings figures remain unconfirmed against any Anthropic primary source after a full-page fetch — if this number matters for a specific recommendation, it needs either a changelog/release-notes search or should be dropped rather than cited as Anthropic's own claim.
+- Pricing tables above are a snapshot; Anthropic's own page already shows newer model families (Fable, Mythos, Sonnet/Opus 5.5) superseding the 10-29 pass's references within one month — re-fetch before citing specific dollar figures in anything long-lived.
+- Bun vs. Node and the deeper SQLite/Postgres-beyond-Turso tradeoffs flagged `(to verify)` on 2026-10-29 were not revisited this pass (out of scope — this pass's verification targets were the three items the operator named plus one fresh topic); still open for a future pass.
+
+---
+
+## 2026-10-31, later pass (WebSearch landscape check, agent context/token efficiency)
+
+Weaker-confidence pass (WebSearch summaries, mostly vendor blogs on coding-agent context engineering) — relevant
+to how this session itself should have been run, not to the Marrow project's own code.
+
+- **Converges with how this session was actually run tonight:** cited 2026 guidance (sombrainc.com, a Codex-CLI
+  write-up) independently recommends pushing exploratory/messy searching into disposable subagents so the main
+  thread's context stays clean, and compacting proactively well before running out of room (one source suggests
+  starting around 50% utilization on a 200K-token model) rather than waiting until near the ceiling. This
+  session hit a StrategicCompact warning at ~93% utilization mid-build — later than the cited guidance recommends
+  — worth remembering for a future multi-hour session: compact or hand off to a fork earlier, not after the
+  warning fires.
+- **"Retrieve less, not more" claim is secondhand** (a Sourcegraph benchmark reported via a blog, not the original
+  benchmark) — flagged **(to verify)** rather than cited as a hard number if this matters for a future
+  recommendation about RAG/codebase-summary sizing.
+- Not independently re-verified this pass: the existing 85-95% MCP tool-search savings figure this file already
+  flags as unconfirmed from the 2026-10-29 pass remains unconfirmed; this pass did not find a primary source for
+  it either.
+
+---
+
+## 2026-10-31, later pass 2 (WebSearch, how CodeRabbit's automated review actually works)
+
+Operator asked specifically how CodeRabbit works, to inform how this project's own specialists review code.
+Sourced mostly from CodeRabbit's own docs (docs.coderabbit.ai/overview/architecture) — vendor-reported, no
+independent technical teardown found, so treat the specifics as self-description, not third-party verification.
+
+- **It's a multi-agent pipeline per PR, not one prompt to one model.** Per their architecture page: the repo is
+  cloned into a sandboxed cloud environment, then parallel specialized agents run concurrently (named: Review,
+  Verification, Chat, Pre-Merge Checks, plus "finishing-touch" agents) — this is the same supervisor/parallel-
+  worker shape `research/delegator.md`'s 2026-10-31 pass just independently corroborated as the mainstream
+  multi-agent pattern, now with a concrete, named commercial example.
+- **It runs real static-analysis tooling alongside the LLM pass, not LLM judgment alone** — the docs state every
+  review runs the changed code through "industry-standard linters, security analyzers, and other tools" before
+  or alongside the agentic read. This is the directly transferable lesson for this project's own specialists:
+  an LLM-only review (what every specialist here currently is) catches a different error class than a linter/
+  SAST tool would — a future pass should name which concrete tools (eslint, semgrep, a JS SAST) a build's own
+  CI should run, rather than treating the `code-reviewer`/`security-reviewer` agent's read as the whole review.
+- **It has persistent "learnings"** — chat feedback and accepted/rejected suggestions feed back into later
+  reviews on the same repo. This project's own `research/*.md` + specialist-reference-file update loop is
+  already a crude version of the same idea (a finding gets written back into the reference file, not just acted
+  on once) — worth naming explicitly as the same mechanism next time this file's own evolve-skill pattern is
+  discussed.
+- **Caveat:** SOC 2 Type II and "annual independent security audit" claims are third-party-reported, not
+  independently confirmed this pass — don't cite them as settled fact in anything client-facing.

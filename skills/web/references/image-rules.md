@@ -49,7 +49,7 @@ Operator flagged a product grid as looking "completely cutout." Root causes, in 
 ## What looks generated — refuse
 1. Inconsistent crop ratios mixed in the SAME grid (every third card a different height) instead of a stated two-ratio rule.
 2. Stock photography standing in for the real product/work when a live demo, screenshot, or real photo is possible — Bruno Simon replaces photography entirely with the real interactive scene.
-3. An autoplaying carousel or looping hero video with no pause control — icon-only chevrons, no labelled Play/Pause, fails WCAG 2.2.2.
+3. An autoplaying carousel or looping hero video with no pause control — icon-only chevrons, no labelled Play/Pause, fails WCAG 2.2.2. Every carousel arrow/pause button also needs a minimum 24×24 CSS px hit area (WCAG 2.2 §2.5.8 Target Size), and a drag-to-advance carousel needs a non-drag (click/keyboard) equivalent shipped in the same build (§2.5.7 Dragging Movements).
 4. A caption-weight byline floating on top of a photo outside a hero moment — reads as a mistake, not a choice.
 5. No reserved image box (missing width/height/aspect-ratio), producing visible layout jump as photos load.
 6. `object-fit: contain` with padding and a drop-shadow on non-studio photography — the "sticker cutout" look (see above).

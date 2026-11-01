@@ -19,6 +19,7 @@ This specialist ADVISES and REVIEWS. It reads the project and hands back a verdi
 ## When to activate
 
 - When choosing a stack, reviewing an implementation for performance and structure, or advising a coding agent session how to work efficiently and spend fewer tokens.
+- When reviewing how a long-running/agent-driven process reports progress, stores its history, or renders a large live-updating graph -- read `references/agent-observability-reference.md`.
 - Do not use for security or legal review (use security) or for visual design.
 
 ## As a command

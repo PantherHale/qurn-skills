@@ -24,14 +24,25 @@ is sent"). A missing item that applies is a finding: cite the file.
 - [major] Users can export their data, correct it and delete their account; deletion removes the login and stored
   files (see the security checklist).
 - [major] Cookie banner before any non-essential cookie or tracker loads, with Reject as easy as Accept (ePrivacy,
-  GDPR). Analytics that set cookies wait for consent.
+  GDPR). Analytics that set cookies wait for consent. **CCPA rules effective 2026-01-01 make two specific patterns
+  explicit violations, not just bad practice:** merely closing/dismissing the banner is NOT consent (only an
+  affirmative accept-type action counts), and an accept button visually more prominent than the reject button is
+  itself a flaggable dark pattern — the two controls must be symmetrical, and opting out must take no more steps
+  than opting in.
 - [minor] US: a "Do Not Sell or Share My Personal Information" link where CCPA/CPRA applies (selling or sharing data
-  for ads); honour Global Privacy Control signals.
+  for ads); honour Global Privacy Control signals, with a confirmation shown that the opt-out was processed.
 - [minor] A written breach plan: GDPR expects notification to the regulator within 72 hours.
 
 ## Subscriptions, payments and consumer law
 - [major] The price, billing period and auto-renewal are shown before the charge; cancelling online is as easy as
-  signing up (California's auto-renewal law and similar state laws); a renewal reminder for yearly plans.
+  signing up — cite **state auto-renewal law (e.g. California's ARL) and FTC Section 5 unfair/deceptive-practices
+  authority, never a federal "click-to-cancel" rule**: the FTC's federal Negative Option click-to-cancel rule was
+  vacated by the Eighth Circuit on 2025-07-08 (procedural grounds) and is not currently in force. The narrower prior
+  federal rule (pre-notification plans only) remains; state auto-renewal laws are unaffected and still require easy
+  cancellation in most of the same states. **Confirmed directly against ftc.gov 2026-10-30, no appeal/reinstatement
+  found — but the FTC itself opened an Advance Notice of Proposed Rulemaking in March 2026 (docket FTC-2026-0265) to
+  try to bring similar disclosure/consent/easy-cancellation provisions back via a properly-noticed rule**, so treat
+  the current absence as temporary, not permanent, when advising a client. A renewal reminder for yearly plans.
 - [major] Card data never touches the app's servers: hosted checkout or hosted fields (PCI DSS scope).
 - [minor] Terms of service and a refund policy are linked at checkout. EU buyers of digital content have a 14-day
   withdrawal right unless they expressly waive it at purchase.
@@ -42,8 +53,15 @@ is sent"). A missing item that applies is a finding: cite the file.
 - [major] Fonts, images, icons and audio have a licence that covers this use; no scraped or stock assets without one.
 - [minor] User-generated content: a way to report content and a copyright takedown contact (DMCA; the EU Digital
   Services Act for platforms).
-- [minor] AI features: tell users when they are talking to an AI or seeing AI-generated media (EU AI Act transparency
-  duties apply from August 2026); do not send personal data to a model provider the privacy policy does not name.
+- [major] AI features: tell users when they are talking to an AI or seeing AI-generated media, by default and no
+  later than first interaction. **EU AI Act Art. 50 is confirmed enforceable since 2026-08-02 — already past due for
+  EU users, not a future deadline (checked 2026-10-30).** A growing patchwork of US state laws adds disclosure duties,
+  mostly for companion/AI-chat features: California SB 243 (effective 2026-01-01) and SB 1119/Adam's Law (minors,
+  effective 2027-01-01), Washington HB 2225 (effective 2027-01-01), Oregon SB 1546 (effective 2027-01-01); Utah and
+  Maine reportedly reach disclosure more broadly. No comprehensive federal AI-disclosure statute exists, but
+  presenting a bot as human can itself be an FTC Section 5 deceptive practice regardless of a specific AI statute.
+  Disclosing up front by default satisfies all of the above at once — the safe global default. Do not send personal
+  data to a model provider the privacy policy does not name.
 
 ## Accessibility law
 - [major] Public websites and apps sold in the EU fall under the European Accessibility Act (from June 2025); US

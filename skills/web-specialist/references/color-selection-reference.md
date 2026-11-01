@@ -84,5 +84,55 @@ Confirmed prevalence: ~8% of men and ~0.5% of women have some form of color visi
 ## Dark mode — extends `web-designer-behavior.md`'s existing rule, doesn't replace it
 The existing guidance ("dark mode raises surface elevation by lightness, not shadow, and lowers saturation — it is not inverted light") is correct and stays the baseline. Add from this pass: **WCAG 2.x's flat contrast ratio is known to be least reliable specifically for dark-mode color combinations** (per the APCA-motivation research above) — meaning a dark palette that just barely clears 4.5:1 on paper is more likely to still look wrong in practice than a light-mode palette at the same ratio. Build extra visual margin above the minimum ratio for dark-mode text, rather than treating "passes 4.5:1" as equally safe in both themes.
 
+## Contrast and semantic-mismatch failures that draw real user complaints (2026-10-31, pass 4 — sourced to NN/g, WebAIM, W3C and a named GOV.UK case study; full synthesis in `research/web-designer.md`'s 2026-10-31 pass-4 section)
+This section exists because real end-user feedback named "colors look bad" as a specific complaint — the failure
+modes below are the measured, checkable reasons a palette draws that reaction even when the hue choices themselves
+were reasonable; they are failures of *contrast and meaning*, not of taste.
+
+**Low-contrast text is the single most common accessibility failure on the production web, not a rare mistake.**
+WebAIM's Million report (webaim.org/projects/million, directly fetched) found low-contrast text on **83.9% of home
+pages** (up from 79.1% the prior year), averaging **34 distinct low-contrast instances per page**, inside the **95.9%
+of home pages** with at least one detectable WCAG 2 failure. **Mechanical check: run every body-text/background and
+button-text/background pair through WebAIM's contrast checker or an automated axe/Lighthouse contrast audit before
+shipping — "it looked readable to me" is not sufficient given that over 4 in 5 measured home pages fail this exact
+check.**
+
+**The 4.5:1/3:1 thresholds are calibrated against a specific, stated visual-acuity reduction, not a round number.**
+The W3C's Understanding doc for SC 1.4.3 states 4.5:1 for normal text was chosen to compensate for the contrast
+sensitivity loss typical of roughly 20/40 vision; large text (18pt/24px regular, or 14pt/18.67px bold) drops to 3:1
+because larger glyphs stay legible at lower contrast. **Checkable rule: classify every text/background pair by its
+actual rendered size AND weight before picking which ratio to test against — a 14pt bold label is "large text" (3:1)
+but a 14pt regular label is normal text needing the full 4.5:1; this exact size/weight boundary is where a borderline
+pass/fail most often gets misjudged.**
+
+**A color carrying two different meanings on the same page, or a warning color used on a routine action, is a real,
+independently-documented product mistake — not a style nitpick.** GOV.UK's own teacher-training-applications team
+(directly fetched case study) found they'd used a red warning button for an action users were expected to perform
+*regularly* (marking a condition "not met"), inconsistent with their own design system's rule that warning buttons
+are for destructive, non-undoable actions only. Their own diagnosis: this both alarms users unnecessarily on a safe,
+routine action AND desensitizes them to red elsewhere, making them *less* likely to pause before a genuinely
+destructive click. Their fix: red reserved for exactly one action (removing a user from an organization — the one
+truly non-undoable action in that flow) and nothing else. Lower-confidence, convergent, **(to verify)** corroboration
+from WebSearch synthesis only (not independently fetched): Meta's Horizon guidelines reportedly warn against a
+destructive-styled button on a non-destructive action; a Wikimedia tracker ticket reportedly changed a red "cancel"
+button to gray because cancelling isn't destructive; a Tor Browser issue reportedly flagged red used on two
+non-dangerous actions. **Mechanical check: list every place a single color (red and green both qualify) is used in
+the live UI and write the specific meaning it carries at each instance — if the same color carries two different
+meanings anywhere on the same product, or sits on an action the user takes routinely, that's a fail regardless of
+how well-chosen the hex value is in isolation.**
+
+**Banner blindness can make a real, important element invisible purely because of its position and visual
+treatment — a positioning-adjacent color failure worth checking here.** NN/g's own banner-blindness material names
+three trigger signals, any one of which is enough to get a genuine, non-ad element ignored: ad-specific placement
+(top of page, right rail), ad-like visual treatment (bright boxed color blocks, animation), and proximity to actual
+ads or promotions. **Checkable rule: if an important real CTA or notice sits in a top-banner or right-rail slot AND
+uses a bright, boxed, ad-styled treatment, treat that combination itself as the defect** — move the element out of
+the ad-shaped slot or change its visual treatment so it reads as content.
+
+**Named practitioner tools, for completeness:** WebAIM's contrast checker (webaim.org/resources/contrastchecker) for
+the pass/fail ratio math; Coolors and Realtime Colors for generating/live-previewing a palette against real UI
+before committing — these are tool names for a build order to cite, not a substitute for running the actual WCAG
+math above.
+
 ## Where to read more (name, do not paste)
 w3.org/TR (CSS Color Module Level 5 working draft — oklch/color-mix/relative color syntax, the primary spec source); webkit.org/blog (the original Display-P3-in-CSS announcement); developer.chrome.com/docs/css-ui/migrate-hd-color (practical P3 migration guidance); github.com/material-foundation/material-color-utilities and m3.material.io (the HCT/tonal-palette system, canonical source); adrianroselli.com's dated WCAG3/APCA status posts (check for a more recent one before repeating the "APCA removed, WCAG3 undetermined" claim — this is an actively moving situation); WCAG 1.4.1 (Use of Color) Understanding doc; any maintained color-blindness simulator (for an actual visual check, not just reading about the three types); anthonyhobday.com/sideprojects/saferules (the full "Visual Design Rules You Can Safely Follow Every Time" list — this file quoted only the color-relevant subset, the rest covers spacing/typography/layout and is worth a separate read); the Elliot & Niesta (2008/2010) red-romance studies alongside their later replication meta-analyses (search by author name — the clearest documented case of a popular color-psychology claim failing replication, worth knowing by name when a client cites "color psychology" as justification); noissue.co's and similar critical pieces on color-psychology-in-marketing (for the broader "popular claims strip findings from context" caveat).

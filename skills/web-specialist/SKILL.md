@@ -65,6 +65,7 @@ Read these when the task needs them, not all up front:
 - [references/ui-libraries-and-mascots-reference.md](references/ui-libraries-and-mascots-reference.md)
 - [references/scroll-animation-reference.md](references/scroll-animation-reference.md)
 - [references/3d-web-reference.md](references/3d-web-reference.md)
+- [references/3d-modelling-reference.md](references/3d-modelling-reference.md)
 - [references/color-selection-reference.md](references/color-selection-reference.md)
 - [references/vibrant-color-patterns-reference.md](references/vibrant-color-patterns-reference.md)
 - [references/scroll-scrub-and-shader-reference.md](references/scroll-scrub-and-shader-reference.md)

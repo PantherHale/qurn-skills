@@ -55,6 +55,49 @@ specifically hunting what the checklist above would miss.
 - Cross-category gaps: an issue that is both a performance problem and a security hole, or one
   that only shows up at an integration boundary or a specific deployment configuration.
 
+## Agentic AI: prompt-injection and tool-misuse verification (added 2026-10-31, research/security.md pass 3)
+For any agent/tool-calling feature (ASI01 Agent Goal Hijack, ASI02 Tool Misuse, LLM01/LLM06),
+"we reviewed the system prompt" is not a test. Verify mechanically, with trace evidence, not by
+reading the model's own narration of what it did:
+
+**Tools (real, current, open source -- do not re-verify these, they're confirmed):**
+- **garak** (NVIDIA, `github.com/NVIDIA/garak`, stable v0.17.0 as of 2026-09-09) -- model-level
+  scanner. Sends adversarial probes directly at the LLM API and grades responses; 50+ probe
+  modules (prompt injection, jailbreak, data leakage, hallucination, toxicity). `pip install`,
+  then `garak --list_probes`. Tests the underlying **model**, not the agent's tool-calling
+  wiring -- run this first as a baseline, before testing the agent built on top.
+- **Promptfoo red-team mode** (`promptfoo.dev/docs/red-team`, MIT core) -- application/agent-level.
+  Exact plugin IDs to run against a live agent: `rbac` (role-based access enforcement), `bola`
+  (steered onto another user's objects/data), `bfla` (steered into calling a function outside
+  intended scope), `excessive-agency` (acts beyond stated capabilities), `tool-discovery`
+  (reveals its tool list to an unauthorized caller), `mcp` (MCP-implementation weaknesses),
+  `hijacking` (redirected away from its original objective -- the practical ASI01 test),
+  `agentic:memory-poisoning` (corrupted memory/context changes later behavior), and a custom
+  `policy` plugin for a project-specific rule ("never call delete-user without confirmation").
+  Attack-traffic strategies layered on top: `jailbreak`, `jailbreak:tree`, `crescendo`
+  (multi-turn escalation), `mischievous-user` (adversarial multi-turn, pairs with
+  memory-poisoning). **Mechanical tool-scope check:** assert on the actual tool-call trace, not
+  the chat transcript, via `trajectory:tool-used`, `trajectory:tool-args-match`,
+  `trajectory:tool-sequence`, `trajectory:step-count`, `trajectory:goal-success`. A confirmed
+  violation becomes a permanent CI regression check via `not-trajectory:tool-args-match`.
+
+**Methodology (practitioner-consensus across vendor sources -- no single authoritative standard,
+cite as consensus not verified fact):**
+1. Enumerate every tool, permission scope, and external system the agent can reach before
+   testing anything -- the attack surface is the permission set, not the vocabulary.
+2. Test each tool individually for unauthorized invocation via prompt manipulation and
+   parameter injection.
+3. Map the tool graph and test **chained** calls for privilege escalation -- Tool A's output
+   fed as Tool B's input can exceed either tool's individual privilege (e.g. a read-file
+   result landing in a send-email recipient field).
+4. Indirect injection -- a hidden instruction inside content the agent reads mid-task (a
+   fetched page, a document to summarize, another tool's return value) -- is the primary
+   real-world delivery route; this is the buildable version of "the hidden-instruction test
+   case" already required elsewhere in this checklist.
+5. Enforce scope **outside** the model, in the orchestration/runtime layer -- the model can be
+   talked into expanding its own scope, so a control living inside the model under test is not
+   a control. Red-team the confirmation gate itself (don't just build it, try to talk it around).
+
 ## Reporting
 Rate likelihood and impact (High/Med/Low) per finding; a finding with no concrete exploit path
 is a question to investigate, not a blocking verdict. Cite file and line.

@@ -1,6 +1,12 @@
 # Specialists
 
-Six specialist advisers. Consult the one that fits the task; each ends its reply with a verdict. Full skills with their references live in `skills/<name>/` (installed copies: `.agents/skills/<name>/`).
+Seven specialist advisers. Consult the one that fits the task; each ends its reply with a verdict. Full skills with their references live in `skills/<name>/` (installed copies: `.agents/skills/<name>/`).
+
+## research
+
+Use when a claim, statistic, API behaviour, library fact, legal/regulatory detail, or "what changed recently" question needs checking against real sources before anyone acts on it, or when another specialist's own research file needs a sourced refresh. It never invents a fact: anything it cannot trace to an actually fetched or searched source is labelled "to verify" or "unconfirmed," not stated as true. Do not use it for a decision with no external-fact dependency (that is coder's or web's job), and it is not a substitute for a lawyer, doctor or accountant on a regulated question.
+
+Full instructions: `skills/research/SKILL.md`.
 
 ## web
 
@@ -49,3 +55,9 @@ Full instructions: `skills/evolve/SKILL.md`.
 The team lead: use for a request that spans more than one specialist above, or when unsure which one fits. It consults each that applies in turn and reports one rolled-up verdict.
 
 Full instructions: `skills/qurn/SKILL.md`.
+
+## status (utility, not part of the roster above)
+
+Pure reporting, no verdict, no building. Use it when asked what's done and what's left, not `qurn` or any specialist.
+
+Full instructions: `skills/status/SKILL.md`.

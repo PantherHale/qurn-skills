@@ -1556,7 +1556,7 @@ Operator flagged a product grid as looking "completely cutout." Root causes, in 
 ## What looks generated — refuse
 1. Inconsistent crop ratios mixed in the SAME grid (every third card a different height) instead of a stated two-ratio rule.
 2. Stock photography standing in for the real product/work when a live demo, screenshot, or real photo is possible — Bruno Simon replaces photography entirely with the real interactive scene.
-3. An autoplaying carousel or looping hero video with no pause control — icon-only chevrons, no labelled Play/Pause, fails WCAG 2.2.2.
+3. An autoplaying carousel or looping hero video with no pause control — icon-only chevrons, no labelled Play/Pause, fails WCAG 2.2.2. Every carousel arrow/pause button also needs a minimum 24×24 CSS px hit area (WCAG 2.2 §2.5.8 Target Size), and a drag-to-advance carousel needs a non-drag (click/keyboard) equivalent shipped in the same build (§2.5.7 Dragging Movements).
 4. A caption-weight byline floating on top of a photo outside a hero moment — reads as a mistake, not a choice.
 5. No reserved image box (missing width/height/aspect-ratio), producing visible layout jump as photos load.
 6. `object-fit: contain` with padding and a drop-shadow on non-studio photography — the "sticker cutout" look (see above).
@@ -2374,7 +2374,7 @@ Before generating anything, infer and state one line: *"Reading this as: [page k
 **Make this a measurable gate, not an intention.** Before calling a build done: state the ONE accent hex value and grep the rendered CSS for it — if it appears fewer than ~3 times across distinct components, the "one confident accent" wasn't actually built, it was only decided. Compare `docs/design/DESIGN.md`'s declared palette/type tokens against `scripts/style-signals.mjs`'s actual signal count in the shipped source, the same way the style-fidelity tester already does for a named style — a declared accent color that isn't measurably dominant in the output is a redo, same severity as a declared style that wasn't built.
 
 ## Reach for a real design system when the brief names one
-Microsoft/enterprise → Fluent UI. Google/Material-flavored → Material Web + M3 tokens. IBM-style B2B → Carbon. Shopify admin → Polaris. Atlassian-style → Atlaskit. GitHub-style devtool → Primer. UK public-sector → GOV.UK Frontend. US public-sector → USWDS. A fast local-business MVP → Bootstrap. A modern SaaS you want to own the components for → shadcn/ui, never shipped in its default unthemed state. **One system per project** — never mix Fluent components with Carbon, never import shadcn into a Material 3 app. When the brief is an aesthetic rather than a system (glassmorphism, bento, brutalism, editorial), build with native CSS/Tailwind and say in a code comment what's borrowed inspiration versus official material — there is no official "liquid-glass.css," web approximations of Apple's Liquid Glass are approximations, label them as such.
+Microsoft/enterprise → Fluent UI. Google/Material-flavored → Material Web + M3 tokens. IBM-style B2B → Carbon. Shopify admin → Polaris. Atlassian-style → Atlaskit. GitHub-style devtool → Primer. UK public-sector → GOV.UK Frontend. US public-sector → USWDS. A fast local-business MVP → Bootstrap. A modern SaaS you want to own the components for → shadcn/ui, never shipped in its default unthemed state — shadcn's whole model (2026) is a CLI that COPIES component source into the project rather than installing a package, so "ownership" is real: a build order naming a shadcn component should tell the builder to edit that copied source file directly to the project's own tokens, not import it as a black box. Component-tooling note: shadcn/ui and React Bits aren't competitors — shadcn covers structural/ARIA primitives (dialogs, selects, menus, built on Radix or, in newer CLI flows, Base UI as an alternate primitive layer), React Bits covers decorative/motion pieces; a build order can legitimately cite both in the same section. **One system per project** — never mix Fluent components with Carbon, never import shadcn into a Material 3 app. When the brief is an aesthetic rather than a system (glassmorphism, bento, brutalism, editorial), build with native CSS/Tailwind and say in a code comment what's borrowed inspiration versus official material — there is no official "liquid-glass.css," web approximations of Apple's Liquid Glass are approximations, label them as such.
 
 ## The hard-banned AI tells (fail the build if present)
 - **Zero em-dashes, anywhere visible** — headlines, eyebrows, pills, body, quotes, attribution, captions, buttons, alt text. Not "sparingly." Zero. Use a period, comma, colon, or regular hyphen instead.
@@ -2389,8 +2389,67 @@ Microsoft/enterprise → Fluent UI. Google/Material-flavored → Material Web + 
 - **No locale/time/weather strips** ("Lisbon 14:23 · 18°C") unless the brand is genuinely a distributed studio or travel product.
 - **No "Scroll to explore" cues.** If the user hasn't scrolled, they're looking at the hero — they know what scrolling is.
 - **No pure black (`#000000`)** — off-black/zinc-950/charcoal. No neon outer glows. No oversaturated accents — desaturate to blend with neutrals.
+- **No purposeless purple-to-blue glow gradient behind a hero/CTA** unconnected to any real brand hue or state — named independently across multiple 2026 sources as one of the single most recognizable AI tells. Fix: a gradient must signal something specific, and the accent itself should be a real brand hue expressed in OKLCH (e.g. `oklch(62% 0.19 28)`), not a generic purple — see `color-selection-reference.md` for the OKLCH relative-color technique to derive the rest of the palette from that one seed.
+- **No one blanket border-radius value applied to cards, buttons, inputs, badges and images alike.** Name an exact radius SCALE per role instead (e.g. `--radius-card: 6px`, `--radius-pill: 999px` reserved only for genuinely pill-shaped elements) — an oversized, undifferentiated radius flattens hierarchy and is independently named as a top 2026 AI-slop tell.
+- **No thick, single-sided colored border on an otherwise-rounded card** (e.g. a colored left border on a card whose other three edges are a soft rounded neutral) — named as one of the single most recognizable AI-generation signatures in 2026 output.
+- **No excessive letter-spacing applied reflexively to every uppercase label/eyebrow** regardless of whether tracking actually helps legibility at that size.
+- **No decorative pulsing "Live"/"New" status dot on a feature that is neither** — a status indicator used as decoration, not as real status (distinct from the colored-status-dot rule above in cause, identical in effect).
+- **Must not "break on real content."** The deepest AI-UI tell isn't any single element — it's that every choice was the path of least resistance. Concretely: design and SHOW every hero/feature build against real content and edge cases (a long name, an error string, an empty state, truncated text) before calling it done, not just placeholder text and stock avatars. A build that only looks right with dummy data is the generic-AI-UI tell, not a finished build — give onboarding, empty, error and loading states the same deliberate attention as the hero (see the Detail states section below, now a named pre-flight line, not optional polish).
 - **Banned default fonts:** Inter, Roboto, Arial, Open Sans, Helvetica as a reflexive default (Inter is fine when the brief explicitly wants neutral/standard/Linear-style, or for public-sector/accessibility-first sites). **Serif is discouraged as default** — "feels creative/premium" is not a reason; use serif only when the brief literally names one or the aesthetic is genuinely editorial/luxury/heritage and you can say why. The two most AI-tell serifs to never default to: Fraunces and Instrument Serif.
 - **No 3-equal-column feature-card rows** as the default section shape — use a 2-column zigzag, asymmetric grid, or scroll-pinned layout instead. Cap zigzag (alternating image-left/text-right then reversed) at 2 sections in a row; a 3rd consecutive one is a fail.
+
+## Converting AI slop to professional: the fix mechanics (2026-10-31 research pass)
+Distilled from five directly-fetched 2026 practitioner/tooling write-ups that independently converge on the same moves (full synthesis and sources: `research/web-designer.md`'s 2026-10-31 section). These are the MECHANICAL steps for taking a templated build and making it read as professionally designed — not more tells to spot, but the fix sequence itself.
+- **Fix order: font and color tokens first, motion and layout polish last.** Two independent sources sequence font replacement as the single highest-leverage move and put motion dead last — "motion on top of generic visuals just makes generic visuals move." Never spend a first fix pass on animation while the type/color skeleton is still unfixed.
+- **Lock the copy before restyling.** Freeze all user-visible text (headings, body, button labels, testimonials) and permit a styling/layout pass to touch only tokens, components, spacing — then read every headline and button IN ORDER against the original afterward and treat any unapproved text change as a regression. This stops a visual fix pass from silently becoming an uncontrolled rewrite.
+- **Name color tokens by function, never by appearance — a grep-able check.** `--color-gradient-start`/`--color-blue` is a decorative name; `--color-action-primary`/`--color-feedback-success` is a functional one. Grep the token file for `-gradient-`, `-blue-`, `-purple-` or other appearance-based names — if a variable's name doesn't describe its JOB, the palette was picked decoratively regardless of how the hex values look.
+- **Vary spacing and radius by a stated delta, never by eyeballing it.** Pick any two adjacent, same-level sections and confirm their vertical gap and corner radius are NOT numerically identical to any other same-level pair on the page (e.g. more space below a hero than between two body sections; a card radius distinct from a button radius). Identical spacing between every section pair, measured not eyeballed, is the uniformity tell.
+- **State the asymmetry ratio out loud before shipping a grid.** If a multi-column section's actual column-width ratio reduces to a round fraction (50/50, or N equal columns), it hasn't been broken yet — use a stated ratio instead (60/40, 70/30, one card at 2x width).
+- **Count font weights: minimum 3, each with a distinct role.** A single-weight page (usually 400 or 500 everywhere) is itself a named tell. Use a role mapping such as 300 for display headings, 400 for body, 600 for uppercase labels with tracking — count the distinct weight values actually present in the rendered CSS before calling type done.
+- **Verify "does this look templated" as a literal step, not a self-assessment.** Run one of three convergent, checkable tests instead of a vibe check: the **identity test** (could this page belong to ten unrelated competitors after swapping the logo? can you state its visual rules in one sentence?), the **sibling test** (could it swap wholesale with a different industry's page with zero changes beyond the logo?), or the **stranger test** (show it to three people who haven't seen it and ask if it looks AI-generated — if two of three say yes, it failed; go back to the token/type pass, not a surface tweak).
+- **Build the corrected base as a small system before a second page exists**, not just a one-page fix — a component library (or at minimum a CSS token sheet) that overrides the tool's AI defaults at the system level, so every new page starts from the corrected base instead of the generator's own un-themed default. Skipping this is why slop reappears page by page even after one page was hand-fixed.
+
+## Positioning and hierarchy checks that catch real user complaints (2026-10-31 research pass 4)
+Triggered by real end-user feedback that a shipped product's "positioning and UI chosen look bad." Distilled from
+directly-fetched NN/g, WebAIM/W3C, and GOV.UK sources (full synthesis: `research/web-designer.md`'s 2026-10-31
+pass-4 section) — these are mechanical, checkable gates for layout/hierarchy complaints, not restatements of taste.
+- **Front-load the important clause in every paragraph, bullet and subhead.** NN/g's original 2006 eyetracking study
+  (232 users, thousands of pages, directly fetched) found a dominant F-shaped scan: a horizontal sweep across the
+  top, a shorter sweep lower, and a vertical scan down the left edge — meaning the eye reads the first word or two
+  on a line far more reliably than the third onward. **Checkable: for any content-heavy section (not a hero or card
+  grid — body copy, feature descriptions, article text), confirm the single most important value or clause in each
+  paragraph/bullet is its FIRST clause, not buried mid-sentence or at the end.**
+- **Run the squint test as a literal step, not a self-assessment.** Blur an actual screenshot (`filter: blur(8px)`
+  on a copy, or physically squint/step back) until fine detail disappears, then check five things: (1) is there one
+  clear, recognizable focal point — the primary CTA or topic? (2) do related elements (a heading and its body) still
+  read as grouped, or does spacing make them look unrelated? (3) does anything gain prominence from contrast/color
+  that *shouldn't* (a decorative divider competing with the real focal point)? (4) is the logo/brand still
+  recognizable at this blur level? (5) are clickable elements still visibly distinct from static text (an underline
+  alone can vanish at this blur level — a color difference is what survives)? **If the element that stays dominant
+  under blur isn't the thing that should matter most on that screen, that's a demonstrable hierarchy defect, not a
+  matter of opinion** (method confirmed against NN/g's own named squint-test video and an independent
+  directly-fetched practitioner writeup).
+- **Same-role elements must match exactly; different-role elements must differ by a stated delta — the flip side of
+  the existing spacing/radius-variety rule above.** Nielsen's own Consistency and Standards heuristic ("users should
+  not have to wonder whether different words, situations, or actions mean the same thing," directly fetched exact
+  current wording) is the named mechanism behind a page feeling "off" even when no single element is wrong in
+  isolation — the eye is cross-checking same-level elements against each other. **Checkable: pick any two same-level,
+  same-role elements anywhere on the page (two card paddings, two heading-to-body gaps, two button radii at the same
+  hierarchy level) and confirm they are numerically identical, not eyeballed-close** — this is the inverse check of
+  the existing rule that DIFFERENT-importance elements must differ by a stated delta.
+- **Don't let a real, important element sit in an ad-shaped slot.** NN/g's banner-blindness findings name three
+  trigger signals that get a genuine element ignored regardless of its content: ad-specific placement (top banner,
+  right rail), ad-like visual treatment (bright boxed color blocks, animation), and proximity to actual
+  ads/promotions. **Checkable: if an important CTA or notice sits in a top-banner or right-rail position AND uses a
+  bright, boxed, ad-styled treatment, treat that combination as the defect** — relocate it or restyle it so it reads
+  as content.
+- **Mobile tap-target overlap is a geometry failure, scriptable, not an eyeball check.** WCAG 2.2 §2.5.8 (already
+  cited below) specifies that a portion of one tappable target covered by another target does not count toward that
+  target's measured size — two controls can each nominally clear 24×24px and still fail if their boxes overlap.
+  Common causes: absolutely-positioned layers stacking without reserved space, tight negative margins, icon-only
+  buttons with no padding around the glyph. **Checkable: at the smallest supported viewport, query the bounding
+  rects of every pair of adjacent interactive controls in devtools and confirm they don't overlap and each clears
+  24×24 CSS px independently of its neighbor.**
 
 ## Hero discipline (the section most likely to be wrong)
 Must fit in the initial viewport: headline max 2 lines desktop, subtext max 20 words and 3-4 lines, CTAs visible without scrolling. Max 4 text elements total: one eyebrow OR brand strip (pick zero or one), the headline, the subtext, and 1 primary + max 1 secondary CTA — no tiny tagline below the CTAs, no trust micro-strip, no pricing teaser, no feature bullets in the hero itself; all of those move to a dedicated section directly below. A "Trusted by" logo wall belongs under the hero, never crammed into it. Plan font size and asset size together — a long headline doesn't start at `text-7xl`. Hero top padding caps around `pt-24` at desktop; more than that reads as a layout bug, not intentional space.
@@ -2413,8 +2472,23 @@ For nested rounded surfaces: `outer radius = inner radius + padding`, so curves 
 ## Hit areas and interaction states
 Interactive controls need at least a 40×40px hit area, ideally 44×44px — expand with a pseudo-element when the visible icon is smaller, without letting expanded hit areas overlap each other. Tactile press feedback (`scale(0.96)`-ish) on buttons, with an escape hatch to disable it when it would distract. Images want a subtle 1px inset outline (neutral black/white alpha, never brand-tinted) so edges don't blur into the background surface.
 
+**WCAG 2.2 AA floor (current spec, October 2023 — the responsible default baseline regardless of which legal floor a jurisdiction cites, since every 2.1 criterion is a strict subset of 2.2):** any new tappable control (icon button, carousel arrow, close "×") needs a minimum **24×24 CSS px** hit area (§2.5.8 Target Size) — this is the legal floor, the 40-44px figures above are the comfortable target above it. Any drag-operated component (custom slider, drag-to-reorder, carousel-by-drag) needs a non-drag equivalent (buttons, keyboard arrows, or tap-to-select) shipped in the SAME build order, not a follow-up (§2.5.7 Dragging Movements). A sign-up/login flow may not require a cognitive-function-test step — an image-matching CAPTCHA, "copy this code" — with no alternative path such as a passkey or magic link (§3.3.8 Accessible Authentication); relevant every time this file's one-line sign-up rule is implemented. A focused element must never be entirely hidden behind a sticky header/footer (§2.4.11 Focus Not Obscured) — check specifically on any sticky-nav build, scrolled to at least 3 different points.
+
 ## Theme and color locks
 The page has one theme — if it's dark, every section is dark; no light "warm paper" section sandwiched between dark ones (the one exception: a deliberate, singular theme-switch-on-scroll device, used once). Once an accent color is picked for a page, it's used everywhere — no blue CTA appearing in section 7 of an otherwise warm-grey site. Max one accent color, saturation under 80% by default, unless the brand brief explicitly asks for something louder.
+
+**A semantic color (warning/red, success/green) must carry exactly one meaning across the whole product, and must
+not sit on an action the user takes routinely (2026-10-31, sourced to a directly-fetched GOV.UK case study — see
+`color-selection-reference.md`'s matching section for the full writeup).** GOV.UK's own teacher-training product
+team found a red warning button on a routine, non-destructive action both alarmed users unnecessarily AND
+desensitized them to red elsewhere, making a genuinely destructive click less likely to get the pause it needed.
+Fix was narrow: reserve the warning color for exactly the one truly non-undoable action in the flow. **Checkable:
+list every instance of a semantic color in the live UI and write down the specific meaning at each one — two
+different meanings for the same color anywhere on the product, or a warning color on a routine action, is a fail.**
+
+**Dark mode is a baseline expectation in 2026, not a novelty toggle.** Ship both palettes by default (`prefers-color-scheme`), not a light-only build with dark bolted on later — and re-verify contrast math independently for each theme, since a palette tuned for light mode very often fails the same checks once merely inverted; it is not one palette with inverted lightness.
+
+**Kinetic/display type:** when the brief calls for hero type that responds to scroll or interaction, reach for a variable font (one file, `font-variation-settings` driven) rather than multiple static weight files — the 2026 mainstream way to get motion-responsive headline type without several font downloads.
 
 ## Images and assets
 A text-only page with no imagery is not minimalism — it's incomplete. Even a restrained editorial site needs 2-3 real images. Priority order: an actual image-generation tool first, real stock/brand URLs second, a live rendered centerpiece third, and only as a last resort a clearly-labeled placeholder with a note to the user about what's missing — never a hand-rolled `<div>`-based fake screenshot or fake dashboard. A "Trusted by" logo wall uses real SVG brand logos (Simple Icons, devicon), not styled text spans, and never prints a category label under each logo.
@@ -2440,7 +2514,7 @@ Before touching an existing site under either mode, audit and document: brand to
 - **After ANY bulk find-and-replace across a file (renaming a font, a class, a variable), re-check the console before trusting a visual screenshot.** A plain-text rename of a font family name (`Inter` → a new font) also matched the substring inside `setInterval`/`clearInterval` in the same file's `<script>` block, corrupting them into invalid identifiers and throwing an uncaught `SyntaxError` that killed every script on the page — scroll pin, the signature motif, the FAQ accordion, the signup handler, all silently dead. The visual screenshot taken right after looked fine because CSS still loaded; only a console check or an actual interaction (click the FAQ, confirm the motif moves) caught it. A full-page screenshot proves CSS painted; it proves nothing about whether JS is still alive. Treat any bulk rename as a reason to re-run the FULL self-QA loop above (console + a real interaction), not just a glance at the result.
 
 ## The mechanical pre-flight check (run every box before calling it done)
-Zero em-dashes anywhere. Eyebrow count ≤ ceil(section count / 3). No wrapped CTA text at desktop. No duplicate CTA intent. Button text passes contrast against its background. Form inputs/placeholders/errors pass WCAG AA contrast. Hero fits the initial viewport with ≤4 text elements. No 3-in-a-row identical layout family. No div-based fake screenshots. Mobile collapse declared explicitly per multi-column section. Dark/light theme is locked, not mixed mid-scroll. **One living or moving signature centerpiece exists** (a real photo, a real video, or a live three.js/canvas scene tied to scroll) — a page with only static cards, text and icons fails this check. Designed loading, empty and 404 states exist and match the site's visual system — a build with only the happy path fails this line even if every other check passes.
+Zero em-dashes anywhere. Eyebrow count ≤ ceil(section count / 3). No wrapped CTA text at desktop. No duplicate CTA intent. Button text passes contrast against its background. Form inputs/placeholders/errors pass WCAG AA contrast. Hero fits the initial viewport with ≤4 text elements. No 3-in-a-row identical layout family. No div-based fake screenshots. Mobile collapse declared explicitly per multi-column section. Dark/light theme is locked, not mixed mid-scroll, and both a light and dark palette actually exist. **One living or moving signature centerpiece exists** (a real photo, a real video, or a live three.js/canvas scene tied to scroll) — a page with only static cards, text and icons fails this check. Designed loading, empty and 404 states exist and match the site's visual system — a build with only the happy path fails this line even if every other check passes. Every new tappable control clears a 24×24 CSS px hit area (WCAG 2.2 §2.5.8) and any drag control has a non-drag equivalent (§2.5.7). Hero and at least one feature section have been shown against real/edge-case content (long name, error string, empty state), not just placeholder data. One of the identity/sibling/stranger tests above has actually been run and passed, not assumed. One squint-test pass has actually been run against a blurred screenshot, not assumed. Every semantic color (warning/red, success/green) carries exactly one meaning across the whole product and never sits on a routine action. Adjacent interactive controls' tap-target boxes don't overlap at the smallest supported viewport.
 
 ## Self-QA loop before reporting "done" (operator, 2026-10-18 — "the skills aren't ready, this needs too much hand-holding")
 The fitness-brand demo took 6+ correction rounds for problems ("cutout" cards, a pasted-looking color block, mismatched stock photos) that were all visible in a single full-page screenshot — the builder had reported "verified working, no console errors" without actually looking at the rendered page against this checklist. A clean console is necessary, not sufficient. Before telling the user a visual build is done, or before moving to the next BUILD ORDER:
@@ -2586,7 +2660,7 @@ Checked against primary sources (MDN, Chrome Developers, GSAP docs, W3C, NN/g-ad
 | | Native CSS scroll-driven animations | JS libraries (GSAP ScrollTrigger, etc.) |
 |---|---|---|
 | Runs on | Compositor thread — doesn't block on JS/main-thread work | Main thread, synced to `requestAnimationFrame` |
-| Browser support (confirmed 2026-10-06) | Chrome/Edge: shipped since Chrome 115 (July 2023); Safari: shipped in Safari 26 (Sept 2025), threaded in 26.4+; **Firefox: not supported** as of this check — the one browser gap that currently rules out CSS-only for a cross-browser requirement | Works identically in every browser — the library handles the cross-browser math itself |
+| Browser support (confirmed 2026-10-30 via caniuse.com, direct fetch) | Chrome/Edge: shipped since 115 (July 2023); Safari: shipped since 26.0 (Sept 2025); **Firefox: shipped since Firefox 159** — the Firefox gap this file previously flagged as unresolved is now closed on current stable, so native CSS-only is viable without a JS fallback on all four engines as of this check (still keep the `@supports` gate for anyone on an older Firefox build) | Works identically in every browser — the library handles the cross-browser math itself |
 | Can pin/hold a section in place | No native pinning primitive | Yes — `pin: true` (GSAP), the dominant use case for "sticky section" scrollytelling |
 | Complexity for a simple reveal-on-scroll | A few lines of CSS, no JS at all | Requires the library, a mount/cleanup lifecycle, and `ScrollTrigger.refresh()` discipline |
 | Right choice when | The effect is a straightforward fade/slide-in per element, Firefox support isn't a hard requirement, and zero added JS is valuable for performance/bundle size | The effect needs **pinning**, precise scrubbing tied to a complex timeline, or Firefox must work identically — today, that still means JS |
@@ -2621,6 +2695,8 @@ body { scroll-timeline: --page-scroll vertical; }
 }
 ```
 `animation-range` keywords: `cover` (the whole time any part of the element is in the scrollport, the default), `contain` (only while the element is *fully* inside), `entry`/`exit` (just the entering/leaving transition). Always set `animation-fill-mode` appropriately (`both` for a reveal that should hold its end state) and gate the whole thing behind `@supports (animation-timeline: works)` with a static fallback for Firefox, matching the general progressive-enhancement rule already in `web-designer-behavior.md`'s performance section.
+
+**Ordering gotcha (confirmed via Chrome's own scroll-driven-animations docs, 2026-10):** `animation-timeline` must be declared AFTER the `animation` shorthand on the same rule — the shorthand resets `animation-timeline` back to `auto`, so `animation: reveal linear; animation-timeline: --card-view;` works but swapping the two lines silently breaks the link with no console warning. Chrome/Edge 115+, Safari 26+, and (confirmed 2026-10-30 via caniuse.com) Firefox 159+ all support this natively now — keep the Lenis/GSAP ScrollTrigger fallback inside the `@supports` gate above only as a courtesy for users on an older Firefox, not as a required cross-browser workaround; for scroll (not view) progress timelines set `animation-duration: auto`.
 
 **The 2026 extension (not yet broadly shipped, watch before relying on it):** `timeline-trigger`/`animation-trigger`/`trigger-scope` land in Chrome 145 (2026) and add a *discrete* trigger model — a trigger fires once a scroll/view threshold is crossed and plays an animation to completion, rather than continuously driving progress. Useful for "play this animation once when the user reaches here" vs. the continuous-progress model above. Treat this as forward-looking, not yet a safe default — confirm current support before using it as a load-bearing technique.
 
@@ -2800,6 +2876,56 @@ Confirmed prevalence: ~8% of men and ~0.5% of women have some form of color visi
 
 ## Dark mode — extends `web-designer-behavior.md`'s existing rule, doesn't replace it
 The existing guidance ("dark mode raises surface elevation by lightness, not shadow, and lowers saturation — it is not inverted light") is correct and stays the baseline. Add from this pass: **WCAG 2.x's flat contrast ratio is known to be least reliable specifically for dark-mode color combinations** (per the APCA-motivation research above) — meaning a dark palette that just barely clears 4.5:1 on paper is more likely to still look wrong in practice than a light-mode palette at the same ratio. Build extra visual margin above the minimum ratio for dark-mode text, rather than treating "passes 4.5:1" as equally safe in both themes.
+
+## Contrast and semantic-mismatch failures that draw real user complaints (2026-10-31, pass 4 — sourced to NN/g, WebAIM, W3C and a named GOV.UK case study; full synthesis in `research/web-designer.md`'s 2026-10-31 pass-4 section)
+This section exists because real end-user feedback named "colors look bad" as a specific complaint — the failure
+modes below are the measured, checkable reasons a palette draws that reaction even when the hue choices themselves
+were reasonable; they are failures of *contrast and meaning*, not of taste.
+
+**Low-contrast text is the single most common accessibility failure on the production web, not a rare mistake.**
+WebAIM's Million report (webaim.org/projects/million, directly fetched) found low-contrast text on **83.9% of home
+pages** (up from 79.1% the prior year), averaging **34 distinct low-contrast instances per page**, inside the **95.9%
+of home pages** with at least one detectable WCAG 2 failure. **Mechanical check: run every body-text/background and
+button-text/background pair through WebAIM's contrast checker or an automated axe/Lighthouse contrast audit before
+shipping — "it looked readable to me" is not sufficient given that over 4 in 5 measured home pages fail this exact
+check.**
+
+**The 4.5:1/3:1 thresholds are calibrated against a specific, stated visual-acuity reduction, not a round number.**
+The W3C's Understanding doc for SC 1.4.3 states 4.5:1 for normal text was chosen to compensate for the contrast
+sensitivity loss typical of roughly 20/40 vision; large text (18pt/24px regular, or 14pt/18.67px bold) drops to 3:1
+because larger glyphs stay legible at lower contrast. **Checkable rule: classify every text/background pair by its
+actual rendered size AND weight before picking which ratio to test against — a 14pt bold label is "large text" (3:1)
+but a 14pt regular label is normal text needing the full 4.5:1; this exact size/weight boundary is where a borderline
+pass/fail most often gets misjudged.**
+
+**A color carrying two different meanings on the same page, or a warning color used on a routine action, is a real,
+independently-documented product mistake — not a style nitpick.** GOV.UK's own teacher-training-applications team
+(directly fetched case study) found they'd used a red warning button for an action users were expected to perform
+*regularly* (marking a condition "not met"), inconsistent with their own design system's rule that warning buttons
+are for destructive, non-undoable actions only. Their own diagnosis: this both alarms users unnecessarily on a safe,
+routine action AND desensitizes them to red elsewhere, making them *less* likely to pause before a genuinely
+destructive click. Their fix: red reserved for exactly one action (removing a user from an organization — the one
+truly non-undoable action in that flow) and nothing else. Lower-confidence, convergent, **(to verify)** corroboration
+from WebSearch synthesis only (not independently fetched): Meta's Horizon guidelines reportedly warn against a
+destructive-styled button on a non-destructive action; a Wikimedia tracker ticket reportedly changed a red "cancel"
+button to gray because cancelling isn't destructive; a Tor Browser issue reportedly flagged red used on two
+non-dangerous actions. **Mechanical check: list every place a single color (red and green both qualify) is used in
+the live UI and write the specific meaning it carries at each instance — if the same color carries two different
+meanings anywhere on the same product, or sits on an action the user takes routinely, that's a fail regardless of
+how well-chosen the hex value is in isolation.**
+
+**Banner blindness can make a real, important element invisible purely because of its position and visual
+treatment — a positioning-adjacent color failure worth checking here.** NN/g's own banner-blindness material names
+three trigger signals, any one of which is enough to get a genuine, non-ad element ignored: ad-specific placement
+(top of page, right rail), ad-like visual treatment (bright boxed color blocks, animation), and proximity to actual
+ads or promotions. **Checkable rule: if an important real CTA or notice sits in a top-banner or right-rail slot AND
+uses a bright, boxed, ad-styled treatment, treat that combination itself as the defect** — move the element out of
+the ad-shaped slot or change its visual treatment so it reads as content.
+
+**Named practitioner tools, for completeness:** WebAIM's contrast checker (webaim.org/resources/contrastchecker) for
+the pass/fail ratio math; Coolors and Realtime Colors for generating/live-previewing a palette against real UI
+before committing — these are tool names for a build order to cite, not a substitute for running the actual WCAG
+math above.
 
 ## Where to read more (name, do not paste)
 w3.org/TR (CSS Color Module Level 5 working draft — oklch/color-mix/relative color syntax, the primary spec source); webkit.org/blog (the original Display-P3-in-CSS announcement); developer.chrome.com/docs/css-ui/migrate-hd-color (practical P3 migration guidance); github.com/material-foundation/material-color-utilities and m3.material.io (the HCT/tonal-palette system, canonical source); adrianroselli.com's dated WCAG3/APCA status posts (check for a more recent one before repeating the "APCA removed, WCAG3 undetermined" claim — this is an actively moving situation); WCAG 1.4.1 (Use of Color) Understanding doc; any maintained color-blindness simulator (for an actual visual check, not just reading about the three types); anthonyhobday.com/sideprojects/saferules (the full "Visual Design Rules You Can Safely Follow Every Time" list — this file quoted only the color-relevant subset, the rest covers spacing/typography/layout and is worth a separate read); the Elliot & Niesta (2008/2010) red-romance studies alongside their later replication meta-analyses (search by author name — the clearest documented case of a popular color-psychology claim failing replication, worth knowing by name when a client cites "color psychology" as justification); noissue.co's and similar critical pieces on color-psychology-in-marketing (for the broader "popular claims strip findings from context" caveat).
