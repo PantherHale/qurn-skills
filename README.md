@@ -1,37 +1,61 @@
 <div align="center">
 
-# Qurn
+```
+  ██████  ██    ██ ██████  ███    ██
+ ██    ██ ██    ██ ██   ██ ████   ██
+ ██    ██ ██    ██ ██████  ██ ██  ██
+ ██ ▄▄ ██ ██    ██ ██   ██ ██  ██ ██
+  ██████   ██████  ██   ██ ██   ████
+     ▀▀
+```
 
-**Eight specialist agents for Claude Code, Codex, Gemini CLI, Cursor, Windsurf, Copilot, Cline, Aider, and anything that speaks MCP.**
+**A small studio of specialist agents, portable to any coding assistant.**
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Agent Skills](https://img.shields.io/badge/format-Agent%20Skills-6e40c9)](skills/)
+[![License](https://img.shields.io/badge/license-MIT-black?style=flat-square)](LICENSE)
+[![Format](https://img.shields.io/badge/format-Agent%20Skills-black?style=flat-square)](skills/)
+[![Commands](https://img.shields.io/badge/commands-10-black?style=flat-square)](#commands)
+[![Clients](https://img.shields.io/badge/clients-9-black?style=flat-square)](#install)
 
 </div>
 
----
+<br>
 
-Eight commands turn any coding agent into a small studio: a web designer, a test board, an architect, a coder, a
-security reviewer, a delegator, a team lead that runs all of them, and a researcher that keeps the rest current.
-Each one is built from cited sources — not improvised prompts — and ships as a portable `SKILL.md` plus reference
-files, so it works the same way in Claude Code, Codex, or a plain system prompt to a local model.
+Ten commands turn any coding agent into a small studio: a researcher, a web designer, a test board, an architect,
+a coder, a security reviewer, a delegator, a team lead that runs all of them, a weekly researcher that keeps the
+rest current, and a plain-language status report. Each one is built from cited sources — not improvised prompts —
+and ships as a portable `SKILL.md` plus reference files, so it works the same way in Claude Code, Codex, or a
+plain system prompt to a local model.
+
+<p align="center">
+  <a href="#commands">Commands</a> ·
+  <a href="#install">Install</a> ·
+  <a href="#usage">Usage</a> ·
+  <a href="#how-its-built">How it's built</a> ·
+  <a href="#license">License</a>
+</p>
+
+<br>
 
 ## Commands
 
 | Command | Specialist | What it does |
 |---|---|---|
+| `/research` | Research | Checks a claim, a library fact, or a legal/regulatory detail against real sources before anyone acts on it. Never invents a fact — anything it can't trace to an actual source is labelled "to verify," not stated as true. |
 | `/web` | Web designer | Takes stock of a site or app's UI, picks a concrete visual direction (minimalism, brutalism, bento, glassmorphism, neumorphism, and more), and hands back numbered build orders instead of a vague opinion. |
 | `/tester` | Test board | Builds the full test plan for a project — unit, integration, end-to-end, accessibility, performance, environment, error paths — convenes a board of tester personas, and blocks a "done" claim that has no evidence behind it. |
-| `/architect` | Architect | Splits a goal into phases and tasks, sets module boundaries and structure, and catches drift from the plan midway through a build. |
+| `/architect` | Architect | Splits a goal into phases and tasks, sets module boundaries and structure, catches drift from the plan midway through a build, and — for systems that run their own autonomous agents — advises on the merge-gate and worktree-isolation pattern. |
 | `/coder` | Coder | Advises on language, database, and project structure; reviews an implementation for performance and structure; tells a coding agent how to spend fewer tokens doing the same work. |
 | `/security` | Security | Reviews auth, payments, uploads, secrets, dependencies, desktop IPC, and AI features before launch, plus the legal product checks (unsubscribe, consent, age gates, privacy rights) that get skipped under deadline pressure. |
 | `/delegator` | Delegator | Breaks a goal too big for one agent into parallel and sequential work, deciding how many workers it needs and writing each one a self-contained prompt. |
 | `/qurn` | Team lead | Reads a request, decides which of the above specialists actually apply, consults each one in turn, does the building or fixing their advice calls for, and reports one rolled-up verdict. Use this one when you're not sure which specialist fits, or the job spans more than one. |
 | `/evolve` | Researcher | Spends a pass researching the last 7 days in security, design, architecture, coding, testing, and AI-agent tooling, and writes dated, sourced notes that every other specialist reads from afterward. |
+| `/status` | — (utility) | Not a specialist: reads the ledger a `qurn` run leaves behind (or, failing that, git state) and reports what's done, what's blocked, and what's next, in plain language — no verdict, no building, no opinion. |
 
 Every specialist replies with a `VERDICT` (`pass`, `fix`, or `redo`), the evidence behind it — file, line, a
-measurement, test output — and concrete next steps. `qurn` is the only one that writes code; the rest hand back a
-verdict and advice for whatever agent or developer is driving.
+measurement, test output — and concrete next steps. `qurn` is the only one that writes code; `status` only reports;
+the rest hand back a verdict and advice for whatever agent or developer is driving.
+
+<br>
 
 ## Install
 
@@ -75,6 +99,8 @@ No installer for your tool? Grab what you need directly:
 
 Full agent-by-agent path table in [INSTALL.md](INSTALL.md).
 
+<br>
+
 ## Usage
 
 ```
@@ -82,10 +108,13 @@ Full agent-by-agent path table in [INSTALL.md](INSTALL.md).
 /security review this app before launch
 /architect plan the migration to the new auth system
 /web redesign the dashboard, something bolder than what we have
+/status what's left before this ships
 ```
 
 Prefix any command with `start`, `middle`, or `end` to force which checkpoint it reviews from; left off, the
 specialist infers it from the state of the project.
+
+<br>
 
 ## How it's built
 
@@ -95,15 +124,25 @@ skills/<name>/references/    the longer material the instructions point into
 flatten/<name>.prompt.md     the whole specialist flattened into one file
 commands/codex/, gemini/     native slash-command files for those two CLIs
 adapters/                    Cursor, Windsurf, Copilot, Cline, Aider, Claude subagents
-mcp/server.mjs               one dependency-free MCP server exposing all eight
+mcp/server.mjs               one dependency-free MCP server exposing the six frozen specialists
 research/                    the sources each specialist's advice is actually built from
 ```
 
-Everything above is generated from one source of truth — the specialists running day to day inside a private
-production app — so the published skills and the live versions never drift apart. Forking this to change a
-specialist's behavior means editing its `SKILL.md` and references directly; there's no separate build step
-required on a fork.
+Most of the above is generated from one source of truth — the specialists running day to day inside a private
+production app — so the published skills and the live versions mostly don't drift apart. The rest (`research`,
+`evolve`, `qurn`, `status`, and some reference material such as the agent-infra and style-recipe additions) is
+maintained directly in this repo, since it falls outside that app's own six-specialist export. Forking this to
+change a specialist's behavior means editing its `SKILL.md` and references directly; there's no separate build
+step required on a fork.
+
+<br>
 
 ## License
 
 [MIT](LICENSE)
+
+<div align="center">
+
+<sub>Built for Claude Code, Codex, Gemini CLI, Cursor, Windsurf, Copilot, Cline, Aider, and MCP.</sub>
+
+</div>
