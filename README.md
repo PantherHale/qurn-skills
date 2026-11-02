@@ -27,38 +27,13 @@ prompts — and ships as a portable `SKILL.md` plus reference files, so it works
 Codex, or a plain system prompt to a local model.
 
 <p align="center">
-  <a href="#showcase">Showcase</a> ·
   <a href="#commands">Commands</a> ·
   <a href="#install">Install</a> ·
   <a href="#usage">Usage</a> ·
   <a href="#how-its-built">How it's built</a> ·
+  <a href="#showcase">Showcase</a> ·
   <a href="#license">License</a>
 </p>
-
-<br>
-
-## Showcase
-
-<a href="https://qurncola.pages.dev"><img src="docs/showcase/qurn-cola-hero.jpeg" alt="Qurn Cola: a scroll-animated cola brand site with a live 3D can, built with /qurn" width="100%"></a>
-
-**Qurn Cola**: a fictional cola brand's scroll-driven commercial site, planned, built, reviewed and tested end to end
-by `/qurn` from a one-line brief plus a few rounds of feedback.
-**[Live site](https://qurncola.pages.dev)** · **[Source](https://github.com/PantherHale/qurn-cola)**
-
-```
-/qurn make me a scroll-animated cola landing page, research, plan and build it, fully finished
-```
-
-| Specialist | What it did on this build |
-|---|---|
-| `architect` | 12-part plan with phases, estimates, risks and ADRs before a line of code |
-| `web` | Picked the commercial-style direction and wrote the build orders: a live 3D can that travels between scenes, colour-drenched flavour act, share-a-name label printing |
-| `coder` | Profiled fast scrolling and cut the worst frame from 217 ms to 18 ms (steady 60 fps) |
-| `tester` | Checked every page in Chrome at desktop and phone sizes, with reduced motion and no console errors |
-| independent reviewer | Three blind review rounds pushed the can from "looks CG" to a photo-style render |
-
-Four pages, a WebGL can with real 330 ml proportions, studio HDRI lighting, condensation and a stamped lid and base,
-plus a draggable "Made By Panther" lanyard. Static files, no build step.
 
 <br>
 
@@ -164,6 +139,31 @@ production app — so the published skills and the live versions mostly don't dr
 maintained directly in this repo, since it falls outside that app's own six-specialist export. Forking this to
 change a specialist's behavior means editing its `SKILL.md` and references directly; there's no separate build
 step required on a fork.
+
+<br>
+
+## Showcase
+
+<a href="https://qurncola.pages.dev"><img src="docs/showcase/qurn-cola-hero.jpeg" alt="Qurn Cola: a scroll-animated cola brand site with a live 3D can, built with /qurn" width="100%"></a>
+
+**Qurn Cola**: a fictional cola brand's scroll-driven commercial site, planned, built, reviewed and tested end to end
+by `/qurn` from a one-line brief plus a few rounds of feedback.
+**[Live site](https://qurncola.pages.dev)** · **[Source](https://github.com/PantherHale/qurn-cola)**
+
+```
+/qurn make me a scroll-animated cola landing page, research, plan and build it, fully finished
+```
+
+| Specialist | What it did on this build |
+|---|---|
+| `architect` | 12-part plan with phases, estimates, risks and ADRs before a line of code |
+| `web` | Picked the commercial-style direction and wrote the build orders: a live 3D can that travels between scenes, colour-drenched flavour act, share-a-name label printing |
+| `coder` | Profiled fast scrolling and cut the worst frame from 217 ms to 18 ms (steady 60 fps) |
+| `tester` | Checked every page in Chrome at desktop and phone sizes, with reduced motion and no console errors |
+| independent reviewer | Three blind review rounds pushed the can from "looks CG" to a photo-style render |
+
+Four pages, a WebGL can with real 330 ml proportions, studio HDRI lighting, condensation and a stamped lid and base,
+plus a draggable "Made By Panther" lanyard. Static files, no build step.
 
 <br>
 
