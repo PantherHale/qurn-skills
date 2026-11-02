@@ -20,11 +20,11 @@
 
 <br>
 
-Ten commands turn any coding agent into a small studio: a researcher, a web designer, a test board, an architect,
-a coder, a security reviewer, a delegator, a team lead that runs all of them, a weekly researcher that keeps the
-rest current, and a plain-language status report. Each one is built from cited sources — not improvised prompts —
-and ships as a portable `SKILL.md` plus reference files, so it works the same way in Claude Code, Codex, or a
-plain system prompt to a local model.
+Ten commands turn any coding agent into a small studio: a fact-checker, a web designer, a test board, an
+architect, a coder, a security reviewer, a delegator, a team lead that runs all of them, a weekly researcher that
+keeps the rest current, and a plain-language status report. Each one is built from cited sources — not improvised
+prompts — and ships as a portable `SKILL.md` plus reference files, so it works the same way in Claude Code,
+Codex, or a plain system prompt to a local model.
 
 <p align="center">
   <a href="#commands">Commands</a> ·
@@ -43,7 +43,7 @@ plain system prompt to a local model.
 | `/research` | Research | Checks a claim, a library fact, or a legal/regulatory detail against real sources before anyone acts on it. Never invents a fact — anything it can't trace to an actual source is labelled "to verify," not stated as true. |
 | `/web` | Web designer | Takes stock of a site or app's UI, picks a concrete visual direction (minimalism, brutalism, bento, glassmorphism, neumorphism, and more), and hands back numbered build orders instead of a vague opinion. |
 | `/tester` | Test board | Builds the full test plan for a project — unit, integration, end-to-end, accessibility, performance, environment, error paths — convenes a board of tester personas, and blocks a "done" claim that has no evidence behind it. |
-| `/architect` | Architect | Splits a goal into phases and tasks, sets module boundaries and structure, catches drift from the plan midway through a build, and — for systems that run their own autonomous agents — advises on the merge-gate and worktree-isolation pattern. |
+| `/architect` | Architect | Splits a goal into phases and tasks, sets module boundaries and structure, and catches drift from the plan midway through a build. For a project that runs its own autonomous agents, also advises on the merge-gate and worktree-isolation pattern. |
 | `/coder` | Coder | Advises on language, database, and project structure; reviews an implementation for performance and structure; tells a coding agent how to spend fewer tokens doing the same work. |
 | `/security` | Security | Reviews auth, payments, uploads, secrets, dependencies, desktop IPC, and AI features before launch, plus the legal product checks (unsubscribe, consent, age gates, privacy rights) that get skipped under deadline pressure. |
 | `/delegator` | Delegator | Breaks a goal too big for one agent into parallel and sequential work, deciding how many workers it needs and writing each one a self-contained prompt. |
@@ -51,9 +51,12 @@ plain system prompt to a local model.
 | `/evolve` | Researcher | Spends a pass researching the last 7 days in security, design, architecture, coding, testing, and AI-agent tooling, and writes dated, sourced notes that every other specialist reads from afterward. |
 | `/status` | — (utility) | Not a specialist: reads the ledger a `qurn` run leaves behind (or, failing that, git state) and reports what's done, what's blocked, and what's next, in plain language — no verdict, no building, no opinion. |
 
-Every specialist replies with a `VERDICT` (`pass`, `fix`, or `redo`), the evidence behind it — file, line, a
-measurement, test output — and concrete next steps. `qurn` is the only one that writes code; `status` only reports;
-the rest hand back a verdict and advice for whatever agent or developer is driving.
+`web`, `tester`, `architect`, `coder`, `security`, `delegator`, and `qurn`'s own rolled-up verdict all reply with
+`VERDICT: pass`, `fix`, or `redo`, plus the evidence behind it — file, line, a measurement, test output — and
+concrete next steps. `research` replies with its own scale instead (`confirmed`, `mixed`, or `unconfirmed`), since
+it's checking a claim, not judging a build. `evolve` and `status` don't use verdict grammar at all: `evolve` just
+writes dated, sourced notes, and `status` only reports what it found. `qurn` is the only one that writes code; the
+rest hand back advice or a verdict for whatever agent or developer is driving.
 
 <br>
 
@@ -125,7 +128,8 @@ flatten/<name>.prompt.md     the whole specialist flattened into one file
 commands/codex/, gemini/     native slash-command files for those two CLIs
 adapters/                    Cursor, Windsurf, Copilot, Cline, Aider, Claude subagents
 mcp/server.mjs               one dependency-free MCP server exposing the six frozen specialists
-research/                    the sources each specialist's advice is actually built from
+research/                    the cited sources each specialist's advice is built from (not the /research skill --
+                              that one lives in skills/research/, same as any other command)
 ```
 
 Most of the above is generated from one source of truth — the specialists running day to day inside a private
