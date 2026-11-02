@@ -146,8 +146,7 @@ step required on a fork.
 
 <a href="https://qurncola.pages.dev"><img src="docs/showcase/qurn-cola-hero.jpeg" alt="Qurn Cola: a scroll-animated cola brand site with a live 3D can, built with /qurn" width="100%"></a>
 
-**Qurn Cola**: a fictional cola brand's scroll-driven commercial site, planned, built, reviewed and tested end to end
-by `/qurn` from a one-line brief plus a few rounds of feedback.
+**Qurn Cola**: a demo website to showcase the skills of qurn.
 **[Live site](https://qurncola.pages.dev)** · **[Source](https://github.com/PantherHale/qurn-cola)**
 
 ```
