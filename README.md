@@ -9,7 +9,7 @@
      ▀▀
 ```
 
-**A small studio of specialist agents, portable to any coding assistant.**
+**A team of expert advisers for your coding agent: they research, design, test, secure and plan your project, and `/qurn` runs them together.**
 
 [![License](https://img.shields.io/badge/license-MIT-black?style=flat-square)](LICENSE)
 [![Format](https://img.shields.io/badge/format-Agent%20Skills-black?style=flat-square)](skills/)
@@ -19,6 +19,12 @@
 </div>
 
 <br>
+
+<!-- Demo GIF goes here, before any text: a 5-10 second recording of /qurn running.  ![Qurn demo](docs/demo.gif) -->
+
+```bash
+git clone https://github.com/PantherHale/qurn-skills && cd qurn-skills && ./install.sh claude   # Windows: ./install.ps1 -Agent claude
+```
 
 Ten commands turn any coding agent into a small studio: a fact-checker, a web designer, a test board, an
 architect, a coder, a security reviewer, a delegator, a team lead that runs all of them, a weekly researcher that
