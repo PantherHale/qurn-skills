@@ -1,13 +1,3 @@
----
-name: delegator
-description: "Splits work across workers and models: what runs in parallel and what must wait. Use when a goal is big enough for several agents or workers: deciding how many, what runs in parallel, what waits, and writing each worker a self-contained prompt. Do not use for work one agent can finish alone in one session."
-argument-hint: "[start|middle|end] <what you want looked at or built>"
-allowed-tools: Read, Grep, Glob
-metadata:
-  origin: specialist-skills
-  last-reviewed: 2026-10-26
----
-
 # Delegator specialist
 
 Decides how many workers a goal needs, which tasks can run in parallel and which must wait for another, and writes each one a self-contained prompt. It keeps shared wiring (package.json, entry points, routes) with a single owner so parallel workers never collide, and it never inflates the count for a small job.
@@ -19,6 +9,7 @@ This specialist ADVISES and REVIEWS. It reads the project and hands back a verdi
 ## When to activate
 
 - When a goal is big enough for several agents or workers: deciding how many, what runs in parallel, what waits, and writing each worker a self-contained prompt.
+- When workers run on more than one AI vendor/model, or a worker's lifetime (gated task vs. quick one-shot turn) needs picking -- read `references/agent-dispatch-reference.md`.
 - Do not use for work one agent can finish alone in one session.
 
 ## As a command
@@ -103,7 +94,7 @@ MODEL: <tier, if the harness allows per-worker tiering>
 - Default concurrency cap: 20 subagents per session (`CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS`); past the limit, spawning fails fast rather than queueing.
 - Nesting depth cap: 3 (`CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`), separate from the concurrency cap -- a sub-agent's own sub-agents count against it.
 - `isolation: worktree` branches off the default branch, not the parent's HEAD, and auto-removes itself if the worker made no changes.
-- **Worktree isolation only covers git-level races** (index-lock contention). It does not cover: logical edits that still conflict at merge time even though the git mechanics didn't collide, or shared *runtime* resources -- a dev server port, a test database, a build cache -- that more than one worker touches. Check these separately; give each worker its own port/schema when they'd otherwise collide. For a shared *mutable* resource a worker actually writes (a DB row, a balance, a queue), the fix is a per-entity lock held for the whole operation (not just the write) with a TTL, plus an idempotency key on retries, or a single-owner agent for the resource -- see the reference's locking-pattern section (2026-10-30).
+- **Worktree isolation only covers git-level races** (index-lock contention). It does not cover: logical edits that still conflict at merge time even though the git mechanics didn't collide, or shared *runtime* resources -- a dev server port, a test database, a build cache -- that more than one worker touches. Check these separately; give each worker its own port/schema when they'd otherwise collide. For a shared *mutable* resource a worker actually writes (a DB row, a balance, a queue), the fix is a per-entity lock held for the whole operation (not just the write) with a TTL, plus an idempotency key on retries, or a single-owner agent for the resource -- see delegator-reference.md's locking-pattern section (2026-10-30).
 - **A declared `isolation` setting is not unconditionally enforced.** With agent-teams mode enabled, a named subagent launched interactively can run as a teammate in the main session's working directory regardless of its frontmatter `isolation` value, unless isolation is also passed on that specific call. Verify against the actual invocation, not just the worker's declared config.
 - **Report bloat is its own cost.** Many subagents each returning a long narrative report consumes the lead's context regardless of how well-scoped the work was. Cap every worker's OUTPUT FORMAT to a diff or short structured result, not a narrative -- especially as fan-out width grows.
 
@@ -198,3 +189,5 @@ When a session ends and another agent (or a fresh session) must pick up the work
 
 ## Where to read more (name, do not paste)
 Anthropic's engineering blog directly — "How we built our multi-agent research system," "Building effective agents," "Writing tools for agents," "Effective context engineering for AI agents" (all free, short, and more precise than a summary); Claude Code's own docs (code.claude.com/docs — agent-teams, sub-agents, worktrees, best-practices) for anything about how Claude Code itself behaves; Cognition's two posts, read in order — "Don't build multi-agents" (2025) then "Multi-agents: what's actually working" (2026, the softened follow-up) — the second one updates the first, don't cite only the first; the MAST paper (arXiv 2503.13657) for the structural multi-agent failure taxonomy; trunkbaseddevelopment.com directly for branch-lifetime guidance; "The Mythical Man-Month" (Brooks, for the original n(n-1)/2 argument and its caveats, in his own words rather than a paraphrase); the Kanban Guide (kanban.university) and Little's law (any queueing-theory source) for flow reasoning.
+
+

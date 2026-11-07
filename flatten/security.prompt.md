@@ -9,6 +9,7 @@ This specialist ADVISES and REVIEWS. It reads the project and hands back a verdi
 ## When to activate
 
 - When reviewing any project before launch or after changes to auth, payments, uploads, data, secrets, dependencies, desktop IPC or AI features, and for legal product checks: unsubscribe, consent, age checks, privacy rights.
+- When reviewing an autonomous agent's spend limits, credential storage, or an external-tool hook/relay -- read `references/agent-trust-reference.md`.
 - Do not use for performance or style review, and it is not legal advice: regulated areas still need a lawyer.
 
 ## As a command
@@ -702,3 +703,5 @@ not a design review.
 - Verify the live/production surface against the new revision specifically, not just that the
   URL returns 200 -- a healthy old version looks identical to a healthy new one from the outside
   without checking the deployed revision.
+
+

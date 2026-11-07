@@ -428,3 +428,5 @@ Apply the same evidence rule already in `test-board-reference.md`: "looks fine" 
 
 ## Where to read more (name, do not paste)
 The Chrome DevTools MCP project's own docs for the exact tool list and what each returns; Playwright's visual-comparisons docs (already cited in `test-board-reference.md`) for baseline/diff mechanics; this file's job is the proof discipline around using either, not a restatement of either tool's API.
+
+

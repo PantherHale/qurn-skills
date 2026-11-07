@@ -55,6 +55,7 @@ Read these when the task needs them, not all up front:
 - [references/ui-libraries-and-mascots-reference.md](references/ui-libraries-and-mascots-reference.md)
 - [references/scroll-animation-reference.md](references/scroll-animation-reference.md)
 - [references/3d-web-reference.md](references/3d-web-reference.md)
+- [references/3d-modelling-reference.md](references/3d-modelling-reference.md)
 - [references/color-selection-reference.md](references/color-selection-reference.md)
 - [references/vibrant-color-patterns-reference.md](references/vibrant-color-patterns-reference.md)
 - [references/scroll-scrub-and-shader-reference.md](references/scroll-scrub-and-shader-reference.md)
@@ -1456,6 +1457,18 @@ scroll, tokens only, reduced motion respected.
 - **Accessibility:** same fallback as glassmorphism; respect reduced transparency.
 - **Fits:** toolbars, docks, media controls.
 
+## Warm ambient glass
+- **Look:** a dark, warm ambient backdrop (amber/brown/coffee gradient, never neutral grey) with frosted glass panels floating on it; pastel, rounded cards sit on a near-white surface *inside* the glass shell, not on the ambient colour itself -- the warmth and the pastel never touch directly. A restrained flat-illustrated mascot (not a photo, not a 3D render) is the one expressive element; everything else stays calm.
+- **Tokens:** ambient backdrop as a warm radial/linear gradient (e.g. `#3a2317` to `#6b4226`, or brand-equivalent browns/ambers); glass fill `rgba(255,255,255,.06-.12)` with blur 16-20px for chrome (sidebar, search bar, nav); an inner "paper" surface near-white (`#fdfbf8`-ish) that holds content cards; 3-5 pastel tints (one per card/category, e.g. soft lavender, mint, peach, sky) each used as a full card background, not an accent; one saturated gradient (purple-to-violet or brand-equivalent) reserved for exactly one hero/featured card.
+- **CSS it needs:** `backdrop-filter: blur(16-20px)` + translucent fill on the outer chrome only; `border-radius` large and consistent everywhere -- 20-28px on cards and the search bar, fully pill (`border-radius: 999px` / `9999px`) on buttons, tags and small icon badges; a light hairline border (`1px solid rgba(255,255,255,.15-.25)`) on glass chrome, not on the pastel cards (they're flat, no border needed since the near-white surface already separates them from the backdrop).
+- **Typography and hierarchy:** one bold, large (2-2.5rem+) headline on the hero card only, everything else small and regular-weight -- the whole surface reads as low-text-density; section labels (e.g. a category name) are small, medium-weight, and paired with a single-line description under 8 words; no paragraph-length copy anywhere on this kind of surface.
+- **Spacing and density:** generous gaps between cards (1-1.5rem) despite small individual card size -- density comes from many small cards, not tight packing; each card's internal padding stays roomy (1-1.5rem) so the rounded corners read as soft, not cramped.
+- **Iconography and mascot:** one flat, simple, rounded-shape illustrated mascot used sparingly (hero + maybe one small corner callout, never repeated across every card); functional icons stay small, single-colour or duotone, inside circular pastel badges, never competing with the mascot for attention.
+- **Avoid:** putting the ambient warm colour directly behind body text (contrast fails); hard offset drop shadows (this style floats on blur and soft colour, not shadow); more than one saturated gradient card per screen (it stops being "restrained" past that); a mascot rendered in a different style register (3D/photoreal) than the flat UI around it.
+- **Accessibility:** verify body text inside each pastel card against that card's own background, not the ambient backdrop; provide the glassmorphism blur fallback (`@supports not (backdrop-filter: blur(1px))` / `prefers-reduced-transparency`) for the outer chrome; pill buttons need a visible focus ring since their shape alone doesn't signal interactivity as clearly as a rectangular one.
+- **Fits:** consumer utility apps with a friendly/approachable brief (translation, voice, companion, wellness, kids' tools) that still need to look premium and calm rather than playful-loud. **Does not fit:** dense data tools, enterprise dashboards, anything that needs to read as serious/corporate.
+- **Signals it reuses (scripts/style-signals.mjs):** `backdrop-blur`, `translucent-surface`, `hairline-light-border` on the outer chrome, same as Glassmorphism above -- this is a themed, warmer variant of glassmorphism, not a new signal set.
+
 ## Claymorphism
 - **Look:** puffy, friendly 3D clay shapes.
 - **Tokens:** radius 32px minimum (scale up for larger elements); outer shadow `8px 8px 16px rgba(0,0,0,.25)`; inset dark `-8px -8px 12px rgba(0,0,0,.25)`; inset light `8px 8px 12px rgba(255,255,255,.4)`; pastel-but-not-pink fills.
@@ -2533,6 +2546,50 @@ A site can pass every check above and still be invisible or wrong everywhere it'
 - **Canonical URL tag on every page** (`<link rel="canonical">`), especially one with both a `www` and non-`www` or a trailing-slash/no-trailing-slash variant reachable — without it, search engines can split ranking signal across duplicate URLs for the same page.
 This is a named line item at the END checkpoint, same severity class as the mechanical pre-flight check above — "the site looks right in a screenshot" and "the site is ready to actually ship and be shared" are different claims, and a build order that covers only the first one is incomplete.
 
+## Hiding the process — the tells of an unfinished handoff, not an AI-generated one
+A build can clear every AI-slop check above and still read as amateur because the seams of making it were never cleaned up — this is a different failure class from the banned-tells list: it's not about looking generated, it's about looking unfinished. A professional handoff never ships with its scaffolding still visible:
+- **No leftover design-tool export artifacts.** Figma/Sketch exports routinely leave stray `id="Group 47"` / `class="frame-2891"` naming, duplicate hidden layers positioned off-canvas, or auto-generated SVG `<!-- Generator: Adobe Illustrator -->` comments in shipped markup — grep the rendered HTML/SVG for a bare numeric or "Group"/"Frame"/"Rectangle" id before calling markup clean, and rename to semantic ids/classes.
+- **No debug leftovers in shipped code.** `console.log`, commented-out alternate versions of a component, a `// TODO` with no ticket, a hardcoded test value (`background: red` left from a layout debug session) — grep for `console.log`, `TODO`, `FIXME`, and bare debug colors (`red`, `lime`, `magenta` as literal background values) before shipping.
+- **No inconsistent file/asset naming revealing a messy process.** `hero-final-v3-ACTUALLY-FINAL.png`, mixed casing across an asset folder, an image still named `Untitled-1.jpg` — a professional delivery renames every shipped asset to a consistent, descriptive, lowercase-kebab scheme before handoff; an un-renamed export filename is itself a tell that nothing after the export step was reviewed.
+- **No orphaned CSS/JS.** A class defined in the stylesheet that no element uses, a component file nothing imports, an old color token still declared alongside its replacement "just in case" — these don't show up in a screenshot, only in the source, which is exactly why they survive past multiple review rounds; a source-level dead-code pass (see `refactor-cleaner`-style tooling if installed) belongs in the same pre-ship gate as the visual checks.
+- **One exception, stated explicitly: never strip real attribution, license headers, or a required third-party notice** while cleaning debug artifacts — the goal is removing evidence of sloppy process, not removing evidence of what was legitimately reused and credited.
+
+## The micro-detail pass — catching what a normal review misses
+Most review rounds check at the section level (does the hero work, does the grid work) and stop there; the defects that make a build look amateur on close inspection live one level below that, and need their own explicit pass rather than being caught incidentally:
+- **Zoom to 200% on every distinct component once** (not just the hero) and look for: a 1px gap between two elements meant to be flush, a border that's a slightly different weight than its sibling, an icon that isn't optically centered in its container, a drop shadow bleeding past its parent's rounded corner instead of being clipped to it.
+- **Check every piece of punctuation and casing for consistency**, not just copy tone: smart quotes vs. straight quotes used inconsistently across the same page, inconsistent sentence-case vs. Title Case on button labels or nav items, a stray double space, an ellipsis as three periods in one place and the real `…` character in another.
+- **Check hover/focus/active/disabled states on every interactive element, not just the default state** — a button that was only ever screenshotted at rest frequently has a broken or missing hover state, no visible focus ring, or a disabled state that's still full-opacity and looks clickable.
+- **Check that every icon in the same row/set shares the same stroke width, corner style and optical size** — mixing an icon library's outline set with one hand-picked filled icon, or two icons at visually different weights sitting side by side, reads as careless the instant two icons are compared directly.
+- **Re-read every number on the page once as a hostile fact-checker**, not as a copy edit: does a percentage total meaningfully (three category percentages that should sum near 100% but sum to 140%), does a "founded in" date predate the product it describes, does a stat change between two places it appears on the same page. This is the same discipline the `research` specialist applies to a claim from the outside world, applied here to the numbers the build itself is presenting.
+
+## Combining two or more reference sites — judge each element, never concatenate (operator correction, 2026-11-01)
+When the brief is "combine site A and site B into one," the failure mode isn't technical, it's a missing judgment
+step: pasting A's sections above B's sections, sharing a palette between them, and calling that "combined." A real
+operator caught this exact mistake mid-build: *"I meant combine meaning to take both website seeing what is best and
+what can be done and combining into one website that is different from both the websites... like the coffee shop
+website has a shit scroll animation ending so you will preferably not take that."* Two separate things went wrong
+and both need checking before a multi-source build is called done:
+- **Structural concatenation, not synthesis.** The first pass put site A's full page flow first, then site B's full
+  page flow underneath it, sharing only a CSS variable. That is stacking, not combining — the giveaway is that
+  either source's sections could be deleted wholesale and the other would still make complete sense on its own. A
+  real combine has sections that only make sense *because* both sources contributed to them (in the case this was
+  caught on: a single shared 3D scene where one source's hero object crossfades into a new model built with the
+  other source's subject matter, not "3D section, then separately, flat café section").
+- **Porting a source's weak elements along with its strong ones, unexamined.** The build had literally copy-pasted
+  one source's ending animation (a flat CSS rectangle scaling to represent a pour, cutting to black the instant a
+  fill animation finished, no payoff beat) because it was *there*, not because it was good — while that same
+  session had already built a far more capable technique (real 3D geometry, physically-lit) for a different part of
+  the page. Before porting ANY section, animation or pattern from a source site, name its specific weakness out
+  loud first (a thin static bar reading as a hand-drawn liquid simulation, a pinned scroll section that ends on
+  silence with no resolution, a palette that doesn't survive being generalized) and decide explicitly: keep as-is,
+  improve with a technique already proven elsewhere in this build, or drop it. "It was already built" is not a
+  reason to keep a weak element when a stronger pattern already exists one scroll-section away in the same project.
+- **A usable checklist before calling a multi-source combine done:** (1) Could either source's content section be
+  deleted and the rest of the page still read as a complete, coherent site? If yes, it's still a stack. (2) For
+  every ported animation/section, can you name why it's the STRONGER of the two sources' approaches to that same
+  problem, not just the one that happened to already exist in code? (3) Does the page have at least one moment that
+  exists in neither source individually — built from combining their techniques, not their content?
+
 ## Where to read more (name, do not paste)
 The installed skills these rules were distilled from — `ui-ux-pro-max` (searchable style/color/typography/chart database with 67 styles and 161 palettes), `taste-skill` (the full AI-tells list and block-library vocabulary), `make-interfaces-feel-better` (concentric radius, optical alignment, transition scoping), `frontend-design-direction` — read the live skill files for the full depth and any newer additions, rather than treating this distillation as the ceiling.
 
@@ -2785,6 +2842,59 @@ For genuinely broad compatibility (older/low-end Android devices specifically), 
 
 ## Where to read more (name, do not paste)
 khronos.org/gltf (the glTF 2.0 spec, sample assets, and validator — the primary source for the format itself); khronos.org/ktx (KTX 2.0 container spec and the Basis Universal supercompression press materials); threejs.org's own docs and `renderer.info`/LOD/InstancedMesh API references; the `@react-three/fiber` and `@react-three/drei` documentation for the React-specific patterns; discourse.threejs.org (the project's own community forum, useful for confirming current-version specifics since the library moves fast); developer.chrome.com's WebGPU documentation for current browser-support tables (re-check before quoting a specific version number, this space moves quickly).
+
+
+---
+
+<!-- references/3d-modelling-reference.md -->
+
+# Web designer: 3D asset modelling and reference sourcing
+
+Pairs with `3d-web-reference.md`, which covers *delivery* (glTF, draw calls, WebGPU budgets) once an asset exists. This file covers the step before that: how a 3D asset for a hero/product scene gets modelled, and — the part most likely to go wrong — how to gather real reference material for it without ever inventing a source. Nothing in this file is a substitute for an actual modelling tool; it is what the Web designer needs to know to write a correct BUILD ORDER for a 3D asset and to judge whether a finished one is professional-grade or amateur-grade.
+
+## The two honest sourcing paths — and the one banned shortcut
+
+There are exactly two legitimate ways to get a 3D model into a build, plus one path that only looks legitimate:
+
+1. **Use an existing, licensed asset.** CC0/public-domain sources (Poly Haven for HDRIs, textures and a growing model library; Khronos' own glTF sample-asset repo for test geometry; Sketchfab filtered to CC0/CC-BY with the license actually checked per-model, not assumed from the site's general reputation) or a licensed marketplace purchase. **Record the exact source URL and license in `docs/design/REFERENCES.md`** the same way `web-designer-references.md` already requires for 2D references — a 3D asset with no recorded source is exactly as unverifiable as a claimed stat with no citation, and gets the same treatment: flagged, not shipped.
+2. **Model it from real reference.** Gather actual photographs, measured drawings, or a real physical object, then model to match. This is the only path for a bespoke brand object (a product, a mascot, an architectural feature specific to the brief) that no stock library will have.
+3. **The banned shortcut: asking an LLM (including this one) to describe what an object "typically looks like" and modelling from that description with no real reference image checked against it.** An LLM's visual description of an object is a generalization from training data, not a verified fact about the one real object the brief is for — the same reason `research`'s anti-hallucination rules refuse an unchecked claim. A model built this way routinely gets proportions, mechanical details and material logic wrong in ways that read as "off" even to a non-expert, because it was never checked against anything real. If no real reference exists yet, that is itself a finding to report ("no reference photo of X was found or supplied — flagging before modelling, not guessing"), not a reason to proceed from a text description.
+
+## Gathering reference properly (the part that most affects whether it reads as professional)
+
+A professional modeller never works from one photo. The standard kit, and what is missing when a build looks "flat" or "wrong" in ways that are hard to name:
+
+- **Multiple angles of the same subject**, minimum front/side/three-quarter, ideally a full turnaround — one hero shot alone hides exactly the surfaces (the back, the underside, how two forms meet) that a single-camera-angle render would later need to fake.
+- **A scale reference in at least one shot** — a ruler, a hand, a known-size object in frame — so proportions are measured, not eyeballed from a photo with no sense of real-world scale.
+- **Material and surface-detail close-ups separately from the form shots** — how a surface actually catches light (brushed metal vs. painted vs. frosted plastic) is a different piece of information from its silhouette, and conflating the two is why renders often get the right shape with the wrong finish.
+- **Real environment/lighting reference for the shot the asset will appear in**, not just references for the object itself — an object modelled correctly but lit with a generic three-point studio setup still looks pasted-in next to photography or video lit by one specific real light source; match the light direction, temperature and softness of wherever the asset will actually sit.
+- **A reference board assembled from these, with each image's source noted** (file name, URL, or "photographed by the operator on <date>") — the same discipline `web-designer-references.md` already applies to 2D site references, extended to 3D: never present an assembled moodboard as if its pieces came from nowhere.
+
+## Verifying a reference image is real before building from it
+
+Before treating any found image as ground truth for a model:
+
+- Prefer an image you can trace to an identifiable source (a stock library with a license page, a manufacturer's own product photography, a museum/archive scan, a photo the operator supplied directly) over an unsourced image found via general image search with no attribution trail.
+- Be alert to AI-generated images surfacing in ordinary image search results as of 2026 — a generated image of "a vintage camera" can look plausible while having physically inconsistent mechanical details (a lens mount that doesn't match the body, control dials with no function) that will propagate straight into the model and read as wrong to anyone who knows the real object. When a reference image's origin can't be confirmed and something about it looks mechanically implausible on close inspection, say so and ask for a better source rather than modelling from it anyway.
+- For a brand's own product, the brand's own official photography or spec sheet is always the highest-confidence reference available — check for it before falling back to third-party photos of the same product.
+
+## Modelling workflow (what to expect from a correct BUILD ORDER)
+
+This is the shape of the pipeline a 3D artist or a tool like Blender actually follows — useful for writing a BUILD ORDER that names the right stage, and for judging whether a delivered asset skipped one:
+
+1. **Blockout** — rough primitive forms at correct scale and proportion, checked against the reference board's scale shots before any detail work starts. Catching a proportion error here costs minutes; catching it after full detail and texturing costs a redo.
+2. **Base mesh / high-poly detail** — the actual form and surface detail, built to match the reference photos' silhouette and surface features, not approximated from memory.
+3. **Retopology** — a clean, animation/deformation-friendly low-poly mesh built over the high-detail version, with topology that follows the form's natural flow (edge loops around joints, eyes, mechanical hinges) rather than an arbitrary decimation of the high-poly mesh — decimation alone produces a mesh that deforms badly and often looks subtly wrong even static, from uneven triangle density.
+4. **UV unwrapping** — seams placed in natural hidden edges (behind an ear, inside a fold, along a real seam line on the reference object) so texture stretching and visible seam lines don't appear on a prominent surface.
+5. **Texturing/materials** — built from the reference's close-up material shots, not a generic preset; see the shared asset-budget table in `3d-web-reference.md` for the resolution ceiling once this heads to the web.
+6. **Rig/animation (if needed)** — only after the mesh is finalized; a rig built on a mesh that still changes upstream is wasted work.
+7. **Export to glTF 2.0** per `3d-web-reference.md`'s delivery rules — Draco mesh compression, KTX2/Basis textures, LODs via `THREE.LOD` if the asset appears at multiple distances.
+
+A BUILD ORDER for a 3D asset should name which of these stages it is asking for and what reference it is to be checked against at each stage — "model the product" with no named reference and no stage breakdown is not a gradable order.
+
+## Where to read more (name, do not paste)
+
+polyhaven.com (CC0 HDRIs, textures and models, license stated per-asset); github.com/KhronosGroup/glTF-Sample-Assets (Khronos' own test/reference geometry); sketchfab.com filtered to CC0/CC-BY (check the license tab per model, never assume from the platform); blender.org's own manual for the modelling/retopology/UV workflow terminology used above (the authoritative source for the pipeline stage names, regardless of which tool is actually used to execute them).
 
 
 ---
@@ -3530,3 +3640,5 @@ TikTok/infinite scroll: established behavioral-psychology literature on variable
 secondary UX commentary to TikTok specifically (platform-specific causation is asserted, not independently proven);
 EU Commission preliminary findings are explicitly preliminary. Linear: design-blog case studies and commentary, no
 primary financial or growth data independently confirmed.
+
+
