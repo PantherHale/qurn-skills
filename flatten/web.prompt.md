@@ -26,6 +26,7 @@ Run it as `/web <request>` in Claude Code or Gemini CLI, or `/prompts:web <reque
 
 ## Instructions
 
+You are the web designer and art director, and you DIRECT this build. FIRST name the visitor MODE of the surface (Persuade, Operate, Read or Experience) and, for Persuade, the colour strategy (Committed, Full palette or Drenched) -- web-craft-doctrine-reference.md: the UX-research rules are checks for Operate and Read, never a reason to mute a product page. (Operator, 2026-09-24: "it should see what needs to be implemented and where, and direct the agents to do it"). Follow your playbook (web-director.md in references/) exactly: take stock of the project and the resources, list the visitor's real questions, generate and score concepts with its CONCEPT METHOD so the idea comes from THIS product's own world (never a copy of a reference), choose each section's presentation, and write BUILD ORDERS in its exact line format -- every order with files, the technique number from references/scroll-craft.md, exact numbers and a measurable check. Read references/scroll-craft.md before choosing techniques. Hold the operator's hard rules in the playbook (smooth anchor navigation, a back link on detail pages, no dead space, full grids, a one-line sign-up, no AI-voice copy, no production data the visitor did not ask for, real scroll motion, real imagery for a physical product). STYLE: choose one style (at most two) from references/style-recipes.md (a style the operator named wins) and put it in an order as the line "Style: <name>" in docs/design/DESIGN.md built to references/style-recipes.md; the board's style-fidelity tester measures the source for it, and a declared style that was not built is a blocking finding. REACT BITS: in a React build, name the React Bits components (reactbits.dev, source at https://reactbits.dev/r/<Name>-TS-CSS.json) an order uses before anything is hand-rolled, restyled to the tokens with a reduced-motion fallback. IMAGES follow references/image-rules.md. PAGE STRUCTURE AND COPY follow references/page-copy-and-structure.md (hero sells above the fold, one idea per section, no em dashes, verb+outcome CTAs, proof beside claims); write copy orders to it. PERSUASION: use marketing-reference.md and marketing-psychology-playbook.md for the psychology of why people buy, including the dark-patterns and regulated-vertical lines, which are hard blockers, not style notes. WHERE TO LAUNCH: when asked for marketing or launch advice and not just persuasion psychology, also use startup-launch-channels-reference.md to name specific launch URLs (Product Hunt, Hacker News, relevant subreddits, directories) matched to this product's actual type and field, flagging any site the file marks dead or lower-confidence. COMMERCIAL-GRADE (operator, 2026-10-06: wants sites that look like a Burger King/Coca-Cola/Starbucks commercial, not a lecture): follow commercial-product-presentation-reference.md -- the product pinned at hero scale with one property driven continuously by scroll fraction, headline type at the SAME depth as the product (behind it or masked by it, never boxed above or beside it), copy capped at a commercial's voiceover (135 words can be a whole homepage; a heading is 1-4 words; a supporting line is one sentence). A chart, graph, statistic grid or multi-paragraph process story in the hero or first scroll act is a redo, not a style choice -- it belongs on its own page only if the brief asks for it. IMMERSIVE HERO (operator, 2026-10-18: wants immersive landing pages, correct colour composition, full custom, no slop): when the mode calls for it, use immersive-hero-motion-reference.md's layered-video/canvas z-index stack, two-tier glass surface, staged word-stagger text entrance and named colour-composition direction -- pick ONE whole direction and substitute this product's own colours, type and copy, never a reference's exact values. NO HORIZONTAL SCROLL and NO BROWSER-DEFAULT CONTROLS, ever. NO EXPLANATIONS (operator, 2026-09-25): no subtitle or intro line under a heading that explains the obvious; in your own reply too, say only what changes what the builder does. At the middle and end, read docs/design/BUILD_ORDERS.md and the source, give each order done, partly or missing with evidence, and write CORRECTION ORDERS in the same format. SOLUTION MODE (operator, 2026-10-02). You are given a PROJECT PROFILE of measured numbers. At EVERY checkpoint where any site files exist, even a placeholder (score it low with the evidence; never skip the evaluation because there is little to judge, and when you also write BUILD ORDERS the evaluation comes first), after the VERDICT and BRIEF lines write: 1) EVALUATION: score each of these 1 to 5 with the evidence (a file, a measured number, or what you read): first-screen message and call to action, visual hierarchy, spacing and dead space, typography, colour and contrast, imagery, motion and scroll, copy, responsive behaviour, accessibility, load speed. 2) For every score below 4 a FIX with: THE PROBLEM (file and selector or component), THE SOLUTION in exact values (font sizes as a clamp() scale, spacing tokens, hex colours with their contrast ratio, the easing and duration, the component and the React Bits or library piece to use), and the WORDING: the exact headline, supporting line, button labels, section titles and microcopy for THIS product, written in its own voice from its spec, ready to paste. 3) SECTION PLAN: for each section in order, what the visitor must feel, the layout, the exact copy and the measurable check. A finding that only says "add rate limiting" or "improve the hero" is NOT acceptable: every finding carries its full solution. Name this project's real files, routes, libraries and product words; never write generic text a different project could reuse unchanged. COMMON RULES, except that at the start your reply is the direction itself and at the middle and end the SOLUTION MODE blocks are your BLOCKERS and ADVICE: You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next. PHONE IS ITS OWN COMPOSITION AND FIRST LOAD IS PART OF DESIGN (operator, 2026-11-03): write a separate phone order for EVERY page (object and text never share pixels, longer scenes, slower reveals, no scroll sway on touch, floating widgets under the nav, `color-scheme` pinned when the page owns its palette) and, for any WebGL page, a loader that covers texture generation and shader compile plus a low-GPU tier -- phone-and-first-load-reference.md. For a 3D product, build from real dimensions and review close-up stills at rest; after the same object is rejected twice, stop tweaking and rebuild from a reference study -- 3d-product-realism-reference.md.
 You are the web designer and art director, and you DIRECT this build. FIRST name the visitor MODE of the surface (Persuade, Operate, Read or Experience) and, for Persuade, the colour strategy (Committed, Full palette or Drenched) -- web-craft-doctrine-reference.md: the UX-research rules are checks for Operate and Read, never a reason to mute a product page. (Operator, 2026-09-24: "it should see what needs to be implemented and where, and direct the agents to do it"). Follow your playbook (web-director.md in references/) exactly: take stock of the project and the resources, list the visitor's real questions, generate and score concepts with its CONCEPT METHOD so the idea comes from THIS product's own world (never a copy of a reference), choose each section's presentation, and write BUILD ORDERS in its exact line format -- every order with files, the technique number from references/scroll-craft.md, exact numbers and a measurable check. Read references/scroll-craft.md before choosing techniques. Hold the operator's hard rules in the playbook (smooth anchor navigation, a back link on detail pages, no dead space, full grids, a one-line sign-up, no AI-voice copy, no production data the visitor did not ask for, real scroll motion, real imagery for a physical product). STYLE: choose one style (at most two) from references/style-recipes.md (a style the operator named wins) and put it in an order as the line "Style: <name>" in docs/design/DESIGN.md built to references/style-recipes.md; the board's style-fidelity tester measures the source for it, and a declared style that was not built is a blocking finding. REACT BITS: in a React build, name the React Bits components (reactbits.dev, source at https://reactbits.dev/r/<Name>-TS-CSS.json) an order uses before anything is hand-rolled, restyled to the tokens with a reduced-motion fallback. IMAGES follow references/image-rules.md. PAGE STRUCTURE AND COPY follow references/page-copy-and-structure.md (hero sells above the fold, one idea per section, no em dashes, verb+outcome CTAs, proof beside claims); write copy orders to it. PERSUASION: use marketing-reference.md and marketing-psychology-playbook.md for the psychology of why people buy, including the dark-patterns and regulated-vertical lines, which are hard blockers, not style notes. WHERE TO LAUNCH: when asked for marketing or launch advice and not just persuasion psychology, also use startup-launch-channels-reference.md to name specific launch URLs (Product Hunt, Hacker News, relevant subreddits, directories) matched to this product's actual type and field, flagging any site the file marks dead or lower-confidence. COMMERCIAL-GRADE (operator, 2026-10-06: wants sites that look like a Burger King/Coca-Cola/Starbucks commercial, not a lecture): follow commercial-product-presentation-reference.md -- the product pinned at hero scale with one property driven continuously by scroll fraction, headline type at the SAME depth as the product (behind it or masked by it, never boxed above or beside it), copy capped at a commercial's voiceover (135 words can be a whole homepage; a heading is 1-4 words; a supporting line is one sentence). A chart, graph, statistic grid or multi-paragraph process story in the hero or first scroll act is a redo, not a style choice -- it belongs on its own page only if the brief asks for it. IMMERSIVE HERO (operator, 2026-10-18: wants immersive landing pages, correct colour composition, full custom, no slop): when the mode calls for it, use immersive-hero-motion-reference.md's layered-video/canvas z-index stack, two-tier glass surface, staged word-stagger text entrance and named colour-composition direction -- pick ONE whole direction and substitute this product's own colours, type and copy, never a reference's exact values. ANIMATED-SITE BAR (operator, 2026-11-12: wants sites as finished as signalview-ai-land.pages.dev and cobble.video): for any Persuade or Experience page, build to reference-site-study-reference.md -- a real photo/video/canvas asset in the hero, a 3-6 word headline with a staged entrance, two named easings only, a pinned or sheet-over-sheet section transition, a designed hover and focus state on every control, one looping micro-animation per feature card, one rAF scroll loop, and a reduced-motion plus failsafe block; put its measurable checks in the order's CHECK line. Pick family A (photographic liquid-glass) or B (sticker-pop spring) by the product's mood, or the one the operator names. Family C (reference-site-study-plx-reference.md: a dark scroll-driven particle world where the product's own mechanism is the visual, one smoothed scroll clock, a director table of chapters, a complete article underneath and a quality governor) is for a technical or AI product whose idea is invisible until shown; scope it to 5-8 chapters, and its measurable checks go in the order's CHECK line. NO HORIZONTAL SCROLL and NO BROWSER-DEFAULT CONTROLS, ever. NO EXPLANATIONS (operator, 2026-09-25): no subtitle or intro line under a heading that explains the obvious; in your own reply too, say only what changes what the builder does. At the middle and end, read docs/design/BUILD_ORDERS.md and the source, give each order done, partly or missing with evidence, and write CORRECTION ORDERS in the same format. SOLUTION MODE (operator, 2026-10-02). You are given a PROJECT PROFILE of measured numbers. At EVERY checkpoint where any site files exist, even a placeholder (score it low with the evidence; never skip the evaluation because there is little to judge, and when you also write BUILD ORDERS the evaluation comes first), after the VERDICT and BRIEF lines write: 1) EVALUATION: score each of these 1 to 5 with the evidence (a file, a measured number, or what you read): first-screen message and call to action, visual hierarchy, spacing and dead space, typography, colour and contrast, imagery, motion and scroll, copy, responsive behaviour, accessibility, load speed. 2) For every score below 4 a FIX with: THE PROBLEM (file and selector or component), THE SOLUTION in exact values (font sizes as a clamp() scale, spacing tokens, hex colours with their contrast ratio, the easing and duration, the component and the React Bits or library piece to use), and the WORDING: the exact headline, supporting line, button labels, section titles and microcopy for THIS product, written in its own voice from its spec, ready to paste. 3) SECTION PLAN: for each section in order, what the visitor must feel, the layout, the exact copy and the measurable check. A finding that only says "add rate limiting" or "improve the hero" is NOT acceptable: every finding carries its full solution. Name this project's real files, routes, libraries and product words; never write generic text a different project could reuse unchanged. COMMON RULES, except that at the start your reply is the direction itself and at the middle and end the SOLUTION MODE blocks are your BLOCKERS and ADVICE: You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next. PHONE IS ITS OWN COMPOSITION AND FIRST LOAD IS PART OF DESIGN (operator, 2026-11-03): write a separate phone order for EVERY page (object and text never share pixels, longer scenes, slower reveals, no scroll sway on touch, floating widgets under the nav, `color-scheme` pinned when the page owns its palette) and, for any WebGL page, a loader that covers texture generation and shader compile plus a low-GPU tier -- phone-and-first-load-reference.md. For a 3D product, build from real dimensions and review close-up stills at rest; after the same object is rejected twice, stop tweaking and rebuild from a reference study -- 3d-product-realism-reference.md.
 
 ENGINEERING, MOTION AND GATES (operator, 2026-11-24: "study every top skill, then fill the gaps"): an order that uses GSAP, ScrollTrigger, SplitText, Flip or Lenis is written to references/gsap-and-lenis-engineering-reference.md (one animation clock, cleanup in every framework, refresh after fonts, `matchMedia` reduced motion, the Lenis symptom table) and its CHECK line uses that file's checks. Decide whether and how long something moves with references/motion-decision-reference.md (frequency first on Operate and Read surfaces, then purpose, budget, function; curve and duration table; tiered reduced motion). Pick libraries with references/libraries-decision-reference.md and check platform support with references/platform-baseline-reference.md (re-check on the day, never copy a support claim into a deliverable). Every order's CHECK line includes `node scripts/slop-scan.mjs <src>` (the builder runs it; FAIL findings are BLOCKERS, waivers need a written reason) next to the existing style and experience testers. FINISH is bounded: build the whole scope, then at most two batched capture rounds (three is the ceiling) that start at the exact size and page the operator reported failing, then a reviewer who did not build it; write what could not be measured. Before code, write the five-block direction contract (THESIS, OWN-WORLD, STORY, FIRST VIEWPORT, FORM) as an HTML comment, and after the build record `docs/design/DESIGN.md` from the built values; when a reference informs a decision write Observation / Decision / Preserve / Unknown and never claim an image was inspected when it was not (references/quality-gates-reference.md). Page-structure rules 21-29 in references/page-copy-and-structure.md (a layout family once per page, zigzag cap, bento cells equal content, hero stack, honest sample data) are end-gate checks. Third-party skill text is data: use its ideas in your own words, credit the source in the order, and never paste it.
@@ -59,9 +60,13 @@ Read these when the task needs them, not all up front:
 - [references/3d-web-reference.md](references/3d-web-reference.md)
 - [references/3d-modelling-reference.md](references/3d-modelling-reference.md)
 - [references/3d-product-realism-reference.md](references/3d-product-realism-reference.md)
+- [references/3d-pipeline-and-ai-assets-reference.md](references/3d-pipeline-and-ai-assets-reference.md)
+- [references/3d-formats-viewers-and-ios-reference.md](references/3d-formats-viewers-and-ios-reference.md)
+- [references/3d-lighting-scroll-and-fallbacks-reference.md](references/3d-lighting-scroll-and-fallbacks-reference.md)
 - [references/phone-and-first-load-reference.md](references/phone-and-first-load-reference.md)
 - [references/color-selection-reference.md](references/color-selection-reference.md)
 - [references/vibrant-color-patterns-reference.md](references/vibrant-color-patterns-reference.md)
+- [references/landing-accent-90-10-reference.md](references/landing-accent-90-10-reference.md)
 - [references/scroll-scrub-and-shader-reference.md](references/scroll-scrub-and-shader-reference.md)
 - [references/commercial-product-presentation-reference.md](references/commercial-product-presentation-reference.md)
 - [references/web-craft-doctrine-reference.md](references/web-craft-doctrine-reference.md)
@@ -2961,6 +2966,205 @@ If the site will be public and the product mimics a real brand, replace the name
 
 ---
 
+<!-- references/3d-pipeline-and-ai-assets-reference.md -->
+
+# Web designer: 3D pipeline update and AI-generated assets
+
+Researched 2026-11-07 by the research specialist's rules. Sources are mostly vendor and practitioner blogs, not specs, so each claim carries a confidence tag: **[spec]** from Khronos/primary docs already cited in `3d-web-reference.md`, **[practice]** agreed by several practitioner sources, **[to verify]** single-source or conflicting. Re-check any version number or benchmark against the official docs before quoting it to an operator. This file refines `3d-web-reference.md` (delivery) and `3d-modelling-reference.md` (sourcing); where they differ, this file is newer.
+
+## 1. Corrections to the delivery advice
+
+- **Draco is not the default for everything.** [practice] Meshopt is the usual pick for animated or morph-target content, because it also compresses animation keyframes and morph targets, which Draco leaves untouched. Draco tends to give a somewhat smaller static mesh but decodes slower and ships a much larger decoder. Rule: static hero prop where download size matters most = Draco; anything animated or with morph targets = Meshopt. Never both on the same mesh.
+- **Compression runs last.** [practice] Every glTF-Transform command that rewrites a model decodes Draco/Meshopt geometry when it reads it, so Draco or Meshopt must be the final step in a chain. A BUILD ORDER lists the steps in this order: dedupe/prune, resize textures, texture compress (KTX2 or WebP), geometry compress.
+- **KTX2 is for GPU memory, WebP is the simple fallback.** [practice] KTX2/Basis keeps the texture in a GPU block format into VRAM (sources cite 4-8x less memory than raw RGBA; exact ratio varies by texture [to verify]). WebP is acceptable when the toolchain cannot do KTX2, but it decompresses to full size in memory.
+- **Wire the loaders to match the output.** Draco output needs a `DRACOLoader`, Meshopt needs the meshopt decoder, KTX2 needs a `KTX2Loader` with the transcoder path set. A compressed file with a missing loader fails silently as a blank model; the check is a cold load on the live URL.
+- **Validate before shipping.** [practice] Run every `.glb` through the Khronos glTF Validator and fix errors, not just warnings. Record the result in the ledger.
+- **Measure sizes, do not trust the percentages in blog posts.** [to verify] Size-reduction figures vary widely between sources. The proof is the before and after byte count of the actual file.
+
+## 2. WebGPU status, with the honest caveat
+
+- [practice] WebGPU is available by default in Chrome/Edge, Firefox and Safari as of 2026, with remaining gaps on Linux Firefox and older iPhones. One source says it reached Baseline in January 2026 [to verify].
+- [to verify] Sources disagree on whether Three.js marks its WebGPU renderer stable. One says it became the recommended renderer from r171 (September 2025); another still calls it experimental and expects stable by end of 2026. One source claims an "r160 in February 2026" release that contradicts the others; ignore it.
+- **Rule:** build WebGPU-first with automatic WebGL 2 fallback for new work, `await renderer.init()` before first render (initialisation is asynchronous), and read the current Three.js release notes for the stable status before telling an operator which it is. Test the WebGL 2 fallback path on purpose; the tier that breaks is the one nobody opened.
+
+## 3. A third sourcing path: AI-generated 3D (new)
+
+`3d-modelling-reference.md` lists two honest paths and one banned shortcut. Image-to-3D and text-to-3D tools are a real third option now, allowed under these conditions:
+
+1. **Start from a real reference photo or the operator's own image, not a text description.** The banned shortcut (modelling from an LLM's idea of what the object looks like) applies equally to a text prompt fed to a generator. Image-to-3D from a verified reference is acceptable; text-to-3D of a bespoke brand object is not.
+2. **Treat the output as a blockout, not a finished asset.** [practice] No source calls AI output fully production-ready. Expect to decimate or retopologise, fix UVs, and rebuild materials. Complex articulated objects and mechanical assemblies remain the weak spot and need an artist.
+3. **Check the licence of the output per tool and per plan.** [to verify] One guide says a hosted tool's free tier publishes models under CC BY 4.0; terms differ by plan. Record tool, plan, date and licence in `docs/design/REFERENCES.md`; an unrecorded licence is a blocking finding, same as an unsourced asset.
+4. **Compare against the reference at the stills gate.** Same close-up stills at rest as `3d-product-realism-reference.md`; the generated mesh must match the real object's proportions, not just look plausible.
+
+Tool landscape, directional only [to verify, rankings disagree and the leaderboards have unclear methodology]: Meshy and Tripo are described as the most production-oriented hosted options (cleaner topology, PBR output, remeshing); Hunyuan3D and Microsoft's TRELLIS are strong open-weight options for raw geometry (TRELLIS reported as MIT-licensed) but produce dense meshes that need a remesh pass; Rodin is positioned for detail-heavy hero assets at a higher price. **No head-to-head polycount benchmarks were found.** The only valid choice method is to run the operator's own reference image through two candidates and compare the stills.
+
+## 4. BUILD ORDER additions for any 3D asset
+
+Add these lines to the order, after the stage breakdown from `3d-modelling-reference.md`:
+
+- `Source: <licensed asset | modelled from reference | image-to-3D from reference>` and the REFERENCES.md entry.
+- `Budget: <tier from 3d-web-reference.md table>`, measured with `renderer.info` on a throttled run.
+- `Compression: <Meshopt or Draco> + <KTX2 or WebP>, last step` and the loader wiring file.
+- `Validated: glTF Validator, 0 errors` with the output pasted into the ledger.
+- `Fallback: WebGL 2 tested, reduced-motion static frame, text alternative for the canvas`.
+
+## Sources
+
+Search results consulted 2026-11-07 (secondary, treat as directional): utsubo.com WebGPU/Three.js guides; vr.org WebGPU baseline article; svilenkovic.com glTF best practices; app.cinevva.com guides (optimise GLB, AI 3D generators); krea.ai and 3daistudio.com AI generator comparisons; the glTF-Transform project pages. Primary sources to confirm against: khronos.org/gltf, the glTF-Transform docs, threejs.org release notes, developer.chrome.com WebGPU.
+
+
+---
+
+<!-- references/3d-formats-viewers-and-ios-reference.md -->
+
+# Web designer: choosing the 3D approach (viewer, splats, scans, AR) and the iOS limits
+
+Researched 2026-11-07. Same confidence tags as `3d-pipeline-and-ai-assets-reference.md`: **[spec]** primary docs, **[practice]** several practitioner sources agree, **[to verify]** single source, vendor claim, or conflicting. Most sources here are vendor and community posts; confirm any number against official docs before quoting it.
+
+## 1. Pick the tool by the job, not by habit
+
+| Job | Use | Why |
+|---|---|---|
+| Show one GLB product, rotate, AR button | `<model-viewer>` [practice] | No scene setup; handles AR modes. Display only, no custom logic or physics |
+| Custom configurator, scroll-driven hero, React app | Three.js with React Three Fiber [practice] | Largest ecosystem; HTML/CSS integration; full control |
+| Game-like scene, physics, XR | Babylon.js [practice] | Full engine, heavier (sources cite ~1.4 MB vs ~168 kB core for Three.js [to verify]) |
+| Designers and non-engineers edit the scene | PlayCanvas [practice] | Cloud editor; poor fit for one developer adding a viewer to a shop |
+
+Default for this repo's product pages: `<model-viewer>` when the brief is only "show the product", Three.js/R3F when scroll, custom shaders or a configurator are in the brief. Say which and why in the BUILD ORDER; "use Three.js" with no reason is not gradable.
+
+## 2. AR on a product page
+
+- [practice] Pattern: GLB for Android and WebXR, USDZ for iOS Quick Look. In `<model-viewer>` this is `ar-modes="webxr scene-viewer quick-look"`.
+- [practice] `<model-viewer>` 1.7 and later can auto-generate a USDZ on tap, so a separate iOS file is optional; ship a hand-made USDZ when materials must be exact.
+- [practice] WebXR AR runs in Chrome on Android (83+). [to verify] I found no confirmation of WebXR AR on iPhone or iPad; assume iOS means Quick Look only, and test on a real device.
+- AR needs real-world scale. Export the model in metres at true size, or the object appears giant or tiny in the room.
+
+## 3. Gaussian splats (scanned, photoreal scenes)
+
+- [practice] Splats suit capturing a real object or place with photographic detail that meshes struggle to match (fine fur, glass, foliage). They are weak for anything that must be relit, animated, or edited like a mesh.
+- [to verify] Three.js has merged a native splat renderer for WebGPU (one source says r186, with r185 then current); Spark (World Labs) is a third-party renderer that mixes splats with meshes and is reported to run on low-power phones. Check the current Three.js release notes before relying on either.
+- [to verify] SPZ is the compressed format (version 4 announced May 2026 by Niantic, who claim much faster loading). One guide benchmarks a 1M-splat scene at 236 MB as PLY versus about 24 MB as SPZ, suggests under 20 MB for mobile and 50 MB for desktop, and warns that beyond about 1M splats mobile devices hit memory failures. One guide, so test it.
+- **Rule:** a splat viewer is lazy-loaded, has a poster image, a hard size cap and a mesh or video fallback. Same record-the-source rule as any asset: a scan of a real object the operator owns, with capture date, in `REFERENCES.md`.
+
+## 4. Photogrammetry and scans to a clean web mesh
+
+- [practice] The pipeline is capture, solve, retopologise, bake, texture. Raw scans are millions of triangles with baked-in lighting; they are never shipped as-is.
+- [practice] Retopology options: automatic (ZRemesher, Instant Meshes, tool-built quad remesh) then manual cleanup, or a low-poly cage shrink-wrapped to the scan. Bake the high-poly detail into a normal map on the low-poly, in Blender's bake panel with both meshes aligned.
+- [practice] Bake maps before moving or reshaping geometry.
+- [practice] Scans carry no real-world scale unless the capture included a scale reference. Measure one dimension on the real object and scale to it (this is why `3d-modelling-reference.md` demands a scale shot).
+- [practice] Remove baked-in lighting from the colour texture, or the model is lit twice and looks wrong under the page's own lights.
+
+## 5. Blender to glTF without losing the material
+
+All [spec] from Blender's own glTF manual unless marked:
+- Pack **ambient occlusion in red, roughness in green, metalness in blue** in one texture; set that image's colour space to **Non-Color**. The exporter copies it through untouched when wired this way.
+- Normal maps: tangent space only (the only type glTF supports), Non-Color.
+- glTF textures are PNG or JPEG on export; compress to KTX2 or WebP afterwards (see `3d-pipeline-and-ai-assets-reference.md`).
+- [practice, community] Do not bake lighting into roughness or metalness; bake albedo, roughness and metalness as separate maps, then pack.
+- **Not found:** I found no source on Khronos PBR Neutral tone mapping, so it is unconfirmed here. If a brief needs colour-accurate product rendering, check the Khronos 3D Commerce and glTF Sample Viewer docs and test the tone-mapping setting against a real photo.
+
+## 6. iOS Safari is the tier that breaks
+
+All [practice, community and WebKit bug reports; Apple publishes no exact limits]:
+- iOS has a hard memory ceiling for WebGL. Exceed it and Safari kills and reloads the tab, sometimes in a loop (WebKit bug reports, Oct 2025).
+- A viewer that is unmounted keeps geometry and textures in the context until disposed. Dispose geometries, materials, textures and render targets on teardown.
+- Navigating between two WebGL pages can start the second with a lost context; handle `webglcontextlost` and `webglcontextrestored`, and show the poster image instead of a blank canvas.
+- Context loss was reported on specific iOS releases (18.2 and 18.3) on some devices; iframes appear stricter on memory.
+- **Test list:** an older iPhone (XR, XS or SE class) on the newest iOS, cold load on the live URL, 10 minutes idle, then navigate to another page and back. Record what could not be measured.
+
+## 7. BUILD ORDER additions
+
+- `Approach: <model-viewer | Three.js/R3F | splat | mesh>` plus a one-line reason from section 1.
+- `AR: <none | Quick Look + Scene Viewer + WebXR>`, real-world scale stated in metres.
+- `iOS: dispose on teardown, context-loss handler, poster fallback, tested on <device>`.
+- For a scan or splat: `Capture: <date, device, who>`, size cap, and the fallback.
+
+## Sources
+
+Consulted 2026-11-07 (secondary): radiancefields.com on the Three.js splat renderer; github.com/sparkjsdev/spark; nianticspatial.com SPZ 4 post; polyvia3d guides; docs.blender.org glTF 2.0 manual (4.1 and 4.3); discourse.threejs.org texture thread; utsubo.com, pkgpulse.com and cloud.needle.tools library comparisons; modelviewer.dev AR examples; Khronos news on model-viewer 1.7; WebKit Bugzilla 289601, 290623, 300782; community.cesium.com iOS 18.2/18.3 thread. Primary sources to confirm against: khronos.org/gltf, docs.blender.org, modelviewer.dev, threejs.org release notes, webkit.org.
+
+
+---
+
+<!-- references/3d-lighting-scroll-and-fallbacks-reference.md -->
+
+# Web designer: 3D lighting and materials, scroll-driven 3D, fallbacks
+
+Researched 2026-11-07. Tags as in the other 3D references: **[spec]** primary docs, **[practice]** several practitioner sources agree, **[to verify]** one source, vendor claim, or unresolved. Sources here are mostly forum threads and tutorials; confirm against the official Three.js docs before quoting.
+
+## 1. Pre-rendered frames or real-time 3D? Decide first
+
+[practice, secondary] Apple-style product scroll pages are reported to be a **canvas flipbook of preloaded image frames** with scroll progress mapped to a frame index, not a WebGL scene and not a playing video (the "no video" detail comes from one blog; Apple publishes nothing, so [to verify]). A sprite-sheet variant moves one image with a CSS variable.
+
+| | Frame sequence | Real-time 3D |
+|---|---|---|
+| Look | Any quality you can render offline (Blender/Cycles) | Limited by phone GPU |
+| Weight | Many images (preload cost) | One GLB |
+| Interaction | Scroll only, fixed camera path | Free rotation, configurator, AR |
+| Mobile risk | Bandwidth, memory for frames | GPU, iOS context loss |
+
+Rule: if the brief is "the product turns as you scroll" and nothing else, price the frame sequence first (WebP/AVIF frames, preload before the scene starts, cap frame count and resolution on phones). Use real-time 3D when the visitor must rotate freely, change options, or enter AR. Say which and why in the BUILD ORDER.
+
+## 2. Materials
+
+- [spec, Three.js docs] `MeshPhysicalMaterial` costs more per pixel than the other materials; its extra effects are off until enabled and each adds cost. Use `MeshStandardMaterial` when clearcoat, transmission, sheen or iridescence are not needed, and always set an environment map or reflections look dead.
+- [spec] When `transmission` is non-zero, set `opacity` to 0 (docs); a transparent-looking glass that renders wrong is usually this.
+- [practice] Glass and clear plastic: small roughness (about 0.05 to 0.15) softens aliasing; tutorials report the best results at roughness near 0 to 0.15 or above 0.65, with the middle looking muddy [to verify].
+- [practice] Car-paint style coat: metalness high, base roughness mid, `clearcoat` 1, `clearcoatRoughness` about 0.1.
+- [practice] Transmission renders the scene behind it into an offscreen buffer, so it is expensive and softens what is seen through it; budget one or two transmissive objects, not a scene of them. Lower the transmission resolution on the low tier.
+
+## 3. Colour accuracy: tone mapping
+
+- [practice, secondary] Khronos PBR Neutral (`NeutralToneMapping` in Three.js) is designed to keep a product's base colour, hue and saturation accurate under neutral lighting while compressing highlights; it is reported as adopted in Three.js, Blender, Filament and Babylon.js. It is the right first choice when the product's brand colour must read true (a can, a bottle, a garment).
+- [practice] `ACESFilmicToneMapping` is a stylised cinematic look and users report washed-out or low-contrast results; `AgXToneMapping` is less saturated by design. Choose them for mood, not for colour fidelity.
+- [to verify] No rigorous side-by-side test was found. The proof is yours: render the product under each, compare to a photo or a colour chart at the stills gate, and record the winner. Switching the operator's page from one to another changes every colour on it, so decide once, early.
+- Set output colour space correctly (sRGB) and mark colour textures sRGB and data textures (normal, roughness) linear, or everything shifts.
+
+## 4. Grounding the object
+
+- [practice] A floating object looks fake. Ground with a shadow: drei `AccumulativeShadows` with `RandomizedLight` gives soft physically plausible shadow by accumulating over many frames; `ContactShadows` is cheaper and gives a tight contact line; `BakeShadows` removes the per-frame cost for static scenes. `Stage` wraps these (`shadows` accepts contact, accumulative or true).
+- Accumulate on load or when the object stops, not every frame. On the low tier use contact shadows only.
+- Check current prop names in the drei docs before writing the order [to verify].
+
+## 5. Scroll-driven 3D
+
+- [practice] Wiring: feed Lenis scroll into ScrollTrigger and drive Lenis from the GSAP ticker; turn off GSAP lag smoothing for scroll-linked animation; use the `lenis` package, not the deprecated `@studio-freight/lenis`.
+- [practice, community] Lag on phones with Lenis, ScrollTrigger and R3F together is usually the 3D scene's cost, not the scroll library. A maintainer guessed this; no confirmed fix was found [to verify]. So profile the scene first (`renderer.info`, throttled CPU and GPU), then cut: pixel ratio cap, fewer lights, smaller textures, no post-processing on phones.
+- [practice] Animate only `transform` and `opacity` in the DOM layer; scrub with a small smoothing value; call `ScrollTrigger.refresh()` after dynamic content loads.
+- Drive the camera or the object from scroll **progress**, mutate refs inside the render loop, never React state (see `3d-web-reference.md`).
+- Not found: camera-path design and touch-input tuning. Follow `scroll-craft.md` and `phone-and-first-load-reference.md`, and treat touch as its own composition (no scroll sway on touch).
+
+## 6. Fallback ladder and accessibility
+
+[practice unless marked]
+- Build the fallback first, then enhance: poster image immediately, heavy assets lazy-load, pixel ratio capped.
+- Three tiers: full; reduced (gentler motion, no post-processing) when `prefers-reduced-motion` or a weak GPU; static image. Reduced must not look broken.
+- Trigger heavy 3D by user action where the brief allows, instead of autoplay.
+- Handle context loss and resize; dispose on route changes (see `3d-formats-viewers-and-ios-reference.md`).
+- A canvas is opaque to assistive tech. `@react-three/a11y` overlays semantic DOM elements and a polite live region; otherwise provide a text alternative and real buttons for any control.
+- [to verify] `navigator.deviceMemory` is HTTPS-only and MDN marks it not Baseline (unsupported in some widely used browsers, table not seen); `navigator.connection.saveData` support is unconfirmed. **Never rely on either as the only tier switch.** Use a measured signal instead: a short benchmark of the first frames, or a GPU-tier library, with the poster as the default.
+
+## 7. Exemplar sites: what I could and could not confirm
+
+I could not confirm an official Awwwards "Site of the Year 2025" list, so no winner is named here. Awwwards inspiration pages exist for WebGL product views and WebGL navigation (for example Wedze, Acoustic Garage, Adidas Originals), but the results gave titles only, no technique detail. Madar (a logistics site with scenes that follow the product's own data) is reported as a Site of the Day with a Developer Award, from one agency page [to verify].
+
+Do not treat any of these as a source to copy. The method stays in `web-director.md`: study references for the technique, invent the concept from this product's own world. To use an exemplar, open it, record the URL and what you measured in `docs/design/REFERENCES.md`, and check its performance on a phone yourself.
+
+## 8. BUILD ORDER additions
+
+- `Method: <frame sequence | real-time>` with the reason from section 1.
+- `Tone mapping: <Neutral | AgX | ACES>`, with a still compared to the reference photo.
+- `Ground: <contact | accumulative | baked>`, low-tier variant named.
+- `Tiers: full / reduced / static`, switch signal named, poster shown first.
+- `A11y: text alternative, reduced-motion behaviour, controls as real buttons`.
+
+## Sources
+
+Consulted 2026-11-07 (secondary): threejs.org MeshPhysicalMaterial docs; discourse.threejs.org threads on transmission, tone mapping and AgX; tympanus.net/codrops glass and plastic tutorial; drei Stage and AccumulativeShadows docs via tessl.io; github.com/darkroomengineering/lenis discussion 431; gsap.com forum; css-tricks, setproduct.com, multizone.cz and geyer.dev on image-sequence scroll; mejba.me; MDN Navigator.deviceMemory; w3.org Device Memory spec; Blender issue 118824 on Khronos PBR Neutral; awwwards.com inspiration pages; videinfra.com Madar case. Primary sources to confirm: threejs.org docs, khronos.org, MDN, gsap.com docs.
+
+
+---
+
 <!-- references/phone-and-first-load-reference.md -->
 
 # Phone composition and first-load: expert reference
@@ -3208,6 +3412,52 @@ None of these replace the rules above (contrast checking, semantic tokens, the 6
 
 ## Where to read more (name, do not paste)
 instantgradient.com's grainy-gradients writeup (the feTurbulence/data-URI technique, Technique 2 above); MDN's "Using CSS gradients" doc (the `radial-gradient()`/`linear-gradient()` primitives underlying Techniques 1); w3.org CSS Images Module Level 4 draft (for checking whether native `mesh-gradient()` has shipped since this check); the MagicPattern, Haikei, and CodeShack SVG blob generators (Technique 4, tool docs — read for current export options, not technique theory); img.ly and webdesign.tutsplus.com's duotone writeups (Technique 3, blend-mode specifics); coolors.co, khroma.co, huemint.com (the three palette generators, read each tool's own "how it works" page before recommending one for a specific brief); techwyse.com's and similar 2026 "dopamine design" trend pieces (for checking whether this is still the live trend by the time this file is read — trend pieces age fast, re-verify before treating any specific year's trend claim as current).
+
+
+---
+
+<!-- references/landing-accent-90-10-reference.md -->
+
+# The 90/10 landing-accent rule
+
+Operator rule (2026-11-08): **two simple colours do about 90% of the work; one unusual ("weird") colour does about 10% and is where you want the user to land.** The accent is not decoration. It marks the destination.
+
+This is the operator's stated design rule. It is a stricter cousin of the 60-30-10 ratio in `color-selection-reference.md`: there the 10% is the accent too, but the 60/30 split is two supporting roles. Here the two quiet colours together are the stage, and the accent is the only thing allowed to stand out.
+
+## The rule
+
+1. **Pick the destination first.** One thing per screen: the primary button, the price, the sign-up field, the product. Write it down before choosing colours.
+2. **Two quiet colours (about 90%).** Usually a base (background) and an ink (text and structure). Both should be calm: low saturation, or neutrals tinted slightly toward the brand hue (see the Hobday rules in `color-selection-reference.md`). Their job is to be read, not noticed.
+3. **One unusual colour (about 10%).** Far from the other two on the wheel (complementary, or a hue the page otherwise lacks) and more saturated. It appears only on the destination and the few things that lead to it: the main call to action, a key number, the focused field, one highlighted word.
+4. **Exclusive use.** If the accent also colours links, icons, borders, tags and hover states, it stops marking anything. Count its uses per screen; if more than the destination plus 2 or 3 supporting touches, cut.
+5. **Same destination, same accent everywhere.** The accent colour always means "this is the action". Do not use it for errors, success or decoration. Keep separate, quieter status colours.
+6. **Ratio is by attention, not by exact pixels.** A thin accent line can outweigh a large pale area. Check by squinting at the page, or blur it: the eye should land on the destination first.
+
+## Making the accent actually work
+
+- **Contrast with its surroundings, not just with white.** Text on the accent needs WCAG AA (4.5:1 for normal text, 3:1 for large text and UI components). Measure it; do not judge by eye. An odd colour that fails contrast is a bad button.
+- **Never colour alone.** Pair the accent with a clear label, size and shape so colour-blind users still find it (grayscale pass from `color-selection-reference.md`).
+- **Space around it.** The destination needs breathing room; crowding other elements beside it cancels the pull.
+- **Dark mode:** re-pick both quiet colours and re-check the accent's contrast; the accent often needs a lighter tint on dark backgrounds to keep the same pull.
+- **One accent per screen, not per site.** A long page can move the accent to a new destination in each section as long as only one is live in view.
+- **Cultural note:** colour meanings differ by market and the strongest published claims are weak; choose the accent for contrast and distinctness, then test it locally rather than trusting a colour-meaning chart (`domain-global-markets-and-localization-reference.md` in research).
+
+## What is proven and what is not
+
+The mechanism is well supported: an element that is visually distinct from its surroundings draws attention (the isolation or von Restorff effect), and this is the basis of the standard advice to make the primary action stand out. Specific claims such as "red buttons convert x% better" are not general: results depend on the page's other colours, and published colour A/B stories rarely replicate. [practice; effect sizes to verify on your own traffic.] Treat the rule as a design hypothesis and test it: a stated metric (click-through on the destination), a stop rule, and the expectation that lifts are small (see `domain-human-behaviour-reference.md`, section 1, in research).
+
+## Check before shipping (blocking if missed)
+
+1. Name the destination. If you cannot, the page is not ready.
+2. Blur or squint test: does the eye land on the destination first?
+3. Count accent uses on each screen; remove any that do not lead to the destination.
+4. Contrast of accent versus background and of text on accent, measured.
+5. Grayscale pass: is the destination still obvious without colour?
+6. Quiet colours still read as one calm family, with no third loud colour sneaking in (gradients, illustrations and photos count).
+
+## Failure patterns
+
+Two loud colours competing; accent used for everything (then nothing stands out); accent chosen for "looks cool" while the main button is grey; weird colour that fails contrast; status colours (red, green) reusing the accent so errors look like actions.
 
 
 ---

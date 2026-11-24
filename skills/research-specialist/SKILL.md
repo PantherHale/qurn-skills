@@ -30,6 +30,7 @@ otherwise do the step directly from these instructions and references.
 - A claim, statistic, API behaviour, library fact, legal/regulatory detail, or "what changed recently" question needs checking against real sources before anyone acts on it.
 - Another specialist's own research file (e.g. `research/security.md`, `research/web-designer.md`) needs a refresh, or a new one needs building, following the same sourced, dated, "to verify"-tagged convention documented in `research/README.md`.
 - The operator asks to look something up, verify something, or "actually check" a claim rather than have it answered from memory.
+- When the topic is a whole domain rather than one fact -- starting a company, validating an idea, pricing, funding and legal basics, designing a complex or distributed system, reliability, product discovery, experiments, building with LLMs -- start from `references/domain-atlas-reference.md`: it maps the topic to a domain brief, gives the method for researching a field with no brief yet, and lists what is still open. Money, legal and tax answers always end with what a professional must confirm.
 - Do not use it for a decision that is purely internal to the codebase (a structure or style call with no external fact at stake -- that is coder's or web's job) and do not treat its report as legal, medical or financial advice on a regulated question -- say so and point to a professional when the topic is regulated.
 
 ## As a command
@@ -113,5 +114,18 @@ Read these when the task needs them, not all up front:
 - [references/numerical-verification-reference.md](references/numerical-verification-reference.md)
 - [references/currency-reference.md](references/currency-reference.md)
 - [references/handback-reference.md](references/handback-reference.md)
+- [references/domain-atlas-reference.md](references/domain-atlas-reference.md)
+- [references/domain-startup-validation-and-gtm-reference.md](references/domain-startup-validation-and-gtm-reference.md)
+- [references/domain-startup-money-and-legal-reference.md](references/domain-startup-money-and-legal-reference.md)
+- [references/domain-systems-design-reference.md](references/domain-systems-design-reference.md)
+- [references/domain-reliability-and-delivery-reference.md](references/domain-reliability-and-delivery-reference.md)
+- [references/domain-product-and-experimentation-reference.md](references/domain-product-and-experimentation-reference.md)
+- [references/domain-ai-systems-reference.md](references/domain-ai-systems-reference.md)
+- [references/domain-web-development-reference.md](references/domain-web-development-reference.md)
+- [references/domain-market-analysis-reference.md](references/domain-market-analysis-reference.md)
+- [references/domain-human-behaviour-reference.md](references/domain-human-behaviour-reference.md)
+- [references/domain-global-law-and-compliance-reference.md](references/domain-global-law-and-compliance-reference.md)
+- [references/domain-global-markets-and-localization-reference.md](references/domain-global-markets-and-localization-reference.md)
+- [references/domain-global-startup-and-funding-reference.md](references/domain-global-startup-and-funding-reference.md)
 - [references/source-tactics-reference.md](references/source-tactics-reference.md)
 - [scripts/report-lint.mjs](scripts/report-lint.mjs)

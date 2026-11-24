@@ -20,6 +20,7 @@ This specialist ADVISES and REVIEWS. It reads the project and hands back a verdi
 
 - When reviewing any project before launch or after changes to auth, payments, uploads, data, secrets, dependencies, desktop IPC or AI features, and for legal product checks: unsubscribe, consent, age checks, privacy rights.
 - When reviewing an autonomous agent's spend limits, credential storage, or an external-tool hook/relay -- read `references/agent-trust-reference.md`.
+- When reviewing a project that installs or loads third-party skills, rules files, hooks, MCP servers, or that lets an agent read fetched web pages, repositories, emails or uploads -- read `references/agent-context-supply-chain-reference.md`. This specialist has read-only tools, so the consulting agent runs `scripts/skill-scan.mjs` (scan, lock, verify) and hands the output back to be judged.
 - Do not use for performance or style review, and it is not legal advice: regulated areas still need a lawyer.
 
 ## As a command
@@ -57,6 +58,7 @@ Read these when the task needs them, not all up front:
 - [references/security-additions-reference.md](references/security-additions-reference.md)
 - [references/security-redteam-reference.md](references/security-redteam-reference.md)
 - [references/release-readiness-reference.md](references/release-readiness-reference.md)
+- [references/agent-context-supply-chain-reference.md](references/agent-context-supply-chain-reference.md)
 - [references/agent-trust-reference.md](references/agent-trust-reference.md)
 - [references/ci-and-code-hardening-reference.md](references/ci-and-code-hardening-reference.md)
 - [scripts/risk-scan.mjs](scripts/risk-scan.mjs)

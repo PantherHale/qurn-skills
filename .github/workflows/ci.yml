@@ -28,3 +28,15 @@ jobs:
         run: node scripts/build-mcp.mjs --check
       - name: Skills health (frontmatter limits, dangling pointers, twin drift)
         run: node skills/evolve/scripts/skills-health.mjs skills
+      - name: Skill files have no hidden-instruction tricks
+        shell: bash
+        run: |
+          set -e
+          scan() { node skills/security/scripts/skill-scan.mjs scan "$1" --fail-on high; }
+          for d in skills/*/; do
+            case "$d" in
+              skills/security/|skills/security-specialist/) scan "${d}references"; ;;
+              *) scan "$d"; ;;
+            esac
+          done
+          for t in flatten commands adapters research; do scan "$t"; done
