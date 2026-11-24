@@ -33,6 +33,7 @@ Name only kinds that apply; mark the rest "skipped: <reason>" - never drop one s
 A human dismisses an unrelated red X; an autonomous coding agent consuming this verdict cannot make that same call - it may chase a nonexistent regression or learn to ignore all red. Treat an un-quarantined flaky test feeding any agentic consumer (including a coding agent acting on this specialist's own verdict) as a BLOCKER-class finding, not a minor note - quarantine dated and reasoned, before the signal reaches the loop, not only before a release gate.
 
 ## Stack currency: Playwright v1.56+
+(2026-11-24 check: the official test-agents page confirms the planner, generator and healer agents and `npx playwright init-agents --loop=vscode|claude|codex|opencode`. The MCP version numbers, `page.getByRef()` and the download figures below were not on any page read in that check, so treat them as **to verify** against playwright.dev release notes and the npm registry before quoting them.)
 Modern Playwright ships agent-native tooling: Test Agents (planner/generator/healer via `npx playwright init-agents`), a bundled MCP server (`npx playwright mcp`, v1.62+), and `page.getByRef()` with structured aria snapshots (v1.63-1.64) to address elements by stable aria ref instead of a brittle CSS/XPath selector. When an agent is writing or running the suite, prefer aria-ref/MCP addressing and the trace/CLI tooling (`npx playwright trace`, `--debug=cli`) over hand-written selectors - this is Playwright's own recommended path for agent-authored tests now, not a workaround. Confirmed real adoption, not just a shipped feature (2026-10-30, npm registry API, week of 2026-10-23): `@playwright/mcp` at 8.57M weekly downloads against 154.5M for core `playwright`.
 
 ## QA techniques to apply
@@ -72,7 +73,7 @@ Every failure path also needs a durable log line with context, an alert if alert
 
 ## BOARD OF TESTERS
 
-Web - reuse, don't duplicate: run the scripted board (`src/control/design-board/design-board.mjs`, 16 testers covering mobile/slow-network, accessibility, robustness, first impression, scroll integrity, copy craft, token/style-fidelity). Command: `node src/control/design-board/design-board.mjs --url <target>`. `FAIL` blocks; `WARN` is a note.
+Web - reuse, don't duplicate: run the scripted board (`scripts/design-board.mjs`, 16 testers covering mobile/slow-network, accessibility, robustness, first impression, scroll integrity, copy craft, token/style-fidelity). Command: `node scripts/design-board.mjs --url <target>`. `FAIL` blocks; `WARN` is a note.
 
 Desktop/Electron
 - Fresh-install user: never run before - first run OK, no crash/blank window - `_electron.launch({args:['main.js']})` on a clean user-data dir.
@@ -109,6 +110,8 @@ API
 | "It passed on retry." | Unexplained flip is a flaky-test finding, not proof - fix or quarantine with a reason. |
 | "Coverage is close enough." | Read what's missing; uncovered error paths fail the claim regardless of the number. |
 | "I tested it manually, looked right." | No saved artifact means no evidence. |
-| "Axe found zero violations." | Axe covers ~57% of WCAG issues; still needs a keyboard and screen-reader pass. |
+| "Axe found zero violations." | Deque measured axe fully covering 57% of issues by volume in its own audits (not 57% of WCAG criteria; older estimates were 20-30%); still needs a keyboard and screen-reader pass. |
+| "The suite is green." | Green proves the tests passed, not that they can fail. Run `scripts/suite-smell-scan.mjs`, and see each regression test fail with the fix reverted (`test-quality-reference.md`). |
+| "The agent wrote the tests, so we have coverage." | Coverage is not protection: check for mirror assertions, mock-only assertions and tests with no assertion. |
 | "The build passed, it's done." | A green build is a floor - every applicable kind still needs its own run. |
 | "This kind doesn't apply." | Fine - but say why; a silent gap is itself a finding. |

@@ -305,6 +305,7 @@ Design rationale for this shape:
 
 7. **Version the pack, not individual skills, using the discipline `blueprint` demonstrates and nothing else in this study attempts.** A single `install/VERSION` file plus a documented "pin to a reviewed commit SHA, never blind `git pull`" install instruction (copied nearly verbatim from `blueprint`'s Installation section) is more honest than scattering `metadata.version: "1.0"` strings that nothing reads or enforces, which is what most local skills studied actually do today.
 
+
 ---
 
 ## Open questions

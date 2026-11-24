@@ -5,7 +5,7 @@ argument-hint: "[path to project, optional]"
 allowed-tools: Read, Grep, Glob, Bash
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-11-01
+  last-reviewed: 2026-11-24
 ---
 
 # Status
@@ -34,6 +34,7 @@ Run it as `/status [path]` in Claude Code or Gemini CLI, or `/prompts:status [pa
    - **Next step** -- the one thing that should happen next, in a single sentence.
 4. Keep the whole report short -- a handful of sentences or a short bullet list, not a restatement of the ledger's raw lines. If the operator asks a follow-up ("why is X blocked?"), answer from what you already read rather than re-scanning the project.
 5. Never invent progress that isn't backed by the ledger, a commit, or a visible file change. If you're not sure something is actually done, say it's unconfirmed rather than marking it done.
+6. A ledger line that says "pass" with no evidence (no test count, no scan result, no file named) is reported as "passed, evidence not recorded", not as plainly done. When a line names things that were not read or not measured, carry that into the report in plain words (for example "one run only" or "two sources could not be opened"). If the project has the qurn lead's hash-chained ledger script (qurn-ledger.mjs, in the qurn skill's scripts folder in the V2 tree), run its `verify` command and report whether the record is intact.
 
 ## Report format
 

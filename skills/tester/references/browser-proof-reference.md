@@ -33,3 +33,14 @@ Apply the same evidence rule already in `test-board-reference.md`: "looks fine" 
 
 ## Where to read more (name, do not paste)
 The Chrome DevTools MCP project's own docs for the exact tool list and what each returns; Playwright's visual-comparisons docs (already cited in `test-board-reference.md`) for baseline/diff mechanics; this file's job is the proof discipline around using either, not a restatement of either tool's API.
+
+## Phone pass and fix verification (added 2026-11-03, Qurn Cola build)
+Real misses from that build, each of which a stricter proof rule would have caught earlier:
+- **Scroll the whole page, not the hero.** A phone pass is 390x844 at mid-scene AND at the finale of EVERY page and scene. The worst phone bugs were on the timeline and picker pages, deep in the scroll. Per screenshot check: `document.documentElement.scrollWidth === 390`, no floating widget over the nav links, no text on the 3D object or the fixed corner element.
+- **Measure the claimed rule, not only the picture.** After a CSS fix, run `getComputedStyle` on the element (position, width, z-index) via `evaluate_script`. "Fixed" with a screenshot that still shows the old layout means the rule did not apply.
+- **Reload with the cache ignored before judging a fix.** The fix was on disk while the browser used a cached stylesheet. Compare the served file with `document.styleSheets` rules to tell "not deployed" from "not loaded".
+- **Source order beats intent.** A media-query override written before the base rule of equal specificity silently loses. Grep for a later base rule or raise specificity, then confirm by computed style.
+- **Wait for idle before judging motion states.** A badge caught mid-drop looked upside down; confirm it settles, then judge. A screenshot during an entrance animation is not a failure and not a pass.
+- **Colour-scheme check.** Emulate `prefers-color-scheme: dark` and compare with desktop; "the phone looks darker" is forced dark mode until proven otherwise.
+- **Performance claims need a fit environment.** Use a fresh isolated browser context with no other WebGL tabs. A throttled or background devtools tab cannot report frame rate; write "fps not measurable here" and give proxies. Test the deployed URL cold after every push.
+

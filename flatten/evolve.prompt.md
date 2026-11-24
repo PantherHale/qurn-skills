@@ -43,6 +43,10 @@ These notes are hints, not truth: say so at the top of each, and never put code,
 
 Finish with one short paragraph in the chat: the three things from this week that matter most to this operator, and any LEARNED: lines for what you noticed about how he works.
 
+## Health check and what this repository uses
+
+Run `node scripts/skills-health.mjs <skills-folder>` as part of every refresh (the consulting agent runs it and shows the output; use `--compare <other-folder>` to list how another copy, such as the V2 tree, differs). It fails on frontmatter that breaks Anthropic's Agent Skills limits (name at most 64 characters in lowercase letters, digits and hyphens with no reserved words; description at most 1,024 characters), on SKILL.md pointers to files that do not exist, and on a `-specialist` twin that is not identical to its main skill; it warns on orphaned files, scripts with no test, reference files over 100 lines with no table of contents, a SKILL.md over 500 lines or about 5,000 tokens, and a `last-reviewed` date older than 30 days. After you change a skill, update its `last-reviewed` date and diff the twin in both directions before copying. The vault paths and the `src/specialists/knowledge/*.md` files above belong to the Qurn app; in this repository each specialist's knowledge is `skills/<name>/references/` and its dated research is `research/<name>.md`, and the specialists are web, tester, architect, coder, security, delegator and research.
+
 ## Where the notes go
 
 The vault is a folder of plain markdown (open it in Obsidian). Write `Research/Weekly <date>.md` and one `Research/Latest/<id>.md` per specialist, overwriting the old one.

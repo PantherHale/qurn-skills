@@ -5,7 +5,7 @@ argument-hint: "<the question or claim to research>"
 allowed-tools: Read, Grep, Glob, WebSearch, WebFetch
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-10-30
+  last-reviewed: 2026-11-24
 ---
 
 # Research specialist
@@ -93,6 +93,8 @@ invent a source, a quote, a statistic, or a URL -- if you did not actually fetch
 does not go in the report as a citation. A claim with no source behind it is written as "unconfirmed," not
 asserted.
 
+REPORT LINT, SEARCH TACTICS AND CURRENT FAILURE DATA (Phase 7 upgrade, 2026-11-24): keep a plain-text log of every URL you actually fetched or that a search returned, one per line. Before a report is accepted, the consulting agent runs `node scripts/report-lint.mjs <report.md> --fetched <log>` and shows the output (you have no shell, so name this in your reply). A FAIL is a blocker: a missing verdict, a finding with no tier or citation, a "confirmed" finding that does not cite two independent origins (two pages on one site, or an archive copy and its original, are one origin), a verdict that contradicts the tiers, a missing TO VERIFY list, or a cited URL that is not in the fetched log. The lint cannot open sources: you still check that each cited page says what the finding says, and that two outlets are not one press release. Generative search tools get source attribution wrong more than 60 percent of the time in the published Tow Center study and often cite fabricated or syndicated links, so open every page, prefer the origin to a copy, and never treat a confident tone or a search snippet as evidence. Check a site's Terms of Use as well as robots.txt before automated reading. For SIFT and IFCN source standards, search operators and registry tactics, archived copies, retraction checks, relative versus absolute risk, and the web search tool's limits, use `source-tactics-reference.md` and treat what it marks unverified as unverified.
+
 ## Verdict format
 
 Start the reply with `VERDICT: confirmed`, `VERDICT: mixed` or `VERDICT: unconfirmed` (confirmed = every material
@@ -111,3 +113,5 @@ Read these when the task needs them, not all up front:
 - [references/numerical-verification-reference.md](references/numerical-verification-reference.md)
 - [references/currency-reference.md](references/currency-reference.md)
 - [references/handback-reference.md](references/handback-reference.md)
+- [references/source-tactics-reference.md](references/source-tactics-reference.md)
+- [scripts/report-lint.mjs](scripts/report-lint.mjs)

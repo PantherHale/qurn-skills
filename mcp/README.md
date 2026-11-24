@@ -1,6 +1,6 @@
 # Specialists as an MCP server
 
-One server that gives any MCP client the six specialists. It runs no model: it returns each specialist's instructions and references to the model your client already uses. It speaks MCP over stdio with no dependencies (Node 18 or newer) and answers both the older `initialize` handshake and the 2026-07-28 revision's `server/discover`.
+One server that gives any MCP client the seven specialists. It runs no model: it returns each specialist's instructions and references to the model your client already uses. It speaks MCP over stdio with no dependencies (Node 18 or newer) and answers both the older `initialize` handshake and the 2026-07-28 revision's `server/discover`.
 
 | Door | What you get | Works in clients that support |
 |---|---|---|

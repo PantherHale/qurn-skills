@@ -1,6 +1,6 @@
 # Security: per-system checks
 
-Origin: research 2026-09-23, sources in `specialist-skills/research/security.md`. Extends `security-checklist.md` -- not repeated here.
+Origin: research 2026-09-23 (notes in `research/security.md` of the source repository). Extends `security-checklist.md` -- not repeated here.
 
 ## Detect which systems are present
 

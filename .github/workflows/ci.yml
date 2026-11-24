@@ -24,3 +24,7 @@ jobs:
         run: node --test $(find . -name '*.test.mjs' -not -path './.git/*' -not -path '*/node_modules/*')
       - name: Flatten files match the skills
         run: node scripts/build-flatten.mjs --check
+      - name: MCP data matches the skills
+        run: node scripts/build-mcp.mjs --check
+      - name: Skills health (frontmatter limits, dangling pointers, twin drift)
+        run: node skills/evolve/scripts/skills-health.mjs skills

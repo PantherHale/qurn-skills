@@ -2,7 +2,7 @@
 // The specialists as an MCP server: stdio, newline-delimited JSON-RPC, zero dependencies.
 //
 // WHY: skills, subagents and rule files each work in a few tools. MCP is the one door nearly every agent client
-// (Claude Code and Desktop, Cursor, Windsurf, VS Code Copilot, Cline, Zed, Continue) can open, so this makes the six
+// (Claude Code and Desktop, Cursor, Windsurf, VS Code Copilot, Cline, Zed, Continue) can open, so this makes the seven
 // specialists reachable from all of them. The server runs no model: it hands the HOST model the specialist's
 // instructions and references, and the host does the work. Three doors, because clients support different parts:
 //   prompts   -> one slash-command style prompt per specialist
@@ -34,7 +34,7 @@ const DATA = JSON.parse(readFileSync(join(here, 'specialists.json'), 'utf8'))
 const specialists = DATA.specialists
 
 const INSTRUCTIONS =
-  'Six specialist advisers (web, tester, architect, coder, security, delegator). Call consult_specialist with the one that fits, ' +
+  'Seven specialist advisers (web, tester, architect, coder, security, delegator, research). Call consult_specialist with the one that fits, ' +
   'follow the instructions it returns, and read its references on demand. They advise and review; you do the building.'
 
 const find = (name) => specialists.find((s) => s.name === name)

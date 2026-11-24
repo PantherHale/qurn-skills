@@ -1316,3 +1316,7 @@ operator-stated taste, strongly corroborated by convergent trend coverage, not a
   goal is matching tokens/spec with visual-regression tooling for the mechanical parts, not literal pixel
   identity everywhere. Corroborates this file's own existing style-fidelity-measurement approach (compare
   declared tokens against actual rendered signal count) rather than an eyeballed "looks the same" check.
+
+
+## Phase 1 field study (2026-11-24)
+A per-source study of the top web-design skills, motion libraries and award-site case studies, with a gap matrix and what was added to the skill, is in `research/web/` (`PHASE_REPORT.md`, `studies.md`, `studies-round2.md`). New references: `gsap-and-lenis-engineering`, `motion-decision`, `quality-gates`, `platform-baseline`, `libraries-decision`, plus `scripts/slop-scan.mjs`. Refresh those files, not this one, for GSAP, Lenis, Motion and browser-support facts.
