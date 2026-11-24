@@ -63,7 +63,9 @@ rest hand back advice or a verdict for whatever agent or developer is driving.
 
 ## Qurn V2
 
-V2 is the team lead grown up: the same seven specialists plus a lead that works to a plan. It is in the `v2/` folder and installs the same way (`cd v2` then `./install.sh claude`, or `install.ps1` on Windows).
+V2 is the whole repository now: V1 plus everything below. The install steps in this README give you V2, and there is no separate V1 download.
+
+What V2 adds: a team lead that works to a plan, with the same seven specialists.
 
 - **Assumptions gate:** before any code, the lead lists what it is assuming and what extras it is tempted to add, answers what it can from the plan and the sources, and asks you only about what is left.
 - **Run modes:** Lite, Standard or Pro, so a small job stays light and a big one gets gates, change control, a risk list and a delivery report.

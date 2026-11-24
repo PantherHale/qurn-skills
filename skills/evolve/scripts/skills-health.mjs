@@ -9,7 +9,7 @@
 // Exit 1 on any FAIL (with --strict, any WARN too). Dependency-free, Node 18+, reads files only. Every folder under the
 // given root that contains a SKILL.md is a skill. A folder named "<name>-specialist" next to "<name>" is its twin and
 // must be byte-for-byte the same (line endings ignored); --compare lists how another copy of the whole folder (for
-// example a V2 tree) differs, as INFO.
+// example an older release) differs, as INFO.
 //
 // Limits come from Anthropic's Agent Skills documentation (read 2026-11-24): name at most 64 characters of lowercase
 // letters, digits and hyphens, no reserved words "anthropic" or "claude"; description non-empty, at most 1,024

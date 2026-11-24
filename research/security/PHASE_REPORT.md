@@ -18,7 +18,7 @@ Our security skill was already strong on facts (about 15,000 words: OWASP Top 10
 
 ## 3. Proof
 **Scanner precision on real code (read-only).** First version put 33 FAILs on the inventory app, almost all Python f-strings that interpolate column lists or constants while values stay `?` placeholders. I split the rule: FAIL only when a variable lands in a value position; interpolation of an ALL_CAPS constant or a placeholder-named variable is WARN. Result: 0 FAIL, 32 WARN on that app; I read all 10 lines that stayed FAIL under the intermediate version and none was a confirmed injection. On `researchmodel1`: 0 FAIL, 26 WARN (innerHTML use, Actions pins). On qurn itself: 0 FAIL in `skills/`, 2 WARN (an MD5 in `design-board.mjs`, probably not for passwords; not checked). The scanner's own test file is excluded by name, and `v2/.../skill-scan.test.mjs` fixtures (deliberately fake keys) were flagged as expected.
-**Scanner on a fixture with 26 planted defects** (my fixture): 28 findings, 19 of the 26 planted defects found, plus one real bonus (`curl | sh`). The 7 it cannot see need judgment: SSRF, IDOR, client-trusted price, unsigned webhook, no login rate limit, fallback JWT secret, and the lethal trifecta.
+**Scanner on a fixture with 26 planted defects** (my fixture): 28 findings, 19 of the 26 planted defects found, plus one real bonus (a download piped straight into a shell). The 7 it cannot see need judgment: SSRF, IDOR, client-trusted price, unsigned webhook, no login rate limit, fallback JWT secret, and the lethal trifecta.
 **Blind review, same fixture, read-only reviewers with no shell, one run each:**
 | Reviewer | Planted defects found | Verdict |
 |---|---|---|
