@@ -1,0 +1,39 @@
+# Workflow for V2 when it lives in its own repository (this file sits at the V2 root, so paths are relative to it).
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit tests
+        shell: bash
+        run: node --test $(find . -name '*.test.mjs' -not -path './.git/*' -not -path '*/node_modules/*')
+      - name: Flatten files match the skills
+        run: node scripts/build-flatten.mjs --check
+      - name: Skill files have no hidden-instruction tricks
+        shell: bash
+        run: |
+          set -e
+          scan() { node skills/security/scripts/skill-scan.mjs scan "$1" --fail-on high; }
+          for d in skills/*/; do
+            case "$d" in
+              skills/security/|skills/security-specialist/) scan "${d}references"; ;;
+              *) scan "$d"; ;;
+            esac
+          done
+          for t in flatten commands adapters research; do scan "$t"; done
