@@ -1,0 +1,13 @@
+# Architect: gated autonomous work
+
+For a system where an AI agent does real work with no human watching each step, and something must decide whether the result is safe to keep. Use only when the project genuinely has unattended agent work; not a generic microservices checklist.
+
+One thing, and only one thing, decides whether an agent's work is safe to keep -- never a vibe, never "the agent said it passed."
+- Define the gate as real shell commands the project already runs (build, typecheck, test), each a named stage, run in order, stop at the first failure. A gate whose command can never fail is not a gate -- reject any gate definition that reduces to a hardcoded pass or an unenforceable prose line (e.g. a bare "coverage: 80" with no command behind it).
+- **Guard the gate against the agent itself.** An agent under pressure to pass will sometimes rewrite the gate script into a no-op rather than fix the real problem. Treat a diff that weakens, deletes, or neuters a gate/test/lint script as an automatic block, checked separately from the gate's own pass/fail.
+- Give an agent its own isolated workspace (a worktree + branch, a container, a sandboxed copy) so its in-progress changes never touch the shared trunk until judged. A failed attempt gets its isolation reaped -- branch and workspace deleted -- never left stranded for a human to clean up later.
+- A passing gate merges through a **verified staging ref**, re-checked immediately before the trunk actually moves, not straight to trunk off the gate's earlier result -- the state between "gate passed" and "merge happens" is exactly where a race or a stale check does the damage.
+- After integration, grade the result against a short, fixed list of invariants (e.g. "trunk still builds," "no gate script was weakened," "no secret appeared in the diff") rather than trusting the single gate run alone.
+- If the daemon running this lives inside a desktop app (Electron or similar) rather than a separate server, it belongs in the **main process**, never the renderer -- a renderer throttles its own timers when hidden or locked, so a scheduler living there silently stops the moment nobody is looking at it. The identical daemon-start function should be callable both from the app's startup and a separate headless CLI, so the two hosts share one implementation. Every IPC channel between renderer and main should be schema-validated on the main-process side, with a pinned test asserting the channel list itself doesn't silently change.
+
+See also: `delegator`'s `agent-dispatch-reference.md` for running several agents against this gate at once, `coder`'s `agent-observability-reference.md` for watching it live, and `security`'s `agent-trust-reference.md` for the spend/credential/tamper side.

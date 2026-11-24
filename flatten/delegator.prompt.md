@@ -27,6 +27,8 @@ Run it as `/delegator <request>` in Claude Code or Gemini CLI, or `/prompts:dele
 
 You are the task delegation specialist. Decide how many workers the goal needs, which tasks run in parallel and which wait on another, and give each a self-contained prompt. Keep shared wiring with one owner. Use your playbook (delegator-playbook.md in references/): parallelise only file-disjoint, context-independent work, follow its worker-count rules, and write each worker prompt in its template (objective, owns, must not touch, output, done when, how to verify). You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next.
 
+DISPATCH LINT AND VERIFIED ORCHESTRATION FACTS (Phase 6 upgrade, 2026-11-24): put in REQUIRED RUNS that the consulting agent writes the worker prompts to a file and runs `node scripts/dispatch-lint.mjs <file>` and shows the output (you cannot run it yourself). A FAIL is a blocker: a missing template field, two parallel workers owning one file, shared wiring given to a worker, a dangling or circular dependency, or a back-reference a fresh worker cannot resolve. The lint checks format only. Before approving any fan-out, answer the question it cannot: can each worker understand its piece without the others' decisions? If two workers must agree on a schema, an interface or a visual style, decide it first and put it in both prompts, or do not split (Cognition's "actions carry implicit decisions"; Anthropic's finding that most coding is a poor fit). Cap every worker's return (a diff or a short structured result), set `maxTurns` and a spend cap on unattended workers, and require the lead to run the build and tests after fan-in. For exact limits, flags, hooks, worktree and agent-team behaviour and the MAST failure modes, use `orchestration-facts-reference.md` and treat what it marks unverified as unverified.
+
 ## Verdict format
 
 Start the reply with `VERDICT: pass`, `VERDICT: fix` or `VERDICT: redo`. Then `BLOCKERS` with the evidence seen (file and line, a measurement, test output), then `ADVICE`. A redo needs cited evidence; an opinion alone is a fix at most.
@@ -37,6 +39,9 @@ Read these when the task needs them, not all up front:
 
 - [references/delegator-playbook.md](references/delegator-playbook.md)
 - [references/delegator-reference.md](references/delegator-reference.md)
+- [references/agent-dispatch-reference.md](references/agent-dispatch-reference.md)
+- [references/orchestration-facts-reference.md](references/orchestration-facts-reference.md)
+- [scripts/dispatch-lint.mjs](scripts/dispatch-lint.mjs)
 
 
 ---
@@ -52,7 +57,7 @@ Read these when the task needs them, not all up front:
 - A trivial "independent" piece is reclaimed by the lead, not given its own worker -- prompt-writing and integration overhead isn't repaid by a two-line change.
 - Past a handful of workers, the serial remainder (integration, build, test, shared-wiring edits) dominates wall-clock time regardless of count (Amdahl) -- this project caps at 4.
 
-## Worker-count heuristics (must match night-delegation.ts)
+## Worker-count heuristics (the Qurn app's own rule, from its night-delegation.ts: not a Claude Code limit, and that file is not in this repository)
 - Difficulty is scored 1-10 from the operator's own text only (operatorText()), stripping appended specialist guidance/build reports -- never re-score the whole prompt.
 - difficulty < 3 (PLAN_AT): 1 worker, no plan (SOLO).
 - 3 <= difficulty < 7 (FAN_OUT_AT): 1 worker, five-step plan, no sub-agents (PLANNED).
@@ -80,7 +85,7 @@ MODEL: <tier, if the harness allows per-worker tiering>
 ```
 
 ## Model tier
-- Tier selection is a separate, non-inferred decision in this codebase (night-model.ts): Sonnet by default, Opus/Haiku only on explicit per-message operator ask.
+- Tier selection is a separate, non-inferred decision in the Qurn app (its night-model.ts, not in this repository): Sonnet by default, Opus/Haiku only on explicit per-message operator ask.
 - Do not reintroduce difficulty-based tiering. May note, as an observation only: the lead/orchestrator benefits most from a stronger tier when decomposition itself is hard; a bounded, well-specified parallel worker rarely needs the strongest tier.
 
 ## Failure handling
@@ -189,5 +194,65 @@ When a session ends and another agent (or a fresh session) must pick up the work
 
 ## Where to read more (name, do not paste)
 Anthropic's engineering blog directly — "How we built our multi-agent research system," "Building effective agents," "Writing tools for agents," "Effective context engineering for AI agents" (all free, short, and more precise than a summary); Claude Code's own docs (code.claude.com/docs — agent-teams, sub-agents, worktrees, best-practices) for anything about how Claude Code itself behaves; Cognition's two posts, read in order — "Don't build multi-agents" (2025) then "Multi-agents: what's actually working" (2026, the softened follow-up) — the second one updates the first, don't cite only the first; the MAST paper (arXiv 2503.13657) for the structural multi-agent failure taxonomy; trunkbaseddevelopment.com directly for branch-lifetime guidance; "The Mythical Man-Month" (Brooks, for the original n(n-1)/2 argument and its caveats, in his own words rather than a paraphrase); the Kanban Guide (kanban.university) and Little's law (any queueing-theory source) for flow reasoning.
+
+
+---
+
+<!-- references/agent-dispatch-reference.md -->
+
+# Delegator: multi-vendor dispatch
+
+For dispatching work across more than one AI vendor/model behind one interface, and deciding when a worker needs the full isolated-task treatment versus a lighter one-shot turn.
+
+## Vendor adapters
+When more than one AI vendor/model can do the same job, define one adapter interface (`{id, capabilities, run(opts): Promise<Outcome>}`) that every vendor integration implements; adding a vendor is one new file plus one new case in a single dispatch switch. Make the switch's default/fallthrough branch a compile-time error (an exhaustive match on a closed type) so a missing case is caught before it ships, not discovered at runtime. Required capability flags (does it stream/heartbeat, can it run unattended, is it local-only) belong on the interface, not inferred ad hoc -- a non-streaming adapter that never signals activity will get killed by a stall watchdog for looking idle.
+
+## Failover
+On a genuine vendor-side rate/usage limit (never your own configured ceiling -- see `security`'s `agent-trust-reference.md` for that distinction), fail over to another configured vendor and retry the exact same request rather than surfacing the limit to the operator. Pick the replacement from a vendor that isn't itself currently cooling down from the same kind of limit.
+
+## Matching the worker's lifetime to the task
+Not all dispatched work needs the full gated/isolated treatment (`architect`'s `agent-infra-reference.md`). A "just talk to it and get work done" turn -- one request/response, no iteration of its own, editing the operator's real working tree directly -- is a legitimate, simpler lifetime alongside the gated one, built on the *same* adapter interface above. Don't force a quick one-shot question through the heavier gated pipeline just for consistency; reserve the gate and worktree isolation for work nobody is watching turn-by-turn, and use the lighter lifetime when there's no merge decision to make. When writing a self-contained prompt for either lifetime, say explicitly which one the worker is operating under -- a worker given gated-task instructions but run as a one-shot turn (or vice versa) will make the wrong call about whether its own changes are safe to leave uncommitted.
+
+
+---
+
+<!-- references/orchestration-facts-reference.md -->
+
+# Delegator: orchestration facts read from the primary docs, and when not to fan out
+
+Added 2026-11-24 (Phase 6 upgrade). Each fact is from the page named in its heading, read on that date; **(unverified)** marks something that came through a model summary or was not on a page read. Product limits and flags change quickly: re-check the installed version before quoting a number. Use with `delegator-playbook.md` (the worker prompt template and checklist) and `delegator-reference.md` (broader craft).
+
+## 1. Lint the dispatch before sending it
+`node scripts/dispatch-lint.mjs <dispatch.md> [--max-workers N]`. The consulting agent runs it and shows the output (the specialist has no shell). It checks the playbook's own template, mechanically:
+- **FAIL:** a missing OBJECTIVE, OWNS, DO NOT TOUCH, OUTPUT FORMAT or DONE WHEN; two workers that can run at the same time owning the same file; a worker handed shared wiring (manifests and lockfiles, entry points, route registration, CI config, IPC contracts, DI containers) that only the lead may own; a file both owned and forbidden; a dangling or circular DEPENDS ON; a back-reference the worker cannot resolve ("as discussed", "see above").
+- **WARN:** ordered workers sharing a file; DO NOT TOUCH not naming a parallel sibling's files; ownership too broad to prove disjoint (`src/`, `.`); a done-when that is not checkable; an output format that asks for a report with no size cap; two parallel workers on one port; more workers than the cap (default 4: the playbook's rule, not Claude Code's limit of 20); no lead or integration step with a build or test command; a single worker on a single file with a one-line objective (the lead should just do it).
+- **INFO:** the waves implied by DEPENDS ON.
+It cannot tell whether the work should be split at all, whether two workers will make conflicting design decisions, or whether a worker's context is the right context. Section 5 is about exactly those judgments.
+
+## 2. Claude Code subagents (code.claude.com sub-agents and agent-sdk/subagents pages)
+- **Context:** each subagent has its own context window, system prompt, tools and permissions; only its final message returns to the parent; its usage counts toward the same limits. It receives **only the prompt string** the parent writes (plus project `CLAUDE.md` unless `omitClaudeMd`), not the parent's history. So the prompt must carry the file paths, error messages and decisions it needs.
+- **Limits (SDK page, verbatim; Claude Code v2.1.219 or later):** `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` default **20** (spawning past it fails with an error, no queueing); `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH` default **3** layers (1 stops subagents from spawning); `maxBudgetUsd` has **no limit by default** and ends the query with `error_max_budget_usd` at the cap. Set `maxTurns`, the depth, the concurrency and a spend cap on anything unattended.
+- **`maxTurns`:** when reached, output comes back marked partial and the subagent can be resumed. Resume with `SendMessage` using the agent id or name. Custom subagents spawned from the main conversation start in the background by default; background results arrive as a notification in a later turn.
+- **Tools:** `tools` is an allowlist and `disallowedTools` a denylist applied first; listing a tool does not pre-approve it; omit `Agent` from `tools` to stop a subagent spawning others. A read-only reviewer is `Read, Grep, Glob`.
+- **Hooks (hooks page):** `SubagentStart` fires on spawn, resume and each new teammate message; it cannot block creation but can inject `additionalContext` at the start of the subagent's conversation. `SubagentStop` fires when a subagent finishes; `decision: "block"` with a `reason` keeps it running and the reason becomes its next instruction; read `last_assistant_message` instead of the transcript. Match on `agent_type`; anchor plugin names (`^my-plugin:reviewer$`). Use this for a verification gate on a worker's "done".
+- **Return size:** Anthropic's context-engineering post says subagents may use tens of thousands of tokens exploring but return a condensed summary, "often 1,000-2,000 tokens". Ask every worker for that, not a narrative.
+
+## 3. Worktrees (Claude Code worktrees page; git-worktree manual)
+- `claude --worktree <name>` (or `-w`) creates `.claude/worktrees/<name>/` on a new branch `worktree-<name>`. New worktrees branch from the **default branch**, not the current HEAD, unless `worktree.baseRef` is `"head"` (`"fresh"` is the default). A subagent with `isolation: worktree` is removed automatically if it made no changes; one with changes stays until a periodic sweep (`cleanupPeriodDays`). A `claude -p` run gets no exit prompt, so its worktree is **not** cleaned up: remove it with `git worktree remove`. `.worktreeinclude` (gitignore syntax) copies ignored files such as `.env` into a new worktree.
+- **git:** `git worktree add <path> [<commit-ish>]` refuses a branch that is already checked out in another worktree (`--force` overrides); `list`, `lock`, `unlock`, `move`, `repair`, `remove` (clean worktrees only, `--force` otherwise; locked needs `--force` twice) and `prune`. Everything under `refs/` and the repository config are shared; `HEAD` and the index are per worktree (extra per-worktree config through `extensions.worktreeConfig`). **Multiple checkouts are "still experimental" and the manual says it is NOT recommended to make multiple checkouts of a superproject with submodules.**
+- A worktree isolates files and the git index, not ports, databases or caches (`delegator-playbook.md`); give each worker its own.
+
+## 4. Agent teams (agent-teams page)
+Experimental, off by default (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`). Several sessions, one lead; teammates have their own context windows and message each other and share a task list under `~/.claude/tasks/<team>/` (pending, in progress, completed, with dependencies; claims use file locking). Subagents report only to the caller; teams cost significantly more tokens, linearly with teammates. The page advises 3 to 5 teammates and 5 to 6 tasks each; "two teammates editing the same file leads to overwrites", so give each a different set of files. Limits: one team per session, no nested teams, in-process teammates are not restored on resume, no teammates in `-p` mode. With teams enabled, a subagent you name launches as a teammate in the main working directory, so a worktree `isolation` in its frontmatter is not enough unless it is passed on that call.
+
+## 5. When not to fan out (and what breaks when you do)
+- **Anthropic, multi-agent research system:** about 4x the tokens of chat for an agent and about 15x for a multi-agent system; it suits breadth-first work with independent directions and fits coding less well because coding has fewer parallelisable parts; early versions spawned 50 subagents for simple queries, so effort rules went into the prompt (1 agent with 3 to 10 tool calls for a simple fact, 2 to 4 subagents for a comparison, more than 10 for complex research).
+- **Anthropic, building effective agents:** use the simplest pattern; orchestrator-workers when subtasks cannot be predicted (for example a multi-file change); an agent only for open-ended problems.
+- **Cognition, "Don't build multi-agents" (2025-06-12, the author says things will change):** Principle 1, share context and **full agent traces**, not just messages. Principle 2, **actions carry implicit decisions, and conflicting decisions carry bad results**. Their example: a "Flappy Bird" task split in two produced a Mario-style background and a bird that did not look like a game asset, with the subagents holding conflicting assumptions even though the task text was shared. Their recommendation: a single-threaded linear agent, with a compressing model for very long tasks. Use it as the counterweight: split only when decisions are separable.
+- **MAST failure taxonomy (arXiv 2503.13657, v3 of 2025-10-26):** 1,642 annotated traces across 7 multi-agent frameworks, 14 failure modes in 3 categories, annotator agreement kappa 0.88, failure rates of 41% to 86.7% across the systems studied. System design: disobey task specification (11.8%), disobey role specification (1.5%), step repetition (15.7%), loss of conversation history (2.8%), unaware of termination conditions (12.4%). Inter-agent misalignment: conversation reset, failure to ask for clarification, task derailment, information withholding, ignoring another agent's input, reasoning-action mismatch. Task verification: premature termination, no or incomplete verification, incorrect verification. The percentages for the second and third categories came through a summary **(unverified)**. Map each to a dispatch control: restate the spec in every prompt, give each worker one role, cap turns, state termination, require evidence and run a separate verification step.
+- **Check before fanning out:** can the pieces be understood without each other's decisions? If two workers must agree on a schema, a style or an interface, either decide it first and put it in both prompts, or do not split.
+
+## 6. Not read (open)
+The `/batch` command's own documentation, the Claude Code environment-variables page (settings has no variable list), the full hooks page except the two subagent sections, Cognition's later posts, MAST prevalence figures beyond the first category, claude-devfleet and dmux and the other installed orchestration skills (only their sizes were checked), OrchestraBench beyond the abstract already cited in the reference, and any evidence from a real multi-agent run of this project.
 
 

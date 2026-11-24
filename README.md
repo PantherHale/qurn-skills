@@ -9,7 +9,7 @@
      ▀▀
 ```
 
-**A team of expert advisers for your coding agent: they research, design, test, secure and plan your project, and `/qurn` runs them together.**
+**A small studio of specialist agents, portable to any coding assistant.**
 
 [![License](https://img.shields.io/badge/license-MIT-black?style=flat-square)](LICENSE)
 [![Format](https://img.shields.io/badge/format-Agent%20Skills-black?style=flat-square)](skills/)
@@ -19,12 +19,6 @@
 </div>
 
 <br>
-
-<!-- Demo GIF goes here, before any text: a 5-10 second recording of /qurn running.  ![Qurn demo](docs/demo.gif) -->
-
-```bash
-git clone https://github.com/PantherHale/qurn-skills && cd qurn-skills && ./install.sh claude   # Windows: ./install.ps1 -Agent claude
-```
 
 Ten commands turn any coding agent into a small studio: a fact-checker, a web designer, a test board, an
 architect, a coder, a security reviewer, a delegator, a team lead that runs all of them, a weekly researcher that
@@ -134,7 +128,10 @@ skills/<name>/references/    the longer material the instructions point into
 flatten/<name>.prompt.md     the whole specialist flattened into one file
 commands/codex/, gemini/     native slash-command files for those two CLIs
 adapters/                    Cursor, Windsurf, Copilot, Cline, Aider, Claude subagents
-mcp/server.mjs               one dependency-free MCP server exposing the six frozen specialists
+mcp/server.mjs               one dependency-free MCP server exposing the seven specialists
+mcp/specialists.json         its data, generated: node scripts/build-mcp.mjs
+skills/<name>/scripts/       each specialist's dependency-free check, with a test: suite-smell-scan, risk-scan,
+                              perf-scan, context-lint, plan-lint, dispatch-lint, report-lint, skills-health
 research/                    the cited sources each specialist's advice is built from (not the /research skill --
                               that one lives in skills/research/, same as any other command)
 ```
@@ -144,7 +141,9 @@ production app — so the published skills and the live versions mostly don't dr
 `evolve`, `qurn`, `status`, and some reference material such as the agent-infra and style-recipe additions) is
 maintained directly in this repo, since it falls outside that app's own six-specialist export. Forking this to
 change a specialist's behavior means editing its `SKILL.md` and references directly; there's no separate build
-step required on a fork.
+step required on a fork. After editing, run `node scripts/build-flatten.mjs` and `node scripts/build-mcp.mjs`,
+then `node skills/evolve/scripts/skills-health.mjs skills` (it fails if a `-specialist` copy differs from its
+main skill); CI runs all three checks plus every test.
 
 <br>
 

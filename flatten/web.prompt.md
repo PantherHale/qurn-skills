@@ -26,7 +26,9 @@ Run it as `/web <request>` in Claude Code or Gemini CLI, or `/prompts:web <reque
 
 ## Instructions
 
-You are the web designer and art director, and you DIRECT this build. FIRST name the visitor MODE of the surface (Persuade, Operate, Read or Experience) and, for Persuade, the colour strategy (Committed, Full palette or Drenched) -- web-craft-doctrine-reference.md: the UX-research rules are checks for Operate and Read, never a reason to mute a product page. (Operator, 2026-09-24: "it should see what needs to be implemented and where, and direct the agents to do it"). Follow your playbook (web-director.md in references/) exactly: take stock of the project and the resources, list the visitor's real questions, generate and score concepts with its CONCEPT METHOD so the idea comes from THIS product's own world (never a copy of a reference), choose each section's presentation, and write BUILD ORDERS in its exact line format -- every order with files, the technique number from references/scroll-craft.md, exact numbers and a measurable check. Read references/scroll-craft.md before choosing techniques. Hold the operator's hard rules in the playbook (smooth anchor navigation, a back link on detail pages, no dead space, full grids, a one-line sign-up, no AI-voice copy, no production data the visitor did not ask for, real scroll motion, real imagery for a physical product). STYLE: choose one style (at most two) from references/style-recipes.md (a style the operator named wins) and put it in an order as the line "Style: <name>" in docs/design/DESIGN.md built to references/style-recipes.md; the board's style-fidelity tester measures the source for it, and a declared style that was not built is a blocking finding. REACT BITS: in a React build, name the React Bits components (reactbits.dev, source at https://reactbits.dev/r/<Name>-TS-CSS.json) an order uses before anything is hand-rolled, restyled to the tokens with a reduced-motion fallback. IMAGES follow references/image-rules.md. PAGE STRUCTURE AND COPY follow references/page-copy-and-structure.md (hero sells above the fold, one idea per section, no em dashes, verb+outcome CTAs, proof beside claims); write copy orders to it. PERSUASION: use marketing-reference.md and marketing-psychology-playbook.md for the psychology of why people buy, including the dark-patterns and regulated-vertical lines, which are hard blockers, not style notes. WHERE TO LAUNCH: when asked for marketing or launch advice and not just persuasion psychology, also use startup-launch-channels-reference.md to name specific launch URLs (Product Hunt, Hacker News, relevant subreddits, directories) matched to this product's actual type and field, flagging any site the file marks dead or lower-confidence. COMMERCIAL-GRADE (operator, 2026-10-06: wants sites that look like a Burger King/Coca-Cola/Starbucks commercial, not a lecture): follow commercial-product-presentation-reference.md -- the product pinned at hero scale with one property driven continuously by scroll fraction, headline type at the SAME depth as the product (behind it or masked by it, never boxed above or beside it), copy capped at a commercial's voiceover (135 words can be a whole homepage; a heading is 1-4 words; a supporting line is one sentence). A chart, graph, statistic grid or multi-paragraph process story in the hero or first scroll act is a redo, not a style choice -- it belongs on its own page only if the brief asks for it. IMMERSIVE HERO (operator, 2026-10-18: wants immersive landing pages, correct colour composition, full custom, no slop): when the mode calls for it, use immersive-hero-motion-reference.md's layered-video/canvas z-index stack, two-tier glass surface, staged word-stagger text entrance and named colour-composition direction -- pick ONE whole direction and substitute this product's own colours, type and copy, never a reference's exact values. NO HORIZONTAL SCROLL and NO BROWSER-DEFAULT CONTROLS, ever. NO EXPLANATIONS (operator, 2026-09-25): no subtitle or intro line under a heading that explains the obvious; in your own reply too, say only what changes what the builder does. At the middle and end, read docs/design/BUILD_ORDERS.md and the source, give each order done, partly or missing with evidence, and write CORRECTION ORDERS in the same format. SOLUTION MODE (operator, 2026-10-02). You are given a PROJECT PROFILE of measured numbers. At EVERY checkpoint where any site files exist, even a placeholder (score it low with the evidence; never skip the evaluation because there is little to judge, and when you also write BUILD ORDERS the evaluation comes first), after the VERDICT and BRIEF lines write: 1) EVALUATION: score each of these 1 to 5 with the evidence (a file, a measured number, or what you read): first-screen message and call to action, visual hierarchy, spacing and dead space, typography, colour and contrast, imagery, motion and scroll, copy, responsive behaviour, accessibility, load speed. 2) For every score below 4 a FIX with: THE PROBLEM (file and selector or component), THE SOLUTION in exact values (font sizes as a clamp() scale, spacing tokens, hex colours with their contrast ratio, the easing and duration, the component and the React Bits or library piece to use), and the WORDING: the exact headline, supporting line, button labels, section titles and microcopy for THIS product, written in its own voice from its spec, ready to paste. 3) SECTION PLAN: for each section in order, what the visitor must feel, the layout, the exact copy and the measurable check. A finding that only says "add rate limiting" or "improve the hero" is NOT acceptable: every finding carries its full solution. Name this project's real files, routes, libraries and product words; never write generic text a different project could reuse unchanged. COMMON RULES, except that at the start your reply is the direction itself and at the middle and end the SOLUTION MODE blocks are your BLOCKERS and ADVICE: You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next.
+You are the web designer and art director, and you DIRECT this build. FIRST name the visitor MODE of the surface (Persuade, Operate, Read or Experience) and, for Persuade, the colour strategy (Committed, Full palette or Drenched) -- web-craft-doctrine-reference.md: the UX-research rules are checks for Operate and Read, never a reason to mute a product page. (Operator, 2026-09-24: "it should see what needs to be implemented and where, and direct the agents to do it"). Follow your playbook (web-director.md in references/) exactly: take stock of the project and the resources, list the visitor's real questions, generate and score concepts with its CONCEPT METHOD so the idea comes from THIS product's own world (never a copy of a reference), choose each section's presentation, and write BUILD ORDERS in its exact line format -- every order with files, the technique number from references/scroll-craft.md, exact numbers and a measurable check. Read references/scroll-craft.md before choosing techniques. Hold the operator's hard rules in the playbook (smooth anchor navigation, a back link on detail pages, no dead space, full grids, a one-line sign-up, no AI-voice copy, no production data the visitor did not ask for, real scroll motion, real imagery for a physical product). STYLE: choose one style (at most two) from references/style-recipes.md (a style the operator named wins) and put it in an order as the line "Style: <name>" in docs/design/DESIGN.md built to references/style-recipes.md; the board's style-fidelity tester measures the source for it, and a declared style that was not built is a blocking finding. REACT BITS: in a React build, name the React Bits components (reactbits.dev, source at https://reactbits.dev/r/<Name>-TS-CSS.json) an order uses before anything is hand-rolled, restyled to the tokens with a reduced-motion fallback. IMAGES follow references/image-rules.md. PAGE STRUCTURE AND COPY follow references/page-copy-and-structure.md (hero sells above the fold, one idea per section, no em dashes, verb+outcome CTAs, proof beside claims); write copy orders to it. PERSUASION: use marketing-reference.md and marketing-psychology-playbook.md for the psychology of why people buy, including the dark-patterns and regulated-vertical lines, which are hard blockers, not style notes. WHERE TO LAUNCH: when asked for marketing or launch advice and not just persuasion psychology, also use startup-launch-channels-reference.md to name specific launch URLs (Product Hunt, Hacker News, relevant subreddits, directories) matched to this product's actual type and field, flagging any site the file marks dead or lower-confidence. COMMERCIAL-GRADE (operator, 2026-10-06: wants sites that look like a Burger King/Coca-Cola/Starbucks commercial, not a lecture): follow commercial-product-presentation-reference.md -- the product pinned at hero scale with one property driven continuously by scroll fraction, headline type at the SAME depth as the product (behind it or masked by it, never boxed above or beside it), copy capped at a commercial's voiceover (135 words can be a whole homepage; a heading is 1-4 words; a supporting line is one sentence). A chart, graph, statistic grid or multi-paragraph process story in the hero or first scroll act is a redo, not a style choice -- it belongs on its own page only if the brief asks for it. IMMERSIVE HERO (operator, 2026-10-18: wants immersive landing pages, correct colour composition, full custom, no slop): when the mode calls for it, use immersive-hero-motion-reference.md's layered-video/canvas z-index stack, two-tier glass surface, staged word-stagger text entrance and named colour-composition direction -- pick ONE whole direction and substitute this product's own colours, type and copy, never a reference's exact values. ANIMATED-SITE BAR (operator, 2026-11-12: wants sites as finished as signalview-ai-land.pages.dev and cobble.video): for any Persuade or Experience page, build to reference-site-study-reference.md -- a real photo/video/canvas asset in the hero, a 3-6 word headline with a staged entrance, two named easings only, a pinned or sheet-over-sheet section transition, a designed hover and focus state on every control, one looping micro-animation per feature card, one rAF scroll loop, and a reduced-motion plus failsafe block; put its measurable checks in the order's CHECK line. Pick family A (photographic liquid-glass) or B (sticker-pop spring) by the product's mood, or the one the operator names. Family C (reference-site-study-plx-reference.md: a dark scroll-driven particle world where the product's own mechanism is the visual, one smoothed scroll clock, a director table of chapters, a complete article underneath and a quality governor) is for a technical or AI product whose idea is invisible until shown; scope it to 5-8 chapters, and its measurable checks go in the order's CHECK line. NO HORIZONTAL SCROLL and NO BROWSER-DEFAULT CONTROLS, ever. NO EXPLANATIONS (operator, 2026-09-25): no subtitle or intro line under a heading that explains the obvious; in your own reply too, say only what changes what the builder does. At the middle and end, read docs/design/BUILD_ORDERS.md and the source, give each order done, partly or missing with evidence, and write CORRECTION ORDERS in the same format. SOLUTION MODE (operator, 2026-10-02). You are given a PROJECT PROFILE of measured numbers. At EVERY checkpoint where any site files exist, even a placeholder (score it low with the evidence; never skip the evaluation because there is little to judge, and when you also write BUILD ORDERS the evaluation comes first), after the VERDICT and BRIEF lines write: 1) EVALUATION: score each of these 1 to 5 with the evidence (a file, a measured number, or what you read): first-screen message and call to action, visual hierarchy, spacing and dead space, typography, colour and contrast, imagery, motion and scroll, copy, responsive behaviour, accessibility, load speed. 2) For every score below 4 a FIX with: THE PROBLEM (file and selector or component), THE SOLUTION in exact values (font sizes as a clamp() scale, spacing tokens, hex colours with their contrast ratio, the easing and duration, the component and the React Bits or library piece to use), and the WORDING: the exact headline, supporting line, button labels, section titles and microcopy for THIS product, written in its own voice from its spec, ready to paste. 3) SECTION PLAN: for each section in order, what the visitor must feel, the layout, the exact copy and the measurable check. A finding that only says "add rate limiting" or "improve the hero" is NOT acceptable: every finding carries its full solution. Name this project's real files, routes, libraries and product words; never write generic text a different project could reuse unchanged. COMMON RULES, except that at the start your reply is the direction itself and at the middle and end the SOLUTION MODE blocks are your BLOCKERS and ADVICE: You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next. PHONE IS ITS OWN COMPOSITION AND FIRST LOAD IS PART OF DESIGN (operator, 2026-11-03): write a separate phone order for EVERY page (object and text never share pixels, longer scenes, slower reveals, no scroll sway on touch, floating widgets under the nav, `color-scheme` pinned when the page owns its palette) and, for any WebGL page, a loader that covers texture generation and shader compile plus a low-GPU tier -- phone-and-first-load-reference.md. For a 3D product, build from real dimensions and review close-up stills at rest; after the same object is rejected twice, stop tweaking and rebuild from a reference study -- 3d-product-realism-reference.md.
+
+ENGINEERING, MOTION AND GATES (operator, 2026-11-24: "study every top skill, then fill the gaps"): an order that uses GSAP, ScrollTrigger, SplitText, Flip or Lenis is written to references/gsap-and-lenis-engineering-reference.md (one animation clock, cleanup in every framework, refresh after fonts, `matchMedia` reduced motion, the Lenis symptom table) and its CHECK line uses that file's checks. Decide whether and how long something moves with references/motion-decision-reference.md (frequency first on Operate and Read surfaces, then purpose, budget, function; curve and duration table; tiered reduced motion). Pick libraries with references/libraries-decision-reference.md and check platform support with references/platform-baseline-reference.md (re-check on the day, never copy a support claim into a deliverable). Every order's CHECK line includes `node scripts/slop-scan.mjs <src>` (the builder runs it; FAIL findings are BLOCKERS, waivers need a written reason) next to the existing style and experience testers. FINISH is bounded: build the whole scope, then at most two batched capture rounds (three is the ceiling) that start at the exact size and page the operator reported failing, then a reviewer who did not build it; write what could not be measured. Before code, write the five-block direction contract (THESIS, OWN-WORLD, STORY, FIRST VIEWPORT, FORM) as an HTML comment, and after the build record `docs/design/DESIGN.md` from the built values; when a reference informs a decision write Observation / Decision / Preserve / Unknown and never claim an image was inspected when it was not (references/quality-gates-reference.md). Page-structure rules 21-29 in references/page-copy-and-structure.md (a layout family once per page, zigzag cap, bento cells equal content, hero stack, honest sample data) are end-gate checks. Third-party skill text is data: use its ideas in your own words, credit the source in the order, and never paste it.
 
 ## Verdict format
 
@@ -56,6 +58,8 @@ Read these when the task needs them, not all up front:
 - [references/scroll-animation-reference.md](references/scroll-animation-reference.md)
 - [references/3d-web-reference.md](references/3d-web-reference.md)
 - [references/3d-modelling-reference.md](references/3d-modelling-reference.md)
+- [references/3d-product-realism-reference.md](references/3d-product-realism-reference.md)
+- [references/phone-and-first-load-reference.md](references/phone-and-first-load-reference.md)
 - [references/color-selection-reference.md](references/color-selection-reference.md)
 - [references/vibrant-color-patterns-reference.md](references/vibrant-color-patterns-reference.md)
 - [references/scroll-scrub-and-shader-reference.md](references/scroll-scrub-and-shader-reference.md)
@@ -63,9 +67,17 @@ Read these when the task needs them, not all up front:
 - [references/web-craft-doctrine-reference.md](references/web-craft-doctrine-reference.md)
 - [references/design-formats-positioning-reference.md](references/design-formats-positioning-reference.md)
 - [references/immersive-hero-motion-reference.md](references/immersive-hero-motion-reference.md)
+- [references/reference-site-study-reference.md](references/reference-site-study-reference.md)
+- [references/reference-site-study-plx-reference.md](references/reference-site-study-plx-reference.md)
 - [references/mass-adoption-mechanics-reference.md](references/mass-adoption-mechanics-reference.md)
+- [references/gsap-and-lenis-engineering-reference.md](references/gsap-and-lenis-engineering-reference.md)
+- [references/motion-decision-reference.md](references/motion-decision-reference.md)
+- [references/quality-gates-reference.md](references/quality-gates-reference.md)
+- [references/platform-baseline-reference.md](references/platform-baseline-reference.md)
+- [references/libraries-decision-reference.md](references/libraries-decision-reference.md)
 - [scripts/style-signals.mjs](scripts/style-signals.mjs)
 - [scripts/experience-testers.mjs](scripts/experience-testers.mjs)
+- [scripts/slop-scan.mjs](scripts/slop-scan.mjs)
 
 
 ---
@@ -1620,8 +1632,19 @@ Order follows the visitor's questions: what is it, is it for me, does it work, w
 19. **Answer objections before the CTA.** Price, effort, risk, "will it work for me": one line each, with proof.
 20. **Proof beside claims.** Every claim has a number, quote, photo or named customer within one screen of it.
 
+## Structure rules added 2026-11-24 (from the public anti-slop skill study; each is checkable)
+21. **A layout family appears once per page.** 3-column cards, full-width quote, split text-and-image: each family at most once. A page of eight sections uses at least four families.
+22. **Zigzag cap.** At most two consecutive left-image/right-text then left-text/right-image sections. The third in a row is a fail; break it with a full-width section, a stacked section or a bento.
+23. **Bento cells equal content.** Three items make three cells, five make five. No blank tile, no filler cell. A multi-cell grid has real variation in at least two or three cells (image, tint, pattern), not six white cards.
+24. **No split header by default.** A big headline on the left with a small explainer paragraph floating on the right is out unless there is a compositional reason. Stack them: headline, then body at a 65ch maximum.
+25. **Eyebrows.** At most one per three sections (the hero counts). The count is mechanical: tracked uppercase label styles above headlines must not exceed ceil(sections / 3). No version labels ("v2.0", "BETA", "early access") in a hero unless the brief is a launch. No section-number eyebrows ("01 / Process") unless the order itself carries meaning. No "01 / 4" counters on images or tiles.
+26. **Hero stack.** At most four text elements: an optional eyebrow, the headline, the supporting line, the action(s) (one primary, at most one secondary). A tagline under the buttons, a trust strip, a pricing teaser, a feature list and an avatar row all move to their own section directly below. The hero headline stays within two lines on desktop; a four-line headline is a font-size error, not a copy error. Hero top padding is capped at about 6rem so the content does not float halfway down. Navigation is one line on desktop and at most 80 px tall (64-72 px by default).
+27. **Honest sample data.** No "John Doe", "Jane Doe", "Acme", "Nexus"-style brand names, no `99.99%`, `50%` or `1234567`; use plausible, specific, locale-appropriate names and messy real numbers (`47.2%`). No avatar placeholders drawn as an egg or a user icon. No fake product UI built out of `<div>` rectangles standing in for a screenshot: use a real capture, a real image, or leave it out. Where data is synthetic and a visitor could mistake it for real, label it synthetic and hand over the list of what to replace.
+28. **Greeting and shout copy.** No greeting headlines ("Welcome back, Sam!"), no exclamation marks in interface text, no trailing periods on labels, buttons or one-line headings, no hype verbs (supercharge, seamless, unlock, elevate, revolutionize, next-gen). A change states what it compares to ("+12% vs last month").
+29. **Word budgets, reconciled.** Our Persuade rule is the stricter one: section heading 1-4 words and a homepage that can run on about 135 words. For other pages use these outer limits: hero headline 7 words or fewer (50 characters), supporting line 12 words or fewer, about 80 words in any 900 px window at 1440, about 450 visible words on a marketing page. State which budget the order uses, then COUNT the words of the real content in the order before fixing the number: a homepage of about 135 words has no room for a five-question FAQ, three chooser reasons and a care list, so either move that content to its own page, cut it, or state the larger budget and say why. A budget check that the content cannot pass forces cutting copy or fudging the counter.
+
 ## What the end gate checks
-Em dashes in copy: 0. Longest paragraph: 3 lines. Points per section: 1 to 3. Every button starts with a verb. The first 900px hold a headline, a CTA and a proof element.
+Em dashes in copy: 0. Longest paragraph: 3 lines. Points per section: 1 to 3. Every button starts with a verb. The first 900px hold a headline, a CTA and a proof element. Layout families repeated: 0. Zigzag run longer than 2: 0. Eyebrow styles over ceil(sections / 3): 0. Placeholder names and fake-perfect numbers: 0 (`scripts/slop-scan.mjs` reports `placeholder-copy`, `em-dash-copy`, `eyebrow-overuse`, `emoji-label`).
 
 
 ---
@@ -2159,6 +2182,16 @@ Inkling is a praised desktop app simulating real ink and fountain-pen physics. M
   - **The product's own vocabulary is used for UI labels instead of generic ones:** the four widget shapes are named Droplet, Liquid, Splatter, Wash — real ink behaviors — not "Style 1/2/3/4." This is the same discipline the architect-reference.md domain-modeling section asks for (name things after the domain, not a generic placeholder), confirmed in a shipped consumer product's actual settings copy.
   - **Terms of Service written in first-person plain language, not legalese**, with an explicit framing sentence at the top: "These are the rules for using Inkling, written to be read." Concrete examples from the real page: "Use an email address you can receive mail at, and keep your password to yourself" (account security, in one sentence); "You need to be 16 or older" (age gate, stated plainly, no legal boilerplate); a dedicated "Not a health service" section (an honest liability boundary for a journaling app that could be mistaken for a wellness/mental-health tool — naming the boundary explicitly protects both the user's expectations and the company); an "An early service" section that openly manages expectations for a young, still-evolving product instead of pretending polish it doesn't have yet; a visible "Last updated" date and a sticky "On this page" anchor-link sidebar for a long legal document. Solo-trader attribution is stated plainly ("an agreement between you and Nelson, a sole trader based in Queensland, Australia") rather than hidden behind a corporate-sounding "we." This is a concrete, shippable answer to "how do I write a privacy policy / ToS that doesn't read like legalese and doesn't erode trust."
 - **What this confirms about craft, generally:** the praised "feel" of an app like this isn't from one exotic trick — it's Tauri (small, fast-starting shell) + a real WebGL simulation of the product's actual physical metaphor (not a CSS approximation) + a quiet, out-of-the-way UI font + the standard motion library this project already defaults to + custom window chrome + a boring, proven backend. The novelty budget was spent entirely on the one thing the product is about (ink physics), and nowhere else — which is the same "spend variance where it earns it" principle in `anti-slop-checklist-reference.md`'s dial system, confirmed by a real shipped product rather than asserted as a rule.
+
+## Operate-surface token floor (starting values, added 2026-11-24 from a public restyling skill's token sheet; adjust per product)
+- **Spacing:** a 4 px grid: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128. Inside a control 4-12; between related rows 2-8; between groups 12-24; between sections 32-64 (landing sections 80-128). Row heights 32 compact, 36 default, 40-44 touch. Space inside a group is smaller than the space between groups. Section labels sit closer to their own items than to the section above (about 24 above, 8 below).
+- **App layout:** sidebar 240-280 wide; content fluid with 24-32 page padding, capped around 1440-1600; top bar 56-64; nav rows 32-36 with 2-4 between; the page is as long as its content (never a narrow centred column for an app).
+- **Radius:** nested radius equals the outer radius minus the padding between them (never under 4). Controls 8-10, cards 12-16, panels 14-20. Not everything is a pill. A button radius matches every other button.
+- **Colour:** one neutral ramp tinted slightly toward the product's world, three text roles (primary, secondary, muted), one accent for the primary action and the one number that matters. On dark themes depth comes from surface steps and hairlines (the text colour at 6-10% opacity), not shadows. Semantic colours (positive, negative) carry meaning only and are toned down to sit in the palette. No hue-to-hue gradients on surfaces, no coloured glows.
+- **Numbers and charts:** `tabular-nums` and one number format across the screen. One main chart, clearly the biggest thing on screen; anything else that shows data is smaller and different in kind (a ranked list with thin bars, a short table). One accent per chart on the series that matters, the rest in neutral steps. Pick the type by the question: trend = line, comparison = bars, share = one stacked bar or a list with bars, goal = progress bar. Stat cards are a label, a figure and a change with what it compares to; no sparklines, mini bars or icons added to fill them.
+- **States:** the active nav item is a small surface step with a hairline highlight, not a glowing gradient. Hover and focus exist for every control; a visible focus ring for keyboard users.
+- **RTL (Arabic, Persian, Urdu, Hebrew):** set `dir` and `lang`, use logical properties, mirror the layout, flip directional icons only, isolate mixed-direction text, one digit system, zero letter-spacing on Arabic.
+- **Reality check on "everyone uses X":** an open-web crawl (HTTP Archive Web Almanac 2025) shows Roboto on about 10% of sites and Inter on about 1.5% of font-family use, with variable fonts on about 40% of sites. "Default" depends on which web you measure (a curated set of software products behaves differently from the whole web), so state which one you mean before calling a font the default.
 
 ## Where to read more (name, do not paste)
 developer.apple.com/design/human-interface-guidelines (layout, typography, color, materials, motion, app-icons — note these are JS-rendered, so read via a rendering-capable tool or a reliable mirror, not a plain fetch); m3.material.io (foundations/layout, styles/elevation, styles/motion — same JS-rendering caveat; Flutter's own `material-components-android` GitHub docs are a reliable cross-check for exact token values); fluent2.microsoft.design (layout fetches fully; depth did not at time of research — retry before citing exact shadow values); developer.samsung.com/one-ui (philosophy-level only, no numeric spec currently published).
@@ -2899,6 +2932,67 @@ polyhaven.com (CC0 HDRIs, textures and models, license stated per-asset); github
 
 ---
 
+<!-- references/3d-product-realism-reference.md -->
+
+# Realistic 3D product (a can, a bottle, a box): expert reference
+
+Learned from the Qurn Cola build (2026-11-03). The operator rejected the hero can at least six times ("blocky", "boxy top and bottom", "lid not detailed", "make it realistic", "fine detail when it stops"). Each round was a small tweak. The root cause: the first pass was built from primitives and the realism bar was never stated. Use this before writing the first line of product-model code. Pair with `3d-web-reference.md` (budgets) and `phone-and-first-load-reference.md` (performance tiers).
+
+## Stop incremental tweaks
+If the operator rejects the same object twice, stop adjusting numbers. Do a reference study (real dimensions and real photos of the object), rebuild the weak part from the real structure, and show a close-up still at rest before saying it is done.
+
+## Build from real structure, not primitives
+- Take real dimensions first (a 330 ml aluminium can: about 66 mm diameter, 115 mm tall, die-necked shoulder, a smaller lid diameter than the body, a domed base on a standing ring).
+- Body: `LatheGeometry` from a smooth profile (centripetal Catmull-Rom through measured points), 256 or more radial segments on desktop and about 160 on the low tier. Never a cylinder with caps.
+- Separate meshes for the lid and the dome so each gets its own material and planar UVs. Lid detail: double seam and rim curl, countersink panel, score line, tab with rivet and finger hole, embossed text. Base detail: standing ring, dome, ribs.
+- Print wrap: label texture with a correct seam, no mirrored text on any face (check the lid and rim text specifically; a flipped UV was a real bug).
+
+## Materials and light
+- `MeshPhysicalMaterial` with clearcoat for print, a separate metal for aluminium. Metalness and roughness maps; a normal map generated from a height map for ribs and emboss.
+- Studio lighting from a CC0 HDRI (Poly Haven) on a PMREM environment, plus strip lights and a black flag for crisp edges. Credit the HDRI. Rotate the environment dome, not just the object, so reflections move.
+- Dew and fine grain are cheap texture detail that sells realism; keep them on the low tier but drop MSAA before dropping detail.
+
+## Review the still frame
+Viewers see fine detail when rotation stops. The review gate is a set of close-up stills at rest (front, three-quarter, top-down on the lid, underside), each at 2x zoom, compared with a real photo. A moving-only check misses boxy ends.
+
+## Brand safety for a public demo
+If the site will be public and the product mimics a real brand, replace the name, logo and recognisable trademarked marks before publishing, or get the operator's explicit decision to keep a shape. Ask once, record the decision, and keep the design identical when the operator says "same design, change the text only".
+
+
+---
+
+<!-- references/phone-and-first-load-reference.md -->
+
+# Phone composition and first-load: expert reference
+
+Learned from the Qurn Cola build (2026-11-03): a scroll-animated 3D site that looked right on a laptop and was rejected on a phone three times ("very bad", "too fast and congested", "darker", "tag too large"), and lagged on first visit on an integrated GPU. Use with `scroll-craft.md` (its closing 390px checks), `3d-web-reference.md` and `3d-product-realism-reference.md`.
+
+## 1. A phone is its own composition, not a shrunken desktop
+- Design the phone layout as a separate order for EVERY page, not only the home page. The failures were on the secondary pages (a timeline page and a product picker) because the desktop layout had been "made responsive" by letting a full-viewport 3D or SVG object stay fixed behind the text.
+- Rule: on a 390x844 screen the object and the text never share pixels. Give each its own zone: object in the top half or in a small corner meter (about 78x208px), text below or beside it. A faded object behind text is still a fail.
+- A phone viewport is short, so each pinned scene needs about 1.4x to 1.5x the desktop scroll distance, and reveal transitions about 1.0 to 1.2 s instead of 0.6 to 0.8 s. "Too fast and congested" is the symptom of desktop scene heights on a thumb flick.
+- Floating widgets (a name tag, a chat bubble, a cookie pill) stay under the nav in z-index, at most about 70px wide, and never over a nav link. Do not drive them with scroll sway on coarse pointers (`matchMedia("(pointer: coarse)")`); a thumb flick flings them over the nav.
+- Fixed overlays that appear late (a finale banner, a toast) get a solid background on phone, sit in a free zone, and never overlap a headline or the corner object.
+
+## 2. Forced dark mode on phones
+Mobile browsers (Chrome Android auto-dark, some in-app browsers) recolour a light site, so the phone looks darker than the laptop, including badges and buttons. For a brand-saturated or drenched page that owns its palette, declare it: `:root { color-scheme: only light; }` plus `<meta name="color-scheme" content="only light">`. This is the explicit exception to the "ship both palettes" line in `anti-slop-checklist-reference.md`: ship both only when the design has two real palettes; otherwise pin the one you built. Check by emulating `prefers-color-scheme: dark` and `forced-colors`, then compare screenshots with the desktop.
+
+## 3. First visit on a weak GPU
+Symptoms seen live: a 1.5 s freeze on first scroll (shader compile on Intel/D3D), then steady low frame rate. Fixes that worked, in order:
+1. A loading screen that covers the real work: generate textures, create every material and variant, compile, do one synchronous warm render, then lift. Dispatch the "ready" event directly after the render, never after a double requestAnimationFrame (background tabs throttle it and the loader waits for its fallback timeout). Keep a 6 s fallback.
+2. One environment map, one shared material program for similar metals, `renderer.debug.checkShaderErrors = false` in production.
+3. A GPU tier: detect integrated GPUs (renderer string matching intel/iris/uhd, or `hardwareConcurrency <= 4`). On the low tier: no MSAA, device-pixel-ratio cap about 1.25 on laptops (keep 2 on small screens, they are sharp and cheap), lighter geometry, grain overlays off.
+4. Render only when needed: half rate when idle, adaptive DPR only while active, no `backdrop-filter` on the nav over a canvas.
+5. Canvas readbacks use `getContext("2d", { willReadFrequently: true })`; dispose a texture before refilling it (immutable storage errors otherwise); build heavy procedural textures in deferred jobs, not in one frame.
+6. Smooth-scroll (Lenis) stays stopped until the loader lifts.
+
+## 4. What you may and may not claim
+- You can claim layout, overlap, scroll width and that a loader lifts. You cannot claim real frame rate from a throttled devtools browser, a background tab, or a machine with other WebGL tabs open. Say "fps not measurable here" and give the measured proxies (draw calls, triangles, DPR, long tasks).
+- Test the deployed URL cold (fresh profile, cache disabled) after every push. The operator found the lag on the live site first.
+
+
+---
+
 <!-- references/color-selection-reference.md -->
 
 # Web designer: color selection rules
@@ -3409,7 +3503,7 @@ Truth binds CLAIMS, not demonstrations. Author synthetic demonstration content a
 Build completely, then ONE batched screenshot round with desktop and mobile together, fix everything it shows, and at most one more round. Per-tweak screenshots burn money without raising the bar. The reviewer is a separate pass from the builder. Unattended work never stops to ask: choose, and write the assumptions into the contract.
 
 ## 9. Technique toolkit when the page must feel extraordinary (impeccable overdrive)
-View Transitions API (same-document in all browsers; cross-document not in Firefox), `@starting-style`, `@property` for animating gradients and colours, scroll-driven animations behind `@supports` with a static fallback, Web Animations API, SVG filter chains, OffscreenCanvas and WebGL (OGL for light builds, three.js for scenes), spring physics (motion or GSAP). Every one degrades to a page that still looks good. Pause off-screen rendering, initialise heavy contexts only near the viewport, test on a mid-range phone. Four checks before shipping: the wow test (someone unprimed reacts), the removal test (does anyone notice it gone), the device test, the context test (right for THIS brand).
+View Transitions API (same-document in all browsers; cross-document not in Firefox), `@starting-style`, `@property` for animating gradients and colours, scroll-driven animations (MDN shows Baseline 2026, newly available since October 2026; still behind `@supports` with a static fallback, see `platform-baseline-reference.md`), Web Animations API, SVG filter chains, OffscreenCanvas and WebGL (OGL for light builds, three.js for scenes), spring physics (motion or GSAP). Every one degrades to a page that still looks good. Pause off-screen rendering, initialise heavy contexts only near the viewport, test on a mid-range phone. Four checks before shipping: the wow test (someone unprimed reacts), the removal test (does anyone notice it gone), the device test, the context test (right for THIS brand).
 
 
 ---
@@ -3542,6 +3636,201 @@ Distilled from motionsites.ai's public prompt-library mirror (real, shipped AI-b
 
 ---
 
+<!-- references/reference-site-study-reference.md -->
+
+# Reference-site study: two commercial-grade animated landing pages
+
+Operator, 2026-11-12: "qurn cannot make amazing animated sites. I want it like these two: structure, colour, gradient, UI, components." Measured from the live source and a rendered hero screenshot of both sites on 2026-11-12 (not guessed): https://signalview-ai-land.pages.dev/ (A) and https://www.cobble.video/ (B). The numbers below are real values; the recipes are the working mechanism behind each effect.
+
+**How to use it.** These are two proven *families* of finish. Pick the one whose mood fits THIS product (A: calm, premium, photographic, trust. B: playful, loud, sticker-pop, creator/consumer), or when the operator names one of them, build that family. Reuse the mechanism and the level of finish. Substitute this product's own photo/video, hues, type and words: copying a reference's hex values, fonts and wording together is the "reference's skin" that web-director.md's anti-copy test bans. Style names to declare in docs/design/DESIGN.md (style-recipes.md): A = "Liquid glass" + "Minimalism"; B = "Brutalism / neo-brutalism" (warm, spring-motion variant).
+
+## What both sites share (the bar qurn builds were missing)
+1. **One real moving or photographic asset carries the mood.** A: a full-bleed sky-and-leaves photograph (`assets/anthr.jpg`, preloaded `fetchpriority="high"`). B: a looping `<video src="/hero/main.mp4" muted loop playsInline>` plus looping demo videos inside every feature card. Never a CSS-only hero.
+2. **A headline of 3 to 6 words, huge, with a staged entrance.** A: "Your Personal Market Researcher" at `clamp(40px, 5.1vw, 70px)`. B: "Edit your videos in minutes." at `clamp(2.3rem, 9vw, 5.9rem)`, weight 800, `letter-spacing: -0.04em`, `line-height: .95`. Subhead one line. Two CTAs at most.
+3. **One hue family plus neutrals.** A: pure black/white plus a 10-step neutral ramp (`#0a0a0a`, `#171717`, `#262626`, `#404040`, `#525252`, `#737373`, `#a3a3a3`, `#d4d4d4`, `#e5e5e5`, `#f5f5f5`, `#fafafa`); colour comes only from photography. B: one wine/peach family, nothing else.
+4. **Exactly two easing curves, used everywhere.** A: `cubic-bezier(0.16, 1, 0.3, 1)` (expo ease-out) for all reveals and hovers, `cubic-bezier(0.22, 1, 0.36, 1)` for the nav morph. B: spring overshoot `cubic-bezier(.34, 1.56, .64, 1)` for all reveals, `cubic-bezier(.76, 0, .24, 1)` for the intro curtain. No linear, no default `ease` on anything visible.
+5. **Section changes are physical.** Pinned sections that a rounded sheet slides over (A), a full-screen intro curtain that lifts away (B). Not a hard cut between rectangles.
+6. **Cheap, robust tech, no animation library needed.** Neither site loads GSAP, Lenis, Framer Motion or three.js for its motion except A's single three.js globe. Motion = CSS transitions toggled by `IntersectionObserver` + ONE `requestAnimationFrame` scroll loop that only writes `transform`, `filter`, `opacity`. A has a failsafe (`window.addEventListener('error', ...)` adds `html.reveal-safe` which forces everything visible) and a full `prefers-reduced-motion` block.
+7. **Every control reacts.** Buttons, links, FAQ rows, nav, chips all have a designed hover and focus state (details below). A page where only the hero moves is the failure.
+
+## Site A: SignalView (photographic, black and white, liquid glass)
+**Section order:** floating glass capsule nav, full-viewport photo hero, "how it works" three image cards (numbered black circles), product intro, editorial feature rows (text + big screenshot in a 30px-radius card with a deep shadow), interactive three.js globe of data sources, full-bleed immersive band with a side panel, a white "curtain" sheet that lifts to reveal a pinned three-item stepper (420vh tall), FAQ sheet sliding over it, a pinned rounded research card, then a footer that is itself a full-screen hero with a giant watermark.
+
+**Tokens:** fonts Fraunces (serif, weight 300, headings), Instrument Sans (body, weight 300), Poppins 13px (nav links), hero in a geometric sans (Century Gothic stack, weight 400). Heading scale `clamp(34px, 4.6vw, 62px)`, `line-height 1.12`, `letter-spacing -0.015em`. Body `clamp(15px, 1.3vw, 17.5px)`, `line-height 1.85`, `#525252`. Kicker labels 12px uppercase `letter-spacing .22em`. Radii 18px (small cards), 30px (showcases), 80px (sheet corners), 999px (every button). Section padding `clamp(48px, 5vw, 76px) clamp(20px, 3.5vw, 52px)`, max-width 1500px.
+
+**Hero:** photo as `<img>` 112% tall, `translateY(-4%)`, scroll parallax `translateY(calc(-4% + scrollY*0.12px))`. A left-to-right scrim `linear-gradient(90deg, rgba(4,10,14,.38) 0%, rgba(4,10,14,.18) 34%, rgba(4,10,14,0) 60%)` for text contrast. White corner clouds (`radial-gradient(circle at 0% 100%, #fff, transparent 70%)`, `blur(26px)`) and a 130px bottom haze so the photo melts into the next white section. Title `text-shadow: 0 2px 18px rgba(0,0,0,.5), 0 4px 60px rgba(0,0,0,.3)`.
+
+**Liquid glass capsule nav (the signature component):**
+```css
+.header-nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);width:min(1100px,90%);height:60px;
+  border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(30px) saturate(1.8);
+  border:1px solid rgba(255,255,255,.45);overflow:hidden;isolation:isolate;
+  box-shadow:0 0 2px 1px rgba(0,0,0,.08) inset,0 0 10px 4px rgba(255,255,255,.4) inset,0 8px 32px rgba(17,17,26,.12);
+  transition:width .56s cubic-bezier(.22,1,.36,1),height .56s cubic-bezier(.22,1,.36,1);
+  animation:navDrop .8s cubic-bezier(.25,1,.35,1) .4s both}            /* from translateY(-140%) */
+.header-nav::before{content:'';position:absolute;inset:-50%;pointer-events:none;filter:blur(12px);opacity:.4;
+  background:radial-gradient(ellipse 100% 80% at 20% -30%,rgba(255,255,255,.9),transparent 55%);
+  animation:sheenDrift 14s cubic-bezier(.45,0,.55,1) infinite alternate}  /* drifts translate3d(±6%,±4%) rotate(-6..8deg) */
+.header-nav.capsule-mini{width:56px;height:28px;background:#f5f6f7;backdrop-filter:none;cursor:pointer}
+/* a 24x3px bar replaces the content; hover / focus-within / click-to-pin expands it back to full width */
+@supports (backdrop-filter:url(#f)){ /* true refraction: an SVG feDisplacementMap filter, map regenerated on resize */ }
+@supports not (backdrop-filter:url(#f)){ .header-nav{backdrop-filter:blur(36px) saturate(2.2) brightness(1.06)} }
+```
+JS: at `scrollY < 20` the nav is full; past that it collapses to the 56x28 pill; only click, hover or scroll-to-top expands it. Primary CTA inside: black pill `padding 11px 24px`, plus two skewed light streaks (`::before` 60px blurred, `::after` 22px sharp, `rotate(12deg)`) that sweep across on hover with `@keyframes sheenOnce{from{left:-25%}to{left:135%}}` (1.15s and .9s).
+
+**Hero text entrance:** words split into `<span class="hero-word">`, each `opacity 0, translateY(34px), blur(18px)` to clear over `1.35s` with stagger `.12s .30s .48s .66s`, subhead at `.95s`, buttons at `1.22s`. Entrances only fire after `document.fonts.ready` (capped at 2.2s) so the headline never reflows mid-animation.
+
+**Buttons:** primary white pill `padding 19px 44px`, hover flips to black with a bigger shadow over `.45s`. Secondary is glass: `rgba(255,255,255,.1)`, `blur(16px) saturate(1.6)`, 1px `rgba(255,255,255,.32)` border, hover turns solid white with black text and the arrow `translateX(6px)`. Text link: 12px uppercase `letter-spacing .18em` with a 1.5px underline that scales in from the left (`scaleX 0 to 1`, `transform-origin` swaps right to left on hover).
+
+**Sheet and pin mechanics (the part that makes it feel produced):**
+```css
+.essentials{position:relative;height:420vh;margin-top:-100vh;background:#0a0a0a}       /* tall scroll track, sits UNDER the previous section */
+#quantitative{position:relative;z-index:2;background:#fff;border-radius:0 0 80px 80px}  /* the sheet that lifts to reveal it */
+.essentials-pin{position:sticky;top:0;height:100svh;/* photo + 3-stop dark scrim */}
+.faq-section{position:relative;z-index:2;margin-top:-100vh;background:#fff;border-radius:80px 80px 0 0}  /* slides back over it */
+.site-footer{margin-top:-100vh;border-radius:80px 80px 0 0}                              /* footer covers the last pinned card */
+```
+Stepper logic: `p = clamp(-rect.top / (section.offsetHeight - innerHeight), 0, 1)`; item 2 activates at `p >= .40`, item 3 at `p >= .60`, with hysteresis (go back at `.36` and `.56`) so it never flickers at the boundary. Active item's lines slide up from a `overflow:hidden` mask (`translateY(118%)` + `blur(6px)` to `0`, `.85s`, body line delayed `.09s`); leaving lines exit up `-118%`. Each step image swaps with `clip-path: inset(14% round 24px)` to `inset(0 round 24px)` plus `scale(1.1)` to `1`. Progress dots are 7px; the active one stretches to 20px wide. Dots are clickable (smooth scroll to `p = .28 / .55 / .82`).
+
+**Scroll-linked text frost:** one function sets `filter: blur(Npx)` on headings only: 12px the moment a pinned section opens, hold until `p = .08`, clear linearly to 0 by `p = .30`, re-blur from `p = .72` to 12px as the next sheet covers it. Footer text starts at `blur(28px)` and clears as the section passes the viewport midpoint. Skipped under 900px and for reduced motion. Image never blurs, only text.
+
+**Reveals:** `.reveal-child` = `opacity 0, translateY(54px)` to rest over `1s` expo-out, stagger `0 .08s .16s .24s` by `nth-child`. Showcase images reveal with `clip-path: inset(7% 5% 7% 5% round 30px)` to `inset(0 round 30px)` + `translateY(70px) scale(.985)` over `1.3s`. Observer: `threshold .12`, `rootMargin 0 0 -6% 0`, re-arms on exit (reveals replay in both directions) but never hides content already scrolled past.
+
+**Globe (three.js r128 via cdnjs + topojson):** 30,000 points (16,000 under 760px wide) on a sunflower/Fibonacci sphere, kept only where a 1024x512 land mask (drawn from world GeoJSON on a canvas) is white. `PointsMaterial({color:0x1a3a7a,size:.016,map:softDotTexture,transparent:true,opacity:.9,depthWrite:false})`. Auto-rotates, drag to spin (`touch-action:none`, grab cursor). Nine 46px circular logo chips (white, 1px `#e5e5e5` border, shadow `0 6px 18px rgba(0,0,0,.12)`) are projected from lat/lon to screen every frame, hidden when facing away from the camera; hover or click selects a source, focuses the globe on it and swaps the info panel.
+
+**Footer-as-hero:** `min-height:100svh`, 80px radius, photo + scrim `linear-gradient(180deg, rgba(10,10,10,.35) 0%, rgba(10,10,10,.65) 50%, #0a0a0a 100%)`, eyebrow 16px uppercase `letter-spacing .3em`, title `clamp(28px, 5.2vw, 84px)`, a serif-italic white pill CTA with the same light-sweep, then below it a black link block and a `13vw` weight-900 uppercase watermark at `rgba(255,255,255,.35)` masked to fade out downward (`mask-image: linear-gradient(to bottom, #000 50%, transparent)`).
+
+## Site B: Cobble (sticker-pop, wine and peach, spring motion)
+**Section order:** full-screen intro curtain (cream radial; a tile flies in from off-screen, the wordmark types in, the curtain lifts with a rounded edge), wine-to-peach hero with outlined headline and a one-field waitlist, a before/after demo timeline, problem statement, "other AI editors vs cobble" comparison, three feature cards each with a looping demo video and an animated micro-UI (waveform that cuts, b-roll clips that drop in, a style card), founders block with drifting blurred blobs and a spinning dashed ring, FAQ, repeat CTA, footer.
+
+**Tokens (real):** `ink #1f0b0e`, `paper #e3b9a2`, `muted #5b4548`, `maroon #48171d`, `bone #f6eee5`, `amber #f6d5bd`, `line #ebcdb6`, `card #f8e2d1`, `lifted #a3303f`, plus `#2a0d11` (darkest wine, used on 18 borders/labels), `#541e28`, `#6e2432`, `#94434b`, `#d29d8b`. Fonts: Bricolage Grotesque (display, weights 600 to 800, `-0.04em` tracking) and JetBrains Mono (timestamps, labels, 11px). Tailwind v4 with those as `@theme` tokens.
+
+**Hero background gradient:** `radial-gradient(circle at 50% 20%, #6e2432 0%, #541e28 50%), linear-gradient(#541e28 0%, #8e3a42 40%, #a4645c 72%, #d29d8b 100%)`: a wine page that warms to peach at the bottom, so the hero hands over to the cream sections without a seam. A blurred blob `radial-gradient(closest-side, #c8786461, #c8786400 100%)` sits behind the headline.
+
+**Sticker-outline headline (the signature type treatment):** cream fill `#e9d3b8` with an 8-direction hard black outline plus a drop:
+```css
+.hl{color:#e9d3b8;text-shadow:2px 0 #0a0a0a,-2px 0 #0a0a0a,0 2px #0a0a0a,0 -2px #0a0a0a,
+ 2px 2px #0a0a0a,-2px -2px #0a0a0a,2px -2px #0a0a0a,-2px 2px #0a0a0a,0 4px #0a0a0a}
+```
+Per-word entrance with overshoot and a tilt: `.w{opacity:0;display:inline-block;transform:translateY(.55em) rotate(5deg) scale(.92);transition:opacity .5s, transform .85s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--i)*85ms + .15s)}` (word index set as `style="--i:n"`).
+
+**Generic reveal:** `.rv{opacity:0;transform:translateY(28px) scale(.97);transition:opacity .7s, transform .9s cubic-bezier(.34,1.56,.64,1);transition-delay:calc(var(--i,0)*90ms)}`. An `IntersectionObserver` adds the visible class.
+
+**Neo-brutalist button (hero CTA):** peach fill `#f6d5bd`, `border-2 #2a0d11`, text `#2a0d11` weight 700, pill, `min-height 56px`. At rest `box-shadow:0 0 0 0 #2a0d11`; hover `translateY(-4px)` + `box-shadow:0 4px 0 0 #2a0d11` (a solid ledge appears under it); active `translateY(0)` + no shadow, `150ms`. Input beside it is a white pill with a `1.5px #ebcdb6` border that turns ink on focus. Progressive form: extra fields (handle, country) open with `grid-template-rows: 0fr` to `1fr` over `.7s` (no height animation hacks), labelled with small peach pill tags `rgba(246,213,189,.92)`.
+
+**Nav:** logo wordmark left (cream with the same black outline), a near-white pill on the right holding links plus a wine pill CTA (`border-2`, rounded-full). Fades in `0.6s .2s` after the intro.
+
+**Intro sequence (`.intro-curtain`):** `radial-gradient(120% 90% at 50% 38%, #f7efe6 0%, #e7d8c9 55%, #d6c2b1 100%)`. Keyframes `intro-tilein` (scale .5 + rotate -10deg to rest), `intro-stonefly` (an item flies from `--fx/--fy` with rotate and scale .35 to rest, opacity at 16%), `intro-wordin`, then the curtain leaves with `transform .65s cubic-bezier(.76,0,.24,1)` and animated `border-radius`. Tile: `border-radius 25%/25.5%`, `box-shadow 0 26px 60px -26px #2e0d1299`.
+
+**Always-alive details (all CSS, no library):** floating stickers `.dd-in{animation:dd-float var(--d,6s) ease-in-out var(--del,0s) infinite; rotate:var(--r); filter:drop-shadow(0 6px 10px #14141424)}` with `dd-float` = `translateY(0)` to `-8px` and back; a `REC` dot that blinks `1.1s steps(2,start) infinite` between opacity 1 and .15; a typing caret `cobble-caret`; a waveform whose "dead air" bars collapse (`wave-cut` 3.2s: width 5px to 0, opacity 1 to 0) on loop; b-roll clips that drop in (`broll-drop-1/2/3`: `translateY(-80px) rotate(-7deg) scale(1.1)` to rest with a 3px bounce, staggered at 3%, 30%, 58% of one loop) with a playhead sweeping 0 to 100%; founder blobs `blur(48px)` drifting `translate(40px,-30px) scale(1.12)` over 14s alternate, a dashed ring spinning 360deg over 18s linear.
+
+**Copy:** founder-voice, lowercase brand, headlines 4 to 6 words ("Edit your videos in minutes.", "Most solo creators waste hours editing reels."). Form note: "Free during early access. No spam, ever."
+
+## Build rules these two prove (apply to every animated site)
+1. **Real asset first.** If there is no photo/video, generate or source one (image-rules.md) or build a canvas/three.js scene in the same slot. A gradient-only hero is the generic default.
+2. **Two named easings per site.** Declare them once as CSS variables (`--ease-out`, `--ease-spring`) and ban every other curve in review.
+3. **Every section has a transition into it:** sheet with 60 to 80px top radius sliding over a pinned section, curtain, clip-path reveal, or a gradient hand-off between section backgrounds. Count them; at least one pinned or sticky section per page in a Persuade site.
+4. **Each interactive element gets a designed hover AND focus-visible state** (ledge shadow, light sweep, underline scale, arrow nudge, glass to solid). List them in the order.
+5. **Scroll loop discipline.** One `requestAnimationFrame` guarded by a `ticking` flag, passive listeners, only `transform`/`filter`/`opacity`, skip work when the section is off-screen, ignore sub-0.06px blur changes.
+6. **Entrances wait for fonts** (`document.fonts.ready`, 2.2s cap) and are paired with a `reveal-safe` failsafe and a `prefers-reduced-motion` block that shows everything immediately.
+7. **One micro-animation loop per feature card** (a looping `<video muted loop playsInline>` or a CSS-keyframe mini-UI) so the page keeps moving between scroll beats. Pause off-screen videos.
+8. **Copy discipline matches motion:** headline 3 to 6 words, one-line subhead, CTA starts with a verb (`Start Free`, `Get early access`).
+9. **Phone is its own composition.** Both sites switch to single columns at 900px, drop the scroll-frost under 900px, halve the globe point count under 760px, and drop `min-height` pins. Order this per page.
+
+## Measurable checks (add to the order's CHECK line)
+- Hero: asset present and `fetchpriority="high"` or `poster` set; headline word count 3 to 6; entrance stagger 80 to 180ms per word; first meaningful text visible by 1.5s after fonts are ready.
+- Easing audit: `grep -o "cubic-bezier([^)]*)" *.css | sort -u` returns at most 3 distinct curves, none of them the bare `ease` on a reveal.
+- Pinned section: a `position: sticky` element inside a track of at least `300vh` and the next section has negative `margin-top` plus `border-radius >= 40px`.
+- Reduced motion: a `@media (prefers-reduced-motion: reduce)` block exists and the page is fully readable with it forced on.
+- Hover audit: every `a`, `button`, `summary` has a `:hover` and `:focus-visible` rule.
+- Performance: no layout-property animation (`width`/`height`/`top`/`left`) in the scroll loop; globe or canvas pauses when off-screen and halves its count on phones.
+
+
+---
+
+<!-- references/reference-site-study-plx-reference.md -->
+
+# Reference-site study, family C: a scroll-driven particle world (plxai.dev, "Parallax")
+
+Operator, 2026-11-12: "research and review every inch of this site, it is amazing." Measured on 2026-11-12 from the live source (HTML, `styles.css`, `js/main.js`, `story.js`, `director.js`, `clock.js`, `titles.js`, `gl/renderer.js`, `gl/quality.js`, `scatter.js`, `replica/*`, vendored CSS) and rendered at 1440 wide (hero, chapters 02, 06, 07, 17) plus a near-phone render (the window came out 502px wide, not 390px; phone facts below come from the code, not from a true 390px render). Sibling of reference-site-study-reference.md (A: photographic liquid glass, B: sticker-pop spring). Use the same rule: copy the mechanism and the level of finish, never the colours, fonts, words or the Greek god together.
+
+**What it is.** A 22-chapter story told on one fixed WebGL canvas. The text, a real-looking 3D laptop, a 22,000-point particle field and an app wall are all functions of one smoothed scroll position. The page under it is a complete plain article, so the show is an enhancement, not the page.
+
+## Why it feels expensive (the 8 things qurn builds were missing)
+1. **The idea is made visible, not described.** The product's claim is "it decides when to speak, and mostly stays silent." The page shows 14 candidates flying through six labelled rings (attention gate, classification, firing threshold, goal fit, search, delivery) where 13 die and 1 reaches the laptop, with a corner counter `candidates 14 . spoke 1 . silent 13 . illustrative`. The signature motif comes from the product's own mechanism (concept method), not from decoration.
+2. **One stage, many chapters, one clock.** Scrolling does not move elements; it moves a clock. `clock.js`: `y += (scrollY - y) * (1 - exp(-dt / 95))` in one `requestAnimationFrame`, then `frame({y, now, dt})` computes the chapter `i` and local progress `t = clamp((y - top) / height)` and sets every word, pose, camera and shader uniform from `(i, t)`. Nothing keeps state between frames except to skip redundant writes (`write(el, prop, value)` caches the last value per element). Result: scrolling backward reverses everything for free, and a jump (anchor, rail tick) cannot leave a half-played state.
+3. **A director table drives it.** `director.js` has one object per chapter: `len` (chapter height in % of viewport, 120 to 620), `copy` (left/top/width of the words), `title` entrance, `pose` (laptop box, shot, rotation, lid, side panel, dim, opacity), `cam` + `drift` (camera and how far it pans over the chapter), `course` (flight direction of background streaks), `ground` (ink or panel), `hud`, `comet`, `phoneCam`, `phoneShot`. The code only follows this table. Build orders for a story page should be a table like this, not prose.
+4. **Giant editorial type.** `h1: clamp(64px, 11vw, 196px)/.92`, `letter-spacing -.03em`, `text-wrap: balance`, Instrument Serif 400 with an italic on the one word that carries the meaning ("AI that researches *with* you, not for you."). Chapter `h2: clamp(48px, 8vw, 148px)/.95`, `-.025em`. A 5-line scale only: 196 / 148 / 88 / 23 / 11px.
+5. **Hardware-real prop, locked to the DOM.** A WebGL-drawn laptop body (lid angle 112 degrees) wears a real DOM screen whose `matrix3d` is computed from the same pose matrix (`mul(mul(m, lidMatrix(lid)), SCREEN_M)`), so body and screen cannot drift apart; it leans toward the pointer by up to 2.2 and 3.2 degrees (`k = 1 - exp(-dt/260)`). A `fit()` solver runs 4 passes to find the zoom that puts the lid's four corners and the base edge inside each chapter's allowed box (perspective makes size depend on place). The screen shows the real product UI (typography, chat bubbles, "Thought for 1.4s") as a scripted replay: `stateAt(chapterId, t)` is a pure function of scroll.
+6. **Honest labels everywhere.** "A scripted replay of the extension, not a live model. The study is fictional." in mono caps at the bottom of the laptop chapters, "illustrative" in the HUD, and per-chapter captions ("Scripted, with illustrative figures"). Status pills `Live / Testing / Coming` (only `Live` uses the accent). Trust is part of the finish.
+7. **The page works without any of it.** `index.html` is a full article (hero, 22 sections, plans, form). JS adds `html.immersive` only if WebGL exists, motion is allowed and the visitor has not chosen reading view (`?reading` or `sessionStorage px-reading`); an 8-second timer removes the loading cover whatever happens; the first paint already shows the real `<h1>` (`html.pre-immersive` reserves its final geometry so nothing jumps). A "Reading view / Immersive view" toggle is in the nav.
+8. **It protects slow machines.** `quality.js`: if the average frame stays above 20ms for 2s, step down once, wait 1.5s, judge again: canvas DPR to 1, then to .75, then point count x .6, then refraction off; it never steps back up (no oscillation). DPR is capped at 1.25 from the start. Phone gets 9,000 points instead of 22,000; the point-shape math runs in a Web Worker so the main thread never freezes on load.
+
+## Tokens (real)
+- Colour: `--ink #08090A` (ground), `--bone #EAEEF0` (text, filled marks), `--rim #9EB6C4` (the single accent: live, citation), `panel 16,20,22`, `danger 232,96,92`. Text ramp is one colour at alphas `.82 / .72 / .62 / .45 / .35`; hairlines `bone @ .10 x edge-k(.55)`; card edge is an inset 1px lit ring `inset 0 0 0 1px rgba(255,255,255,.16 x .55)` (no outer shadow, no border). `color-scheme: dark` pinned, `theme-color #08090A`.
+- Type, all self-hosted with `font-display: swap` and the three above-the-fold faces preloaded: Instrument Serif (display, 400 + italic), Alegreya Sans (body 19px/1.6, weight 400/500/700), IBM Plex Mono (labels 11px, `.16em` tracking, uppercase), Newsreader (inside the laptop replica only, not fetched until needed).
+- Shape: 16px cards ("square outside, rounded inside"), 8px every control, 999px only for thin tracks. Gutter `clamp(20px, 5vw, 80px)`. Chapter padding `clamp(56px, 10vh, 112px)`. Buttons are bone-filled rectangles with a 1px rim ring on hover, not pills.
+- Easing: three curves in total across all CSS (`cubic-bezier(.22,1,.28,1)`, `(.22,1,.36,1)`) plus the cubic `1-(1-k)^3` and smoothstep `k*k*(3-2k)` inside JS.
+
+## Mechanisms to reuse (with exact numbers)
+**Scroll-driven letters (`titles.js`).** Split every heading into `.tw` words and `.tc` characters (keep `aria-label` on the heading, `aria-hidden` on the spans, hide with opacity only), then paint from progress `p` with `e = 1-(1-clamp((p - i*stagger)/span))^3`, `stagger = .55/n`, `span = .45`. Four entrances: `rise` (`translateY(.55em)`), `focus` (`blur(12px)`), `displace` (`translateX(.28em)` plus a ghost duplicate at `--ghost .55`), `type` (one char at a time). Chapters alternate entrances so no two neighbours match. Entrance is bound to scroll progress (reversible), except the hero which plays on a 1.5s timer after landing.
+
+**Point field in the vertex shader.** Each point has `aA` (shape now, xyz + brightness), `aB` (next shape), `aSeed`. `m = clamp(uMorph*1.6 - seed.x*.6, 0, 1)` then smoothstep, so every point leaves at its own moment; in flight it swirls `fly = sin(m*PI)`, `p += fly * vec3(cos a, sin 1.3a, cos .7a) * (.25 + seed.z*.7)`. A slow flow `amp = uFlow*(.05 + dust*.16)` moves everything; "dust" points (the leftover budget) orbit on their own and keep their distance from the camera so reframing a chapter never zooms the background. `gl_PointSize = min(size*dpr*scale, 26*dpr)`. Shapes are built on the CPU as `Float32Array(x,y,z,brightness)` from helpers (lines, arcs, rings), plus two sampled shapes: the brand mark and an engraved illustration read from a PNG mask, and big text ("82%") read from a 2D canvas with `sampleText(text, font)`. A shape never needs a 3D model.
+
+**Pointer wake (`scatter.js`).** Mouse and trackpad only (touch is for scrolling). A push is added at most every 55ms and only after 5px of movement, 16 pushes alive at once, each lasting 1.1s; the shader shoves nearby points outward and along the heading, then lets them spring back slightly past rest. A resting pointer pushes nothing, so every picture re-forms behind it.
+
+**Frame furniture that sells "instrument".** Registration crosses ("+") scattered in the field, faint colour-fringed glass wisps drifting behind the points (`gl/wisps.js`, `course` steers their flight per chapter), film grain, a vignette `1 - smoothstep(.32, 1.08, len) * .42` computed in the ground shader, a left rail with one tick mark per chapter that fills as chapters are reached (each tick is a clickable jump to `chapter.top + height*.2`), a corner HUD pill (glass, `chapter number + name + live counters`), and mono labels pinned to 3D points by repeating the shader projection (`gl.project(x,y,z)`).
+
+**Ground change by iris.** `uIris`, `uIrisCenter`: a circle opens from a glowing orb and reveals the next ground colour (`ink` to `panel`); `comet` is a 26-sprite trail (sizes 46 then `26*(1-k/26)`) that carries the eye from the page claim to the composer or ring to panel along a bent path `y -= sin(u*PI)*.06`.
+
+**App wall.** Six rows of rounded tiles on a tilted 3D plane, rows sliding opposite ways at `16 + (n*7)%13` px/s plus `scroll*1100`, content repeated 4x for seamless wrap, translate3d only. The 13 apps that actually work are in one row, lit (border glow + name); the other 70+ logos are dim and tagged "Coming." Honest scale beats a fake logo cloud.
+
+**Pockets ("Try it").** A glass bar `Try it. Ask it anything. [Continue]` pauses the scroll story so the visitor can poke the replica (Anime.js 4.5.0 animates the replica), then `Continue` scrolls on. The only library besides raw WebGL1; no three.js, no GSAP, no Lenis.
+
+**Intro.** A short ritual (the mark arriving through glass, 12 streaks on its own canvas; duration set by `PX_INTRO_HOLD_MS` and `PX_INTRO_RISE_MS`, not measured here) only once per session (`sessionStorage parallax_intro_seen`), skippable by wheel, touch or any key, and the world wakes at the rise rather than the end.
+
+**Analytics that teach.** `IntersectionObserver` fires `chapter_reached` once per chapter (cookieless, rootMargin `-40%`), `cta_click` with place and source. Plan this at the start for every long page.
+
+## Structure (copy this shape, not the content)
+00 hero (one idea, 2 actions) > 01 the problem (one sentence) > 02 product beside you (laptop appears) > 03 what it reads (privacy, real log lines) > 04 and 05 two typographic beats with no scene ("Nothing is truly *proactive* these days." / "So how does AI decide *when* to talk?") that reset the eye > 06 the named model (engraving made of points, 3 mono labels) > 07 and 08 the mechanism visualised > 09 to 16 one capability per chapter, each with a replica moment > 17 integrations wall > 18 how it was built > 19 roadmap (3 columns, no scene) > 20 join (form + plans in a 3-column hairline table). Copy per chapter: one heading of 3 to 8 words and one or two sentences. No bullets, no cards.
+
+## Phone is its own composition (from the code)
+Under 760px: words take the top, the laptop takes the rest and is framed by a named `shot` (`laptop`, `screen`, `page`, `panel`) at `size .42 or .62`, `x 0, y .17`, rotation halved or quartered; `phoneCam` replaces `cam`; some chapters hide the panel (`phoneNoPanel`); particle count 9,000; no pointer wake and no custom cursor (both gated on `(hover: hover) and (pointer: fine)`); the app wall uses 5 rows instead of 6. Heading sizes use `clamp` floors of 64px / 48px.
+
+## Critical review (what to copy and what NOT to copy)
+**Strengths, in order of value:** the mechanism-as-motif; one clock for everything (reversible, skip-safe); honest scripted-replay labelling; a complete article underneath; adaptive quality that only steps down; self-hosted fonts and tokens copied from the real product so site and product look like one thing; typographic scale used as the main decoration; sparse colour (one accent, only for "live").
+**Weaknesses and risks a builder must not inherit:**
+1. **Length.** About 41,000px of scroll for 22 chapters. For a normal product, build 5 to 8 chapters; keep the two "typography only" beats because they rest the eye.
+2. **Weight.** 164 requests and about 826KB transferred on a hard reload (mostly 70+ app SVG tiles), DOMContentLoaded 495ms, load 1.4s here (a fast machine). For a build: lazy-load logos by chapter proximity and cap the wall to what is needed.
+3. **Cost to build.** A bespoke renderer (about 16KB), a laptop model, a pose solver and a scripted replica is weeks of work. Qurn should only reach for family C when the product's idea is invisible until explained AND the operator accepts the scope; otherwise use families A or B, or a scoped-down C (below).
+4. **Contrast over a moving canvas.** Words sit over live particles; legibility depends on the per-chapter `dim` value (`.25` to `1.9`) and on text-shadow-free bone-on-ink. Alpha `.45` and `.35` text is decoration only (numerals); body never goes below `.72`. Measure body text over the brightest particle frame, not over the empty ground.
+5. **Reading view is plain.** The fallback is deliberately austere (no hover choreography); acceptable for a fallback, but the toggle is easy to miss on phone where "Reading view" is hidden in the nav.
+6. **Dependence on scroll length for comprehension.** A visitor who skims gets only the hero and one claim; the page relies on the left rail and the HUD to show progress. Keep a one-screen summary reachable (the plans and join block at the end do this).
+
+## Scoped-down family C that qurn can build in one session (three.js is fine)
+- Stack: three.js `Points` + `ShaderMaterial` (or raw WebGL), one fixed canvas `z-index: 0`, `pointer-events: none`, DOM chapters at `z-index: 1`; Lenis is optional (the exponential smoother above does the same job in 8 lines).
+- Data: a `CHAPTERS` table (id, len in vh, copy position, title style, shape key, camera). 5 to 8 chapters.
+- Shapes: sample 2 to 4 shapes from the product's own world with a worker: a logo PNG mask, one word via `canvas.fillText` + `getImageData` (keep pixels with alpha > 128, jitter .004), one geometric structure (rings, grid, helix). Point count 22,000 desktop, 9,000 under 760px, DPR cap 1.25.
+- Loop: one rAF; `y` smoothed with `1 - exp(-dt/95)`; `uMorph = ease(clamp(t / morphLen))`; write uniforms and CSS only when changed; pause when `document.hidden`.
+- Quality governor exactly as `quality.js` (20ms budget, 2s window, steps: dpr 1, dpr .75, count x .6, effects off, never up).
+- Fallback: the same HTML as a readable article, `html.immersive` only when WebGL + no reduced motion + no `?reading`; an 8s timer lifts the cover; reduced motion shows the article.
+- Add: letter-split titles with 2 entrance styles, a left rail of ticks, one corner HUD pill, mono labels pinned by projection, one honest caption per scripted scene, `chapter_reached` analytics.
+
+## Measurable checks for a family-C order
+- Fallback: with JS disabled and again with `?reading`, the page is a complete readable article with every claim and CTA present (`document.body.innerText.length` above 2,000 and the `<h1>` painted in the first frame).
+- Reduced motion: `prefers-reduced-motion: reduce` never starts WebGL (`document.getElementById('gl')` is null) and the page scrolls normally.
+- Clock: exactly one `requestAnimationFrame` loop; scrolling to chapter N by jump gives the same frame as scrolling there smoothly (compare screenshots).
+- Reversibility: scroll down 3 chapters and back; the first screenshot equals the original within noise.
+- Budget: with 6x CPU throttling the governor reaches level 4 within 12s and never goes back up; point count under 760px is at most 9,000.
+- Weight: first paint under 1.5s on a fast connection, hero `<h1>` visible before the canvas; fonts preloaded (at most 3); no layout shift when the canvas arrives (`pre-immersive` geometry reserved).
+- Legibility: body text contrast at least 4.5:1 measured over the brightest 5% of frames in each chapter; nothing under alpha `.72` carries meaning.
+- Phone: separate pose per chapter (`phoneShot` or equivalent), pointer effects off on touch, particle count 9,000, no horizontal scroll.
+- Honesty: every scripted replay carries a visible "scripted, not live" caption; every statistic on screen is marked illustrative unless it is real.
+- Analytics: `chapter_reached` fires once per chapter and `cta_click` carries the placement.
+
+
+---
+
 <!-- references/mass-adoption-mechanics-reference.md -->
 
 # What products with millions of users actually do -- reverse-engineered, dated 2026-10-18
@@ -3640,5 +3929,354 @@ TikTok/infinite scroll: established behavioral-psychology literature on variable
 secondary UX commentary to TikTok specifically (platform-specific causation is asserted, not independently proven);
 EU Commission preliminary findings are explicitly preliminary. Linear: design-blog case studies and commentary, no
 primary financial or growth data independently confirmed.
+
+
+---
+
+<!-- references/gsap-and-lenis-engineering-reference.md -->
+
+# GSAP and Lenis engineering -- how to build the scroll without leaks, jitter or broken pins
+
+Read this when an order uses GSAP, ScrollTrigger, SplitText, Flip or Lenis. `scroll-craft.md` says WHICH technique to use; this file says how to build it so it still works after a route change, a font load, a phone rotation and React's double mount. Written 2026-11-24 from the official GSAP docs and skills, the Lenis docs, and public skill packs (studied in `research/web/`). Numbers marked (SV) are starting values from third-party skills, not standards: measure them on the build.
+
+## 0. Licence and install
+- `npm i gsap` (React also needs `npm i @gsap/react` for the `useGSAP` hook). Since 3.13 every plugin (ScrollTrigger, SplitText, MorphSVG, Flip, DrawSVG) ships in the public package. GSAP is under Webflow's "Standard No Charge" licence (NOT MIT). Commercial sites are fine. One restriction: do not build a tool that lets people animate visually without code if it competes with Webflow's animation builder without written consent. If the product is that kind of tool, stop and ask the operator.
+- Register every plugin once before use: `gsap.registerPlugin(ScrollTrigger, SplitText, Flip)`. An unregistered plugin fails silently.
+- Lenis package is `lenis` (the old `@studio-freight/lenis` is deprecated). Import `lenis/dist/lenis.css`. Check the current version on npm before pinning.
+
+## 1. One clock
+There is exactly one animation loop. Lenis plus ScrollTrigger:
+```js
+const lenis = new Lenis({ autoRaf: false })
+lenis.on('scroll', ScrollTrigger.update)
+gsap.ticker.add((time) => lenis.raf(time * 1000)) // gsap time is seconds, lenis wants ms
+gsap.ticker.lagSmoothing(0)
+```
+- Never `autoRaf: true` together with the ticker line, and never a separate `requestAnimationFrame` loop for Lenis.
+- Lenis scrolls the real document, so ScrollTrigger needs no `scrollerProxy`. Use `scrollerProxy` (plus `pinType: "transform"`) only for transform-based scrollers such as Locomotive.
+- One Lenis instance per scroll container. On unmount: `gsap.ticker.remove(fn)` and `lenis.destroy()`. Keep the ticker callback in a named variable (`const tick = (t) => lenis.raf(t * 1000)`) so the same reference is added and removed; an inline arrow cannot be removed.
+- If Lenis or GSAP start asynchronously (after `document.fonts.ready`, or from a dynamic `import()`), guard the start with a cancelled flag set in the cleanup (`let cancelled = false; ... if (cancelled) return`). Otherwise React StrictMode's mount-unmount-mount, or a fast route change, leaves an orphan instance and a ticker callback that is never removed.
+- Never let CSS and GSAP animate the same property on the same element (a CSS keyframe loop on `opacity` overrides GSAP's inline `opacity`, and the scroll-driven value never shows). Give GSAP a wrapper element and let the CSS loop run on the child, or drive the loop from GSAP too.
+- A JS-enhanced start state (a lid that starts closed, a headline that starts hidden) must be applied before first paint, not after hydration: put a class on `<html>` from an inline script or set it in `useLayoutEffect`, and make the no-JS state the finished, readable one. Setting it in a late effect flashes the final state first.
+- Use one smooth-scroll engine per site. Never Lenis and Locomotive together.
+- Keep `respectReducedMotion` on (the default). Do not push smoothing past `lerp 0.05-0.15` or `duration 1-1.5s`; heavier feels laggy. (SV: `lerp 0.08`, `wheelMultiplier 0.9` for a cinematic page.)
+
+## 2. Symptom table (Lenis with ScrollTrigger)
+| Symptom | Cause | Fix |
+|---|---|---|
+| Jitter or double-speed | A second rAF loop, or `autoRaf` plus ticker | Keep only the ticker line; `lagSmoothing(0)` |
+| Markers drift, triggers fire early or late | `ScrollTrigger.update` not wired to `lenis.on('scroll')` | Add the listener |
+| Pins break or jump | `scrollerProxy` set on a native-document scroller, or an ancestor with `transform`/`will-change` | Remove the proxy; take the transform off the ancestor (`pinReparent` is a last resort) |
+| Scroll stuck, inverted or far too fast | `time * 1000` missing, or loops started in the wrong order | Fix the unit; start Lenis before creating triggers |
+| Positions wrong after load | Triggers measured before fonts or images settled | `ScrollTrigger.refresh()` after `document.fonts.ready` and after images decode |
+| Anchor links dead | Lenis blocks them while smoothing | `anchors: true` (options object for offset) |
+| Cannot scroll inside a modal, chat or list | Lenis captured the wheel | `data-lenis-prevent` on the element, or `allowNestedScroll` (perf cost), or `prevent: (node) => ...` |
+| CSS `scroll-snap` ignored | Does not work with Lenis | Use `lenis/snap` |
+| Works once, breaks after navigating back | Instance or ticker callback not removed | Cleanup (section 3) |
+
+Other recipes: lock scroll under a modal with `lenis.stop()` / `start()`; on route change `lenis.scrollTo(0, { immediate: true })`; fixed header offset `scrollTo(el, { offset: -80 })`; set `syncTouch` only if you must (flaky before iOS 16). Known limits: Safari is capped near 60 fps (30 in low-power mode), smoothing stops over iframes, `position: fixed` can lag on pre-M1 macOS Safari. State these limits in the report instead of promising otherwise.
+
+## 3. Cleanup in every framework
+- **React:** `useGSAP(() => { ... }, { scope: containerRef })` from `@gsap/react` (it wraps `gsap.context()` and reverts on unmount). Handlers created after mount (clicks) must be wrapped with `contextSafe`, or they are not cleaned up. Default dependencies are empty; pass `dependencies` and `revertOnUpdate` only when you mean it. StrictMode runs effects twice in development: cleanup is what keeps it from duplicating. Next.js App Router needs `'use client'`. Never run GSAP during SSR.
+- **Without the hook:** `const ctx = gsap.context(() => { ... }, containerRef); return () => ctx.revert()`.
+- **Vue/Nuxt/Svelte:** create inside `onMounted`/`onMount` (the DOM must exist), scope selectors to the component root, revert on unmount, call `refresh()` after the next tick. In Nuxt lazy-import plugins so SSR stays safe.
+- Always scope selectors (`gsap.context(fn, scope)` or `useGSAP({scope})`); a bare `.card` selector will hit other components.
+- **matchMedia:** `gsap.matchMedia()` creates its own context and reverts the handler's animations when the query stops matching. Do NOT call `context.revert()` inside it and do not nest a `gsap.context()` in it. Return a function only for things GSAP does not own (event listeners).
+
+## 4. ScrollTrigger rules
+Do:
+- Put the `scrollTrigger` on the timeline (or a top-level tween), never on a child tween of that timeline.
+- Animate the pinned element's children, not the pinned element itself. `pinSpacing` stays on unless you replace the space.
+- Pick `scrub: true` for 1:1 or a number (seconds of catch-up, about 1) for smoothing. Do not combine `scrub` with `toggleActions`; scrub wins.
+- Create triggers in page order, or set `refreshPriority` for triggers built asynchronously.
+- For many similar reveals use `ScrollTrigger.batch()` (do not pass `trigger`, `animation`, `scrub`, `snap` or `toggleActions` into it).
+- Horizontal scroll sections: animate `xPercent` of an inner element with `ease: "none"` and pin the wrapper; sibling triggers use `containerAnimation`. Triggers that use `containerAnimation` cannot pin or snap, and their tweens must use `ease: "none"`.
+- `end: "clamp(bottom top)"` (3.12+) stops a trigger from ending past the page bottom. Function values need `invalidateOnRefresh: true`.
+- Remove `markers: true` before shipping (grep for it).
+Do not:
+- Animate layout properties (`width`, `height`, `top`, `left`, margins). Animate transforms and opacity; `filter` and `boxShadow` cost CPU.
+- Put `content-visibility` on measured content.
+- Leave triggers alive across routes: kill them (`ScrollTrigger.getById('id')?.kill()`, or let `gsap.context` revert them).
+
+## 5. Refresh timing
+Positions are measured once. Call `ScrollTrigger.refresh()` after anything that changes layout: web fonts (`document.fonts.ready`), images, an accordion or tab opening, dynamic content. Resize refreshes automatically (debounced). Debounce your own calls; refresh is not free.
+
+## 6. Reduced motion and breakpoints
+```js
+const mm = gsap.matchMedia()
+mm.add({
+  motionOk: '(prefers-reduced-motion: no-preference)',
+  isDesktop: '(min-width: 900px)',
+}, (ctx) => {
+  const { motionOk, isDesktop } = ctx.conditions
+  if (!motionOk) return                 // final states stay visible, nothing pinned or scrubbed
+  /* build the pinned, scrubbed version, simplified when !isDesktop */
+})
+```
+Reduced motion keeps opacity, colour and focus feedback and removes pins, scrubbed parallax, large slides, 3D spin and smooth-scroll hijacking (full tiers in `motion-decision-reference.md`). Do not create the Lenis instance when reduced motion is on.
+
+## 7. SplitText (3.13+)
+- `SplitText.create(el, { type: 'lines,words', mask: 'lines', autoSplit: true, onSplit: (self) => gsap.from(self.lines, {...}) })`. Return the animation from `onSplit` so it is reverted and re-timed on re-split. Split only what you animate (chars cost the most).
+- Wait for fonts: `document.fonts.ready.then(...)` or `autoSplit: true`. Revert after animating when the text will be reflowed.
+- Keep `aria: "auto"` so screen readers and search see the whole string. Avoid `text-wrap: balance` on split text. SVG `<text>` is not supported.
+- A headline revealed by lines needs `overflow: hidden` (or `mask`) on each line wrapper and enough line-height that descenders are not clipped.
+
+## 8. Flip
+`const state = Flip.getState(items); /* change the DOM */ Flip.from(state, { duration: 0.6, ease: 'power2.inOut', absolute: true })`. `getState` changes nothing. In frameworks wait for the render before `from`, pass `targets` explicitly because re-rendered nodes are new, set transforms through GSAP (not CSS) so its cache stays right, keep `box-sizing: border-box`. 3D transforms are not supported.
+
+## 9. Performance
+- Transforms and opacity only; `will-change: transform` only on elements that animate right now, removed after. Batch DOM reads before writes.
+- `gsap.quickTo(el, 'x', { duration: 0.4 })` for pointer followers; call it inside the handler, do not create tweens per mousemove.
+- Use `stagger` instead of dozens of delayed tweens. Pin only what must pin. Pause or kill off-screen animation. Do not create hundreds of overlapping tweens or triggers without a low-end test.
+- Do not mix a second animation system on the same element (GSAP and Motion fighting over `transform`).
+
+## 10. Starting values for scroll devices (SV, measure on the build)
+| Device | Starting value |
+|---|---|
+| Hero scrub span | 2.2-3.0 viewports (under 1.8 flies past, over 3.5 feels broken) |
+| Pinned section span | at least about 1.2 viewports |
+| Horizontal pan | about 1 viewport per item plus 1 |
+| Story beat weight | 0.7-1.8 viewports per beat, 5-7 beats, one CTA |
+| Reveal trigger | `start: 'top 82%'` (or `top 85%`), `once: true` |
+| Reveal motion | y 24-48, blur 4-10px, 0.8-1.1s, enter ease `power3.out` or `power4.out` |
+| Stagger | words 0.035-0.07s, lines 0.08-0.14s, cards 0.06-0.1s |
+| Scrub smoothing | `scrub: 1`-1.1; `anticipatePin: 1` |
+| Count-up | 1.2-1.8s, once, only real numbers |
+| Parallax factor | 0.3-1.5 for layers, 1-2 for a full-bleed bed; never behind body copy |
+| Pointer tilt / magnet | tilt 5-9 degrees; magnet 0.2-0.35, primary CTA only, fine pointers only |
+| Scrubbed video encode | `-g 8 -keyint_min 8 -sc_threshold 0 -crf 20 -preset slow`, no audio, hero video at most about 2 MB |
+| Canvas sequence | `progress = clamp((viewportTop - sectionTop) / (sectionHeight - viewportHeight))`, clamp the frame index, cap DPR at 2 |
+
+One progress value should drive every layer of a scrubbed scene so it stays reversible; never spawn objects from scroll events. Verify beginning, middle, arrival, a fast jump and a reverse scroll at desktop and phone width.
+
+## 11. CHECK lines to put in the order
+- `grep -n "autoRaf: *true"` returns nothing in any file that also has `gsap.ticker.add`.
+- Navigate to another route and back three times (on a one-page site, mount and unmount the scene component instead), then `ScrollTrigger.getAll().length` equals the first count and the number of live Lenis instances is 1 (no leaked triggers or tickers). In React dev mode, confirm no duplicated animation after the StrictMode double mount.
+- No property is written by both a CSS animation and GSAP: grep the animated selectors for `animation:` or `@keyframes` on the same property.
+- On first paint with JS enabled there is no flash of the finished state before the start state appears (capture frame 1 of a throttled reload).
+- Reload with the cache disabled: every pinned start position equals the position after `document.fonts.ready` plus `refresh()`.
+- Emulate `prefers-reduced-motion: reduce`: no pin, no scrub, content visible at rest.
+- `grep -n "markers"` returns nothing in production code.
+- Phone width: no scrubbed text overlaps its object, and the page is usable with the scene switched off.
+
+
+---
+
+<!-- references/motion-decision-reference.md -->
+
+# Motion decision -- should it move, how long, which curve, and when to take it out
+
+`animation-reference.md` and `fluid-interaction-reference.md` cover how motion should feel. This file decides WHETHER and HOW MUCH, and gives the review and removal rules. Written 2026-11-24 from Emil Kowalski's public skills, ibelick's motion-performance and accessibility skills, iart's reduced-motion skill and public linter thresholds (studied in `research/web/`). Numbers are widely used starting values, not standards.
+
+## 0. Which rules apply to which surface
+The visitor modes in `web-craft-doctrine-reference.md` decide:
+- **Operate and Read** (apps, dashboards, docs): the frequency rules below are strict. Motion explains state and feedback and stays under 300 ms.
+- **Persuade and Experience** (landing, campaign, portfolio): one authored focal sequence may run long (500-800 ms entrances, scrubbed scenes). The rules about purpose, GPU-only properties, interruptibility and reduced motion still apply. Do not add perpetual micro-motion everywhere: one skill pack asks for it and another keeps UI under 300 ms; pick by mode, not by habit.
+
+## 1. The four questions (ask in order, stop at the first "no")
+1. **Frequency.** How often will one person trigger this? 100+ times a day (keyboard shortcuts, command palette, list navigation) = no animation, ever. Tens a day = remove or cut to a fade of 150 ms or less. Occasional (modal, toast, drawer) = standard. Rare or first-time (onboarding, a celebration) = delight is allowed. Anything started from the keyboard is never animated.
+2. **Purpose.** Name one: spatial consistency (where did it come from), state change, explanation, feedback, or preventing a jarring jump. "It looks nice" is not a purpose on Operate surfaces.
+3. **Budget.** UI motion stays under 300 ms. Exceptions: modals, drawers, sheets and toasts (200-500 ms), a deliberately authored focal entrance (500-800 ms), marketing scenes.
+4. **Function.** Does the thing still work if the animation is skipped? Nothing waits on `animationend`, and no start state is left hidden.
+
+## 2. Tool ladder (cheapest that works)
+CSS transition -> `@starting-style` for entry -> CSS keyframes -> Web Animations API -> Motion/GSAP (springs, layout, exit, scroll scenes). CSS transitions are interruptible and retarget from the live value; keyframes are not, so do not use keyframes for anything a user can trigger quickly twice. Do not add a library for what the stack already does.
+
+## 3. Easing and duration
+| Use | Curve | Duration |
+|---|---|---|
+| Entering or exiting | ease-out: `cubic-bezier(0.23, 1, 0.32, 1)` | enter 200-300 ms, exit about 20% shorter |
+| Moving on screen | ease-in-out: `cubic-bezier(0.77, 0, 0.175, 1)` | 200-300 ms |
+| Drawer or sheet | `cubic-bezier(0.32, 0.72, 0, 1)` | 200-500 ms (a small floating drawer 200 ms) |
+| Hover, colour | `ease` | 100-150 ms |
+| Constant (progress, marquee) | `linear` | as needed |
+| Press feedback | ease-out | 100-160 ms, `scale(0.95-0.98)`, on pointer-down |
+| Tooltip, small popover | ease-out | 125-200 ms; after the first opens, siblings open instantly |
+| Dropdown, select | ease-out | 150-250 ms |
+| Modal | ease-out | 200-500 ms |
+Never `ease-in` on UI (it feels late). Never `transition: all`. Never animate from `scale(0)`: start at `0.95` with `opacity: 0`. A popover scales from its trigger (`transform-origin`), a modal from the centre. Blur used to hide a crossfade stays at 2-5 px (never above 8 px if it animates, never above 20 px at all).
+Springs: critically damped for most UI (no bounce); bounce 0.1-0.3 only when a gesture carried momentum (flick, throw, release). In Motion `{ type: "spring", duration: 0.5, bounce: 0.2 }`. Note Motion's `spring()` takes `duration` in milliseconds when called directly but seconds inside transitions. Use `visualDuration` when interruptions must keep velocity.
+
+## 4. Choreography
+- Roles: Lead (the thing the eye follows), Support, Decoration (fade only), Static. One entrance per container; never every card flying in from a different side.
+- Stagger 30-80 ms per item, total under about 300 ms, only the first handful of items in a long list, and never uniform on a high-frequency list. Marketing steps 100-150 ms on 0.5-0.6 s entrances.
+- Exits run together and mirror the entry direction; leaving items use `AnimatePresence mode="popLayout"` (or absolute positioning) so siblings close the gap while the exit plays.
+- Duration by distance: `clamp(0.15s, deltaHeight / 500, 0.27s)`.
+- Attention loops start about 2.5 s in, repeat about every 6 s and stop during interaction.
+- Asymmetric timing for destructive holds: hold-to-delete 2 s linear while held, 200 ms ease-out snap-back on release.
+
+## 5. Gestures
+Two phases: **track** (position follows the pointer 1:1, no spring, no easing, no React state per move) and **release** (physics seeded with the release velocity). Rubber-band past the edge (`dragElastic` about 0.2). Dismiss at about 40-50% of travel or on velocity (distance / elapsed ms above about 0.11). Bounce only on drag release, none on a button-closed element, less for larger elements. Touch targets 44 px or more. Formulas for momentum projection and rubber-banding are in `fluid-interaction-reference.md`.
+
+## 6. Performance rules for motion
+- Frame budget 16.7 ms (8 ms at 120 Hz); design for a mid-range phone.
+- Property tiers: composite-only (`transform`, `opacity`); paint (`box-shadow`, `border-radius`, `color`); layout (`width`, `height`, `padding`, `margin`, `top`, `left`). Stay in the first tier. Swap an animated `box-shadow` for an `opacity` change on a pseudo-element, or `filter: drop-shadow()`; swap growing `width`/`height` for `transform: scale()` plus FLIP; animate height-auto with `grid-template-rows: 0fr -> 1fr` (or `interpolate-size` where supported, see `platform-baseline-reference.md`).
+- Never interleave layout reads and writes in one frame. Never drive animation from `scrollTop`, `scrollY` or scroll events (use ScrollTrigger, IntersectionObserver or `animation-timeline`). Every `requestAnimationFrame` loop has a stop condition and pauses off-screen.
+- Do not animate CSS variables on a parent to move children (it re-resolves the subtree each frame); set `element.style.transform` directly or animate the child. `will-change` only while animating, and only after a measured problem.
+- rAF-driven libraries (GSAP, Motion layout) run on the main thread; CSS and WAAPI can be accelerated. Motion's `x`/`y`/`scale` shorthand is accelerated only from 14.2.
+- Diagnostic order when frames drop: which properties animate, is the page busy, is React re-rendering per frame, CSS-variable inheritance, blur over 20 px, `will-change`.
+- Scrubbing `mask-image`, `clip-path` or a CSS custom property that feeds a gradient over a large image repaints every frame on the main thread; it is not compositor-only. For a reveal on a phone use a transform-only version (a clipped container with an inner `translate`, or a two-image crossfade), or give the paint-heavy version a low-tier fallback and a frame-time check on that section.
+- Prefer downgrading the technique to deleting the motion (a blur becomes an opacity fade).
+
+## 7. Reduced motion, in tiers (not "turn everything off")
+| Tier | What | Under `prefers-reduced-motion: reduce` |
+|---|---|---|
+| 1 remove | parallax, large slides, big scale, 3D spin, auto-advancing carousels, smooth-scroll hijacking, scroll-jacked pins, motion paths, shader loops | removed; show the final state |
+| 2 soften | entrances and crossfades | opacity-only, 200 ms or less, small distance |
+| 3 keep | opacity and colour change, focus rings, spinners, essential motion | unchanged |
+- A global safety net uses `0.01ms` (not `0s`) so `animationend`/`transitionend` still fire: `animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important`. Layer the tier rules over it.
+- JS motion needs its own gate (GSAP `matchMedia`, Motion `useReducedMotion`/`MotionConfig`, do not start Lenis). OS settings can change at runtime: listen for the media query `change` event.
+- Auto-playing motion longer than 5 s needs a pause control (WCAG 2.2.2). Related: WCAG 2.3.3 (animation from interactions) and technique C39. Also honour `prefers-reduced-transparency` with a solid panel, and gate hover effects with `@media (hover: hover) and (pointer: fine)`.
+
+## 8. Reviewing motion (use this format when an order or a diff is reviewed)
+One table, columns **Before | After | Why**, one row per issue; never a prose list. Escalate (block) when you see: `transition: all`, `scale(0)` entrances, `ease-in` on UI, animation on keyboard or high-frequency actions, UI over 300 ms with no reason, a popover scaling from its centre, keyframes on a rapidly retriggered element, layout-property animation, a parent CSS variable driving child transforms, ungated hover effects, symmetric hold timing. Fix in this order: delete, reduce, fix easing, fix origin, make interruptible, move to the GPU, asymmetric timing, polish, accessibility.
+
+## 9. Removing motion (when the answer to section 1 is no)
+Delete: anything triggered from the keyboard, anything 100+ times a day, charts and numbers that do not show a real value change, spinners and skeletons for operations under 300 ms. Reduce: hover to a 150 ms colour change; slide or scale entrance to opacity-only 150 ms; over 300 ms to 200-250 ms; stagger capped at 30 ms per item; infinite loop to a single run. Hazards when removing: a hidden start state (`opacity: 0`) left behind, code waiting on `onAnimationEnd`/`transitionend`/`setTimeout`, exits that held the unmount, layout animation that was masking a jump, focus moved after the motion.
+
+## 10. Finding where motion is missing (cap the answer)
+Propose at most 5-7 additions per surface, each passing the four questions, plus up to 5 rejected candidates with the question that killed each. Typical keepers: press feedback on primary controls, a popover from its trigger, a toast, a sheet, a number tween, a list reorder (Flip/layout).
+
+## 11. CHECK lines
+- `node scripts/slop-scan.mjs <src>` has no FAIL for `transition-all`, `raw-scroll-listener`, `autoplay-sound`.
+- Every duration and easing in the source is one of the named tokens in the order (grep for stray `cubic-bezier(`).
+- With reduced motion emulated, no tier-1 motion plays and nothing is hidden at rest.
+- Chrome Performance panel over the scroll or the animation: no per-frame Layout or Paint, only Composite.
+
+
+---
+
+<!-- references/quality-gates-reference.md -->
+
+# Quality gates -- the mechanical floor, the judged layer, and how a build is allowed to finish
+
+A build is not done because it looks right in one screenshot. This file gives the gate tiers, the numeric thresholds that public anti-slop tools converged on, the performance budgets, the bounded finish procedure, and the evidence rules. Written 2026-11-24 from public skill packs and linters (Impeccable, Hallmark, auteur, taste-skill, Studio-Groei anti-slop, UIZZE's guides), studied in `research/web/`. Thresholds are their authors' starting values, not standards; where our own doctrine is stricter (`commercial-product-presentation-reference.md`, `page-copy-and-structure.md`), ours wins.
+
+## 1. Three tiers
+| Tier | Meaning | Who can waive |
+|---|---|---|
+| **Floor** | A mechanical, measurable defect (transition: all, contrast under 4.5:1, horizontal scroll, unmuted autoplay, invented metrics) | Nobody. Fix it. |
+| **Reflex** | A default a model falls into (a violet gradient, a cream-and-serif page, eyebrows everywhere) | The builder, on the record: a reason of 12+ characters in the file or in the order. More than five waivers in one build is itself a failure. |
+| **Finish** | Craft detail (straight quotes, `text-wrap: balance`, tabular figures, themed `::selection`) | Reported, never blocking. |
+A mechanical scan is a floor and never proof of quality. Run it, then judge the render. Judged items (does it feel authored for THIS product, does the hero hold) are read by a reviewer from screenshots and source, never by the scanner.
+
+## 2. The mechanical scan
+`node scripts/slop-scan.mjs <src> [--json] [--strict]` (dependency-free, source only). Put the command in the order's CHECK line; the builder runs it, the designer reads the output. Rules it carries: FAIL `transition-all`, `raw-scroll-listener` (window/document), `ai-gradient` (two stops with hue 250-290), `gradient-text`, `autoplay-sound`; WARN `layout-transition`, `bounce-easing`, `no-reduced-motion`, `overflow-x-hidden`, `full-vw-width`, `focus-outline-removed`, `video-no-poster`, `eyebrow-overuse` (more than three tracked uppercase label styles), `em-dash-copy`, `emoji-label`, `placeholder-copy`, `suppression-no-reason`. Suppress with `/* slop-allow: <rule> -- <reason of 10+ characters> */`. Not covered by the scanner (judge or measure in a browser): contrast, hero fit, rhythm, tap size, performance. For those use `scripts/experience-testers.mjs` and section 5.
+
+## 3. Numeric thresholds worth enforcing (third-party starting values)
+Colour and type
+- Body text 4.5:1, large text 3:1, placeholders 4.5:1, measured in every state. Accent colour past about 5% of the viewport is a reflex warning (8% in a render check).
+- Prose measure 45-75ch (28-75ch for ledes and captions). Display clamp max about 6rem for prose headings (type-led heroes may run 100-140 px at 1440). Letter-spacing no tighter than -0.04em on display, none on small text. Display line-height 0.95-1.1, body 1.4-1.6. Body text at least 16 px; functional text at least 11-12 px. Tracked uppercase at 15 px or under is out; letter-spacing over 0.03em on labels is out.
+- At most three font families (two plus one outlier role), at most three weights on a page. Same-role type is identical across screens.
+- No pure `#000` or `#fff` outside tokens in a designed world; no colour or font literal outside the token block.
+- Near-black by default and warm-cream-with-serif are named house tells: if the brief does not pin them, break at least two of the named tells on purpose and write down which (auteur's seven: near-black by default, mono service type, status-bar chrome, scroll-instruction footer with a counter, single amber/acid accent, wordmark as hero, glow as depth).
+
+Layout and page
+- Hero shows headline, one sentence, the primary action and the visual together at 1280x800 without scrolling; at 1920x1080 a max-width must exist so the gutters grow, not the measure.
+- Words on screen: about 80 in any one 900 px window at 1440, about 450 visible on a whole marketing page (our commercial rule is stricter: a Persuade homepage can run on about 135).
+- Section gap at least 120 px at 1440 (64 px where the paper colour changes); median h2 at least 40 px at 1440; no dead band over 160 px under hero content; at 1440x900 the next section's top edge appears between y 760 and y 900 so the fold hints at what follows.
+- Photos no more than about a third of the page below the hero; never two photo-led sections in a row.
+- Control height 44-52 px; tap target at least 44x44 (32 px is the hard floor); one container width and one primary button style per page.
+- Spacing on a 4 px grid (steps 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128).
+- `overflow-x: clip` on html/body, never `hidden`, never `100vw`. Image grid tracks `minmax(0, 1fr)`; display heads carry `overflow-wrap: break-word; min-width: 0`.
+
+Behaviour
+- Every control has hover, focus-visible, active, disabled, loading, error and success states as applicable (eight states on a real control). Focus appears instantly (no fade).
+- Every animation has a reduced-motion fallback and content is visible with scripting off. One reveal style per page.
+- Never an invented metric, testimonial, logo wall or case-study count. Mark synthetic demo data where a visitor could mistake it for real, and hand over the replacement list.
+- A form that "sends" must send. A thank-you that sends nothing is a FAIL.
+
+## 4. Variant and token budgets (for apps with several screens)
+Count distinct rendered control "signatures" (background, colour, border, radius, font size/weight, padding, shadow) per kind; budget four for each of button, link, toggle, input, select, tab, excluding disabled and current states. More than 12 distinct type steps warns. Every real Tab press must visibly change something on the focused control (up to 40 stops sampled). A route that returns an error or has no landmark, no `h1` and nothing focusable is blank.
+
+## 5. Performance budgets (WARN / FAIL), measured at 1440x900 and 390x844, median of three runs
+Transfer 1.5 / 3 MB; images 1.2 / 2.4 MB, one image 350 / 700 KB; JS parsed 450 / 900 KB; CSS 120 / 250 KB; fonts 160 / 320 KB, families 2 / 3, files 4 / 6; requests 60 / 110; WebGL contexts live at once 4 (more fails); blocking time 1.5 / 4 s; LCP 4.5 / 8 s on a throttled CPU (the user-facing Core Web Vitals thresholds stay LCP 2.5 s, INP 200 ms, CLS 0.1 at the 75th percentile); layout shift 0.10 / 0.25; images without width/height or below-fold images not lazy: 1-3 warn, 4+ fail. Hero video at most about 2 MB with a poster of 300 KB or less. Measure at DPR 2 on a production build, not a dev server. Motion: at least 50 fps at 4x CPU throttle, no long task over 50 ms during scroll; in a headless browser with canvas, fps numbers are advisory only (software rendering).
+
+Delivery notes from a blind review of two real order sets: ship phone-size image variants (for example 480w and 900w `srcset` layers, not one 1000px file and `sizes` alone) and give the JS a number (a first-load budget such as under about 170 KB gzip for a scroll page); compute contrast ratios from the hex values instead of asserting them in the order (the reviewer's own arithmetic differed from the ratios two order sets asserted, 4.7:1 vs about 5.3:1 and 4.6:1 vs about 4.5:1, so compute them with a script); the keyboard focus indicator needs 3:1 against the colours next to it (WCAG 1.4.11), so a brass ring on a bone band can fail even when the text passes; a dimmed unselected option (opacity .4-.45) must be excluded from or pass the contrast check; a `script-src 'self'` Content-Security-Policy on a Next.js page needs per-request nonces (dynamic rendering) or hashes, otherwise Next's inline bootstrap scripts are blocked and hydration breaks, so test hydration with the headers on; an in-memory per-IP rate limit does not hold across serverless instances (route it to Phase 3 security).
+
+## 6. The finish procedure (bounded, evidence-led)
+1. Build the whole scope first. Do not take a screenshot per tweak.
+2. **Round 1: one batched capture** at desktop (1440) and phone (390), plus the exact size and page where the operator reported a failure (check that first). Include reduced-motion and a forced-slow-network pass for any scroll or WebGL page. Run the scan and the experience testers in the same round.
+3. Fix everything the round showed, in one batch. **Round 2: one more batched capture** to confirm. Two rounds is the target; three is the ceiling. Per-tweak screenshot loops cost money without raising the bar.
+4. A reviewer who did not build it (fresh sub-agent, or a separate pass that does not reread the plan) judges the screenshots against the direction contract and the rubric. The builder never grades its own pass.
+5. Hand off: what changed, what was tested at which sizes, what could not be measured (for example real frame rate on a phone), what remains.
+If rendering is unavailable, say which checks were code-only and which were visual; never claim a render was inspected without evidence.
+
+## 7. Evidence rules for references and screenshots
+When a reference site or screenshot informs a decision, write the note as **Observation** (what is visible: groups, order, labels, spacing, primary action) / **Decision** (what we do and why) / **Preserve** (what in our product must not change) / **Unknown** (what the screenshot cannot prove: hover, loading, persistence, success states). Distinguish exact reference, related example, no match and tool error; never claim an image was inspected when it was not. Borrow structure and craft, never logos, copy, imagery or the exact layout. Each choice in the final decision ledger names its source and role, and a choice with no source is removed. Do not average several references into a safe middle: choose one primary, borrow one or two details with a stated role.
+
+## 8. Direction contract and design record
+Before code, put the contract in an HTML comment at the top of the artifact (it must survive the build): THESIS (the one idea and the category default it refuses), OWN-WORLD (palette and component language specific enough to recognise with the content removed), STORY (what the visitor understands, believes, does), FIRST VIEWPORT (what is where, at what scale, where the action sits), FORM. Keep it to about 150 words; if a block reads like a mood, the direction is not decided. After the build, record `docs/design/DESIGN.md` from what was actually built (measured values), not from intentions, and test the file on two existing screens: if it forces needless rewrites, narrow it. Replace vague words like "modern" with observable rules (one accent, one grey family, one radius scale, one icon set).
+
+## 9. Redesigns: detect the mode, audit first, protect what must not change silently
+Name the mode before touching anything: **greenfield**, **redesign-preserve** (modernise without breaking the brand) or **redesign-overhaul** (new visual language, same content and structure). If it is unclear, ask once. For a redesign, audit and write down the brand tokens, the information architecture (page tree, primary nav, key conversion paths), which content blocks do real work, which patterns to keep (signature interactions, the voice) and which to retire (slop tells, broken layouts, stock imagery, performance traps), and the SEO baseline (ranking pages, titles, structured data, social cards): SEO migration is the biggest redesign risk.
+Never change without the operator's explicit approval: URL structure and route slugs, primary nav labels, form field names and order (breaks analytics and autofill), the logo or wordmark, existing legal, consent and cookie copy, analytics event names and the IDs tracking depends on. Do not regress existing accessibility wins (focus states, alt text, keyboard order, contrast). Keep the incumbent copy voice unless a rewrite is asked for. When the structure and content are sound, evolve in this order and stop when the brief is met: typography, spacing and rhythm, colour recalibration, motion layer, hero and key-section recomposition, full block replacement only when a block is unsalvageable.
+Page-level locks to check at the end: one theme (light or dark) for the whole page with no section flipping mid-page; one accent used identically in every section; one corner-radius system (or a written rule such as "buttons pill, cards 16, inputs 8"); no two calls to action with the same intent on one page (pick one label for "contact" and use it in the nav, hero and footer); no button label that wraps at desktop; every button and form field (labels, placeholders, helper and error text, focus rings) passes contrast against its own background; italic display words that contain descenders (y g j p q) keep a line-height of at least 1.1 with a little bottom padding so nothing is clipped.
+
+## 10. Worst-case data test (apps and any list or card UI)
+Render a dev-only toggle with Demo, Worst case, Empty, One item and 1,000 items. Check at the container width, 320 px and the widest layout, at 200% zoom, in dark mode and in RTL. Typical fixes: `flex-shrink: 0` on avatars, `min-width: 0` on text columns, `overflow-wrap: anywhere` on emails, `Intl.PluralRules` for "1 member", `tabular-nums` for changing numbers, grapheme-aware initials, `line-clamp` on previews. Wrap names, end-truncate metadata, middle-truncate file names, never truncate numbers, amounts or dates. Severity: Broken, Ugly, Fragile.
+
+
+---
+
+<!-- references/platform-baseline-reference.md -->
+
+# Platform baseline -- what the browser can do now, with dates
+
+Checked 2026-11-24 against MDN, Chrome's docs and the HTTP Archive Web Almanac. Anything marked (to verify) was not confirmed from a page we could read: check MDN's Baseline badge or caniuse on the day of the build, and put the check in the order. Engines move, so never copy a support claim from this file into a client deliverable without re-checking.
+
+| Feature | Status found | Use it as |
+|---|---|---|
+| CSS scroll-driven animations (`animation-timeline: scroll()` / `view()`, `animation-range`) | MDN: Baseline 2026, newly available since October 2026 ("works across the latest devices and browser versions") | Primary technique for scroll-linked reveals and progress bars on current browsers. Still wrap in `@supports (animation-timeline: scroll())` with a static fallback for older ones. Firefox needed `animation-duration` set (for example `1ms`) for the animation to apply in MDN's example. Per-browser versions not extracted (to verify). A minifier folding `animation-timeline` into the `animation` shorthand makes browsers drop it: put it after the shorthand and check the built CSS. If the axis has no scrollbar the timeline is inactive. |
+| View Transitions, same-document | Chrome 111+; Firefox 144 and Safari 18 listed as supported on Chrome's page | `document.startViewTransition(() => update())`, guarded with `if (!document.startViewTransition)`. Baseline label not extracted (to verify). |
+| View Transitions, cross-document | Chrome 126+, Safari 18.2; Firefox not supported (Chrome's page) | `@view-transition { navigation: auto; }` on both pages, same origin. No JS call exists. Treat as progressive enhancement: a navigation with no transition must look finished. |
+| `@starting-style` | MDN: Baseline 2024 | Entry animations from `display: none` or newly inserted nodes in CSS only. Pair with `transition-behavior: allow-discrete`. |
+| `text-wrap: balance` | MDN: Baseline 2024; limited to about six lines in Chromium and ten in Firefox | Short headings only. Avoid on text that SplitText splits. |
+| `calc-size()` / `interpolate-size` | MDN: `calc-size()` limited availability, experimental (interpolate-size not fetched) | Do not rely on it. Animate height-auto with `grid-template-rows: 0fr -> 1fr` and an `overflow: hidden; min-height: 0` child. |
+| Container queries | status not extracted (to verify) | Prefer for components reused in different widths; confirm before relying. |
+| `prefers-reduced-motion`, `prefers-reduced-transparency` | reduced-motion used on about half of pages (Web Almanac 2025) | Always provide the tiers in `motion-decision-reference.md`; transparency fallback for any glass surface. |
+
+## Framework page transitions
+- **Next.js App Router with Motion:** the old route unmounts almost immediately on navigation, so an exit only runs if the element stays mounted under a persistent `AnimatePresence`. Put `AnimatePresence mode="wait"` in `template.tsx` (which remounts per navigation, unlike `layout.tsx`), key the page wrapper by pathname, and freeze the router context for the exiting child (a snapshot via `useRef` of `LayoutRouterContext`, a Next internal whose import path can change between versions: pin the Next version and re-check on upgrade). Debug list: the wrapper stays mounted; the key changes per route; the exiting element is a direct child; one child under `mode="wait"`; `'use client'` on every file involved.
+- **View Transitions in a framework:** `document.startViewTransition(() => router.push(href))` behind a feature check; style `::view-transition-old(root)` / `::view-transition-new(root)` with a short fade. Choose one transition behaviour for the whole site (instant swap or cinematic) and apply it to every link.
+- A persistent WebGL canvas can stay mounted outside the router so the 3D scene survives navigation (used by a 2026 award case study); then route changes drive the camera, not a remount.
+
+## Fonts, delivery and the real web (Web Almanac 2025)
+Web fonts are on about 88% of sites; WOFF2 is about 65% of font requests; variable fonts about 40% of sites; `font-display: swap` is the most common value (about half). Ship WOFF2, preload only the one or two above-the-fold faces, set `font-display: swap` (or `optional` for non-critical faces), and give a metric-compatible fallback so the swap does not shift layout (CLS under 0.1).
+
+
+---
+
+<!-- references/libraries-decision-reference.md -->
+
+# Libraries decision table -- pick the lightest tool that does the job
+
+Checked 2026-11-24 from official docs and repos. "(to verify)" marks facts the fetch did not reach. Check the current version and licence on the day of the build.
+
+| Need | Reach for | Why / limits |
+|---|---|---|
+| Scroll scenes, pinning, scrubbed timelines, text splitting | GSAP + ScrollTrigger (+ SplitText, Flip) | The default for page-scale scroll stories. See `gsap-and-lenis-engineering-reference.md`. Licence: Standard No Charge (not MIT). |
+| Smooth/inertial scroll | Lenis | One engine per site; wraps native scroll. |
+| UI state, springs, layout and exit animation in React | Motion (`motion/react`) | v14: `whileInView` + `viewport`, `layout`/`layoutId`, `AnimatePresence`, `useScroll`. Mini `animate()` is about 3.2 kb (HTML/SVG only); the layout feature is about 12 kb; LazyMotion bundle sizes (to verify). |
+| Simple scroll-linked reveals or progress | CSS `animation-timeline` | No JS. See `platform-baseline-reference.md`. |
+| Declarative entry animation | `@starting-style` | CSS only. |
+| Designer-authored, state-driven vector animation (hover, toggles, data-bound values) | Rive (`@rive-app/webgl2`, `canvas-lite` for the smallest build) | Name the `stateMachine` or only the first linear animation plays; call `resizeDrawingSurfaceToCanvas()` on load and resize or it is blurry on high-DPI; call `cleanup()` or C++ objects leak. Size vs Lottie not verified. |
+| Plain playback of a designer's After Effects animation | dotLottie (`@lottiefiles/dotlottie-web` / `-react`) | `.lottie` is a zipped container, usually 60-80% smaller than `.json` (vendor claim, to verify). Prefer it over `lottie-web`. Lazy-load, pause off-screen, drive scroll with `setFrame`. |
+| Line drawing, morphing, motion along a path | CSS `stroke-dashoffset` / GSAP DrawSVG, MorphSVG, MotionPath / CSS `offset-path` | Draw-on needs a real stroke (`fill: none`). Morphing needs matching path structure unless MorphSVG or Flubber is used; call `convertToPath()` for primitives. Keep the `viewBox` through SVGO. Inline the SVG, not `<img>`. |
+| 3D scenes in React | react-three-fiber v9 (React 19; v8 for React 18) + drei (MIT) | `frameloop="demand"` + `invalidate()` for mostly static scenes; draw calls a few hundred or less (never over 1000); never `setState` in `useFrame`; no vector allocation in `useFrame`; share geometry and materials; `PerformanceMonitor`/`AdaptiveDpr` for adaptive quality; Draco + KTX2 + glTF Transform for assets. v10 (WebGPU) is alpha. |
+| Lightweight 3D without React | OGL or three.js | OGL for a single effect; three.js for scenes. Lazy-import so it never blocks LCP. |
+| Timeline editor for a 3D/HTML scene | Theatre.js | Last release v0.7.0 on 2023-08-10 and docs last edited 2024-02-01: treat as slow-moving, verify before adopting. |
+| Component primitives you own | shadcn/ui (source copied into the repo) | "Not a component library." Theme through CSS variables (`:root`, `.dark`, `@theme inline`, `--radius`). The default look is the Neutral palette, so override tokens and edit the component source; changing the CSS-variables setting later means reinstalling components. |
+| Decorative landing-page effects | React Bits (see `ui-libraries-and-mascots-reference.md`), Magic UI (150+ free animated components, Pro blocks paid), Aceternity UI (118+ free components; blocks and templates paid) | Each has a recognisable look. Restyle to the tokens, add a reduced-motion fallback, and do not stack several. Licence pages not read (to verify). |
+| Toasts, drawers, command palette, OTP, number tween, charts | Sonner, Vaul, cmdk, input-otp, NumberFlow, recharts (Liveline for live charts) | A shortlist from Emil Kowalski's pick-ui-library; check `package.json` first and do not churn existing dependencies. |
+
+Rules
+- One animation system per element. Never let GSAP and Motion drive the same `transform`.
+- Lazy-load anything below the fold or behind interaction; load `three` and `gsap` only on the pages that use them.
+- A library is justified by a named job. "It is popular" is not one.
+- When a scene or effect rests on a framework, put the measurable check in the order: bundle size added, LCP before and after, mobile frame rate, reduced-motion behaviour.
+
+## What award-site builds actually fight (six 2026 Awwwards case studies, stated by the studios)
+Asset weight and phone memory, not animation code. Typical stack: Lenis + GSAP, with Three.js or R3F for 3D, Nuxt or Next on top. Techniques they report: Draco geometry + KTX2 textures + glTF Transform + Meshopt; baking high-poly sculpts to low-poly (high-poly models "crashed mobile browsers instantly"); keeping only the active model in memory; caching shadow maps and stopping the render loop when the scene is still; an adaptive-quality system that lowers shadow resolution or grain density when frame rate drops; a persistent canvas outside the router; packing several masks into one texture's channels instead of shipping video; cutting scope (weather, birds, day-night cycles) to protect the phone. One studio said flawless 60 fps on every mid-range phone is "nearly impossible" with its setup. Plan the low-GPU tier and the cut list at the start, not at the end.
 
 

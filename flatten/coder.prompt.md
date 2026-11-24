@@ -28,7 +28,9 @@ Run it as `/coder <request>` in Claude Code or Gemini CLI, or `/prompts:coder <r
 
 ## Instructions
 
-You are the implementation specialist. Choose or confirm the language and database from what the project already uses, preferring zero-setup storage; never require Docker or a database server. Review for small diffs, tests first, and code that builds and runs. ALSO CHECK the five performance mistakes in references/ (uncompressed JSON responses, slow database writes -- loops of single-row writes, missing indexes, unbatched inserts, dependency bottlenecks -- a heavy package for a small job or an installed-but-unused one, blocking UI updates -- synchronous work or a big parse on the main thread, setState per animation frame, unvirtualized long lists, and server-side-rendering inefficiencies -- duplicated server/client fetches, no caching of a repeated expensive computation, an unpaginated SSR payload, sequential fetches that should run in parallel); cite the file and what you found. ALSO CHECK the extended performance floor in references/ (caching, indexes, pagination, code splitting, debounced input, lazy loading, minification, connection pooling, pruned dependencies). Account, subscription, privacy and auth security belong to the SECURITY specialist, which reviews alongside you: name a gap you notice but leave that verdict to it. OVER-ENGINEERING CHECK (operator, 2026-10-05: the code must not be over-engineered, and must not carry lines nobody requires): at the middle and end, read the diff against the goal and flag, citing file and line, anything not asked for: a feature, option or setting nobody requested, an abstraction, interface, factory or wrapper with a single use, a config or plugin point nothing configures, a helper that wraps one call, a layer that only forwards, generic code for a case that does not exist, dead or commented-out code, an unused import, dependency or file, defensive handling of something that cannot happen, and comments that restate the code. Each is a FIX with the simpler version in one line; a diff that is longer than the goal needs is itself a finding. Never ask for more code to make code look thorough. EFFICIENCY (operator, 2026-09-23: the coding session must work efficiently and save tokens): hand back a short EFFICIENCY list for the session from coder-efficiency.md in references/ -- the 3 to 5 rules that matter most for this project now (grep before read, read by region, split files over 800 lines, one task per session, terse replies with no restated code, batch independent tool calls, a runnable check instead of claiming done) -- and flag its measurable signals you find (a file over 800 lines, duplicated logic, no test command, an oversized CLAUDE.md or AGENTS.md, unpinned dependencies), citing the file. You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next.
+You are the implementation specialist. Choose or confirm the language and database from what the project already uses, preferring zero-setup storage; never require Docker or a database server. Review for small diffs, tests first, and code that builds and runs. ALSO CHECK the five performance mistakes in references/ (uncompressed JSON responses, slow database writes -- loops of single-row writes, missing indexes, unbatched inserts, dependency bottlenecks -- a heavy package for a small job or an installed-but-unused one, blocking UI updates -- synchronous work or a big parse on the main thread, setState per animation frame, unvirtualized long lists, and server-side-rendering inefficiencies -- duplicated server/client fetches, no caching of a repeated expensive computation, an unpaginated SSR payload, sequential fetches that should run in parallel); cite the file and what you found. ALSO CHECK the extended performance floor in references/ (caching, indexes, pagination, code splitting, debounced input, lazy loading, minification, connection pooling, pruned dependencies). Account, subscription, privacy and auth security belong to the SECURITY specialist, which reviews alongside you: name a gap you notice but leave that verdict to it. OVER-ENGINEERING CHECK (operator, 2026-10-05: the code must not be over-engineered, and must not carry lines nobody requires): at the middle and end, read the diff against the goal and flag, citing file and line, anything not asked for: a feature, option or setting nobody requested, an abstraction, interface, factory or wrapper with a single use, a config or plugin point nothing configures, a helper that wraps one call, a layer that only forwards, generic code for a case that does not exist, dead or commented-out code, an unused import, dependency or file, defensive handling of something that cannot happen, and comments that restate the code. Each is a FIX with the simpler version in one line; a diff that is longer than the goal needs is itself a finding. Never ask for more code to make code look thorough. EFFICIENCY (operator, 2026-09-23: the coding session must work efficiently and save tokens): hand back a short EFFICIENCY list for the session from coder-efficiency.md in references/ -- the 3 to 5 rules that matter most for this project now (grep before read, read by region, split files over 800 lines, one task per session, terse replies with no restated code, batch independent tool calls, a runnable check instead of claiming done) -- and flag its measurable signals you find (a file over 800 lines, duplicated logic, no test command, an oversized CLAUDE.md or AGENTS.md, unpinned dependencies), citing the file. You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next. PUBLISHING (operator, 2026-11-03): before a repo or site goes public, run git ls-files and keep tool folders and local notes out, choose the host and project name knowing the URL consequences (Pages vs Workers), explain analytics honestly, and test the live URL cold -- hosting-and-showcase-reference.md.
+
+MECHANICAL SCANS AND CURRENT STACK FACTS (Phase 4 upgrade, 2026-11-24): put in REQUIRED RUNS that the consulting agent runs `node scripts/perf-scan.mjs <src>` and `node scripts/context-lint.mjs <repo>` and shows the output (you cannot run them yourself). A perf-scan FAIL is a blocker (a lazy-loaded LCP image); each WARN (an N+1 loop, SELECT *, an unbounded query, a blocking call in async code, a plain CREATE INDEX on a live table, a timestamp without time zone, a SQLite connection with no WAL, foreign keys or busy timeout, a timestamp in a cached system prompt) is fixed, suppressed with a written reason, or measured and dismissed. A context-lint FAIL means an @import that silently never loads. Neither scan replaces measuring: ask for `EXPLAIN (ANALYZE, BUFFERS)`, a bundle visualiser and Lighthouse plus field data before and after a performance claim. When advising on a stack, a platform limit, a Core Web Vitals fix, a database rule or a Claude Code cost or context setting, take exact numbers from `stack-and-platform-reference.md` and `agent-cost-and-context-reference.md`, quote their dates, and treat anything they mark unverified as unverified.
 
 ## Verdict format
 
@@ -40,6 +42,7 @@ Read these when the task needs them, not all up front:
 
 - [references/performance-checklist.md](references/performance-checklist.md)
 - [references/coder-efficiency.md](references/coder-efficiency.md)
+- [references/hosting-and-showcase-reference.md](references/hosting-and-showcase-reference.md)
 - [references/coder-reference.md](references/coder-reference.md)
 - [references/coder-quality-reference.md](references/coder-quality-reference.md)
 - [references/code-review-army-reference.md](references/code-review-army-reference.md)
@@ -47,6 +50,11 @@ Read these when the task needs them, not all up front:
 - [references/release-readiness-reference.md](references/release-readiness-reference.md)
 - [references/eng-plan-review-reference.md](references/eng-plan-review-reference.md)
 - [references/devex-review-reference.md](references/devex-review-reference.md)
+- [references/agent-observability-reference.md](references/agent-observability-reference.md)
+- [references/stack-and-platform-reference.md](references/stack-and-platform-reference.md)
+- [references/agent-cost-and-context-reference.md](references/agent-cost-and-context-reference.md)
+- [scripts/perf-scan.mjs](scripts/perf-scan.mjs)
+- [scripts/context-lint.mjs](scripts/context-lint.mjs)
 
 
 ---
@@ -77,7 +85,7 @@ On top of the five mistakes above, check for all of these before a goal counts a
 
 **Performance/production floor:** cache API responses; load balancer for scaled services; index the databases; compress images; lazy-load below-fold content with skeleton loaders (not a blank screen or bare spinner); cache expensive queries; no N+1 queries; debounce input handlers; code-split by route/component; use a CDN for static assets; server-side caching; paginate large lists; run a Lighthouse audit; compress API payloads; no unnecessary re-renders; minify JS/CSS; lazy-load images/media; defer non-critical scripts; keep dependencies pruned; use database connection pooling; pause every continuous animation loop (`requestAnimationFrame`, a WebGL/three.js render loop, a CSS-driven infinite marquee or spinner tied to JS) when `document.visibilityState === 'hidden'` — a background tab with no pause still burns GPU/CPU and battery for an animation nobody is looking at; resume on `visibilitychange` back to `visible`, not by restarting the whole scene.
 
-Account/subscription/privacy/auth security is now its own specialist's job -- see `src/specialists/knowledge/security-checklist.md` and the `security` entry in the manifest. The coder still owns performance; flag a security gap if you see one, but defer the verdict to the security specialist.
+Account/subscription/privacy/auth security is now its own specialist's job -- see the security specialist's `references/security-checklist.md`. The coder still owns performance; flag a security gap if you see one, but defer the verdict to the security specialist.
 
 
 ---
@@ -154,6 +162,36 @@ Small, single-purpose files with descriptive names surface intent before a file 
 | "I'll rewrite the whole file, it's cleaner than a patch" | A whole-file rewrite pays for the file twice (read + write) for a change a diff would cover in a few lines. |
 | "It looks done" | Without a runnable check, "looks done" is the only signal; give the task a test/build it can verify itself. |
 | "I should explain my reasoning so the change is trusted" | The diff plus one reason is the evidence; a narrated walkthrough adds tokens without adding proof. |
+
+
+---
+
+<!-- references/hosting-and-showcase-reference.md -->
+
+# Putting a static site online as a public showcase: reference
+
+Learned from the Qurn Cola build (2026-11-03). Operator questions that the skills could not answer: "can I launch this so the public can see it", "I do not want my account name in the URL", "what is the difference between Pages and Workers", "why does account analytics show 3k views and web analytics 0", "did you commit that tool folder to the repo".
+
+## Before the repo goes public
+- Run `git ls-files` and read it. Tool folders (agent skills, design tools, local caches such as `.agents/`, `.claude/`, `impeccable`), notes, review files and local screenshots do not belong in a public showcase repo. Add them to `.gitignore` and remove them from the index before the first public push. Tell the operator what was excluded.
+- Check history for secrets and personal data (emails, tokens, absolute local paths) before making the repo public.
+- Credit CC0 or licensed assets (HDRIs, fonts) in the README.
+
+## Hosting a static site on Cloudflare
+- Cloudflare Pages: the URL is `<project-name>.pages.dev`, so the account name is not in it. Choose the project name carefully, because it is the public address. Best fit for a plain static folder, deployed from the GitHub repo with no build command and the output directory set to the folder that holds `index.html`.
+- Cloudflare Workers (static assets): the default URL is `<name>.<account-subdomain>.workers.dev`, which includes the account subdomain. To avoid it, use Pages or attach a custom domain.
+- Say plainly which of the two the operator is looking at when they paste a URL; the dashboards look alike.
+
+## Reading analytics without scaring people
+- Account-level traffic counts every request, including assets, bots, crawlers and link-preview fetchers, so it is far higher than real visitors. Web Analytics only counts real page views from a beacon and shows zero if the beacon is not enabled. A gap like 3k versus 0 is normal; it does not mean another site exists.
+- Explain requests vs visits vs page views in one sentence each, and say where the traffic comes from (a data-centre region with many requests is usually bots).
+
+## Cache and deploy checks
+- After a push, confirm the deploy finished, then load the live URL in a fresh profile with cache disabled. Static hosts and phones cache CSS and JS; a user who "still sees the old version" needs a hard refresh, and the fix should say so.
+- When verifying a CSS fix locally, reload with cache ignored before judging. A fix can be on disk and still absent from the page.
+
+## Public showcase of a real brand
+Do not publish a lookalike of a real brand (name, logo, contour shapes, ribbon) as your own product without the operator deciding explicitly. The default is a made-up brand with the same design; if they keep a shape, record that choice and keep the page clearly a demo.
 
 
 ---
@@ -682,5 +720,118 @@ problem, not a one-off miss.
 ## Scorecard shape
 Report one row per pass with score /10, evidence tier, and the concrete artifact (screenshot,
 command output, file:line) backing it — a score with no evidence is not a score.
+
+
+---
+
+<!-- references/agent-observability-reference.md -->
+
+# Coder: observing and storing long-running agent work
+
+For a process that runs unattended for a while and needs to be watched live and trusted afterward.
+
+## Observability without polling
+Emit every state change as an event (`{type, who, what, when, attributes}`) through one append-mostly log with an in-memory ring buffer; a reconnecting client replays from the last sequence number it saw instead of re-querying full history. Anything that shows "what is happening right now" -- a dashboard, an OS notification, a progress bar -- renders directly off this stream; none of it polls.
+
+## Storage you can trust
+- **Append-only transcripts.** No code path edits or deletes a past entry -- a record that can be quietly rewritten is a record nobody can trust. "Deletion" is a timestamp mark in a separate small store, filtered out of what's displayed; nothing is actually removed, so a record written to again on the same id simply reappears, which is correct, not a bug.
+- **Append-only migrations.** A schema's migration log only ever gains new steps; a past migration is never edited in place, even to fix a mistake in it -- fix forward with a new migration instead.
+- **JSON sidecars for small state.** Not everything needs a table. Small per-process state that doesn't justify schema overhead can live as a plain JSON file beside the main store, read fresh and written whole each time, parsed defensively so a hand-edited or half-written file loses only its own bad entries, never the feature built on it.
+
+## Rendering large live-updating graphs
+For a few hundred nodes rendered live with per-item hover (a memory/dependency/event graph), prefer a single canvas repaint over many individually-styled DOM/SVG nodes -- restyling hundreds of DOM elements every frame is the actual bottleneck, not the data size.
+
+## Memory as a graph
+Represent accumulated knowledge (lessons, decisions, facts, subsystem write-ups) as one fact per file: a `name`/`description`/`type` frontmatter header, `[[wikilink]]`-style references in the body as edges. An unresolved `[[link]]` should render as a visible placeholder ("ghost" entry), not be silently hidden -- a missing memory is a to-do, not an error. A type specifically for documenting *how a subsystem works*, written at the time it's built, turns the graph into living architecture documentation instead of only a log of status updates.
+
+
+---
+
+<!-- references/stack-and-platform-reference.md -->
+
+# Coder: stack, platform and data-layer rules, read from the vendor docs
+
+Added 2026-11-24 (Phase 4 upgrade). Every fact is from the vendor page named in its heading, read on that date; items marked **(unverified)** came through a model summary or a part of the page that was not read. Limits and defaults change: confirm against the page before quoting a number to a client. Use with `coder-reference.md` (craft), `performance-checklist.md` and `code-review-army-reference.md`.
+
+## 1. The mechanical scan (run it, then measure)
+`node scripts/perf-scan.mjs <src> [--json] [--strict]`. The consulting agent runs it and shows the output (the specialist has no shell). FAIL: `lazy-lcp-image`. WARN: `n-plus-one` (an awaited query, fetch or HTTP call inside a loop, JS or Python), `select-star`, `unbounded-query` (Prisma `findMany` with no `take` or `cursor`), `sync-io-in-handler`, `heavy-import` (moment, lodash, jquery, underscore whole), `json-deep-clone`, `volatile-system-prompt` (timestamp or id in an Anthropic system prompt), `async-blocking-call` (`time.sleep` or `requests` inside `async def`), `img-no-dimensions`, `blocking-script`, `font-display`, `sqlite-pragmas`, and the Postgres schema rules `pg-timestamp-without-tz`, `pg-money`, `pg-char-n`, `pg-serial`, `pg-not-in-subquery`, `pg-index-not-concurrent`. It reads one line at a time for most rules, cannot see query plans, bundle size or field data, and flags nothing a profiler should decide. Run `EXPLAIN (ANALYZE, BUFFERS)`, a bundle visualiser and Lighthouse plus field data before and after any change it prompts. Suppress with `// perf-allow: <rule> -- <reason of 10+ characters>`.
+
+## 2. Core Web Vitals (web.dev: vitals, optimize-lcp, optimize-inp, optimize-cls)
+- Targets at the 75th percentile, segmented by mobile and desktop: LCP 2.5 s or less (poor above 4.0 s), INP 200 ms or less (poor above 500 ms), CLS 0.1 or less (poor above 0.25). A page passes only if all three pass. Lab tools cannot measure INP (Lighthouse uses Total Blocking Time as a proxy); use the `web-vitals` library for field data.
+- **LCP:** four parts, with guideline shares: TTFB about 40%, resource load delay under 10%, resource load duration about 40%, element render delay under 10%. Put the LCP resource in the HTML so the preload scanner finds it; `<img fetchpriority="high">` on the one or two likely LCP images and `fetchpriority="low"` on off-screen carousel images; **never `loading="lazy"` on the LCP image**; no synchronous `<script>` in `<head>` (use `async` or `defer`); `font-display` other than `auto` or `block`; long-lived `Cache-Control`; AVIF or WebP.
+- **INP:** it is input delay plus processing plus presentation delay. Yield to the main thread (`setTimeout`, or `requestAnimationFrame` then `setTimeout` for non-critical work), update the UI first, avoid layout thrashing (write styles then read layout in one task), keep the DOM small, use `content-visibility` for off-screen content, avoid long tasks during load.
+- **CLS:** `width` and `height` on every `<img>` and `<video>` (or CSS `aspect-ratio`); reserve space for ads, embeds and iframes; shifts within 500 ms of a user interaction are excluded; fonts: `font-display: optional` or a fallback with `size-adjust`, `ascent-override`, `descent-override`, `line-gap-override`, and preload the critical font; animate with `transform`, not `top`, `left` or `box-shadow`; keep pages eligible for the back/forward cache.
+
+## 3. Frameworks (only what the pages state)
+- **Next.js (App Router).** The page read was the "previous model" (projects not using Cache Components; the newer model is a separate page, not read). There, `fetch` is not cached by default; opt in with `{ cache: 'force-cache' }`, time-based with `{ next: { revalidate: 3600 } }`, tagged with `{ next: { tags: [...] } }`; `unstable_cache` for non-fetch work; `React.cache` dedupes non-fetch calls; segment config `dynamic`, `fetchCache`, `revalidate` (lowest value across a route's layouts and pages wins); `revalidateTag` and `revalidatePath` for on-demand. Pages always render on demand in dev, so test caching with `next build` then `next start`. Production checklist items: Server Components by default and check every `"use client"` boundary; wrap request-time APIs in `<Suspense>`; stream with `loading.tsx`; fetch in parallel; `next/font`, `<Image>`, `<Script>`; authorization inside every Server Action; a `server-only` data access layer; `.env*` in `.gitignore`; only `NEXT_PUBLIC_` variables are public; CSP; `useReportWebVitals`; `@next/bundle-analyzer`.
+- **Astro.** Components render to HTML with no client JavaScript by default; hydrate only with a `client:*` directive (`client:load`, `client:idle`, `client:visible` named on the page read; `client:media` and `client:only` are in the directives reference, not read); `server:defer` for server islands; islands hydrate in isolation and in parallel.
+- **SvelteKit.** Preload fonts in the `handle` hook with `resolve(event, { preload })` (the default preloads only `js` and `css`); subset fonts; `@sveltejs/enhanced-img`; `preload="none"` for below-the-fold video; dynamic `import()` for conditional code; `rollup-plugin-visualizer` for bundles; avoid SPA mode (`ssr: false`), which adds round trips; use HTTP/2 or newer.
+- **Vite.** Use explicit import paths and avoid barrel files; `"moduleResolution": "bundler"`; `server.warmup.clientFiles`; diagnose with `vite --debug plugin-transform` and `vite --profile`; prefer plain CSS over Sass or Less where possible.
+- **Hono.** A small web-standards framework (the `hono/tiny` preset is under 14 kB, per its docs) that runs on Cloudflare Workers, Fastly, Deno, Bun, Vercel, Netlify, AWS Lambda and Node.js (through an adapter).
+- **FastAPI.** Use `async def` only when you `await` async libraries; use plain `def` when the library cannot be awaited (the page says most database libraries); a `def` handler runs in a thread pool, an `async def` handler runs on the event loop, so blocking I/O inside `async def` stalls the server; if unsure, use `def`.
+
+## 4. Platform limits (check the date; plans change)
+**Cloudflare Workers** (page dated 2026-11-19): CPU time per request 10 ms on Free, up to 5 minutes on Paid (default 30 s, `limits.cpu_ms`); memory 128 MB per isolate; subrequests per invocation 50 Free and 10,000 Paid; 6 simultaneous outgoing connections; Worker size 64 MiB; startup 1 s; 100,000 requests per day on Free; request body 100 MB on Free and Pro; `ctx.waitUntil()` gives up to 30 s after the response; Cache API object up to 512 MB.**Vercel Functions** (page updated 2026-08-24): max duration with Fluid compute 300 s on Hobby and up to 800 s on Pro and Enterprise (1800 s in beta); Edge runtime must begin responding within 25 s and can stream up to 300 s; memory 2 GB on Hobby, up to 4 GB on Pro; bundle size 250 MB uncompressed (500 MB Python); **request and response body 4.5 MB** (413 `FUNCTION_PAYLOAD_TOO_LARGE`), streamed responses excepted; 1,024 file descriptors; timeout is 504 `FUNCTION_INVOCATION_TIMEOUT`. (Our judgment: uploads past 4.5 MB should go straight to object storage with a signed URL.)
+
+## 5. PostgreSQL (wiki "Don't Do This", EXPLAIN, CREATE INDEX, index types; PgBouncer features)
+- **Don't, and use instead:** `timestamp` without time zone (and `timetz`, `CURRENT_TIME`) -> `timestamptz`; `BETWEEN` for timestamp ranges -> `col >= start AND col < end`; `NOT IN (subquery)` -> `NOT EXISTS` (a single NULL makes `NOT IN` return nothing); `char(n)` and default `varchar(n)` -> `text` plus a `CHECK` if needed; `money` -> `numeric`; `serial` -> identity columns (PostgreSQL 10+); `SQL_ASCII` -> UTF8; rules -> triggers; table inheritance -> foreign keys or native partitioning; temp tables in frequently executed code -> CTEs, subqueries or reuse per session; upper-case identifiers -> lower case; `timestamp(0)` -> `date_trunc('second', x)`; `trust` authentication over TCP -> `scram-sha-256`; `psql -W`.
+- **Indexes:** B-tree is the default (`<`, `<=`, `=`, `>=`, `>`, `BETWEEN`, `IN`, `IS NULL`, anchored `LIKE 'foo%'` only in the C locale or with a special operator class); Hash only `=`; GIN for arrays and multi-value data; GiST and SP-GiST for geometric and nearest-neighbour; BRIN for very large tables whose values follow physical row order. `CREATE INDEX` blocks writes while it builds; **`CREATE INDEX CONCURRENTLY`** does not, needs two table scans, cannot run inside a transaction block, and on failure leaves an `INVALID` index that you must drop or `REINDEX ... CONCURRENTLY`. Not supported on a partitioned table (build per partition, then the partitioned index).
+- **Reading `EXPLAIN (ANALYZE, BUFFERS)`:** `EXPLAIN ANALYZE` really executes the statement (wrap DML in `BEGIN; ... ROLLBACK;`); costs are arbitrary units, times are milliseconds; multiply per-loop figures by `loops`; a large gap between estimated and actual rows usually means stale statistics; `Buffers: shared hit=... read=...` separates cache from disk reads; times exclude network transfer.
+- **PgBouncer pool modes:** session (a server connection for the whole client session), transaction (only during a transaction; `SET`, `LISTEN`, session advisory locks, `PREPARE` and temp tables with `PRESERVE ROWS` are not allowed; protocol-level prepared statements work only if `max_prepared_statements` is non-zero), statement (autocommit only). (Our judgment: serverless apps often sit behind transaction mode, so check the driver's prepared-statement setting.)
+
+## 6. SQLite (sqlite.org WAL and pragma pages)
+- `PRAGMA journal_mode=WAL` (persistent; default is DELETE): readers and writers do not block each other and there are far fewer fsyncs; **all processes must be on the same host, and WAL does not work over a network filesystem**; adds `-wal` and `-shm` files; automatic checkpoint at 1,000 pages (about 4 MB), `PRAGMA wal_autocheckpoint` to change; overlapping readers can starve checkpoints; about 1-2% slower on read-mostly loads.
+- `PRAGMA foreign_keys` is OFF by default and is per connection: set it on every connection. `PRAGMA busy_timeout = ms` sets how long to wait for a lock. `synchronous=NORMAL` with WAL syncs only at checkpoints (the docs state the behaviour; the combination of WAL, NORMAL, foreign keys ON and a busy timeout is a common practice, not a docs recommendation).
+- **Version check:** the WAL page describes a "WAL-reset" bug affecting 3.7.0 through 3.51.2 that can corrupt a database when two or more connections write or checkpoint at the same instant; fixed in 3.51.3 (2026-03-13), with backports 3.44.6 and 3.50.7. Check the SQLite version that ships with the runtime or driver.
+
+## 7. Not read (open)
+Next.js Cache Components model, Astro directives reference, Netlify, Fly.io, Supabase docs, Postgres connection-count sizing, V8 and Node performance guides, bundle-analysis tool docs, HTTP/2 and HTTP/3 specifics, Core Web Vitals field-data tooling beyond `web-vitals`.
+
+
+---
+
+<!-- references/agent-cost-and-context-reference.md -->
+
+# Coder: agent session cost, context files, subagents and prompt caching (read from the docs)
+
+Added 2026-11-24 (Phase 4 upgrade). Read from code.claude.com (best-practices, memory, costs, sub-agents), platform.claude.com (prompt-caching) and agents.md. Pages were partly verbatim and partly model-summarised; items marked **(unverified)** are from a summarised part. Product settings change often: check `/help` and the docs for the installed version. Use with `coder-efficiency.md`.
+
+## 1. Lint the files the agent loads every session
+`node scripts/context-lint.mjs <folder-or-file> [--md]`. The consulting agent runs it and shows the output. Checks `CLAUDE.md`, `CLAUDE.local.md` and `AGENTS.md`: `too-long` (over 200 lines), `broken-import` (an `@path` that does not exist: FAIL, because that guidance silently never loads), `import-too-deep` (over four hops), `no-check-command`, `duplicate-line`, `vague-rule`, and `broken-path` (a backticked path that does not exist relative to the file, the repository root or the enclosing skill folder). `--md` checks every markdown file for broken paths only. Treat `--md` as a candidate list: on qurn it listed 125 paths, and only a few were truly stale (the rest were example paths for other projects or historical notes). The linter cannot judge whether a rule is worth its tokens: apply the test in section 2.
+
+## 2. What goes in CLAUDE.md / AGENTS.md (Claude Code docs)
+- Target **under 200 lines per file**; run `/init` for a first draft and `/doctor` for cut suggestions (`/doctor prompt-audit` flags stale or contradictory instructions). Personal preferences go in `CLAUDE.local.md` (gitignored).
+- **Test each line:** "Could the agent find this by reading the code?" and "Would it actually go and look?" If both are yes, delete it. The most useful line is the command that runs the check (test, lint, typecheck), because the agent can then verify its own work.
+- **Loading:** `CLAUDE.md` and `CLAUDE.local.md` load from the working directory and every parent, concatenated root-first; files in subdirectories load when the agent reads or edits there; HTML block comments are stripped. `@path` imports resolve relative to the importing file, up to four hops, and are skipped inside code spans and fenced blocks. Verify what loaded with `/context all`.
+- **AGENTS.md** (an open "README for agents", now stewarded by the Agentic AI Foundation under the Linux Foundation; supported by Codex, Cursor, Copilot's coding agent, Gemini CLI, Zed, VS Code and many others): plain Markdown at the repo root with no required fields; suggested sections: overview, build and test commands, code style, testing, security, PR instructions, deployment. The closest file to the edited one wins, and an explicit chat instruction beats all. Claude Code reads `AGENTS.md` only when no `CLAUDE.md` exists in or above the working directory (version 2.1.277 or later); to share one file, import it from `CLAUDE.md` with `@AGENTS.md` (on Windows) or symlink it.
+- Put `deny` permission rules for secrets in settings, not in prose: deny rules hold in every mode, for example `Read(./.env)`.
+
+## 3. Cost levers (Claude Code costs page)
+- Reported averages: about $13 per developer per active day, $150-250 per developer per month, under $30 per active day for 90% of users (an enterprise-wide average, not a budget).
+- `/clear` between unrelated tasks (`/rename` first if you will resume); `/compact <what to keep>` steers compaction, and a CLAUDE.md section titled "Compact instructions" does the same. After two failed corrections, `/clear` and write a better prompt instead of piling on.
+- Use Sonnet for most coding and keep Opus for hard problems; use `model: haiku` for simple subagent jobs. Thinking cannot be switched off on the newest models, and `MAX_THINKING_TOKENS` only affects fixed-budget models.
+- Cut noisy tool output before it reaches the context: a PreToolUse hook can keep only the last lines of test output (the page's example uses `tail -n 100`).
+- Cache lifetime in the app is about one hour on a subscription and five minutes on an API key (costs page). Our inference: a pause longer than that probably means the next turn pays full price again.
+- Agent teams cost far more (the page cites about 7x the tokens when teammates run in plan mode).
+
+## 4. Subagents (sub-agents page)
+- Each subagent has its own context window and returns only a summary, so use one for work that reads many files (search, review) and keep the main thread small. Its usage still counts toward the same limits.
+- A subagent file has `name` and `description` (required) and optional `tools` (an allowlist), `disallowedTools` (a denylist applied first), `model` (`haiku`, `sonnet`, `opus`, `fable`, a full ID, or `inherit`), `maxTurns`, `permissionMode`, `effort`, `memory`, `isolation: worktree`, `omitClaudeMd`. A read-only reviewer is `tools: Read, Grep, Glob`. Unknown fields are silently ignored, so a typo does nothing.
+- Model order: the per-call parameter, then the file's `model`, then `CLAUDE_CODE_SUBAGENT_MODEL`, then the main conversation's model. Claude Code warns at startup when subagent descriptions together exceed 15,000 tokens, because they are always in context.
+
+## 5. Prompt caching (API docs; the last part of the page was not read)
+- The cache holds a prefix. Default lifetime 5 minutes, refreshed on every read; optional 1 hour (`"ttl": "1h"`). **Prices:** a 5-minute write costs 1.25x the base input price, a 1-hour write 2x, a read 0.1x (0.05x for Opus 5.5 and Sonnet 5.5, 0.025x for Fable 5.2 and 5.1).
+- **Minimum cacheable prompt:** 512 tokens for Opus 5.5, Opus 5, Sonnet 5.5, Fable 5 and Haiku 5.5; 1,024 for Opus 4.8, Sonnet 5 and Sonnet 4.6; 2,048 for Opus 4.7; 4,096 for Opus 4.6, Opus 4.5 and Haiku 4.5. A shorter prompt is processed normally and simply not cached, with no error.
+- **What breaks the cache:** any byte difference in the cached prefix; changing tool definitions (invalidates tools, system and messages); toggling web search or citations; adding or removing images or changing `tool_choice` (invalidates messages); changing thinking parameters or `output_config.effort`. So never put a timestamp, a random id or a per-user string before the last breakpoint.
+- **Breakpoints:** up to 4 explicit `cache_control` breakpoints; the lookback checks 20 blocks; automatic caching uses one of the 4 slots (a fifth gives a 400 error). Put the breakpoint on the last block that stays identical between requests, not on the new user message.
+- A cache entry exists only after the first response starts, so wait for it before firing parallel requests; `max_tokens: 0` writes the cache without billing output tokens. Measure with the usage fields (cache read and cache creation tokens) rather than assuming a hit.
+
+## 6. CHECK lines
+- `node scripts/context-lint.mjs <repo>` has no FAIL and the instruction file is under 200 lines.
+- `node scripts/perf-scan.mjs <src>` has no FAIL, and every WARN is fixed, suppressed with a reason, or measured and dismissed.
+- Cache hit tokens are non-zero on the second request of a repeated prompt.
+
+## 7. Not read (open)
+The end of the prompt-caching page, hooks, skills and model-config pages, `permission-modes`, auto-memory details (the limits figure for subdirectory files came back garbled), and any third-party agent framework docs.
 
 

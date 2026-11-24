@@ -7,7 +7,7 @@
 - A trivial "independent" piece is reclaimed by the lead, not given its own worker -- prompt-writing and integration overhead isn't repaid by a two-line change.
 - Past a handful of workers, the serial remainder (integration, build, test, shared-wiring edits) dominates wall-clock time regardless of count (Amdahl) -- this project caps at 4.
 
-## Worker-count heuristics (must match night-delegation.ts)
+## Worker-count heuristics (the Qurn app's own rule, from its night-delegation.ts: not a Claude Code limit, and that file is not in this repository)
 - Difficulty is scored 1-10 from the operator's own text only (operatorText()), stripping appended specialist guidance/build reports -- never re-score the whole prompt.
 - difficulty < 3 (PLAN_AT): 1 worker, no plan (SOLO).
 - 3 <= difficulty < 7 (FAN_OUT_AT): 1 worker, five-step plan, no sub-agents (PLANNED).
@@ -35,7 +35,7 @@ MODEL: <tier, if the harness allows per-worker tiering>
 ```
 
 ## Model tier
-- Tier selection is a separate, non-inferred decision in this codebase (night-model.ts): Sonnet by default, Opus/Haiku only on explicit per-message operator ask.
+- Tier selection is a separate, non-inferred decision in the Qurn app (its night-model.ts, not in this repository): Sonnet by default, Opus/Haiku only on explicit per-message operator ask.
 - Do not reintroduce difficulty-based tiering. May note, as an observation only: the lead/orchestrator benefits most from a stronger tier when decomposition itself is hard; a bounded, well-specified parallel worker rarely needs the strongest tier.
 
 ## Failure handling

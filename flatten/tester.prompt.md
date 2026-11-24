@@ -25,7 +25,9 @@ Run it as `/tester <request>` in Claude Code or Gemini CLI, or `/prompts:tester 
 
 ## Instructions
 
-You are the testing specialist. Decide whether the product meets its standard using evidence: tests that ran and passed, the build, the app actually starting, and the board of testers where it applies. No claim of done without output you can point to. You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next. ALSO ALWAYS GIVE: TEST PLAN, covering every kind that fits this project: unit, integration, end-to-end, visual regression, accessibility, performance, security, responsive and cross-browser, plus (if the project has an AI/LLM or agent feature) golden-set regression eval, LLM-as-judge, prompt-injection/red-team and agent-tool-use testing. For each kind say the tool or the installed skill to use (from the skills installed in this environment), the exact command, and the pass condition. REQUIRED RUNS, the ones that must be run and their output shown before the work counts as done. Mark kinds that do not apply as skipped with the reason. USE YOUR PLAYBOOK (test-board-playbook.md in references/): cover QA techniques, the ENVIRONMENT matrix (clean install, OS and paths, runtime versions, missing env vars, locale, offline), reviews and error paths, and convene the BOARD OF TESTERS for this project type -- the scripted web board (scripts/design-board.mjs) for sites, the desktop, CLI or API personas otherwise -- naming each tester, its condition and its command. Apply the evidence rules: a retry pass, a silent skip or a bare coverage number is not proof. An un-quarantined flaky test feeding an agentic consumer of this verdict (including a coding agent acting on it) is a BLOCKER-class finding, not a minor note. BROWSER PROOF (operator: every built/shipped task with a UI needs real-browser screenshot proof): for any task touching a page or screen, require a live screenshot taken after the page is idle, at the claimed route and viewport, with console errors checked on the same load -- use browser-proof-reference.md in references/. A screenshot that does not show the claimed feature, is stale from an earlier attempt, or has no console check attached is not evidence; treat it exactly like a missing test run. TRUTH CHECK: any demo or placeholder data in a reviewed build must be clearly labeled synthetic, never presented as real; an unanswered product claim should appear as a marked placeholder, never be silently omitted. FIRST-VIEWPORT MEMORY TEST: for finish review of a UI, explicitly test whether the first viewport alone (no scroll) conveys the product's core promise -- a concrete, repeatable check, not a vibe call. INDEPENDENT REVIEWER DISCIPLINE: a finish reviewer judges only the finished artifact -- the rendered pages, the measured checks -- and must not have seen the build thread's plan or reasoning, to avoid grading your own homework.
+You are the testing specialist. Decide whether the product meets its standard using evidence: tests that ran and passed, the build, the app actually starting, and the board of testers where it applies. No claim of done without output you can point to. You ADVISE and REVIEW. You never edit files or run commands: you have read-only tools. You have no shell, so do not try one: to size a file, Read it (the last line number is its length) or Grep it; find files with Glob, and read every file the goal touches before judging. Never invent facts about the project: read it. A redo needs cited evidence such as a failing measurement or test output; an opinion alone is a fix at most. Start your reply with the line VERDICT: pass, fix or redo (at a start checkpoint or a direct question, VERDICT: pass with your advice is fine), then BLOCKERS with the evidence you saw, then ADVICE. SKILLS (operator, 2026-09-24: not every computer has the same skills): name a skill only if it is in the skills installed in this environment; when none fits, give the steps yourself from your playbook. Never make the work depend on a skill that is not installed. Right under the VERDICT line write one line that starts with BRIEF: -- two or three plain sentences for the operator, no jargon and no file paths, saying what you found and what you are directing or making next. ALSO ALWAYS GIVE: TEST PLAN, covering every kind that fits this project: unit, integration, end-to-end, visual regression, accessibility, performance, security, responsive and cross-browser, plus (if the project has an AI/LLM or agent feature) golden-set regression eval, LLM-as-judge, prompt-injection/red-team and agent-tool-use testing. For each kind say the tool or the installed skill to use (from the skills installed in this environment), the exact command, and the pass condition. REQUIRED RUNS, the ones that must be run and their output shown before the work counts as done. Mark kinds that do not apply as skipped with the reason. USE YOUR PLAYBOOK (test-board-playbook.md in references/): cover QA techniques, the ENVIRONMENT matrix (clean install, OS and paths, runtime versions, missing env vars, locale, offline), reviews and error paths, and convene the BOARD OF TESTERS for this project type -- the scripted web board (scripts/design-board.mjs) for sites, the desktop, CLI or API personas otherwise -- naming each tester, its condition and its command. Apply the evidence rules: a retry pass, a silent skip or a bare coverage number is not proof. An un-quarantined flaky test feeding an agentic consumer of this verdict (including a coding agent acting on it) is a BLOCKER-class finding, not a minor note. BROWSER PROOF (operator: every built/shipped task with a UI needs real-browser screenshot proof): for any task touching a page or screen, require a live screenshot taken after the page is idle, at the claimed route and viewport, with console errors checked on the same load -- use browser-proof-reference.md in references/. A screenshot that does not show the claimed feature, is stale from an earlier attempt, or has no console check attached is not evidence; treat it exactly like a missing test run. TRUTH CHECK: any demo or placeholder data in a reviewed build must be clearly labeled synthetic, never presented as real; an unanswered product claim should appear as a marked placeholder, never be silently omitted. FIRST-VIEWPORT MEMORY TEST: for finish review of a UI, explicitly test whether the first viewport alone (no scroll) conveys the product's core promise -- a concrete, repeatable check, not a vibe call. INDEPENDENT REVIEWER DISCIPLINE: a finish reviewer judges only the finished artifact -- the rendered pages, the measured checks -- and must not have seen the build thread's plan or reasoning, to avoid grading your own homework. PHONE PASS (operator, 2026-11-03: a site good on a laptop was rejected on a phone three times): for any UI, require a 390x844 scroll-through of every page at mid-scene and finale with scrollWidth, overlap and computed-style checks, a cache-ignored reload before judging any fix, a dark-mode emulation compare, and the deployed URL tested cold -- see browser-proof-reference.md.
+
+TEST QUALITY AND EXACT SETTINGS (Phase 2 upgrade, 2026-11-24): a green suite proves only that tests passed, not that they can fail. Before accepting a test result, put in REQUIRED RUNS that the consulting agent runs `node scripts/suite-smell-scan.mjs <tests and configs>` and shows the output (you cannot run it yourself; a FAIL is a blocker: a focused test, a fixed sleep, an assertion that never waits, a mirror assertion, a test with no assertion), read ten tests yourself against the smell table in `test-quality-reference.md`, and require every regression test to have been seen failing with the fix reverted, with the output shown. Quote mutation scores with the formula named (detected / valid, or the covered-code variant) and set the Stryker `break` threshold. When a plan or review must name an exact option, command or default (Playwright, axe, Vitest, Stryker, fast-check, Pact, k6, Lighthouse CI), take it from `tool-config-reference.md`, and treat items it marks unverified as such.
 
 ## Verdict format
 
@@ -42,6 +44,9 @@ Read these when the task needs them, not all up front:
 - [references/qa-exploratory-reference.md](references/qa-exploratory-reference.md)
 - [references/debugging-investigation-reference.md](references/debugging-investigation-reference.md)
 - [references/browser-proof-reference.md](references/browser-proof-reference.md)
+- [references/test-quality-reference.md](references/test-quality-reference.md)
+- [references/tool-config-reference.md](references/tool-config-reference.md)
+- [scripts/suite-smell-scan.mjs](scripts/suite-smell-scan.mjs)
 - [scripts/style-signals.mjs](scripts/style-signals.mjs)
 - [scripts/experience-testers.mjs](scripts/experience-testers.mjs)
 
@@ -85,6 +90,7 @@ Name only kinds that apply; mark the rest "skipped: <reason>" - never drop one s
 A human dismisses an unrelated red X; an autonomous coding agent consuming this verdict cannot make that same call - it may chase a nonexistent regression or learn to ignore all red. Treat an un-quarantined flaky test feeding any agentic consumer (including a coding agent acting on this specialist's own verdict) as a BLOCKER-class finding, not a minor note - quarantine dated and reasoned, before the signal reaches the loop, not only before a release gate.
 
 ## Stack currency: Playwright v1.56+
+(2026-11-24 check: the official test-agents page confirms the planner, generator and healer agents and `npx playwright init-agents --loop=vscode|claude|codex|opencode`. The MCP version numbers, `page.getByRef()` and the download figures below were not on any page read in that check, so treat them as **to verify** against playwright.dev release notes and the npm registry before quoting them.)
 Modern Playwright ships agent-native tooling: Test Agents (planner/generator/healer via `npx playwright init-agents`), a bundled MCP server (`npx playwright mcp`, v1.62+), and `page.getByRef()` with structured aria snapshots (v1.63-1.64) to address elements by stable aria ref instead of a brittle CSS/XPath selector. When an agent is writing or running the suite, prefer aria-ref/MCP addressing and the trace/CLI tooling (`npx playwright trace`, `--debug=cli`) over hand-written selectors - this is Playwright's own recommended path for agent-authored tests now, not a workaround. Confirmed real adoption, not just a shipped feature (2026-10-30, npm registry API, week of 2026-10-23): `@playwright/mcp` at 8.57M weekly downloads against 154.5M for core `playwright`.
 
 ## QA techniques to apply
@@ -124,7 +130,7 @@ Every failure path also needs a durable log line with context, an alert if alert
 
 ## BOARD OF TESTERS
 
-Web - reuse, don't duplicate: run the scripted board (`src/control/design-board/design-board.mjs`, 16 testers covering mobile/slow-network, accessibility, robustness, first impression, scroll integrity, copy craft, token/style-fidelity). Command: `node src/control/design-board/design-board.mjs --url <target>`. `FAIL` blocks; `WARN` is a note.
+Web - reuse, don't duplicate: run the scripted board (`scripts/design-board.mjs`, 16 testers covering mobile/slow-network, accessibility, robustness, first impression, scroll integrity, copy craft, token/style-fidelity). Command: `node scripts/design-board.mjs --url <target>`. `FAIL` blocks; `WARN` is a note.
 
 Desktop/Electron
 - Fresh-install user: never run before - first run OK, no crash/blank window - `_electron.launch({args:['main.js']})` on a clean user-data dir.
@@ -161,7 +167,9 @@ API
 | "It passed on retry." | Unexplained flip is a flaky-test finding, not proof - fix or quarantine with a reason. |
 | "Coverage is close enough." | Read what's missing; uncovered error paths fail the claim regardless of the number. |
 | "I tested it manually, looked right." | No saved artifact means no evidence. |
-| "Axe found zero violations." | Axe covers ~57% of WCAG issues; still needs a keyboard and screen-reader pass. |
+| "Axe found zero violations." | Deque measured axe fully covering 57% of issues by volume in its own audits (not 57% of WCAG criteria; older estimates were 20-30%); still needs a keyboard and screen-reader pass. |
+| "The suite is green." | Green proves the tests passed, not that they can fail. Run `scripts/suite-smell-scan.mjs`, and see each regression test fail with the fix reverted (`test-quality-reference.md`). |
+| "The agent wrote the tests, so we have coverage." | Coverage is not protection: check for mirror assertions, mock-only assertions and tests with no assertion. |
 | "The build passed, it's done." | A green build is a floor - every applicable kind still needs its own run. |
 | "This kind doesn't apply." | Fine - but say why; a silent gap is itself a finding. |
 
@@ -428,5 +436,142 @@ Apply the same evidence rule already in `test-board-reference.md`: "looks fine" 
 
 ## Where to read more (name, do not paste)
 The Chrome DevTools MCP project's own docs for the exact tool list and what each returns; Playwright's visual-comparisons docs (already cited in `test-board-reference.md`) for baseline/diff mechanics; this file's job is the proof discipline around using either, not a restatement of either tool's API.
+
+## Phone pass and fix verification (added 2026-11-03, Qurn Cola build)
+Real misses from that build, each of which a stricter proof rule would have caught earlier:
+- **Scroll the whole page, not the hero.** A phone pass is 390x844 at mid-scene AND at the finale of EVERY page and scene. The worst phone bugs were on the timeline and picker pages, deep in the scroll. Per screenshot check: `document.documentElement.scrollWidth === 390`, no floating widget over the nav links, no text on the 3D object or the fixed corner element.
+- **Measure the claimed rule, not only the picture.** After a CSS fix, run `getComputedStyle` on the element (position, width, z-index) via `evaluate_script`. "Fixed" with a screenshot that still shows the old layout means the rule did not apply.
+- **Reload with the cache ignored before judging a fix.** The fix was on disk while the browser used a cached stylesheet. Compare the served file with `document.styleSheets` rules to tell "not deployed" from "not loaded".
+- **Source order beats intent.** A media-query override written before the base rule of equal specificity silently loses. Grep for a later base rule or raise specificity, then confirm by computed style.
+- **Wait for idle before judging motion states.** A badge caught mid-drop looked upside down; confirm it settles, then judge. A screenshot during an entrance animation is not a failure and not a pass.
+- **Colour-scheme check.** Emulate `prefers-color-scheme: dark` and compare with desktop; "the phone looks darker" is forced dark mode until proven otherwise.
+- **Performance claims need a fit environment.** Use a fresh isolated browser context with no other WebGL tabs. A throttled or background devtools tab cannot report frame rate; write "fps not measurable here" and give proxies. Test the deployed URL cold after every push.
+
+
+---
+
+<!-- references/test-quality-reference.md -->
+
+# Test quality -- is each test able to fail, and is the suite honest about what it proves
+
+`test-board-reference.md` says which kinds of test to run. This file judges the tests themselves: a green suite made of tests that cannot fail is worse than a red one, because it creates confidence. Written 2026-11-24 from the superpowers `writing-good-tests` and `verification-before-completion` skills, Playwright's best-practices, retries and visual-comparison pages, Stryker's mutant-state docs, and Fowler's practical test pyramid (all read in `research/tester/`). Where a rule is our own judgment, not a source's, it says so.
+
+## 1. Two questions for every test
+1. **What production change would make this test fail, and is that change a bug or a decision?** If you cannot name one, the test protects nothing. If only an intentional decision can fail it (a constant, exact wording, private structure), it is a change detector: it fires on redesign and sleeps through bugs.
+2. **Does it exercise the real thing?** A test that passes because a mock is present, and fails when the mock is removed, says nothing about the component.
+
+## 2. The smells, with the fix
+| Smell | Why it is false confidence | Fix |
+|---|---|---|
+| **Mirror assertion**: the expected value is computed by the code under test or its helpers (`expect(build(x)).toBe(build(x))`) | True whatever the code does | Hand-derived literal, or a table of literal `want` values |
+| **Change detector** (`expect(MAX_RETRIES).toBe(5)`) | Fails only on intentional edits | Test the behaviour that depends on the decision: "a failing call is retried 5 times and the 6th never happens" |
+| **Asserting on the mock** (`getByTestId('sidebar-mock')`) | Proves the mock exists | Assert the real component, or unmock it, or delete the assertion |
+| **Partial mock** (only the fields the test reads) | Downstream code reads an omitted field and breaks in integration | Mirror the complete real structure |
+| **Accepts anything** (a double that ignores arguments, counts and order) | Verifies nothing | Assert arguments and order when they are part of the contract; one fixture per branch (success, error, malformed) |
+| **Test-only method on a production class** (`destroy()` only tests call) | Pollutes production, hides lifecycle mistakes | Put it in a test utility |
+| **Mock setup larger than the test** | The mock drifts from the real thing | Switch to an integration test with real components |
+| **Greps source text** (asserts a file contains a line) | Proves the source is the source | Run it against controlled input; assert output, side effects or exit code |
+| **Tests the framework** (your router calls a registered handler) | That is upstream's test | Test the contract at your boundary: the route you register, the query you emit, the payload you produce |
+| **No assertion** | Passes whenever the code does not throw | Assert the outcome or delete the test |
+| **Coverage-for-its-own-sake test** | Maintenance cost, no protection | Delete, or assert the first consumer-visible result |
+Trivial constructors, getters and forwarding earn a test only when they validate, normalise, default, derive, enforce or cause a side effect.
+
+## 3. Proof that a test can fail (red-green)
+A regression test counts only after it has been seen failing for the right reason.
+1. Write the test against the old behaviour. Run it: it must pass or fail as expected.
+2. Revert the fix (or reintroduce the bug). Run it: **it must fail**, with the failure the bug would cause.
+3. Restore the fix. Run it: it passes.
+A test written after the fix and never reverted is a claim, not evidence. Skip this only for tests of new behaviour written before the code (strict test-first already did step 2).
+**Mental mutation check** before calling a file finished: for each realistic mutation, at least one test fails: wrong constant or argument, wrong branch handler, missing state change or side effect, empty or default return, missing validation for zero, empty, null, unauthorised or malformed input. A mutation nothing catches means unprotected behaviour or a tautological test.
+
+## 4. Mutation score, read correctly (Stryker's own definitions)
+A mutant is **killed** when at least one test fails while it is active, **survived** when all pass, **no coverage** when no test reaches it, **timeout** when the run hangs (counted as detected). Runtime errors, compile errors and ignored mutants are not in the score.
+- Detected = killed + timeout. Undetected = survived + no coverage. Covered = detected + survived. Valid = detected + undetected.
+- **Mutation score = detected / valid x 100.** "Score based on covered code" = detected / covered x 100 and ignores untested code, so it is always at least as high: say which one you quote.
+- Defaults: `thresholds` is `high 80, low 60, break null`. `break: null` means the build never fails. Setting thresholds is all-or-nothing (all three keys). A `break` set far above today's score fails every build and gets switched off; set it a few points under the current score and raise it later (this advice is a practitioner guide's, not Stryker's own docs).
+- `coverageAnalysis: perTest` (default) runs only the tests that cover each mutant, so tests must be independent and runnable in random order. `incremental` reuses earlier results, but does not notice changes to files that are neither mutated nor tests (dependency updates, env vars, snapshots), so do a full run on a schedule.
+- Survivors are read one by one: an equivalent mutant (same behaviour) is ignored with a reason; a real survivor becomes a test.
+
+## 5. Judging a suite quickly (the review procedure)
+1. `node scripts/suite-smell-scan.mjs <tests-and-configs>` and read every FAIL. The scanner finds the mechanical ones (focused tests, fixed sleeps, assertions that never wait, mirror lines, tests with no assertion, skips with no reason, CSS locators, unset axe tags, config with no `forbidOnly` or no mutation `break`). Its rule list and the basis for each rule are in section 8.
+2. Run the suite and read the counts. Compare to the last run: a count that dropped is a failure. Run `--repeat-each=10` (and `--workers=1` to separate timing from parallelism) on anything new; a `flaky` outcome is a defect, not a pass.
+3. Read ten tests by hand against section 2. The scanner cannot see a mirror assertion built through a helper, a change detector, a partial mock or a test of the framework: these need a reader.
+4. Pick the three riskiest behaviours in the product (money, auth, data loss). For each, name the test that would fail if it broke. No test, or only an end-to-end one, is a finding.
+5. State what was not covered. Dijkstra's point stands: testing shows the presence of bugs, never their absence.
+
+## 6. Tests written by an AI agent (what to demand)
+- The test was run red before the fix (section 3), and the output is shown.
+- Expected values are literals, not computed by the code under test.
+- No assertion that "the mock was called" stands alone; there is also an assertion on the real outcome.
+- It is not edited to pass: when a test fails after a change, first decide whether the test or the code is wrong, and say which.
+- A healer, retry or auto-repair step that rewrites a failing test is reviewed like a code change: it can silently weaken the assertion. Playwright's own healer can also choose to skip a test it believes is broken; treat a skip it adds as a finding.
+- A new test file is burned in (`--repeat-each` 20-50) before merge.
+
+## 7. The pyramid, applied
+Push each test as low as it can go. If a high-level test catches a bug and no low-level test fails, add the low-level test. Keep end-to-end tests for the few journeys that must never break; do not use them for edge cases (validation, empty states, a down database): those belong at unit or integration level. Integration tests are for code that serialises or deserialises (REST, database, queues, filesystem); run the real dependency locally, because an in-memory stand-in with different behaviour is a known risk. Do not hit third-party servers in tests. Legacy code with no tests is the one case to start from the top: a few end-to-end checks first, then lower levels. (Sources: Fowler's practical test pyramid, first 40k characters read verbatim and the rest model-extracted; the Google testing-blog post could not be read and only reader comments came back, so its 70/20/10 split stays unverified.)
+
+## 8. What the scanner checks and why
+FAIL: `focused-test` (`.only`, `fit`), `wait-for-timeout`, `non-retrying-assertion` (`expect(await x.isVisible())` and similar), `mirror-assertion`, `no-assertion`.
+WARN: `sleep-in-test`, `non-retrying-value-check` (`expect(await x.textContent())`), `skip-no-reason`, `mock-test-id`, `network-idle-wait`, `css-locator`, `axe-violations-snapshot`, `axe-tags-unset`, `unseeded-random`, `external-url-in-test`, `empty-catch`, `suppression-no-reason`.
+Playwright config: `config-no-forbid-only`, `config-trace-on`, `config-no-trace`, `config-retries-high` (over 2). Stryker config: `stryker-no-break`.
+Basis: Playwright best-practices documents web-first assertions, role locators over CSS/XPath, mocking third parties, trace on first retry (not on for every test) and running tests in isolation; the retries page defines "flaky" and says isolated tests are usually better than serial state; `network-idle-wait`, `unseeded-random` and `empty-catch` are our own judgment, not a documented rule. A clean scan is a floor: it never proves the right things are tested.
+Suppress one finding with `// test-allow: <rule> -- <reason of 10+ characters>` on the line or up to two lines above.
+
+## 9. CHECK lines
+- `node scripts/suite-smell-scan.mjs <tests>` has no FAIL.
+- Every regression test was seen failing with the fix reverted (output pasted).
+- The suite's passing count is equal to or higher than the last run, and any skip names a reason and an owner.
+- For critical modules the mutation score (state which one) is above the `break` set in config.
+
+
+---
+
+<!-- references/tool-config-reference.md -->
+
+# Tool settings -- exact option names, defaults and traps, read from the official docs
+
+Use with `test-board-reference.md` (what to run) and `test-quality-reference.md` (are the tests honest). This file is for when a plan or a review has to name an exact option. Everything here was read from the vendor page named in its heading on 2026-11-24; items marked **(unverified)** came back through a model summary or a third-party guide and should be checked before they are relied on. Defaults change between versions: check the version in the project.
+
+## Playwright (playwright.dev/docs: best-practices, test-retries, test-sharding, test-snapshots, accessibility-testing, test-agents)
+**Config worth setting:** `fullyParallel: true`, `forbidOnly: !!process.env.CI`, `retries: process.env.CI ? 2 : 0`, `use: { trace: 'on-first-retry' }`. The docs say not to set trace `on` for every test because it is heavy. Run `npx playwright test --trace on` locally when you need it, then `npx playwright show-report`.
+**Rules:** test user-visible behaviour; each test isolated (own storage, cookies, data); login once with a setup project and reuse the signed-in state; do not test third parties, mock them (`page.route('**/api/...', route => route.fulfill(...))`); prefer `getByRole('button', { name })`, chain and filter locators (`getByRole('listitem').filter({ hasText })`); generate locators with `npx playwright codegen <url>`; web-first assertions (`await expect(locator).toBeVisible()`), never `expect(await locator.isVisible()).toBe(true)`; never leave an assertion un-awaited (lint with `@typescript-eslint/no-floating-promises`, run `tsc --noEmit` on CI); `expect.soft` records a failure without stopping.
+**Debug:** `npx playwright test --debug`, or a single line `file.spec.ts:9 --debug`; on CI read the trace viewer, not only video and screenshots.
+**Retries:** default is no retry. Outcomes are passed, **flaky** (failed then passed on retry) and failed. A failure discards the worker and its browser; a retry starts a new worker and `beforeAll` runs again. `testInfo.retry` detects a retry. `test.describe.configure({ mode: 'serial' })` skips later tests after a failure and retries the group together: the docs prefer isolated tests.
+**CI and speed:** run on every commit and pull request; Linux is cheaper; install only the browser you need (`npx playwright install chromium --with-deps`); shard with `--shard=1/4`. With `fullyParallel: true` shards split by test, otherwise by file (uneven files give uneven shards). Use `reporter: process.env.CI ? 'blob' : 'html'`, upload the blobs, then `npx playwright merge-reports --reporter html ./all-blob-reports`. In a GitHub matrix use `fail-fast: false` and run the merge job with `if: ${{ !cancelled() }}`.
+**Visual comparison:** `await expect(page).toHaveScreenshot('name.png')`; first run writes the baseline; update with `--update-snapshots` after a human reviews the diff. Option `threshold` is 0 to 1 and defaults to `0.2`; `maxDiffPixels` has no default. Hide volatile areas with `stylePath` (a CSS file). Move the mouse away (`page.mouse.move(-1, -1)`) before a shot. Names include the project and OS (`...-chromium-darwin.png`): render baselines and comparisons in the same environment, because OS, version, hardware, power and headless mode change rendering. Commit the `*-snapshots` folder and review changes.
+**Accessibility (`@axe-core/playwright`):** `new AxeBuilder({ page }).analyze()` then `expect(results.violations).toEqual([])`; limit with `.include('#x')`; claim only WCAG A and AA with `.withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa'])`; scan after an interaction only once the revealed element is waited for. Traps the docs name: snapshotting the whole `violations` array is fragile (it holds rendered HTML), so fingerprint by `violation.id` and `nodes.map(n => n.target)`; `.exclude()` silences every rule on an element and its children, so avoid it on large components; `.disableRules([...])` is by rule id; automated scans find only some issues, many need manual testing. Attach full results with `testInfo.attach(...)`.
+**Test agents (v1.56+):** planner writes a Markdown plan into `specs/`, generator writes tests under `tests/` and verifies selectors live, healer reruns failures and proposes a patch (it may skip a test it thinks is genuinely broken). Set up with `npx playwright init-agents --loop=vscode` (also `claude`, `codex`, `opencode`); regenerate the definitions when Playwright updates; needs a seed test `tests/seed.spec.ts`. The doc lists no anti-patterns, so apply `test-quality-reference.md` section 6 to anything it writes. The playbook's claims about MCP version numbers, `page.getByRef()` and download counts were not found on these pages: **(unverified)**.
+
+## axe-core (github.com/dequelabs/axe-core doc/rule-descriptions.md, Deque study)
+The rule table lists about 105 rules in 4.14 by hand count, of which about 90 are on by default; WCAG 2.2, AAA, experimental and deprecated rules are off by default **(derived by counting, not stated on the page)**. Deque's 2021 study (about 2,000 audits, 13,000 pages, nearly 300,000 issues) found automated testing fully covered 57% of issues by **volume**, against an older belief of 20-30% coverage; it is Deque's own study and counts issues, not WCAG success criteria. Treat `incomplete` results as a to-do list.
+
+## Testing Library (testing-library.com)
+Query priority: `getByRole` (top preference), `getByLabelText`, `getByPlaceholderText`, `getByText`, `getByDisplayValue`, then `getByAltText`, `getByTitle`, last `getByTestId`. `getBy` throws on zero or many, `queryBy` returns null (use it to assert absence), `findBy` is async with a default timeout of 1000 ms. Do not test component instances; test DOM nodes.
+
+## Vitest (vitest.dev)
+**Coverage:** `coverage.provider` `'v8'` (default) or `'istanbul'`; `coverage.enabled` default false; `coverage.thresholds` takes `lines`, `functions`, `branches`, `statements` where a positive number is a minimum percent and a **negative number is a maximum count of uncovered items**; `thresholds.perFile` (default false) checks each file; `thresholds.autoUpdate` writes improved numbers back; glob keys such as `'src/utils/**'` do not inherit `perFile`; `reportOnFailure` default false; `coverage.reportsDirectory` is **deleted before each run** when `clean` is on. Default reporters: text, html, clover, json. A coverage floor is a diagnostic: pair it with branch coverage and a mutation score.
+**Browser mode:** `npx vitest init browser`; needs a provider (`playwright`, `webdriverio`, or `preview`); CI needs playwright or webdriverio; `test.browser.instances` needs at least one entry; use `userEvent` from `vitest/browser` or `locator.fill`, not `@testing-library/user-event`; `vi.spyOn` on an imported ESM namespace throws, use `vi.mock('./m.js', { spy: true })`; mock `alert`, `confirm`, `print` yourself; split node and browser suites with `test.projects`.
+
+## Stryker (stryker-mutator.io): see `test-quality-reference.md` section 4
+Other defaults: `testRunner` `command` (plugins for vitest, jest, mocha), `coverageAnalysis` `perTest`, `timeoutMS` 5000, `timeoutFactor` 1.5, `incrementalFile` `reports/stryker-incremental.json`, `disableTypeChecks` true, `reporters` clear-text, progress, html. `--force` reruns everything; `--mutate src/app.js:5-7` narrows to lines. In PowerShell quote glob patterns.
+
+## fast-check (fast-check.dev) and Hypothesis
+fast-check: `await fc.assert(fc.property(arb..., predicate))`: always await; a predicate may throw or return false to fail; never mutate generated inputs (clone first); prefer arbitrary options (`fc.string({ minLength: 2 })`) over `.filter`; `fc.pre(...)` for preconditions; failures print a seed and path for replay. Model-based: implement commands with `check(model)`, `run(model, real)`, `toString()`; generate with `fc.commands(..., { size: '+1' })`; runners `fc.modelRun`, `fc.asyncModelRun`, `fc.scheduledModelRun` (for races); do not "test the code by comparing it to itself". The fetched pages do not list `numRuns` defaults or property patterns (round trip, idempotence, oracle): **(unverified)**; the docs were the 5.x preview, stable was 4.x.
+Hypothesis stateful: `RuleBasedStateMachine` with `@rule`, `@initialize` (runs once, first), `@precondition` (prefer over `assume()`), `@invariant()` (after every step); `Bundle` with `target=` and `consumes()`; settings `max_examples`, `stateful_step_count`; the docs themselves say a plain `@given` with `data()` may be enough.
+
+## Pact (docs.pact.io)
+Consumer test registers the expected request and minimal response with a mock provider, runs real consumer code, and produces a pact file; the provider is then verified against it ("at least the data described" must be present); provider states set up preconditions. Gate deploys with `pact-broker can-i-deploy --pacticipant X --version V --to-environment E` (exit 0 yes, 1 no), then `record-deployment`. Newer work uses deployments and environments, not tags. The page was last updated Oct 2022.
+
+## k6 (grafana.com/docs/k6)
+Thresholds are pass/fail: `http_req_failed: ['rate<0.01']`, `http_req_duration: ['p(95)<200']`; long form `{ threshold, abortOnFail, delayAbortEval }`. **Do not repeat a metric key** (later entries are silently ignored); per-tag form `'http_req_duration{type:API}'`; `checks` thresholds work but checks alone do not change the exit status. Six test types: smoke (start here), average-load, stress, soak, spike, breakpoint; the docs give shapes (ramp up, plateau, ramp down), no stage arrays, and warn against "rollercoaster" patterns.
+
+## Lighthouse CI (github.com/GoogleChrome/lighthouse-ci docs/configuration.md)
+Verbatim part: `collect.numberOfRuns` default 3, `collect.method` `node`, `startServerReadyPattern` `listen|ready`, `startServerReadyTimeout` 10000 ms, `.lighthouseci/` is cleared each run unless `additive`; config file search order starts with `.lighthouserc.cjs` and does not walk upward; `LHCI_` environment variables; `autorun` flags need `=` syntax; do not use `method: psi` for private sites. **(unverified, model-extracted)**: assertion presets `lighthouse:recommended|all|no-pwa`, levels off/warn/error, `aggregationMethod` default `optimistic`, `assertMatrix` for per-URL thresholds, do not combine `budgetsFile` with other assert options.
+
+## Mock Service Worker (mswjs.io/docs/philosophy)
+Handlers describe network behaviour ("when request X happens, respond with Y") from the server's side, at the network layer, with real `Request` and `Response` objects, so application code is untouched. Its best-practices page returned 404 at the URL tried; the rules there are not read.
+
+## Not read (open)
+Chromatic and Percy specifics beyond "pixel compare against an approved baseline", Testcontainers APIs, Cypress, Jest configuration, Playwright component testing, Schemathesis, chaos tooling beyond the five principles already in `test-board-reference.md`, and the two online Playwright review skills whose pages returned 404.
 
 

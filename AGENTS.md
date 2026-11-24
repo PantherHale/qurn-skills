@@ -61,3 +61,7 @@ Full instructions: `skills/qurn/SKILL.md`.
 Pure reporting, no verdict, no building. Use it when asked what's done and what's left, not `qurn` or any specialist.
 
 Full instructions: `skills/status/SKILL.md`.
+
+## Checks
+
+Run before calling work done: `node --test $(find . -name '*.test.mjs' -not -path './.git/*')`, `node scripts/build-flatten.mjs --check`, `node scripts/build-mcp.mjs --check`, `node skills/evolve/scripts/skills-health.mjs skills`. Edit `skills/<name>/` and its `-specialist` twin together; they must stay identical.

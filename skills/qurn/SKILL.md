@@ -4,7 +4,7 @@ description: "The team lead: picks which specialist adviser(s) a request needs, 
 argument-hint: "[start|middle|end] <what you want looked at or built>"
 metadata:
   origin: specialist-skills
-  last-reviewed: 2026-10-16
+  last-reviewed: 2026-11-24
 ---
 
 # Qurn
@@ -48,6 +48,45 @@ Rules for how you run the roster, not advice any one specialist gives -- these a
 4. **Escalate instead of guessing on anything hard to reverse.** Spending real money past what was asked, deleting data, publishing/pushing somewhere public, or reaching a production system are all operator-decides moments -- the same boundary `security`'s `agent-trust-reference.md` draws for autonomous spend. Stop and ask rather than assuming the operator meant to authorize it implicitly.
 5. **Report status in plain language, not in ledger-speak.** When asked what's done and what's left (directly, or via the `status` utility), translate the ledger's terse lines into a few sentences a non-technical operator would understand -- name what's finished, what's actively blocked and why, and what hasn't been started, in that order. Do not just paste the ledger.
 6. **Never let a fix quietly remove something that worked.** Carried from the KEEP-line rule in step 7: a specialist's `fix`/`redo` pass is reviewed for regressions against what it was told to keep, not only for whether it addressed the finding.
+
+## Running the specialists' scans (field-by-field upgrade, 2026-11-24)
+
+The specialists are read-only advisers: they cannot run commands, so each one's reply names the scan to run. The lead (or the building agent) runs every scan that applies, shows the output, and logs the verdict with that output (or its FAIL and WARN counts) as the evidence. A FAIL blocks that specialist's verdict; each WARN is fixed, suppressed in the file with a written reason, or measured and dismissed. A clean scan is a smoke alarm, never proof. Paths are relative to a skill's own folder (`skills/<name>/scripts/` in this repository).
+
+| Specialist | Run | Checks |
+|---|---|---|
+| web | `node skills/web/scripts/slop-scan.mjs <src>` | mechanical design and motion tells |
+| tester | `node skills/tester/scripts/suite-smell-scan.mjs <tests and configs>` | tests that cannot fail, fixed sleeps, skips with no reason |
+| qurn (lead) | `node skills/qurn/scripts/preflight.mjs <project>` | ship preflight: undocumented or unpassed build variables, hosted URLs in code, committed env or tool folders |
+| security | `node skills/security/scripts/risk-scan.mjs <project> --include-build` | secrets, injection, TLS, CI, Docker, Electron, MCP config |
+| coder | `node skills/coder/scripts/perf-scan.mjs <src>` and `node skills/coder/scripts/context-lint.mjs <repo>` | N+1 and schema traps; CLAUDE.md and AGENTS.md health |
+| architect | `node skills/architect/scripts/plan-lint.mjs <plan.md>` | twelve-part plan format, dependencies, ownership, estimates |
+| delegator | `node skills/delegator/scripts/dispatch-lint.mjs <dispatch.md>` | worker prompts, file ownership, shared wiring, caps |
+| research | `node skills/research/scripts/report-lint.mjs <report.md> --fetched <log>` | verdict and tier rules, two-origin rule, invented URLs |
+| evolve | `node skills/evolve/scripts/skills-health.mjs skills` | frontmatter limits, dangling and orphaned files, twin drift |
+
+Four rules learned while upgrading these skills one field at a time:
+1. **Diff twin copies both ways before any sync.** In one field the `-specialist` twin held newer rules than the main copy; an overwrite would have deleted them. `skills-health.mjs` fails on any drift.
+2. **A passing review is not proof the skill improved.** In seven planted-flaw comparisons a strong reviewer with the old skill found nearly everything; the deterministic scans found the rest and caught flaws both reviewers missed. Prefer a scan plus a blind second reviewer to either alone.
+3. **Say what was not read.** Every report names the sources that failed, the parts that came back summarised, and what only one run measured.
+4. **Report the cost.** A multi-phase run states its running cost and the remaining phases before starting the next one.
+
+## Problems that repeat in real sessions (mined from the operator's transcripts, 2026-11-24)
+
+Read [references/real-session-lessons-reference.md](references/real-session-lessons-reference.md) once per run. Three things are required, not optional:
+
+1. **RUN CONTRACT line in the ledger at the start**, quoting the operator's pace words ("stop after each phase", "do not stop until P3", "unattended"). Honour it exactly. After every phase write a **RESUME line** (done, next, the command to continue) so a new session can pick up without the operator typing "continue" (75 of 1,166 messages did).
+2. **Before any visual rebuild, a CHANGE CONTRACT** (what changes among structure, palette, type, hero object, motion, copy) and **a measured diff after it**. "Full redo" with fewer than three of those changed is not done. The operator's most repeated complaint is "looks AI / same as before".
+3. **Run `node skills/qurn/scripts/preflight.mjs <project>` before shipping or committing** and show the output. It fails when a public build variable is read but never documented or passed to the CI build (a real blank-screen release), and warns on a hosted server address written into code (a real shared-database bug), committed environment or tool folders, and Docker dependencies.
+
+## Lessons from real builds (operator feedback, Qurn Cola, 2026-11-03)
+
+- **Ship checklist at the START for anything meant to go online.** The operator asked for each of these one at a time, after the build: phone layout, weak-GPU and first-load speed, the live URL tested cold, a public-safe brand, repo hygiene (`git ls-files`), and what analytics will show. Plan them in the first reply; add `web`, `tester` and `coder` for them, not only for the visuals.
+- **Same complaint twice means change the method.** When the operator rejects the same element a second time, stop adjusting numbers: run a reference study, rebuild the weak part, and show a close-up still before reporting.
+- **Scope discipline on "keep it the same".** When told to keep a design and change only text or branding, list what you will not touch, change only that, and diff afterwards. Two corrections were needed on the rebrand because design changes slipped in.
+- **Verify the failing case, not a nearby one.** A fix is done only when it is measured at the viewport and page where it failed (computed style plus a screenshot after a cache-ignored reload), and the report says what could not be measured (for example real frame rate in a throttled browser).
+- **Fold in mid-turn messages.** A new operator message during a build (for example "make the tag small") is part of the same job; handle it before the final report.
+- **Auto-commit means commit and push when verified,** with the operator's attribution rules, and say the live site redeploys from the push.
 
 ## As a command
 
