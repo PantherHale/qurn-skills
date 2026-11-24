@@ -67,7 +67,9 @@ export function verifyLedger(text, { cwd = process.cwd(), final = false, require
       const rel = r.evidence.slice(5);
       const target = resolve(cwd, rel);
       const inside = relative(resolve(cwd), target);
-      if (inside.startsWith("..") || isAbsolute(inside)) errors.push(`${r.id}: evidence path is outside the project: ${rel}`);
+      // A Windows drive or UNC path is absolute on every platform; on POSIX, resolve() would treat it as a relative name.
+      const winAbsolute = /^(?:[A-Za-z]:[\\/]|\\\\)/.test(rel);
+      if (inside.startsWith("..") || isAbsolute(inside) || winAbsolute) errors.push(`${r.id}: evidence path is outside the project: ${rel}`);
       else if (!existsSync(target)) errors.push(`${r.id}: evidence file not found: ${rel}`);
     }
     const m = r.kind === "budget" && r.summary.match(/(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/);
